@@ -4,6 +4,8 @@ import 'package:clinic_management_app/features/master/data/response/master_docto
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
+import '../response/master_patient_response_model.dart';
+
 class MasterRemoteDatasources {
   Future<Either<String, MasterDoctorResponseModel>> getDoctors() async {
     final authData = await AuthLocalDatasources().getAuthData();
@@ -30,7 +32,36 @@ class MasterRemoteDatasources {
     if (response.statusCode == 200) {
       return Right(MasterDoctorResponseModel.fromJson(response.body));
     } else {
-      return const Left('Failed to get doctors');
+      return const Left('Failed to get doctor');
+    }
+  }
+
+  Future<Either<String, MasterPatientResponseModel>> getPatients() async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-patients');
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    });
+    if (response.statusCode == 200) {
+      return Right(MasterPatientResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get patients');
+    }
+  }
+
+  Future<Either<String, MasterPatientResponseModel>> getPatientByNIK(
+      String nik) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-patients?nik=$nik');
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    });
+    if (response.statusCode == 200) {
+      return Right(MasterPatientResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get patient');
     }
   }
 }
