@@ -31,6 +31,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.white,
         body: Row(
           children: [
             SingleChildScrollView(

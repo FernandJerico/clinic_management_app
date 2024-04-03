@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +26,7 @@ class _MasterScreenState extends State<MasterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(100.0),
         child: BuildAppBar(
