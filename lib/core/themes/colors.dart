@@ -35,7 +35,7 @@ class AppColors {
   static const Color subtitle = Color(0xff7890CD);
 
   /// stroke = #F1F2F6
-  static const Color stroke = Color(0xffF1F2F6);
+  static const Color stroke = Color.fromARGB(255, 205, 206, 209);
 
   /// orderIsConfirmed = #00B69B
   static const Color orderIsConfirmed = Color(0xff00B69B);
