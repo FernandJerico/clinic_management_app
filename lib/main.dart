@@ -11,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'core/themes/colors.dart';
 import 'features/auth/presentation/bloc/login/login_bloc.dart';
 import 'features/auth/presentation/bloc/logout/logout_bloc.dart';
+import 'features/master/presentation/bloc/data_patient/data_patient_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DataDoctorBloc(MasterRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) => DataPatientBloc(MasterRemoteDatasources()),
         ),
       ],
       child: MaterialApp(

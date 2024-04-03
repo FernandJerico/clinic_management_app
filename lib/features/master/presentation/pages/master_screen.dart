@@ -8,6 +8,8 @@ import 'package:clinic_management_app/core/components/components.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/master/presentation/widgets/build_app_bar.dart';
 
+import 'data_patient_screen.dart';
+
 class MasterScreen extends StatefulWidget {
   final void Function(int index) onTap;
   const MasterScreen({
@@ -46,7 +48,7 @@ class _MasterScreenState extends State<MasterScreen> {
               label: 'Data Pasien',
               iconPath: Assets.images.menu.data.path,
               onPressed: () {
-                // context.push(const DataPasientPage());
+                context.push(const DataPatientScreen());
               },
             ),
             const SpaceWidth(45.0),

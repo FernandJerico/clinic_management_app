@@ -35,15 +35,15 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
           searchController: searchController,
           searchHint: 'Cari Pasien',
           searchChanged: (value) {
-            // if (value.isNotEmpty &&
-            //     value.length > 1) {
-            //   context.read<DataPatientsBloc>().add(
-            //       DataPatientsEvent.getPatientByNIK(searchController.text));
-            // } else {
-            //   context
-            //       .read<DataPatientsBloc>()
-            //       .add(const DataPatientsEvent.getPatients());
-            // }
+            if (value.isNotEmpty && value.length > 1) {
+              context
+                  .read<DataPatientBloc>()
+                  .add(DataPatientEvent.getPatientByNIK(searchController.text));
+            } else {
+              context
+                  .read<DataPatientBloc>()
+                  .add(const DataPatientEvent.getPatients());
+            }
           },
         ),
       ),
@@ -121,6 +121,19 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                               ),
                             ),
                           ),
+                          DataColumn(
+                            label: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Button.filled(
+                                onPressed: () {},
+                                label: 'Email',
+                                width: null,
+                                color: AppColors.title,
+                                textColor: AppColors.black.withOpacity(0.5),
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
                         ],
                         rows: patients.isEmpty
                             ? [
@@ -133,6 +146,7 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                                         Text('Data tidak ditemukan..'),
                                       ],
                                     )),
+                                    DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
@@ -166,6 +180,10 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                                       ),
                                     ),
                                     DataCell(Center(child: Text(patient.nik))),
+                                    DataCell(Center(
+                                        child: Text(
+                                      patient.email,
+                                    ))),
                                   ]),
                                 )
                                 .toList(),
