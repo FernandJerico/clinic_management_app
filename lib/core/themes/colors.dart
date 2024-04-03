@@ -14,10 +14,10 @@ class AppColors {
   static const Color blueLight = Color(0xffC7D0EB);
 
   /// black = #000000
-  static const Color black = Color(0xff000000);
+  static const Color black = Color(0xff262020);
 
   /// white = #FFFFFF
-  static const Color white = Color(0xffFFFFFF);
+  static const Color white = Color(0xffF1FAFF);
 
   /// green = #50C474
   static const Color green = Color(0xff50C474);
