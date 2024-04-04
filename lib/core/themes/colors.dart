@@ -16,8 +16,11 @@ class AppColors {
   /// black = #000000
   static const Color black = Color(0xff262020);
 
-  /// white = #FFFFFF
-  static const Color white = Color(0xffF1FAFF);
+  /// white = #F5F5F5
+  static const Color white = Color(0xffF5F5F5);
+
+  /// navbarColor = F1FAFF
+  static const Color navbarColor = Color(0xffF5F5F5);
 
   /// green = #50C474
   static const Color green = Color(0xff50C474);
@@ -35,7 +38,7 @@ class AppColors {
   static const Color subtitle = Color(0xff7890CD);
 
   /// stroke = #F1F2F6
-  static const Color stroke = Color.fromARGB(255, 205, 206, 209);
+  static const Color stroke = Color(0xFFCDCED1);
 
   /// orderIsConfirmed = #00B69B
   static const Color orderIsConfirmed = Color(0xff00B69B);

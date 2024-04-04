@@ -50,7 +50,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                   borderRadius: const BorderRadius.horizontal(
                       right: Radius.circular(16.0)),
                   child: ColoredBox(
-                    color: AppColors.white,
+                    color: AppColors.navbarColor,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
