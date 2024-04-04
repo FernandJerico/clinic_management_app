@@ -40,7 +40,7 @@ class _MasterScreenState extends State<MasterScreen> {
           children: [
             ButtonMenu(
               label: 'Data Dokter',
-              iconPath: Assets.images.menu.data.path,
+              iconPath: Assets.images.menu.doctorIcon.path,
               onPressed: () {
                 context.push(const DataDoctorScreen());
               },
@@ -48,7 +48,7 @@ class _MasterScreenState extends State<MasterScreen> {
             const SpaceWidth(45.0),
             ButtonMenu(
               label: 'Data Pasien',
-              iconPath: Assets.images.menu.data.path,
+              iconPath: Assets.images.menu.patientIcon.path,
               onPressed: () {
                 context.push(const DataPatientScreen());
               },
@@ -56,13 +56,13 @@ class _MasterScreenState extends State<MasterScreen> {
             const SpaceWidth(45.0),
             ButtonMenu(
               label: 'Jadwal Dokter',
-              iconPath: Assets.images.menu.jadwal.path,
+              iconPath: Assets.images.menu.scheduleIcon.path,
               onPressed: () => widget.onTap(3),
             ),
             const SpaceWidth(45.0),
             ButtonMenu(
               label: 'Layanan',
-              iconPath: Assets.images.menu.layanan.path,
+              iconPath: Assets.images.menu.serviceIcon.path,
               onPressed: () => widget.onTap(4),
             ),
           ],

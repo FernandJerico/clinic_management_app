@@ -39,7 +39,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                 decoration: BoxDecoration(
                   border: Border.lerp(
                       Border.all(color: AppColors.stroke, width: 1.0),
-                      Border.all(color: AppColors.primary, width: 3.0),
+                      Border.all(color: AppColors.stroke, width: 3.0),
                       0.5),
                   borderRadius: const BorderRadius.horizontal(
                       left: Radius.circular(0), right: Radius.circular(16.0)),

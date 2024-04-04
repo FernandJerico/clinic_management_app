@@ -1,6 +1,7 @@
 import 'package:clinic_management_app/core/components/components.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BuildAppBar extends StatelessWidget {
   final String title;
@@ -22,6 +23,13 @@ class BuildAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String getCurrentDate() {
+      DateTime now = DateTime.now();
+      DateFormat formatter = DateFormat('EEEE, d MMMM yyyy');
+      String formattedDate = formatter.format(now);
+      return formattedDate;
+    }
+
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -44,11 +52,11 @@ class BuildAppBar extends StatelessWidget {
                       color: AppColors.primary,
                     ),
                   ),
-                  const Text(
-                    'Senin, 12 Februari 2024',
+                  Text(
+                    getCurrentDate(),
                     style: TextStyle(
                       fontSize: 16.0,
-                      color: AppColors.subtitle,
+                      color: AppColors.primary.withOpacity(0.8),
                     ),
                   ),
                 ],
