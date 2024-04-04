@@ -16,7 +16,7 @@ class NavItem extends StatelessWidget {
     required this.iconPath,
     required this.isActive,
     required this.onTap,
-    this.color = AppColors.white,
+    this.color = AppColors.primary,
     required this.text,
   }) : super(key: key);
 
@@ -26,13 +26,11 @@ class NavItem extends StatelessWidget {
       onTap: onTap,
       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
           child: ColoredBox(
-            color: isActive
-                ? AppColors.disabled.withOpacity(0.25)
-                : Colors.transparent,
+            color: isActive ? AppColors.primary : Colors.transparent,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -44,7 +42,7 @@ class NavItem extends StatelessWidget {
                     child: SvgPicture.asset(
                       iconPath,
                       colorFilter: ColorFilter.mode(
-                        color,
+                        isActive ? AppColors.white : color,
                         BlendMode.srcIn,
                       ),
                     ),

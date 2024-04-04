@@ -75,11 +75,16 @@ class $AssetsImagesGen {
   /// File path: assets/images/google.png
   AssetGenImage get google => const AssetGenImage('assets/images/google.png');
 
+  /// File path: assets/images/klinik-fuji-logo.png
+  AssetGenImage get klinikFujiLogo =>
+      const AssetGenImage('assets/images/klinik-fuji-logo.png');
+
   $AssetsImagesMenuGen get menu => const $AssetsImagesMenuGen();
   $AssetsImagesProductsGen get products => const $AssetsImagesProductsGen();
 
   /// List of all assets
-  List<AssetGenImage> get values => [splashScreen, dokterku, google];
+  List<AssetGenImage> get values =>
+      [splashScreen, dokterku, google, klinikFujiLogo];
 }
 
 class $AssetsImagesMenuGen {

@@ -1,11 +1,11 @@
 # This file tracks properties of this Flutter project.
 # Used by Flutter tool to assess capabilities and perform upgrades etc.
 #
-# This file should be version controlled.
+# This file should be version controlled and should not be manually edited.
 
 version:
-  revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
-  channel: stable
+  revision: "bb7977e3bee60f9f6c167397225d2b07527abdfc"
+  channel: "main"
 
 project_type: app
 
@@ -13,26 +13,26 @@ project_type: app
 migration:
   platforms:
     - platform: root
-      create_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
-      base_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
+      create_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
+      base_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
     - platform: android
-      create_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
-      base_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
+      create_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
+      base_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
     - platform: ios
-      create_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
-      base_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
+      create_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
+      base_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
     - platform: linux
-      create_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
-      base_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
+      create_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
+      base_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
     - platform: macos
-      create_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
-      base_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
+      create_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
+      base_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
     - platform: web
-      create_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
-      base_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
+      create_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
+      base_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
     - platform: windows
-      create_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
-      base_revision: f468f3366c26a5092eb964a230ce7892fda8f2f8
+      create_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
+      base_revision: bb7977e3bee60f9f6c167397225d2b07527abdfc
 
   # User provided section
 

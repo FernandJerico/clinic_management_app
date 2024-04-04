@@ -35,21 +35,32 @@ class _NavbarScreenState extends State<NavbarScreen> {
         body: Row(
           children: [
             SingleChildScrollView(
-              child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.horizontal(right: Radius.circular(12.0)),
-                child: SizedBox(
-                  width: context.deviceWidth * 0.1,
-                  height: context.deviceHeight - 20.0,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.lerp(
+                      Border.all(color: AppColors.stroke, width: 1.0),
+                      Border.all(color: AppColors.primary, width: 3.0),
+                      0.5),
+                  borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(0), right: Radius.circular(16.0)),
+                ),
+                width: context.deviceWidth * 0.1,
+                height: context.deviceHeight - 20.0,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.horizontal(
+                      right: Radius.circular(16.0)),
                   child: ColoredBox(
-                    color: AppColors.primary,
+                    color: AppColors.white,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset(
-                          Assets.images.google.path,
-                          width: 100.0,
-                          height: 100.0,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Image.asset(
+                            Assets.images.klinikFujiLogo.path,
+                            width: 75.0,
+                            height: 75.0,
+                          ),
                         ),
                         Column(
                           children: [
