@@ -52,7 +52,19 @@ class _DataDoctorScheduleScreenState extends State<DataDoctorScheduleScreen> {
           title: 'Data Master Jadwal Dokter',
           withSearchInput: true,
           searchController: searchController,
-          searchChanged: (value) {},
+          searchChanged: (value) {
+            if (value.isNotEmpty && value.length > 1) {
+              context.read<DataDoctorScheduleBloc>().add(
+                    DataDoctorScheduleEvent.getDoctorScheduleByDoctorName(
+                      value,
+                    ),
+                  );
+            } else {
+              context.read<DataDoctorScheduleBloc>().add(
+                    const DataDoctorScheduleEvent.getDoctorSchedule(),
+                  );
+            }
+          },
           searchHint: 'Cari Dokter',
         ),
       ),
