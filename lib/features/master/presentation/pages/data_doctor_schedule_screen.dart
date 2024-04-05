@@ -18,43 +18,10 @@ class DataDoctorScheduleScreen extends StatefulWidget {
 
 class _DataDoctorScheduleScreenState extends State<DataDoctorScheduleScreen> {
   final searchController = TextEditingController();
-  final schedules = [
-    ScheduleModel(
-      namaDokter: 'Dr. Ryan Setiawan',
-      ahli: 'Spesialis Gizi Klinik',
-      senin: ['08:00 - 09:00', '13:00 - 14:00'],
-      selasa: ['08:00 - 09:00'],
-      rabu: ['08:00 - 09:00'],
-      kamis: ['08:00 - 09:00', '13:00 - 14:00'],
-      jumat: ['08:00 - 09:00'],
-      sabtu: ['08:00 - 09:00'],
-    ),
-    ScheduleModel(
-      namaDokter: 'Dr. Fauzan',
-      ahli: 'Spesialis Gizi Klinik',
-      senin: ['08:00 - 09:00'],
-      selasa: ['08:00 - 09:00'],
-      rabu: ['08:00 - 09:00', '13:00 - 14:00'],
-      kamis: ['08:00 - 09:00'],
-      jumat: ['08:00 - 09:00'],
-      sabtu: ['08:00 - 09:00', '13:00 - 14:00'],
-    ),
-    ScheduleModel(
-      namaDokter: 'Dr. Setiawan',
-      ahli: 'Spesialis Gizi Klinik',
-      senin: ['08:00 - 09:00', '13:00 - 14:00'],
-      selasa: ['08:00 - 09:00'],
-      rabu: ['08:00 - 09:00'],
-      kamis: ['08:00 - 09:00'],
-      jumat: ['08:00 - 09:00'],
-      sabtu: ['08:00 - 09:00'],
-    ),
-  ];
   late List<ScheduleModel> searchResult;
 
   @override
   void initState() {
-    searchResult = schedules;
     context
         .read<DataDoctorScheduleBloc>()
         .add(const DataDoctorScheduleEvent.getDoctorSchedule());
