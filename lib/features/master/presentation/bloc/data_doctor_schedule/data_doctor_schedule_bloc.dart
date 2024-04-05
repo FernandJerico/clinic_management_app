@@ -16,7 +16,7 @@ class DataDoctorScheduleBloc
       final result = await remoteDatasources.getDoctorSchedule();
       result.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r.data)),
+        (r) => emit(_Loaded(r.data ?? [])),
       );
     });
 
@@ -26,7 +26,7 @@ class DataDoctorScheduleBloc
           await remoteDatasources.getDoctorScheduleByDoctorName(event.name);
       result.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r.data)),
+        (r) => emit(_Loaded(r.data ?? [])),
       );
     });
   }

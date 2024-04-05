@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class DoctorScheduleResponseModel {
-  final bool success;
-  final String message;
-  final List<DoctorSchedule> data;
+  final String? status;
+  final List<DoctorSchedule>? data;
+  final String? message;
 
   DoctorScheduleResponseModel({
-    required this.success,
-    required this.message,
-    required this.data,
+    this.status,
+    this.data,
+    this.message,
   });
 
   factory DoctorScheduleResponseModel.fromJson(String str) =>
@@ -18,40 +18,43 @@ class DoctorScheduleResponseModel {
 
   factory DoctorScheduleResponseModel.fromMap(Map<String, dynamic> json) =>
       DoctorScheduleResponseModel(
-        success: json["success"],
+        status: json["status"],
+        data: json["data"] == null
+            ? []
+            : List<DoctorSchedule>.from(
+                json["data"]!.map((x) => DoctorSchedule.fromMap(x))),
         message: json["message"],
-        data: List<DoctorSchedule>.from(
-            json["data"].map((x) => DoctorSchedule.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
-        "success": success,
+        "status": status,
+        "data":
+            data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toMap())),
       };
 }
 
 class DoctorSchedule {
-  final int id;
-  final int doctorId;
-  final String day;
-  final String time;
-  final String status;
-  final String note;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final Doctor doctor;
+  final int? id;
+  final int? doctorId;
+  final String? day;
+  final String? time;
+  final String? status;
+  final String? note;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final Doctor? doctor;
 
   DoctorSchedule({
-    required this.id,
-    required this.doctorId,
-    required this.day,
-    required this.time,
-    required this.status,
-    required this.note,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.doctor,
+    this.id,
+    this.doctorId,
+    this.day,
+    this.time,
+    this.status,
+    this.note,
+    this.createdAt,
+    this.updatedAt,
+    this.doctor,
   });
 
   factory DoctorSchedule.fromJson(String str) =>
@@ -66,9 +69,13 @@ class DoctorSchedule {
         time: json["time"],
         status: json["status"],
         note: json["note"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        doctor: Doctor.fromMap(json["doctor"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        doctor: json["doctor"] == null ? null : Doctor.fromMap(json["doctor"]),
       );
 
   Map<String, dynamic> toMap() => {
@@ -78,39 +85,39 @@ class DoctorSchedule {
         "time": time,
         "status": status,
         "note": note,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "doctor": doctor.toMap(),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "doctor": doctor?.toMap(),
       };
 }
 
 class Doctor {
-  final int id;
-  final String idIhs;
-  final String nik;
-  final String doctorName;
-  final String doctorSpecialist;
-  final String doctorPhone;
-  final String doctorEmail;
-  final String photo;
-  final String address;
-  final String sip;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final int? id;
+  final String? doctorName;
+  final String? doctorSpecialist;
+  final String? doctorPhone;
+  final String? doctorEmail;
+  final String? photo;
+  final String? address;
+  final String? sip;
+  final dynamic idIhs;
+  final dynamic nik;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   Doctor({
-    required this.id,
-    required this.idIhs,
-    required this.nik,
-    required this.doctorName,
-    required this.doctorSpecialist,
-    required this.doctorPhone,
-    required this.doctorEmail,
-    required this.photo,
-    required this.address,
-    required this.sip,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.doctorName,
+    this.doctorSpecialist,
+    this.doctorPhone,
+    this.doctorEmail,
+    this.photo,
+    this.address,
+    this.sip,
+    this.idIhs,
+    this.nik,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Doctor.fromJson(String str) => Doctor.fromMap(json.decode(str));
@@ -119,8 +126,6 @@ class Doctor {
 
   factory Doctor.fromMap(Map<String, dynamic> json) => Doctor(
         id: json["id"],
-        idIhs: json["id_ihs"],
-        nik: json["nik"],
         doctorName: json["doctor_name"],
         doctorSpecialist: json["doctor_specialist"],
         doctorPhone: json["doctor_phone"],
@@ -128,14 +133,18 @@ class Doctor {
         photo: json["photo"],
         address: json["address"],
         sip: json["sip"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        idIhs: json["id_ihs"],
+        nik: json["nik"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "id_ihs": idIhs,
-        "nik": nik,
         "doctor_name": doctorName,
         "doctor_specialist": doctorSpecialist,
         "doctor_phone": doctorPhone,
@@ -143,7 +152,9 @@ class Doctor {
         "photo": photo,
         "address": address,
         "sip": sip,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "id_ihs": idIhs,
+        "nik": nik,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }
