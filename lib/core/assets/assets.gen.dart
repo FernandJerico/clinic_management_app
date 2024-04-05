@@ -75,29 +75,40 @@ class $AssetsImagesGen {
   /// File path: assets/images/google.png
   AssetGenImage get google => const AssetGenImage('assets/images/google.png');
 
+  /// File path: assets/images/klinik-fuji-logo.png
+  AssetGenImage get klinikFujiLogo =>
+      const AssetGenImage('assets/images/klinik-fuji-logo.png');
+
   $AssetsImagesMenuGen get menu => const $AssetsImagesMenuGen();
   $AssetsImagesProductsGen get products => const $AssetsImagesProductsGen();
 
   /// List of all assets
-  List<AssetGenImage> get values => [splashScreen, dokterku, google];
+  List<AssetGenImage> get values =>
+      [splashScreen, dokterku, google, klinikFujiLogo];
 }
 
 class $AssetsImagesMenuGen {
   const $AssetsImagesMenuGen();
 
-  /// File path: assets/images/menu/data.png
-  AssetGenImage get data => const AssetGenImage('assets/images/menu/data.png');
+  /// File path: assets/images/menu/doctor-icon.png
+  AssetGenImage get doctorIcon =>
+      const AssetGenImage('assets/images/menu/doctor-icon.png');
 
-  /// File path: assets/images/menu/jadwal.png
-  AssetGenImage get jadwal =>
-      const AssetGenImage('assets/images/menu/jadwal.png');
+  /// File path: assets/images/menu/patient-icon.png
+  AssetGenImage get patientIcon =>
+      const AssetGenImage('assets/images/menu/patient-icon.png');
 
-  /// File path: assets/images/menu/layanan.png
-  AssetGenImage get layanan =>
-      const AssetGenImage('assets/images/menu/layanan.png');
+  /// File path: assets/images/menu/schedule-icon.png
+  AssetGenImage get scheduleIcon =>
+      const AssetGenImage('assets/images/menu/schedule-icon.png');
+
+  /// File path: assets/images/menu/service-icon.png
+  AssetGenImage get serviceIcon =>
+      const AssetGenImage('assets/images/menu/service-icon.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [data, jadwal, layanan];
+  List<AssetGenImage> get values =>
+      [doctorIcon, patientIcon, scheduleIcon, serviceIcon];
 }
 
 class $AssetsImagesProductsGen {

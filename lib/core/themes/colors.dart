@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  /// primary = #3949AB
-  static const Color primary = Color(0xff3949AB);
+  /// primary = #56C596
+  static const Color primary = Color(0xff3EA986);
 
   /// grey = #B7B7B7
   static const Color grey = Color(0xffB7B7B7);
@@ -14,10 +14,13 @@ class AppColors {
   static const Color blueLight = Color(0xffC7D0EB);
 
   /// black = #000000
-  static const Color black = Color(0xff000000);
+  static const Color black = Color(0xff262020);
 
-  /// white = #FFFFFF
-  static const Color white = Color(0xffFFFFFF);
+  /// white = #F5F5F5
+  static const Color white = Color(0xffF5F5F5);
+
+  /// navbarColor = F1FAFF
+  static const Color navbarColor = Color(0xffF5F5F5);
 
   /// green = #50C474
   static const Color green = Color(0xff50C474);
@@ -35,7 +38,7 @@ class AppColors {
   static const Color subtitle = Color(0xff7890CD);
 
   /// stroke = #F1F2F6
-  static const Color stroke = Color(0xffF1F2F6);
+  static const Color stroke = Color(0xFFCDCED1);
 
   /// orderIsConfirmed = #00B69B
   static const Color orderIsConfirmed = Color(0xff00B69B);

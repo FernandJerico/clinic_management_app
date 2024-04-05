@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/themes/colors.dart';
 
@@ -9,12 +10,14 @@ class NavItem extends StatelessWidget {
   final bool isActive;
   final VoidCallback onTap;
   final Color color;
+  final String text;
   const NavItem({
     Key? key,
     required this.iconPath,
     required this.isActive,
     required this.onTap,
-    this.color = AppColors.white,
+    this.color = AppColors.primary,
+    required this.text,
   }) : super(key: key);
 
   @override
@@ -23,17 +26,15 @@ class NavItem extends StatelessWidget {
       onTap: onTap,
       borderRadius: const BorderRadius.all(Radius.circular(16.0)),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(8.0),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
           child: ColoredBox(
-            color: isActive
-                ? AppColors.disabled.withOpacity(0.25)
-                : Colors.transparent,
+            color: isActive ? AppColors.primary : Colors.transparent,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   SizedBox(
                     width: 25.0,
@@ -41,11 +42,21 @@ class NavItem extends StatelessWidget {
                     child: SvgPicture.asset(
                       iconPath,
                       colorFilter: ColorFilter.mode(
-                        color,
+                        isActive ? AppColors.white : color,
                         BlendMode.srcIn,
                       ),
                     ),
                   ),
+                  const SizedBox(height: 8.0),
+                  isActive
+                      ? Text(
+                          text,
+                          style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.white),
+                        )
+                      : const SizedBox()
                 ],
               ),
             ),
