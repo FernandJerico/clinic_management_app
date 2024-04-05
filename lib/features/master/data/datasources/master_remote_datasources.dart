@@ -1,5 +1,6 @@
 import 'package:clinic_management_app/core/constants/variables.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
+import 'package:clinic_management_app/features/master/data/response/doctor_schedule_response_model.dart';
 import 'package:clinic_management_app/features/master/data/response/master_doctor_response_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -62,6 +63,21 @@ class MasterRemoteDatasources {
       return Right(MasterPatientResponseModel.fromJson(response.body));
     } else {
       return const Left('Failed to get patient');
+    }
+  }
+
+  Future<Either<String, DoctorScheduleResponseModel>>
+      getDoctorSchedule() async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-doctor-schedules');
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    });
+    if (response.statusCode == 200) {
+      return Right(DoctorScheduleResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get doctor schedule');
     }
   }
 }
