@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
-import '../../data/models/schedule_mode.dart';
 import '../widgets/build_app_bar.dart';
 
 class DataDoctorScheduleScreen extends StatefulWidget {
@@ -18,7 +17,6 @@ class DataDoctorScheduleScreen extends StatefulWidget {
 
 class _DataDoctorScheduleScreenState extends State<DataDoctorScheduleScreen> {
   final searchController = TextEditingController();
-  late List<ScheduleModel> searchResult;
 
   @override
   void initState() {
