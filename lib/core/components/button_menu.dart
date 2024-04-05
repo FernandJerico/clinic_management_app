@@ -24,7 +24,7 @@ class ButtonMenu extends StatelessWidget {
         height: 160.0,
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(8.0),
           border: Border.all(color: AppColors.primary),
           color: AppColors.primary.withOpacity(0.13),
         ),

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:clinic_management_app/core/themes/colors.dart';
+import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_schedule_screen.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,9 @@ class _MasterScreenState extends State<MasterScreen> {
             ButtonMenu(
               label: 'Jadwal Dokter',
               iconPath: Assets.images.menu.scheduleIcon.path,
-              onPressed: () => widget.onTap(3),
+              onPressed: () {
+                context.push(const DataDoctorScheduleScreen());
+              },
             ),
             const SpaceWidth(45.0),
             ButtonMenu(
