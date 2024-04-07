@@ -34,8 +34,9 @@ class ServiceMedicine {
   final int? id;
   final String? name;
   final String? category;
-  final String? price;
+  final int? price;
   final int? quantity;
+  final dynamic photo;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -45,6 +46,7 @@ class ServiceMedicine {
     this.category,
     this.price,
     this.quantity,
+    this.photo,
     this.createdAt,
     this.updatedAt,
   });
@@ -60,6 +62,7 @@ class ServiceMedicine {
         category: json["category"],
         price: json["price"],
         quantity: json["quantity"],
+        photo: json["photo"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -74,6 +77,7 @@ class ServiceMedicine {
         "category": category,
         "price": price,
         "quantity": quantity,
+        "photo": photo,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };

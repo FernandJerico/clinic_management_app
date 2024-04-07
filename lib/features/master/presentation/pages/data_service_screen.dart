@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/search_input.dart';
 import '../../../../core/components/spaces.dart';
+import '../../../../core/constants/variables.dart';
 import '../../../../core/themes/colors.dart';
 import '../widgets/build_app_bar.dart';
 
@@ -82,7 +83,7 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
                     },
                     loaded: (serviceMedicines) {
                       return DataTable(
-                        columnSpacing: context.deviceWidth * 0.19,
+                        columnSpacing: context.deviceWidth * 0.12,
                         dataRowMinHeight: 30.0,
                         dataRowMaxHeight: 50.0,
                         columns: [
@@ -138,6 +139,19 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
                               ),
                             ),
                           ),
+                          DataColumn(
+                            label: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Button.filled(
+                                onPressed: () {},
+                                label: 'Photo',
+                                width: null,
+                                color: AppColors.title,
+                                textColor: AppColors.black.withOpacity(0.5),
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
                         ],
                         rows: serviceMedicines.isEmpty
                             ? [
@@ -150,6 +164,7 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
                                         Text('Data tidak ditemukan..'),
                                       ],
                                     )),
+                                    DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
@@ -167,12 +182,20 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
                                     DataCell(Center(
                                         child: Text(product.category ?? '-'))),
                                     DataCell(Center(
-                                        child: Text(double.parse(product.price!)
-                                            .toInt()
-                                            .currencyFormatRp))),
+                                        child: Text(
+                                            product.price!.currencyFormatRp))),
                                     DataCell(Center(
                                         child: Text(
                                             '${product.quantity ?? '0'}'))),
+                                    DataCell(Center(
+                                      child: product.photo != null
+                                          ? Image.network(
+                                              '${Variables.imageBaseUrl}/${product.photo.replaceAll('public/', '')}',
+                                              height: 40,
+                                            )
+                                          : const Icon(
+                                              Icons.image_not_supported),
+                                    ))
                                   ]),
                                 )
                                 .toList(),
