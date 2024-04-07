@@ -45,6 +45,7 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(100.0),
         child: BuildAppBar(
