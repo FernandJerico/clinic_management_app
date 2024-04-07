@@ -82,6 +82,7 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
                     },
                     loaded: (serviceMedicines) {
                       return DataTable(
+                        columnSpacing: context.deviceWidth * 0.19,
                         dataRowMinHeight: 30.0,
                         dataRowMaxHeight: 50.0,
                         columns: [

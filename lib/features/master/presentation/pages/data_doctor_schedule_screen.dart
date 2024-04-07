@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,7 +75,7 @@ class _DataDoctorScheduleScreenState extends State<DataDoctorScheduleScreen> {
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: AppColors.stroke),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(8.0),
             ),
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -150,6 +151,7 @@ class _DataDoctorScheduleScreenState extends State<DataDoctorScheduleScreen> {
                       }).toList();
 
                       return DataTable(
+                        columnSpacing: context.deviceWidth * 0.0225,
                         dataRowMinHeight: 30.0,
                         dataRowMaxHeight: 60.0,
                         columns: [

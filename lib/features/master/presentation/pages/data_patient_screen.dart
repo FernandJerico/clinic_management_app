@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/date_time_ext.dart';
 import 'package:clinic_management_app/features/master/presentation/widgets/build_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: AppColors.stroke),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(8.0),
             ),
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -73,6 +74,7 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                     },
                     loaded: (patients) {
                       return DataTable(
+                        columnSpacing: context.deviceWidth * 0.063,
                         dataRowMinHeight: 30.0,
                         dataRowMaxHeight: 60.0,
                         columns: [
@@ -133,7 +135,7 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: Button.filled(
                                 onPressed: () {},
-                                label: 'Email',
+                                label: 'Alamat Email',
                                 width: null,
                                 color: AppColors.title,
                                 textColor: AppColors.black.withOpacity(0.5),
@@ -187,10 +189,7 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                                       ),
                                     ),
                                     DataCell(Center(child: Text(patient.nik))),
-                                    DataCell(Center(
-                                        child: Text(
-                                      patient.email,
-                                    ))),
+                                    DataCell(Text(patient.email)),
                                   ]),
                                 )
                                 .toList(),
