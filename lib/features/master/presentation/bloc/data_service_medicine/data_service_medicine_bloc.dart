@@ -20,5 +20,15 @@ class DataServiceMedicineBloc
         (r) => emit(_Loaded(r.data ?? [])),
       );
     });
+
+    on<_GetServiceMedicineByName>((event, emit) async {
+      emit(const _Loading());
+      final result =
+          await masterRemoteDatasources.getServiceMedicineByName(event.name);
+      result.fold(
+        (l) => emit(_Error(l)),
+        (r) => emit(_Loaded(r.data ?? [])),
+      );
+    });
   }
 }

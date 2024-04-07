@@ -4,12 +4,10 @@ import 'package:clinic_management_app/features/master/presentation/bloc/data_ser
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/search_input.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
-import '../../data/models/product_model.dart';
 import '../widgets/build_app_bar.dart';
 
 class DataServiceScreen extends StatefulWidget {
@@ -21,27 +19,9 @@ class DataServiceScreen extends StatefulWidget {
 
 class _DataServiceScreenState extends State<DataServiceScreen> {
   final searchController = TextEditingController();
-  final products = [
-    ProductModel(
-      image: Assets.images.products.paracetamol.path,
-      name: 'Obat Parasetamol',
-      category: 'Obat - obatan',
-      price: 5000,
-      stock: 10,
-    ),
-    ProductModel(
-      image: Assets.images.products.sarungTanganMedis.path,
-      name: 'Sarung tangan medis',
-      category: 'Alat sekali pakai',
-      price: 12000,
-      stock: 10,
-    ),
-  ];
-  late List<ProductModel> searchResult;
 
   @override
   void initState() {
-    searchResult = products;
     context
         .read<DataServiceMedicineBloc>()
         .add(const DataServiceMedicineEvent.getServiceMedicines());
@@ -66,12 +46,13 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
             child: SearchInput(
               controller: searchController,
               onChanged: (value) {
-                searchResult = products
-                    .where((element) => element.name
-                        .toLowerCase()
-                        .contains(searchController.text.toLowerCase()))
-                    .toList();
-                setState(() {});
+                if (value.isNotEmpty && value.length > 1) {
+                  context.read<DataServiceMedicineBloc>().add(
+                      DataServiceMedicineEvent.getServiceMedicineByName(value));
+                } else {
+                  context.read<DataServiceMedicineBloc>().add(
+                      const DataServiceMedicineEvent.getServiceMedicines());
+                }
               },
               hintText: 'Cari Data Item',
             ),

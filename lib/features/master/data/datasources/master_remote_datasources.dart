@@ -117,7 +117,7 @@ class MasterRemoteDatasources {
       String name) async {
     final authData = await AuthLocalDatasources().getAuthData();
     final url =
-        Uri.parse('${Variables.baseUrl}/api/api-service-medicines?=$name');
+        Uri.parse('${Variables.baseUrl}/api/api-service-medicines?name=$name');
     final response = await http.get(url, headers: {
       'Authorization': 'Bearer ${authData?.token}',
       'Accept': 'application/json',
