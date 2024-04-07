@@ -2,6 +2,7 @@
 import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_schedule_screen.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_screen.dart';
+import 'package:clinic_management_app/features/master/presentation/pages/data_service_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:clinic_management_app/core/assets/assets.gen.dart';
@@ -66,7 +67,9 @@ class _MasterScreenState extends State<MasterScreen> {
             ButtonMenu(
               label: 'Layanan',
               iconPath: Assets.images.menu.serviceIcon.path,
-              onPressed: () => widget.onTap(4),
+              onPressed: () {
+                context.push(const DataServiceScreen());
+              },
             ),
           ],
         ),
