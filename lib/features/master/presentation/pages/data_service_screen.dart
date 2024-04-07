@@ -1,5 +1,8 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/core/extensions/int_ext.dart';
+import 'package:clinic_management_app/features/master/presentation/bloc/data_service_medicine/data_service_medicine_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/components/buttons.dart';
@@ -39,6 +42,9 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
   @override
   void initState() {
     searchResult = products;
+    context
+        .read<DataServiceMedicineBloc>()
+        .add(const DataServiceMedicineEvent.getServiceMedicines());
     super.initState();
   }
 
@@ -74,99 +80,124 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: AppColors.stroke),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(8.0),
             ),
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               scrollDirection: Axis.horizontal,
-              child: DataTable(
-                dataRowMinHeight: 30.0,
-                dataRowMaxHeight: 60.0,
-                columns: [
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Button.filled(
-                        onPressed: () {},
-                        label: 'Nama Item',
-                        width: null,
-                        color: AppColors.title,
-                        textColor: AppColors.black.withOpacity(0.5),
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Button.filled(
-                        onPressed: () {},
-                        label: 'Kategori',
-                        width: null,
-                        color: AppColors.title,
-                        textColor: AppColors.black.withOpacity(0.5),
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Button.filled(
-                        onPressed: () {},
-                        label: 'Harga',
-                        width: null,
-                        color: AppColors.title,
-                        textColor: AppColors.black.withOpacity(0.5),
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Button.filled(
-                        onPressed: () {},
-                        label: 'Qty',
-                        width: null,
-                        color: AppColors.title,
-                        textColor: AppColors.black.withOpacity(0.5),
-                        fontSize: 14.0,
-                      ),
-                    ),
-                  ),
-                ],
-                rows: searchResult.isEmpty
-                    ? [
-                        const DataRow(
-                          cells: [
-                            DataCell(Row(
-                              children: [
-                                Icon(Icons.highlight_off),
-                                SpaceWidth(4.0),
-                                Text('Data tidak ditemukan..'),
-                              ],
-                            )),
-                            DataCell.empty,
-                            DataCell.empty,
-                            DataCell.empty,
-                          ],
-                        ),
-                      ]
-                    : searchResult
-                        .map(
-                          (product) => DataRow(cells: [
-                            DataCell(Text(
-                              product.name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            )),
-                            DataCell(Center(child: Text(product.category))),
-                            DataCell(Center(child: Text(product.priceFormat))),
-                            DataCell(Center(child: Text('${product.stock}'))),
-                          ]),
-                        )
-                        .toList(),
+              child: BlocBuilder<DataServiceMedicineBloc,
+                  DataServiceMedicineState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    orElse: () {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    loading: () {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    loaded: (serviceMedicines) {
+                      return DataTable(
+                        dataRowMinHeight: 30.0,
+                        dataRowMaxHeight: 50.0,
+                        columns: [
+                          DataColumn(
+                            label: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Button.filled(
+                                onPressed: () {},
+                                label: 'Nama Item',
+                                width: null,
+                                color: AppColors.title,
+                                textColor: AppColors.black.withOpacity(0.5),
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Button.filled(
+                                onPressed: () {},
+                                label: 'Kategori',
+                                width: null,
+                                color: AppColors.title,
+                                textColor: AppColors.black.withOpacity(0.5),
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Button.filled(
+                                onPressed: () {},
+                                label: 'Harga',
+                                width: null,
+                                color: AppColors.title,
+                                textColor: AppColors.black.withOpacity(0.5),
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                          DataColumn(
+                            label: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Button.filled(
+                                onPressed: () {},
+                                label: 'Qty',
+                                width: null,
+                                color: AppColors.title,
+                                textColor: AppColors.black.withOpacity(0.5),
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
+                        ],
+                        rows: serviceMedicines.isEmpty
+                            ? [
+                                const DataRow(
+                                  cells: [
+                                    DataCell(Row(
+                                      children: [
+                                        Icon(Icons.highlight_off),
+                                        SpaceWidth(4.0),
+                                        Text('Data tidak ditemukan..'),
+                                      ],
+                                    )),
+                                    DataCell.empty,
+                                    DataCell.empty,
+                                    DataCell.empty,
+                                  ],
+                                ),
+                              ]
+                            : serviceMedicines
+                                .map(
+                                  (product) => DataRow(cells: [
+                                    DataCell(Text(
+                                      product.name ?? '-',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                    DataCell(Center(
+                                        child: Text(product.category ?? '-'))),
+                                    DataCell(Center(
+                                        child: Text(double.parse(product.price!)
+                                            .toInt()
+                                            .currencyFormatRp))),
+                                    DataCell(Center(
+                                        child: Text(
+                                            '${product.quantity ?? '0'}'))),
+                                  ]),
+                                )
+                                .toList(),
+                      );
+                    },
+                  );
+                },
               ),
             ),
           ),
