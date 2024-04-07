@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
 
-import '../../../data/response/master_patient_response_model.dart';
+import '../../../data/models/response/master_patient_response_model.dart';
 
 part 'data_patient_bloc.freezed.dart';
 part 'data_patient_event.dart';

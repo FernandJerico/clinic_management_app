@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
-import 'package:clinic_management_app/features/master/data/response/master_doctor_response_model.dart';
+import 'package:clinic_management_app/features/master/data/models/response/master_doctor_response_model.dart';
 
 part 'data_doctor_bloc.freezed.dart';
 part 'data_doctor_event.dart';

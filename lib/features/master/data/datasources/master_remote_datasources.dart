@@ -1,11 +1,11 @@
 import 'package:clinic_management_app/core/constants/variables.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
-import 'package:clinic_management_app/features/master/data/response/doctor_schedule_response_model.dart';
-import 'package:clinic_management_app/features/master/data/response/master_doctor_response_model.dart';
+import 'package:clinic_management_app/features/master/data/models/response/doctor_schedule_response_model.dart';
+import 'package:clinic_management_app/features/master/data/models/response/master_doctor_response_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
-import '../response/master_patient_response_model.dart';
+import '../models/response/master_patient_response_model.dart';
 
 class MasterRemoteDatasources {
   Future<Either<String, MasterDoctorResponseModel>> getDoctors() async {

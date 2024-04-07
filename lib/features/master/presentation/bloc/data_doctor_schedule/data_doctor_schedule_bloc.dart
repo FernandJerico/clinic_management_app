@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
-import 'package:clinic_management_app/features/master/data/response/doctor_schedule_response_model.dart';
+import 'package:clinic_management_app/features/master/data/models/response/doctor_schedule_response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'data_doctor_schedule_event.dart';
