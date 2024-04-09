@@ -10,13 +10,13 @@ class SatusehatRemoteDatasources {
     final authData = await AuthLocalDatasources().getAuthData();
     final url = Uri.parse('${Variables.baseUrl}/api/satusehat-token');
 
-    final response = await http.post(url, headers: {
-      'Authorization': 'Bearer ${authData?.token}',
+    final response = await http.get(url, headers: {
       'Accept': 'application/json',
+      'Authorization': 'Bearer ${authData?.token}',
     });
 
     if (response.statusCode == 200) {
-      return Right(json.decode(response.body)['token']);
+      return Right(jsonDecode(response.body)['token']);
     } else {
       return const Left('Gagal mendapatkan token satu sehat');
     }

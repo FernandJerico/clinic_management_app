@@ -8,8 +8,8 @@ class SatusehatMasterWilayahRemoteDatasources {
   final dio = Dio();
   Future<Either<String, ProvinceResponseModel>> getProvince() async {
     final tokenResult = await SatusehatRemoteDatasources().satuSehatToken();
-    final token = tokenResult.fold((l) => '', (r) => r);
-    final response = await dio.request(
+    final token = tokenResult.fold((l) => l, (r) => r);
+    final response = await dio.get(
       '${Variables.satuSehatUrl}/masterdata/v1/provinces?codes',
       options: Options(method: 'GET', headers: {
         'Accept': 'application/json',

@@ -1,4 +1,5 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/features/satusehat/data/models/response/province_response_model.dart';
 import 'package:clinic_management_app/features/satusehat/presentation/province/bloc/province_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,7 +36,7 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
 
   String? selectedGender;
   String? selectCity;
-  String? selectProvince;
+  Province? selectProvince;
   String? selectVillage;
   String? selectDistrict;
   String? selectMaritalStatus;
@@ -212,16 +213,27 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                   showLabel: false,
                 ),
                 const SpaceHeight(24.0),
-                CustomDropdown(
-                  value: selectProvince,
-                  items: provinces,
-                  label: 'Provinsi',
-                  onChanged: (value) {
-                    setState(() {
-                      selectProvince = value;
-                    });
+                BlocBuilder<ProvinceBloc, ProvinceState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                      loaded: (provinces) {
+                        return CustomDropdown(
+                          value: selectProvince,
+                          items: provinces,
+                          label: 'Provinsi',
+                          onChanged: (value) {
+                            setState(() {
+                              selectProvince = value;
+                            });
+                          },
+                          showLabel: false,
+                        );
+                      },
+                    );
                   },
-                  showLabel: false,
                 ),
                 const SpaceHeight(24.0),
                 CustomDropdown(
