@@ -1,5 +1,7 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/features/satusehat/presentation/province/bloc/province_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:intl/intl.dart';
 
@@ -9,7 +11,6 @@ import '../../../../core/components/custom_dropdown.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
-
 
 class CreatePatientDialog extends StatefulWidget {
   const CreatePatientDialog({
@@ -68,6 +69,7 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
 
   @override
   void initState() {
+    context.read<ProvinceBloc>().add(const ProvinceEvent.getProvince());
     super.initState();
     selectedGender = null;
     patientNameController = TextEditingController();
@@ -211,6 +213,18 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                 ),
                 const SpaceHeight(24.0),
                 CustomDropdown(
+                  value: selectProvince,
+                  items: provinces,
+                  label: 'Provinsi',
+                  onChanged: (value) {
+                    setState(() {
+                      selectProvince = value;
+                    });
+                  },
+                  showLabel: false,
+                ),
+                const SpaceHeight(24.0),
+                CustomDropdown(
                   value: selectCity,
                   items: cities,
                   label: 'Kota/Kabupaten',
@@ -225,18 +239,6 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                 CustomTextField(
                   controller: cityCodeController,
                   label: 'Kode Pos Kota/Kabupaten',
-                  showLabel: false,
-                ),
-                const SpaceHeight(24.0),
-                CustomDropdown(
-                  value: selectProvince,
-                  items: provinces,
-                  label: 'Provinsi',
-                  onChanged: (value) {
-                    setState(() {
-                      selectProvince = value;
-                    });
-                  },
                   showLabel: false,
                 ),
                 const SpaceHeight(24.0),

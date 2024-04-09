@@ -8,6 +8,7 @@ import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../bloc/data_patient/data_patient_bloc.dart';
+import '../dialogs/create_patient_dialog.dart';
 
 class DataPatientScreen extends StatefulWidget {
   const DataPatientScreen({super.key});
@@ -53,6 +54,17 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                   .add(const DataPatientEvent.getPatients());
             }
           },
+          trailing: Button.filled(
+            onPressed: () {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => const CreatePatientDialog(),
+              );
+            },
+            label: 'Pasien Baru',
+            width: 250,
+          ),
         ),
       ),
       body: ListView(
