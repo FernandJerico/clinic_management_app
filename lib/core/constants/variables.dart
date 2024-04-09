@@ -5,4 +5,5 @@ class Variables {
   // production
   // static const String baseUrl = 'https://cms.be-nanreff.my.id';
   static const String imageBaseUrl = '$baseUrl/storage';
+  static const String satuSehatUrl = 'https://api-satusehat-stg.kemkes.go.id';
 }

@@ -4,6 +4,7 @@ import 'package:clinic_management_app/features/auth/presentation/pages/login_scr
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
 import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
+import 'package:clinic_management_app/features/satusehat/data/datasources/satusehat_master_wilayah_remote_datasources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +15,7 @@ import 'features/auth/presentation/bloc/logout/logout_bloc.dart';
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
 import 'features/master/presentation/bloc/data_patient/data_patient_bloc.dart';
 import 'features/master/presentation/bloc/data_service_medicine/data_service_medicine_bloc.dart';
+import 'features/satusehat/presentation/province/bloc/province_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,6 +47,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               DataServiceMedicineBloc(MasterRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              ProvinceBloc(SatusehatMasterWilayahRemoteDatasources()),
         ),
       ],
       child: MaterialApp(
