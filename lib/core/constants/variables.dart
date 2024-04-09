@@ -1,5 +1,8 @@
 class Variables {
   static const String appName = 'Clinic Management App';
-  static const String baseUrl = 'https://cms.be-nanreff.my.id';
+  // local
+  static const String baseUrl = 'http://192.168.100.12:8000';
+  // production
+  // static const String baseUrl = 'https://cms.be-nanreff.my.id';
   static const String imageBaseUrl = '$baseUrl/storage';
 }
