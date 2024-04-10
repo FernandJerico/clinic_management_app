@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'core/themes/colors.dart';
 import 'features/auth/presentation/bloc/login/login_bloc.dart';
 import 'features/auth/presentation/bloc/logout/logout_bloc.dart';
+import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
 import 'features/master/presentation/bloc/data_patient/data_patient_bloc.dart';
 import 'features/master/presentation/bloc/data_service_medicine/data_service_medicine_bloc.dart';
@@ -66,6 +67,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               SubDistrictBloc(SatusehatMasterWilayahRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) => AddPatientBloc(MasterRemoteDatasources()),
         ),
       ],
       child: MaterialApp(
