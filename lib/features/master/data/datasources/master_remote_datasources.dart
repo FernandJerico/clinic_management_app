@@ -6,6 +6,7 @@ import 'package:clinic_management_app/features/master/data/models/response/servi
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/request/add_patient_request_model.dart';
 import '../models/response/master_patient_response_model.dart';
 
 class MasterRemoteDatasources {
@@ -126,6 +127,24 @@ class MasterRemoteDatasources {
       return Right(ServiceMedicineResponseModel.fromJson(response.body));
     } else {
       return const Left('Failed to get service medicines');
+    }
+  }
+
+  Future<Either<String, String>> addPatient(AddPatientRequestModel data) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-patients');
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+      },
+      body: data.toJson(),
+    );
+    if (response.statusCode == 200) {
+      return const Right('Success add patient');
+    } else {
+      return const Left('Failed to get patients');
     }
   }
 }
