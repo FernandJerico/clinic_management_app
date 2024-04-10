@@ -15,7 +15,10 @@ import 'features/auth/presentation/bloc/logout/logout_bloc.dart';
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
 import 'features/master/presentation/bloc/data_patient/data_patient_bloc.dart';
 import 'features/master/presentation/bloc/data_service_medicine/data_service_medicine_bloc.dart';
+import 'features/satusehat/presentation/bloc/city/city_bloc.dart';
+import 'features/satusehat/presentation/bloc/district/district_bloc.dart';
 import 'features/satusehat/presentation/bloc/province/province_bloc.dart';
+import 'features/satusehat/presentation/bloc/sub-district/sub_district_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,6 +54,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               ProvinceBloc(SatusehatMasterWilayahRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CityBloc(SatusehatMasterWilayahRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              DistrictBloc(SatusehatMasterWilayahRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              SubDistrictBloc(SatusehatMasterWilayahRemoteDatasources()),
         ),
       ],
       child: MaterialApp(
