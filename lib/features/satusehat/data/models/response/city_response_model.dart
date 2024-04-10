@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class CityResponseModel {
@@ -67,4 +68,9 @@ class City {
         "bps_code": bpsCode,
         "name": name,
       };
+
+  @override
+  String toString() {
+    return '$name';
+  }
 }
