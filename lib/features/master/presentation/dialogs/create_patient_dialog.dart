@@ -1,5 +1,7 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/features/satusehat/data/models/response/city_response_model.dart';
 import 'package:clinic_management_app/features/satusehat/data/models/response/province_response_model.dart';
+import 'package:clinic_management_app/features/satusehat/presentation/bloc/district/district_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +13,10 @@ import '../../../../core/components/custom_dropdown.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
+import '../../../satusehat/data/models/response/wilayah_response_model.dart';
+import '../../../satusehat/presentation/bloc/city/city_bloc.dart';
 import '../../../satusehat/presentation/bloc/province/province_bloc.dart';
+import '../../../satusehat/presentation/bloc/sub-district/sub_district_bloc.dart';
 
 class CreatePatientDialog extends StatefulWidget {
   const CreatePatientDialog({
@@ -32,15 +37,15 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
   ]; // Contoh data provinsi
   final villages = ['Village 1', 'Village 2', 'Village 3']; // Contoh data desa
   final districts = ['District 1', 'District 2', 'District 3'];
-  final marital_status = ['Menikah', 'Lajang', 'Cerai'];
+  final maritalStatus = ['Menikah', 'Lajang', 'Cerai'];
 
   String? selectedGender;
-  String? selectCity;
+  City? selectCity;
   Province? selectProvince;
-  String? selectVillage;
-  String? selectDistrict;
+  Wilayah? selectVillage;
+  Wilayah? selectDistrict;
   String? selectMaritalStatus;
-  int? is_deceased = 0;
+  int? isDeceased = 0;
   DateTime? birthDate;
 
   late TextEditingController patientNameController;
@@ -197,10 +202,10 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                     const Text('Status Kematian'),
                     const Spacer(),
                     Switch(
-                      value: is_deceased == 1,
+                      value: isDeceased == 1,
                       onChanged: (value) {
                         setState(() {
-                          is_deceased = value ? 1 : 0;
+                          isDeceased = value ? 1 : 0;
                         });
                       },
                     ),
@@ -225,6 +230,8 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                           items: provinces,
                           label: 'Provinsi',
                           onChanged: (value) {
+                            context.read<CityBloc>().add(CityEvent.getCity(
+                                int.parse(value!.code ?? '0')));
                             setState(() {
                               selectProvince = value;
                             });
@@ -236,62 +243,95 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                   },
                 ),
                 const SpaceHeight(24.0),
-                CustomDropdown(
-                  value: selectCity,
-                  items: cities,
-                  label: 'Kota/Kabupaten',
-                  onChanged: (value) {
-                    setState(() {
-                      selectCity = value;
-                    });
+                BlocBuilder<CityBloc, CityState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return CustomDropdown(
+                          value: selectCity,
+                          items: const [],
+                          label: 'Kota/Kabupaten',
+                          onChanged: (value) {},
+                          showLabel: false,
+                        );
+                      },
+                      loaded: (cities) {
+                        return CustomDropdown(
+                          value: selectCity,
+                          items: cities,
+                          label: 'Kota/Kabupaten',
+                          onChanged: (value) {
+                            context.read<DistrictBloc>().add(
+                                DistrictEvent.getDistrict(
+                                    int.parse(value!.code ?? '0')));
+                            setState(() {
+                              selectCity = value;
+                            });
+                          },
+                          showLabel: false,
+                        );
+                      },
+                    );
                   },
-                  showLabel: false,
                 ),
                 const SpaceHeight(24.0),
-                CustomTextField(
-                  controller: cityCodeController,
-                  label: 'Kode Pos Kota/Kabupaten',
-                  showLabel: false,
-                ),
-                const SpaceHeight(24.0),
-                CustomTextField(
-                  controller: provinceCodeController,
-                  label: 'Kode Pos Provinsi',
-                  showLabel: false,
-                ),
-                const SpaceHeight(24.0),
-                CustomDropdown(
-                  value: selectDistrict,
-                  items: districts,
-                  label: 'Kecamatan',
-                  onChanged: (value) {
-                    setState(() {
-                      selectDistrict = value;
-                    });
+                BlocBuilder<DistrictBloc, DistrictState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return CustomDropdown(
+                          value: selectDistrict,
+                          items: const [],
+                          label: 'Kecamatan',
+                          onChanged: (value) {},
+                          showLabel: false,
+                        );
+                      },
+                      loaded: (districts) {
+                        return CustomDropdown(
+                          value: selectDistrict,
+                          items: districts,
+                          label: 'Kecamatan',
+                          onChanged: (value) {
+                            context.read<SubDistrictBloc>().add(
+                                SubDistrictEvent.getSubDistrict(
+                                    int.parse(value!.code ?? '0')));
+                            setState(() {
+                              selectDistrict = value;
+                            });
+                          },
+                          showLabel: false,
+                        );
+                      },
+                    );
                   },
-                  showLabel: false,
                 ),
                 const SpaceHeight(24.0),
-                CustomTextField(
-                  controller: districtCodeController,
-                  label: 'Kode Pos Kecamatan',
-                  showLabel: false,
-                ),
-                const SpaceHeight(24.0),
-                CustomDropdown(
-                  value: selectVillage,
-                  items: villages,
-                  label: 'Desa/Kelurahan',
-                  onChanged: (value) {
-                    selectVillage = value;
+                BlocBuilder<SubDistrictBloc, SubDistrictState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return CustomDropdown(
+                          value: selectVillage,
+                          items: const [],
+                          label: 'Desa/Kelurahan',
+                          onChanged: (value) {},
+                          showLabel: false,
+                        );
+                      },
+                      loaded: (subDistricts) {
+                        return CustomDropdown(
+                          value: selectVillage,
+                          items: subDistricts,
+                          label: 'Desa/Kelurahan',
+                          onChanged: (value) {
+                            selectVillage = value;
+                          },
+                          showLabel: false,
+                        );
+                      },
+                    );
                   },
-                  showLabel: false,
-                ),
-                const SpaceHeight(24.0),
-                CustomTextField(
-                  controller: villageCodeController,
-                  label: 'Kode Pos Desa/Kelurahan',
-                  showLabel: false,
                 ),
                 const SpaceHeight(24.0),
                 CustomTextField(
@@ -314,7 +354,7 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                 const SpaceHeight(24.0),
                 CustomDropdown(
                   value: selectMaritalStatus,
-                  items: marital_status,
+                  items: maritalStatus,
                   label: 'Status Pernikahan',
                   onChanged: (value) {
                     selectMaritalStatus = value;
