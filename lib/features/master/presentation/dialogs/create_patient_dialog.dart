@@ -1,6 +1,5 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/satusehat/data/models/response/province_response_model.dart';
-import 'package:clinic_management_app/features/satusehat/presentation/province/bloc/province_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +11,7 @@ import '../../../../core/components/custom_dropdown.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
+import '../../../satusehat/presentation/bloc/province/province_bloc.dart';
 
 class CreatePatientDialog extends StatefulWidget {
   const CreatePatientDialog({
