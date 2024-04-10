@@ -8,7 +8,7 @@ class AddPatientRequestModel {
   final String? email;
   final String? gender;
   final String? birthPlace;
-  final DateTime? birthDate;
+  final String? birthDate;
   final int? isDeceased;
   final String? addressLine;
   final String? city;
@@ -18,6 +18,7 @@ class AddPatientRequestModel {
   final String? district;
   final String? districtCode;
   final String? village;
+  final String? villageCode;
   final String? rt;
   final String? rw;
   final String? postalCode;
@@ -43,6 +44,7 @@ class AddPatientRequestModel {
     this.district,
     this.districtCode,
     this.village,
+    this.villageCode,
     this.rt,
     this.rw,
     this.postalCode,
@@ -65,9 +67,7 @@ class AddPatientRequestModel {
         email: json["email"],
         gender: json["gender"],
         birthPlace: json["birth_place"],
-        birthDate: json["birth_date"] == null
-            ? null
-            : DateTime.parse(json["birth_date"]),
+        birthDate: json["birth_date"],
         isDeceased: json["is_deceased"],
         addressLine: json["address_line"],
         city: json["city"],
@@ -77,6 +77,7 @@ class AddPatientRequestModel {
         district: json["district"],
         districtCode: json["district_code"],
         village: json["village"],
+        villageCode: json["village_code"],
         rt: json["rt"],
         rw: json["rw"],
         postalCode: json["postal_code"],
@@ -93,8 +94,7 @@ class AddPatientRequestModel {
         "email": email,
         "gender": gender,
         "birth_place": birthPlace,
-        "birth_date":
-            "${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}",
+        "birth_date": birthDate,
         "is_deceased": isDeceased,
         "address_line": addressLine,
         "city": city,
@@ -104,6 +104,7 @@ class AddPatientRequestModel {
         "district": district,
         "district_code": districtCode,
         "village": village,
+        "village_code": villageCode,
         "rt": rt,
         "rw": rw,
         "postal_code": postalCode,

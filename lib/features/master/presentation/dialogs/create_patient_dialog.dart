@@ -1,4 +1,7 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/features/master/data/models/request/add_patient_request_model.dart';
+import 'package:clinic_management_app/features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
+import 'package:clinic_management_app/features/master/presentation/pages/data_patient_screen.dart';
 import 'package:clinic_management_app/features/satusehat/data/models/response/city_response_model.dart';
 import 'package:clinic_management_app/features/satusehat/data/models/response/province_response_model.dart';
 import 'package:clinic_management_app/features/satusehat/presentation/bloc/district/district_bloc.dart';
@@ -29,15 +32,13 @@ class CreatePatientDialog extends StatefulWidget {
 
 class _CreatePatientDialogState extends State<CreatePatientDialog> {
   final genders = ['Laki-laki', 'Perempuan'];
-  final cities = ['City 1', 'City 2', 'City 3']; // Contoh data kota/kabupaten
-  final provinces = [
-    'Province 1',
-    'Province 2',
-    'Province 3'
-  ]; // Contoh data provinsi
-  final villages = ['Village 1', 'Village 2', 'Village 3']; // Contoh data desa
-  final districts = ['District 1', 'District 2', 'District 3'];
-  final maritalStatus = ['Menikah', 'Lajang', 'Cerai'];
+  final maritalStatus = [
+    'Belum Kawin',
+    'Kawin Belum Tercatat',
+    'Kawin Tercatat',
+    'Cerai Hidup',
+    'Cerai Mati'
+  ];
 
   String? selectedGender;
   City? selectCity;
@@ -384,9 +385,89 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                     ),
                     const SpaceWidth(10.0),
                     Flexible(
-                        child: Button.filled(
-                      onPressed: () {},
-                      label: 'Create Patient',
+                        child: BlocListener<AddPatientBloc, AddPatientState>(
+                      listener: (context, state) {
+                        state.maybeWhen(
+                          orElse: () {},
+                          success: () {
+                            const ScaffoldMessenger(
+                                child: SnackBar(
+                              content: Text('Patient Created Successfully'),
+                              backgroundColor: AppColors.green,
+                            ));
+                            context.pushReplacement(const DataPatientScreen());
+                          },
+                        );
+                      },
+                      child: BlocBuilder<AddPatientBloc, AddPatientState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            orElse: () {
+                              return Button.filled(
+                                onPressed: () {
+                                  final addPatientRequest =
+                                      AddPatientRequestModel(
+                                    nik: nikController.text,
+                                    kk: kkController.text,
+                                    name: patientNameController.text,
+                                    phone: phoneController.text,
+                                    email: emailController.text,
+                                    gender: selectedGender,
+                                    birthPlace: birthPlaceController.text,
+                                    birthDate: formatDate(birthDate!),
+                                    addressLine: addressController.text,
+                                    province: selectProvince!.name,
+                                    provinceCode: selectProvince!.code,
+                                    city: selectCity!.name,
+                                    cityCode: selectCity!.code,
+                                    district: selectDistrict!.name,
+                                    districtCode: selectDistrict!.code,
+                                    village: selectVillage!.name,
+                                    villageCode: selectVillage!.code,
+                                    rt: rtController.text,
+                                    rw: rwController.text,
+                                    postalCode: postalCodeController.text,
+                                    maritalStatus: selectMaritalStatus,
+                                    relationshipName:
+                                        relationshipNameController.text,
+                                    relationshipPhone:
+                                        relationshipPhoneController.text,
+                                    isDeceased: isDeceased,
+                                  );
+                                  context.read<AddPatientBloc>().add(
+                                      AddPatientEvent.addPatient(
+                                          addPatientRequest));
+                                },
+                                label: 'Create Patient',
+                              );
+                            },
+                            loading: () {
+                              return SizedBox(
+                                height: 50,
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.primary,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                    ),
+                                    child: const CircularProgressIndicator(
+                                      color: AppColors.white,
+                                    )),
+                              );
+                            },
+                            error: (message) {
+                              return ScaffoldMessenger(
+                                  child: SnackBar(
+                                content: Text(message),
+                                backgroundColor: AppColors.red,
+                              ));
+                            },
+                          );
+                        },
+                      ),
                     ))
                   ],
                 )

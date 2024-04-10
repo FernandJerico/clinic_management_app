@@ -138,6 +138,7 @@ class MasterRemoteDatasources {
       headers: {
         'Authorization': 'Bearer ${authData?.token}',
         'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: data.toJson(),
     );
