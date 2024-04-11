@@ -1,4 +1,3 @@
-import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/date_time_ext.dart';
 import 'package:clinic_management_app/features/master/presentation/widgets/build_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +85,7 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                     },
                     loaded: (patients) {
                       return DataTable(
-                        columnSpacing: context.deviceWidth * 0.063,
+                        // columnSpacing: context.deviceWidth * 0.05,
                         dataRowMinHeight: 30.0,
                         dataRowMaxHeight: 60.0,
                         columns: [
@@ -155,6 +154,19 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                               ),
                             ),
                           ),
+                          DataColumn(
+                            label: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Button.filled(
+                                onPressed: () {},
+                                label: 'Action',
+                                width: null,
+                                color: AppColors.title,
+                                textColor: AppColors.black.withOpacity(0.5),
+                                fontSize: 14.0,
+                              ),
+                            ),
+                          ),
                         ],
                         rows: patients.isEmpty
                             ? [
@@ -167,6 +179,7 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                                         Text('Data tidak ditemukan..'),
                                       ],
                                     )),
+                                    DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
@@ -202,6 +215,11 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                                     ),
                                     DataCell(Center(child: Text(patient.nik))),
                                     DataCell(Text(patient.email)),
+                                    DataCell(Button.filled(
+                                      onPressed: () {},
+                                      label: 'Reservation',
+                                      height: 40,
+                                    )),
                                   ]),
                                 )
                                 .toList(),
