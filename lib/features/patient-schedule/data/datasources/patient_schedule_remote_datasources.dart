@@ -1,1 +1,1 @@
-class PatientScheduleRemoteDatasources
+class PatientScheduleRemoteDatasources {}
