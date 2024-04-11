@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
+import '../../data/models/response/master_patient_response_model.dart';
 import '../bloc/data_patient/data_patient_bloc.dart';
 import '../dialogs/create_patient_dialog.dart';
+import '../dialogs/create_reservation_patient_dialog.dart';
 
 class DataPatientScreen extends StatefulWidget {
   const DataPatientScreen({super.key});
@@ -29,6 +31,16 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
   void dispose() {
     searchController.dispose();
     super.dispose();
+  }
+
+  void createReservationPatientTap(MasterPatient? patient) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => CreateReservationPatientDialog(
+        patient: patient,
+      ),
+    );
   }
 
   @override
@@ -216,7 +228,9 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                                     DataCell(Center(child: Text(patient.nik))),
                                     DataCell(Text(patient.email)),
                                     DataCell(Button.filled(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        createReservationPatientTap(patient);
+                                      },
                                       label: 'Reservation',
                                       height: 40,
                                     )),

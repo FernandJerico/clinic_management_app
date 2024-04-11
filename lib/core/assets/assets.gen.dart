@@ -72,6 +72,14 @@ class $AssetsImagesGen {
   AssetGenImage get splashScreen =>
       const AssetGenImage('assets/images/Splash Screen.png');
 
+  /// File path: assets/images/create_rm_success.png
+  AssetGenImage get createRmSuccess =>
+      const AssetGenImage('assets/images/create_rm_success.png');
+
+  /// File path: assets/images/doctor_placeholder.png
+  AssetGenImage get doctorPlaceholder =>
+      const AssetGenImage('assets/images/doctor_placeholder.png');
+
   /// File path: assets/images/dokterku.png
   AssetGenImage get dokterku =>
       const AssetGenImage('assets/images/dokterku.png');
@@ -83,12 +91,23 @@ class $AssetsImagesGen {
   AssetGenImage get klinikFujiLogo =>
       const AssetGenImage('assets/images/klinik-fuji-logo.png');
 
+  /// File path: assets/images/medicine.png
+  AssetGenImage get medicine =>
+      const AssetGenImage('assets/images/medicine.png');
+
   $AssetsImagesMenuGen get menu => const $AssetsImagesMenuGen();
   $AssetsImagesProductsGen get products => const $AssetsImagesProductsGen();
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [splashScreen, dokterku, google, klinikFujiLogo];
+  List<AssetGenImage> get values => [
+        splashScreen,
+        createRmSuccess,
+        doctorPlaceholder,
+        dokterku,
+        google,
+        klinikFujiLogo,
+        medicine
+      ];
 }
 
 class $AssetsImagesMenuGen {
