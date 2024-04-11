@@ -9,6 +9,7 @@ class CustomDatePicker extends StatefulWidget {
   final Widget? prefix;
   final String label;
   final bool showLabel;
+  final bool? isDisabled;
 
   const CustomDatePicker({
     super.key,
@@ -17,6 +18,7 @@ class CustomDatePicker extends StatefulWidget {
     this.initialDate,
     this.onDateSelected,
     this.prefix,
+    this.isDisabled = false,
   });
 
   @override
@@ -77,7 +79,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         ],
         TextFormField(
           controller: controller,
-          onTap: () => _selectDate(context),
+          onTap: () => widget.isDisabled ?? false ? null : _selectDate(context),
           readOnly: true,
           decoration: InputDecoration(
             border: OutlineInputBorder(

@@ -32,13 +32,10 @@ class _CreateReservationPatientDialogState
     extends State<CreateReservationPatientDialog> {
   MasterDoctor? selectedDoctor;
 
-  // late final ValueNotifier<bool> switchNotifier;
-  // late final ValueNotifier<String?> genderNotifier;
   late final TextEditingController patientNameController;
   late final TextEditingController nikController;
   late final TextEditingController complaintController;
   late final TextEditingController birthDateController;
-  late final TextEditingController genderController;
   late DateTime? scheduleTime;
   late DateTime? birthDate;
 
@@ -52,15 +49,12 @@ class _CreateReservationPatientDialogState
 
   @override
   void initState() {
-    // switchNotifier = ValueNotifier(widget.patient == null);
-    // genderNotifier = ValueNotifier(widget.patient?.gender);
     patientNameController = TextEditingController(text: widget.patient?.name);
     nikController = TextEditingController(text: widget.patient?.nik);
     complaintController = TextEditingController();
     scheduleTime = DateTime.now();
-    birthDate = DateTime.now();
+    birthDate = widget.patient?.birthDate;
     birthDateController = TextEditingController();
-    genderController = TextEditingController(text: widget.patient?.gender);
 
     context.read<DataDoctorBloc>().add(const DataDoctorEvent.getDoctors());
     super.initState();
@@ -69,7 +63,6 @@ class _CreateReservationPatientDialogState
   @override
   void dispose() {
     patientNameController.dispose();
-    genderController.dispose();
     birthDateController.dispose();
     nikController.dispose();
     complaintController.dispose();
@@ -102,54 +95,73 @@ class _CreateReservationPatientDialogState
                           ),
                         ),
                         Spacer(),
-                        Text(
-                          'Pasien Baru',
-                          style: TextStyle(
-                            color: AppColors.darkGrey,
-                          ),
-                        ),
                       ],
                     ),
-                    const SpaceHeight(24.0),
+                    const SpaceHeight(20.0),
+                    const Text(
+                      'Nama Pasien',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                        color: AppColors.darkGrey,
+                      ),
+                    ),
+                    const SpaceHeight(8.0),
                     CustomTextField(
                       controller: patientNameController,
                       label: 'Nama Pasien',
                       showLabel: false,
                     ),
-                    const SpaceHeight(24.0),
-                    CustomTextField(
-                      controller: genderController,
-                      label: 'Jenis Kelamin',
-                      showLabel: false,
+                    const SpaceHeight(20.0),
+                    const Text(
+                      'Tanggal Lahir',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                        color: AppColors.darkGrey,
+                      ),
                     ),
-                    const SpaceHeight(24.0),
+                    const SpaceHeight(8.0),
                     CustomDatePicker(
                       initialDate: birthDate,
                       label: 'Tanggal Lahir',
                       showLabel: false,
+                      isDisabled: true,
                       onDateSelected: (selectedDate) =>
                           birthDate = selectedDate,
                     ),
-                    const SpaceHeight(24.0),
+                    const SpaceHeight(20.0),
+                    const Text(
+                      'Tanggal Pemeriksaan',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                        color: AppColors.darkGrey,
+                      ),
+                    ),
+                    const SpaceHeight(8.0),
                     CustomDatePicker(
                       initialDate: scheduleTime,
-                      label: 'Tanggal Rawat Jalan',
+                      label: 'Schedule',
                       showLabel: false,
                       onDateSelected: (selectedDate) =>
                           scheduleTime = selectedDate,
                     ),
-                    const SpaceHeight(24.0),
-                    CustomTextField(
-                      controller: nikController,
-                      label: 'NIK',
-                      showLabel: false,
+                    const SpaceHeight(20.0),
+                    const Text(
+                      'Keluhan',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                        color: AppColors.darkGrey,
+                      ),
                     ),
-                    const SpaceHeight(24.0),
+                    const SpaceHeight(8.0),
                     CustomTextField(
                       controller: complaintController,
                       label: 'Keluhan',
                       showLabel: false,
-                      // isDescription: true,
+                      isDescription: true,
                     ),
                   ],
                 ),
@@ -163,14 +175,14 @@ class _CreateReservationPatientDialogState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Detail Pasien',
+                      'Pilih Dokter',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16.0,
                         color: AppColors.darkGrey,
                       ),
                     ),
-                    const SpaceHeight(40.0),
+                    const SpaceHeight(24.0),
                     BlocBuilder<DataDoctorBloc, DataDoctorState>(
                       builder: (context, state) {
                         return state.maybeWhen(
@@ -199,13 +211,13 @@ class _CreateReservationPatientDialogState
                     ),
                     const SpaceHeight(20.0),
                     SizedBox(
-                      height: 405.0,
+                      height: 350.0,
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Assets.images.doctorPlaceholder.image(width: 140.0),
-                            const SpaceHeight(40.0),
+                            const SpaceHeight(20.0),
                             const Text(
                               'Add Doctor to Patient',
                               style: TextStyle(
@@ -213,7 +225,7 @@ class _CreateReservationPatientDialogState
                                 fontSize: 20.0,
                               ),
                             ),
-                            const SpaceHeight(20.0),
+                            const SpaceHeight(10.0),
                             const Text(
                               'Search and add doctor to this patient.',
                               style: TextStyle(color: AppColors.darkGrey),

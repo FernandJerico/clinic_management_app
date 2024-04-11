@@ -49,7 +49,7 @@ class CustomTextField extends StatelessWidget {
           obscureText: obscureText,
           keyboardType: keyboardType,
           readOnly: readOnly,
-          maxLines: isDescription ? 3 : null,
+          maxLines: isDescription ? 5 : null,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,

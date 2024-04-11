@@ -65,17 +65,6 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                   .add(const DataPatientEvent.getPatients());
             }
           },
-          trailing: Button.filled(
-            onPressed: () {
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (context) => const CreatePatientDialog(),
-              );
-            },
-            label: 'Pasien Baru',
-            width: 250,
-          ),
         ),
       ),
       body: ListView(
@@ -184,7 +173,11 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                             ? [
                                 const DataRow(
                                   cells: [
+                                    DataCell.empty,
+                                    DataCell.empty,
                                     DataCell(Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.highlight_off),
                                         SpaceWidth(4.0),
@@ -193,6 +186,29 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                                     )),
                                     DataCell.empty,
                                     DataCell.empty,
+                                    DataCell.empty,
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: [
+                                    DataCell.empty,
+                                    DataCell.empty,
+                                    DataCell(Row(
+                                      children: [
+                                        Button.filled(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (context) =>
+                                                  const CreatePatientDialog(),
+                                            );
+                                          },
+                                          label: 'Pasien Baru',
+                                          width: 250,
+                                        ),
+                                      ],
+                                    )),
                                     DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
