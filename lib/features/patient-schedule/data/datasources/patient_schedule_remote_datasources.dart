@@ -10,7 +10,7 @@ class PatientScheduleRemoteDatasources {
       getPatientSchedules() async {
     final authData = await AuthLocalDatasources().getAuthData();
     final url = Uri.parse('${Variables.baseUrl}/api/api-patient-schedules');
-    final response = await http.post(
+    final response = await http.get(
       url,
       headers: {
         'Authorization': 'Bearer ${authData?.token}',
