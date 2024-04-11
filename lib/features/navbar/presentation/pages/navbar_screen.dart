@@ -2,6 +2,7 @@ import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/auth/presentation/bloc/logout/logout_bloc.dart';
 import 'package:clinic_management_app/features/auth/presentation/pages/login_screen.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/master_screen.dart';
+import 'package:clinic_management_app/features/patient-schedule/presentation/pages/patient_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +24,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
     const Center(child: Text('This is page 1')),
     MasterScreen(onTap: (_) {}),
     const Center(child: Text('This is page 3')),
-    const Center(child: Text('This is page 4')),
+    const PatientScheduleScreen(),
     const Center(child: Text('This is page 5')),
   ];
 
@@ -86,7 +87,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                               iconPath: Assets.icons.shoppingBagProduct.path,
                               isActive: _selectedIndex == 3,
                               onTap: () => _onItemTapped(3),
-                              text: 'History',
+                              text: 'Patient',
                             ),
                             NavItem(
                               iconPath: Assets.icons.setting.path,
