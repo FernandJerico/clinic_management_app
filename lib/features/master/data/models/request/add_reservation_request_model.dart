@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 class AddReservationRequestModel {
-  final String? patientId;
-  final String? doctorId;
+  final int? patientId;
+  final int? doctorId;
   final DateTime? scheduleTime;
   final String? complaint;
   final String? status;

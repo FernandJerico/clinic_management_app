@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:clinic_management_app/features/master/data/models/request/add_reservation_request_model.dart';
+import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 
 import '../../../../core/assets/assets.gen.dart';
+import '../../../../core/components/button_loading.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/custom_date_picker.dart';
 import '../../../../core/components/custom_text_field.dart';
@@ -13,6 +16,7 @@ import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../../data/models/response/master_doctor_response_model.dart';
 import '../../data/models/response/master_patient_response_model.dart';
+import '../bloc/add_reservation/add_reservation_bloc.dart';
 import '../bloc/data_doctor/data_doctor_bloc.dart';
 import '../widgets/doctor_dropdown.dart';
 
@@ -245,9 +249,56 @@ class _CreateReservationPatientDialogState
                         ),
                         const SpaceWidth(10.0),
                         Flexible(
-                            child: Button.filled(
-                          onPressed: () {},
-                          label: 'Create',
+                            child: BlocConsumer<AddReservationBloc,
+                                AddReservationState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              success: () {
+                                context.pushReplacement(const NavbarScreen());
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Reservation created!'),
+                                    backgroundColor: AppColors.green,
+                                  ),
+                                );
+                              },
+                              error: (message) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(message),
+                                    backgroundColor: AppColors.red,
+                                  ),
+                                );
+                              },
+                              orElse: () {},
+                            );
+                          },
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              orElse: () {
+                                return Button.filled(
+                                  onPressed: () {
+                                    final requestData =
+                                        AddReservationRequestModel(
+                                      patientId: widget.patient?.id,
+                                      doctorId: selectedDoctor?.id,
+                                      scheduleTime: scheduleTime!,
+                                      complaint: complaintController.text,
+                                      status: 'waiting',
+                                      totalPrice: 0,
+                                    );
+                                    context.read<AddReservationBloc>().add(
+                                        AddReservationEvent.addReservation(
+                                            data: requestData));
+                                  },
+                                  label: 'Create',
+                                );
+                              },
+                              loading: () {
+                                return const ButtonLoading();
+                              },
+                            );
+                          },
                         )),
                       ],
                     )
