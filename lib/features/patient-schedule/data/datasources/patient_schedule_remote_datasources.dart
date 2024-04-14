@@ -21,7 +21,27 @@ class PatientScheduleRemoteDatasources {
     if (response.statusCode == 200) {
       return Right(PatientScheduleResponseModel.fromJson(response.body));
     } else {
-      return const Left('Failed to add reservation');
+      return const Left('Failed to get patient schedules');
+    }
+  }
+
+  Future<Either<String, PatientScheduleResponseModel>> getPatientSchedulesByNIK(
+      String nik) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/api-patient-schedules?nik=$nik');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(PatientScheduleResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get patient schedules by nik');
     }
   }
 }

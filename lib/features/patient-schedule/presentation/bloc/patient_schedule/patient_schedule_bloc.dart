@@ -23,5 +23,15 @@ class PatientScheduleBloc
         (r) => emit(_Loaded(r.data ?? [])),
       );
     });
+
+    on<_GetPatientSchedulesByNIK>((event, emit) async {
+      emit(const _Loading());
+      final result =
+          await remoteDatasources.getPatientSchedulesByNIK(event.nik);
+      result.fold(
+        (l) => emit(_Error(l)),
+        (r) => emit(_Loaded(r.data ?? [])),
+      );
+    });
   }
 }

@@ -94,14 +94,17 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
           title: 'Jadwal Pasien',
           withSearchInput: true,
           searchController: searchController,
-          keyboardType: TextInputType.text,
+          keyboardType: TextInputType.number,
           searchChanged: (value) {
-            searchResult = patients
-                .where((element) => element.nama
-                    .toLowerCase()
-                    .contains(searchController.text.toLowerCase()))
-                .toList();
-            setState(() {});
+            if (value.isNotEmpty) {
+              context.read<PatientScheduleBloc>().add(
+                  PatientScheduleEvent.getPatientSchedulesByNIK(
+                      searchController.text));
+            } else {
+              context
+                  .read<PatientScheduleBloc>()
+                  .add(const PatientScheduleEvent.getPatientSchedules());
+            }
           },
           searchHint: 'Cari Pasien',
           trailing: Button.filled(
