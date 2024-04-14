@@ -7,9 +7,7 @@ import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/enums/pasient_status.dart';
 import '../../../../core/themes/colors.dart';
-import '../../../master/presentation/dialogs/create_patient_dialog.dart';
 import '../../../master/presentation/widgets/build_app_bar.dart';
-import '../../data/patient_model.dart';
 import '../bloc/patient_schedule/patient_schedule_bloc.dart';
 
 class PatientScheduleScreen extends StatefulWidget {
@@ -22,65 +20,13 @@ class PatientScheduleScreen extends StatefulWidget {
 class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
   final searchController = TextEditingController();
   final scaffoldkey = GlobalKey<ScaffoldState>();
-  final patients = [
-    PasientModel(
-      nama: 'John Doe',
-      keluhan: 'Flu',
-      jenisKelamin: 'Laki-laki',
-      tanggalLahir: DateTime(1990, 5, 15),
-      nik: '1234567890',
-      status: PasientStatus.waiting,
-    ),
-    PasientModel(
-      nama: 'Jane Smith',
-      keluhan: 'Headache',
-      jenisKelamin: 'Perempuan',
-      tanggalLahir: DateTime(1985, 8, 21),
-      nik: '0987654321',
-      status: PasientStatus.processing,
-    ),
-    PasientModel(
-      nama: 'Michael Johnson',
-      keluhan: 'Stomachache',
-      jenisKelamin: 'Laki-laki',
-      tanggalLahir: DateTime(1978, 3, 10),
-      nik: '5432167890',
-      status: PasientStatus.rejected,
-    ),
-    PasientModel(
-      nama: 'Emily Williams',
-      keluhan: 'Fever',
-      jenisKelamin: 'Perempuan',
-      tanggalLahir: DateTime(1992, 11, 30),
-      nik: '0987123456',
-      status: PasientStatus.completed,
-    ),
-    PasientModel(
-      nama: 'David Brown',
-      keluhan: 'Cough',
-      jenisKelamin: 'Laki-laki',
-      tanggalLahir: DateTime(1980, 7, 5),
-      nik: '6789012345',
-      status: PasientStatus.confirmed,
-    ),
-  ];
-  late List<PasientModel> searchResult;
 
   @override
   void initState() {
-    searchResult = patients;
     context
         .read<PatientScheduleBloc>()
         .add(const PatientScheduleEvent.getPatientSchedules());
     super.initState();
-  }
-
-  void createPatientTap([PasientModel? patient]) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const CreatePatientDialog(),
-    );
   }
 
   @override
@@ -106,12 +52,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                   .add(const PatientScheduleEvent.getPatientSchedules());
             }
           },
-          searchHint: 'Cari Pasien',
-          trailing: Button.filled(
-            onPressed: () => createPatientTap(),
-            label: 'Daftar Pasien',
-            width: null,
-          ),
+          searchHint: 'Cari Pasien Berdasarkan NIK',
         ),
       ),
       endDrawer: Drawer(
