@@ -9,6 +9,7 @@ import '../../../../core/enums/pasient_status.dart';
 import '../../../../core/themes/colors.dart';
 import '../../../master/presentation/widgets/build_app_bar.dart';
 import '../bloc/patient_schedule/patient_schedule_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PatientScheduleScreen extends StatefulWidget {
   const PatientScheduleScreen({super.key});
@@ -28,6 +29,100 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
         .add(const PatientScheduleEvent.getPatientSchedules());
     super.initState();
   }
+
+  var columns = [
+    DataColumn(
+      label: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Button.filled(
+          onPressed: () {},
+          label: 'Nama Pasien',
+          width: null,
+          color: AppColors.title,
+          textColor: AppColors.black.withOpacity(0.5),
+          fontSize: 14.0,
+        ),
+      ),
+    ),
+    DataColumn(
+      label: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Button.filled(
+          onPressed: () {},
+          label: 'Keluhan',
+          width: null,
+          color: AppColors.title,
+          textColor: AppColors.black.withOpacity(0.5),
+          fontSize: 14.0,
+        ),
+      ),
+    ),
+    DataColumn(
+      label: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Button.filled(
+          onPressed: () {},
+          label: 'Jenis Kelamin',
+          width: null,
+          color: AppColors.title,
+          textColor: AppColors.black.withOpacity(0.5),
+          fontSize: 14.0,
+        ),
+      ),
+    ),
+    DataColumn(
+      label: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Button.filled(
+          onPressed: () {},
+          label: 'Tanggal Lahir',
+          width: null,
+          color: AppColors.title,
+          textColor: AppColors.black.withOpacity(0.5),
+          fontSize: 14.0,
+        ),
+      ),
+    ),
+    DataColumn(
+      label: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Button.filled(
+          onPressed: () {},
+          label: 'NIK',
+          width: null,
+          color: AppColors.title,
+          textColor: AppColors.black.withOpacity(0.5),
+          fontSize: 14.0,
+        ),
+      ),
+    ),
+    DataColumn(
+      label: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Button.filled(
+          onPressed: () {},
+          label: 'Status',
+          width: null,
+          color: AppColors.title,
+          textColor: AppColors.black.withOpacity(0.5),
+          fontSize: 14.0,
+        ),
+      ),
+    ),
+    DataColumn(
+      label: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Button.filled(
+          onPressed: () {},
+          label: 'Action',
+          width: null,
+          color: AppColors.title,
+          textColor: AppColors.black.withOpacity(0.5),
+          fontSize: 14.0,
+        ),
+      ),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -109,103 +204,24 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                       return const SizedBox();
                     },
                     loading: () {
-                      return const Center(child: CircularProgressIndicator());
+                      return DataTable(
+                        columns: columns,
+                        rows: const [
+                          DataRow(cells: [
+                            DataCell(SkeletonLoading()),
+                            DataCell(SkeletonLoading()),
+                            DataCell(SkeletonLoading()),
+                            DataCell(SkeletonLoading()),
+                            DataCell(SkeletonLoading()),
+                            DataCell(SkeletonLoading()),
+                            DataCell(SkeletonLoading()),
+                          ])
+                        ],
+                      );
                     },
                     loaded: (patientSchedules) {
                       return DataTable(
-                        columns: [
-                          DataColumn(
-                            label: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Button.filled(
-                                onPressed: () {},
-                                label: 'Nama Pasien',
-                                width: null,
-                                color: AppColors.title,
-                                textColor: AppColors.black.withOpacity(0.5),
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Button.filled(
-                                onPressed: () {},
-                                label: 'Keluhan',
-                                width: null,
-                                color: AppColors.title,
-                                textColor: AppColors.black.withOpacity(0.5),
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Button.filled(
-                                onPressed: () {},
-                                label: 'Jenis Kelamin',
-                                width: null,
-                                color: AppColors.title,
-                                textColor: AppColors.black.withOpacity(0.5),
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Button.filled(
-                                onPressed: () {},
-                                label: 'Tanggal Lahir',
-                                width: null,
-                                color: AppColors.title,
-                                textColor: AppColors.black.withOpacity(0.5),
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Button.filled(
-                                onPressed: () {},
-                                label: 'NIK',
-                                width: null,
-                                color: AppColors.title,
-                                textColor: AppColors.black.withOpacity(0.5),
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Button.filled(
-                                onPressed: () {},
-                                label: 'Status',
-                                width: null,
-                                color: AppColors.title,
-                                textColor: AppColors.black.withOpacity(0.5),
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                          DataColumn(
-                            label: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Button.filled(
-                                onPressed: () {},
-                                label: 'Action',
-                                width: null,
-                                color: AppColors.title,
-                                textColor: AppColors.black.withOpacity(0.5),
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ),
-                        ],
+                        columns: columns,
                         rows: patientSchedules.isEmpty
                             ? [
                                 const DataRow(
@@ -361,6 +377,29 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
         ],
       ),
     );
+  }
+}
+
+class SkeletonLoading extends StatelessWidget {
+  const SkeletonLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Shimmer.fromColors(
+          baseColor: AppColors.grey,
+          highlightColor: AppColors.grey.withOpacity(0.5),
+          child: Container(
+            width: 100.0,
+            decoration: BoxDecoration(
+              color: AppColors.grey.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+          ),
+        ));
   }
 }
 
