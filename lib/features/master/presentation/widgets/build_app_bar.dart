@@ -1,7 +1,9 @@
-import 'package:clinic_management_app/core/components/components.dart';
-import 'package:clinic_management_app/core/themes/colors.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import 'package:clinic_management_app/core/components/components.dart';
+import 'package:clinic_management_app/core/themes/colors.dart';
 
 class BuildAppBar extends StatelessWidget {
   final String title;
@@ -10,16 +12,18 @@ class BuildAppBar extends StatelessWidget {
   final void Function(String)? searchChanged;
   final String searchHint;
   final Widget? trailing;
+  final TextInputType keyboardType;
 
   const BuildAppBar({
-    super.key,
+    Key? key,
     required this.title,
     this.withSearchInput = false,
     this.searchController,
     this.searchChanged,
     this.searchHint = 'Cari di sini',
     this.trailing,
-  });
+    required this.keyboardType,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +73,7 @@ class BuildAppBar extends StatelessWidget {
                   controller: searchController!,
                   onChanged: searchChanged,
                   hintText: searchHint,
+                  keyboardType: keyboardType,
                 ),
               ),
             if (withSearchInput)

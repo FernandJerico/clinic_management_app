@@ -53,7 +53,8 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
           title: 'Data Master Pasien',
           withSearchInput: true,
           searchController: searchController,
-          searchHint: 'Cari Pasien',
+          searchHint: 'Cari Pasien Berdasarkan NIK',
+          keyboardType: TextInputType.number,
           searchChanged: (value) {
             if (value.isNotEmpty && value.length > 1) {
               context

@@ -32,6 +32,7 @@ class _MasterScreenState extends State<MasterScreen> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(100.0),
         child: BuildAppBar(
+          keyboardType: TextInputType.text,
           title: 'Data Master',
         ),
       ),

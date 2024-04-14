@@ -32,6 +32,7 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
           title: 'Data Master Dokter',
           withSearchInput: true,
           searchController: searchController,
+          keyboardType: TextInputType.text,
           searchChanged: (value) {
             if (value.isNotEmpty && value.length > 2) {
               context

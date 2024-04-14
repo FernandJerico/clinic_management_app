@@ -53,6 +53,7 @@ class _DataDoctorScheduleScreenState extends State<DataDoctorScheduleScreen> {
           title: 'Data Master Jadwal Dokter',
           withSearchInput: true,
           searchController: searchController,
+          keyboardType: TextInputType.text,
           searchChanged: (value) {
             if (value.isNotEmpty && value.length > 1) {
               context.read<DataDoctorScheduleBloc>().add(

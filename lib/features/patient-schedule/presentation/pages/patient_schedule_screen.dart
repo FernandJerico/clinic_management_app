@@ -94,6 +94,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
           title: 'Jadwal Pasien',
           withSearchInput: true,
           searchController: searchController,
+          keyboardType: TextInputType.text,
           searchChanged: (value) {
             searchResult = patients
                 .where((element) => element.nama

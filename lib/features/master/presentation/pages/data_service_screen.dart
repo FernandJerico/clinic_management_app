@@ -36,6 +36,7 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(100.0),
         child: BuildAppBar(
+          keyboardType: TextInputType.text,
           title: 'Data Master Layanan & Obat',
         ),
       ),
@@ -45,6 +46,7 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
           Padding(
             padding: EdgeInsets.only(right: context.deviceWidth / 2),
             child: SearchInput(
+              keyboardType: TextInputType.text,
               controller: searchController,
               onChanged: (value) {
                 if (value.isNotEmpty && value.length > 1) {
