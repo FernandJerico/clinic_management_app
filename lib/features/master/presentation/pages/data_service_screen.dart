@@ -37,6 +37,7 @@ class _DataServiceScreenState extends State<DataServiceScreen> {
         preferredSize: Size.fromHeight(100.0),
         child: BuildAppBar(
           keyboardType: TextInputType.text,
+          withBackButton: true,
           title: 'Data Master Layanan & Obat',
         ),
       ),

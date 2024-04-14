@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,6 +14,7 @@ class BuildAppBar extends StatelessWidget {
   final String searchHint;
   final Widget? trailing;
   final TextInputType keyboardType;
+  final bool withBackButton;
 
   const BuildAppBar({
     Key? key,
@@ -23,6 +25,7 @@ class BuildAppBar extends StatelessWidget {
     this.searchHint = 'Cari di sini',
     this.trailing,
     required this.keyboardType,
+    this.withBackButton = false,
   }) : super(key: key);
 
   @override
@@ -45,23 +48,33 @@ class BuildAppBar extends StatelessWidget {
           children: [
             Flexible(
               flex: 3,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 28.0,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primary,
+                  if (withBackButton)
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios),
+                      onPressed: () => context.pop(),
                     ),
-                  ),
-                  Text(
-                    getCurrentDate(),
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: AppColors.primary.withOpacity(0.8),
-                    ),
+                  const SpaceWidth(12.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      Text(
+                        getCurrentDate(),
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: AppColors.primary.withOpacity(0.8),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -54,6 +54,7 @@ class _DataDoctorScheduleScreenState extends State<DataDoctorScheduleScreen> {
           withSearchInput: true,
           searchController: searchController,
           keyboardType: TextInputType.text,
+          withBackButton: true,
           searchChanged: (value) {
             if (value.isNotEmpty && value.length > 1) {
               context.read<DataDoctorScheduleBloc>().add(

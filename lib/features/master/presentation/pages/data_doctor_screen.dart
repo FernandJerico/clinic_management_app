@@ -33,6 +33,7 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
           withSearchInput: true,
           searchController: searchController,
           keyboardType: TextInputType.text,
+          withBackButton: true,
           searchChanged: (value) {
             if (value.isNotEmpty && value.length > 2) {
               context
@@ -44,7 +45,7 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                   .add(const DataDoctorEvent.getDoctors());
             }
           },
-          searchHint: 'Cari Dokter',
+          searchHint: 'Cari Dokter Berdasarkan Nama',
         ),
       ),
       body: ListView(
