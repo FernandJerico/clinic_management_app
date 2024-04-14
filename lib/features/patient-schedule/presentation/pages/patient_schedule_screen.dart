@@ -97,7 +97,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: AppColors.stroke),
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(8.0),
             ),
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -145,7 +145,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: Button.filled(
                                 onPressed: () {},
-                                label: 'Jenis Kelamnin',
+                                label: 'Jenis Kelamin',
                                 width: null,
                                 color: AppColors.title,
                                 textColor: AppColors.black.withOpacity(0.5),
@@ -210,6 +210,8 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                             ? [
                                 const DataRow(
                                   cells: [
+                                    DataCell.empty,
+                                    DataCell.empty,
                                     DataCell(Row(
                                       children: [
                                         Icon(Icons.highlight_off),
@@ -217,8 +219,6 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                         Text('Data tidak ditemukan..'),
                                       ],
                                     )),
-                                    DataCell.empty,
-                                    DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
@@ -240,15 +240,67 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                     DataCell(ClipRRect(
                                       borderRadius: BorderRadius.circular(12.0),
                                       child: ColoredBox(
-                                        color: Colors.grey.withOpacity(0.1),
+                                        color: patient.status == 'waiting'
+                                            ? PasientStatus
+                                                .waiting.backgroundColor
+                                            : patient.status == 'processing'
+                                                ? PasientStatus
+                                                    .processing.backgroundColor
+                                                : patient.status == 'onHold'
+                                                    ? PasientStatus
+                                                        .onHold.backgroundColor
+                                                    : patient.status ==
+                                                            'completed'
+                                                        ? PasientStatus
+                                                            .completed
+                                                            .backgroundColor
+                                                        : patient.status ==
+                                                                'canceled'
+                                                            ? PasientStatus
+                                                                .rejected
+                                                                .backgroundColor
+                                                            : patient.status ==
+                                                                    'processed'
+                                                                ? PasientStatus
+                                                                    .processed
+                                                                    .backgroundColor
+                                                                : AppColors
+                                                                    .white,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 12.0, vertical: 8.0),
                                           child: Text(
                                             patient.status ?? '',
                                             style: TextStyle(
-                                              color:
-                                                  Colors.black.withOpacity(0.5),
+                                              color: patient.status == 'waiting'
+                                                  ? PasientStatus.waiting.color
+                                                  : patient.status ==
+                                                          'processing'
+                                                      ? PasientStatus
+                                                          .processing.color
+                                                      : patient.status ==
+                                                              'onHold'
+                                                          ? PasientStatus
+                                                              .onHold.color
+                                                          : patient.status ==
+                                                                  'completed'
+                                                              ? PasientStatus
+                                                                  .completed
+                                                                  .color
+                                                              : patient.status ==
+                                                                      'canceled'
+                                                                  ? PasientStatus
+                                                                      .rejected
+                                                                      .color
+                                                                  : patient.status ==
+                                                                          'processed'
+                                                                      ? PasientStatus
+                                                                          .processed
+                                                                          .color
+                                                                      : AppColors
+                                                                          .black
+                                                                          .withOpacity(
+                                                                              0.5),
                                             ),
                                           ),
                                         ),

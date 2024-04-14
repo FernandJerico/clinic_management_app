@@ -6,6 +6,7 @@ enum PasientStatus {
   waiting('Waiting'),
   confirmed('Confirmed'),
   processing('Processing'),
+  processed('Processed'),
   rejected('Rejected'),
   completed('Completed'),
   onHold('On Hold'),
@@ -31,6 +32,8 @@ extension PasientStatusExtension on PasientStatus {
         return AppColors.orderIsConfirmed;
       case PasientStatus.processing:
         return AppColors.orderIsProcessing;
+      case PasientStatus.processed:
+        return AppColors.orderIsProcessing;
       case PasientStatus.completed:
         return AppColors.orderIsCompleted;
       case PasientStatus.rejected:
@@ -50,6 +53,8 @@ extension PasientStatusExtension on PasientStatus {
         return AppColors.orderIsConfirmed.withOpacity(0.2);
       case PasientStatus.processing:
         return AppColors.orderIsProcessing.withOpacity(0.2);
+      case PasientStatus.processed:
+        return AppColors.orderIsProcessing.withOpacity(0.3);
       case PasientStatus.completed:
         return AppColors.orderIsCompleted.withOpacity(0.2);
       case PasientStatus.rejected:
