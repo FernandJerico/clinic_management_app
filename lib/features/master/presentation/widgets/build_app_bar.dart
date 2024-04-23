@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import 'package:clinic_management_app/core/components/components.dart';
@@ -61,7 +62,7 @@ class BuildAppBar extends StatelessWidget {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
+                        style: GoogleFonts.poppins(
                           fontSize: 28.0,
                           fontWeight: FontWeight.w600,
                           color: AppColors.primary,
@@ -69,7 +70,7 @@ class BuildAppBar extends StatelessWidget {
                       ),
                       Text(
                         getCurrentDate(),
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
                           fontSize: 16.0,
                           color: AppColors.primary.withOpacity(0.8),
                         ),
