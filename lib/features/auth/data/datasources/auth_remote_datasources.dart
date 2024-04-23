@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:clinic_management_app/core/constants/variables.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
 import 'package:clinic_management_app/features/auth/data/models/responses/auth_response_model.dart';
@@ -21,7 +23,7 @@ class AuthRemoteDatasources {
           .saveAuthData(AuthResponseModel.fromJson(response.body));
       return Right(AuthResponseModel.fromJson(response.body));
     } else {
-      return const Left('Gagal login');
+      return Left(json.decode(response.body)['message']);
     }
   }
 
@@ -43,7 +45,7 @@ class AuthRemoteDatasources {
     if (response.statusCode == 200) {
       return const Right('Register Success');
     } else {
-      return const Left('Register Failed');
+      return Left(json.decode(response.body)['message']);
     }
   }
 
@@ -59,7 +61,7 @@ class AuthRemoteDatasources {
       await AuthLocalDatasources().removeAuthData();
       return const Right('Logout Success');
     } else {
-      return const Left('Logout Failed');
+      return Left(json.decode(response.body)['message']);
     }
   }
 }
