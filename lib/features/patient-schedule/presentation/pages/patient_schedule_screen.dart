@@ -371,7 +371,8 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                           ),
                                         ],
                                         onSelected: (PasientStatus value) {
-                                          if (value == PasientStatus.waiting) {
+                                          if (value ==
+                                              PasientStatus.processing) {
                                             createRmPatientTap(
                                                 patient.id!,
                                                 patient.scheduleTime!,
