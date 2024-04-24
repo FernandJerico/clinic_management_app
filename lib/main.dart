@@ -7,6 +7,7 @@ import 'package:clinic_management_app/features/master/presentation/bloc/data_doc
 import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
 import 'package:clinic_management_app/features/patient-schedule/data/datasources/medical_records_remote_datasource.dart';
 import 'package:clinic_management_app/features/patient-schedule/data/datasources/midtrans_remote_datasource.dart';
+import 'package:clinic_management_app/features/patient-schedule/data/datasources/payment_detail_remote_datasource.dart';
 import 'package:clinic_management_app/features/satusehat/data/datasources/satusehat_master_wilayah_remote_datasources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,7 @@ import 'features/master/presentation/bloc/data_service_medicine/data_service_med
 import 'features/patient-schedule/data/datasources/patient_schedule_remote_datasources.dart';
 import 'features/patient-schedule/presentation/bloc/check_status/check_status_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/create_medical_record/create_medical_record_bloc.dart';
+import 'features/patient-schedule/presentation/bloc/create_payment_detail/create_payment_detail_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/get_service_order/get_service_order_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/patient_schedule/patient_schedule_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/qris/qris_bloc.dart';
@@ -101,6 +103,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CheckStatusBloc(MidtransRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CreatePaymentDetailBloc(PaymentDetailRemoteDatasource()),
         ),
       ],
       child: MaterialApp(

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'check_status_bloc.dart';
+part of 'create_payment_detail_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,58 +15,62 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CheckStatusEvent {
+mixin _$CreatePaymentDetailEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String orderId) checkPaymentStatus,
+    required TResult Function(CreatePaymentDetailRequestModel requestModel)
+        createPaymentDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String orderId)? checkPaymentStatus,
+    TResult? Function(CreatePaymentDetailRequestModel requestModel)?
+        createPaymentDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String orderId)? checkPaymentStatus,
+    TResult Function(CreatePaymentDetailRequestModel requestModel)?
+        createPaymentDetail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_CheckPaymentStatus value) checkPaymentStatus,
+    required TResult Function(_CreatePaymentDetail value) createPaymentDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_CheckPaymentStatus value)? checkPaymentStatus,
+    TResult? Function(_CreatePaymentDetail value)? createPaymentDetail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_CheckPaymentStatus value)? checkPaymentStatus,
+    TResult Function(_CreatePaymentDetail value)? createPaymentDetail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CheckStatusEventCopyWith<$Res> {
-  factory $CheckStatusEventCopyWith(
-          CheckStatusEvent value, $Res Function(CheckStatusEvent) then) =
-      _$CheckStatusEventCopyWithImpl<$Res, CheckStatusEvent>;
+abstract class $CreatePaymentDetailEventCopyWith<$Res> {
+  factory $CreatePaymentDetailEventCopyWith(CreatePaymentDetailEvent value,
+          $Res Function(CreatePaymentDetailEvent) then) =
+      _$CreatePaymentDetailEventCopyWithImpl<$Res, CreatePaymentDetailEvent>;
 }
 
 /// @nodoc
-class _$CheckStatusEventCopyWithImpl<$Res, $Val extends CheckStatusEvent>
-    implements $CheckStatusEventCopyWith<$Res> {
-  _$CheckStatusEventCopyWithImpl(this._value, this._then);
+class _$CreatePaymentDetailEventCopyWithImpl<$Res,
+        $Val extends CreatePaymentDetailEvent>
+    implements $CreatePaymentDetailEventCopyWith<$Res> {
+  _$CreatePaymentDetailEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -83,7 +87,7 @@ abstract class _$$StartedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedImplCopyWithImpl<$Res>
-    extends _$CheckStatusEventCopyWithImpl<$Res, _$StartedImpl>
+    extends _$CreatePaymentDetailEventCopyWithImpl<$Res, _$StartedImpl>
     implements _$$StartedImplCopyWith<$Res> {
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
@@ -97,7 +101,7 @@ class _$StartedImpl implements _Started {
 
   @override
   String toString() {
-    return 'CheckStatusEvent.started()';
+    return 'CreatePaymentDetailEvent.started()';
   }
 
   @override
@@ -113,7 +117,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String orderId) checkPaymentStatus,
+    required TResult Function(CreatePaymentDetailRequestModel requestModel)
+        createPaymentDetail,
   }) {
     return started();
   }
@@ -122,7 +127,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String orderId)? checkPaymentStatus,
+    TResult? Function(CreatePaymentDetailRequestModel requestModel)?
+        createPaymentDetail,
   }) {
     return started?.call();
   }
@@ -131,7 +137,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String orderId)? checkPaymentStatus,
+    TResult Function(CreatePaymentDetailRequestModel requestModel)?
+        createPaymentDetail,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -144,7 +151,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_CheckPaymentStatus value) checkPaymentStatus,
+    required TResult Function(_CreatePaymentDetail value) createPaymentDetail,
   }) {
     return started(this);
   }
@@ -153,7 +160,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_CheckPaymentStatus value)? checkPaymentStatus,
+    TResult? Function(_CreatePaymentDetail value)? createPaymentDetail,
   }) {
     return started?.call(this);
   }
@@ -162,7 +169,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_CheckPaymentStatus value)? checkPaymentStatus,
+    TResult Function(_CreatePaymentDetail value)? createPaymentDetail,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -172,99 +179,104 @@ class _$StartedImpl implements _Started {
   }
 }
 
-abstract class _Started implements CheckStatusEvent {
+abstract class _Started implements CreatePaymentDetailEvent {
   const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$CheckPaymentStatusImplCopyWith<$Res> {
-  factory _$$CheckPaymentStatusImplCopyWith(_$CheckPaymentStatusImpl value,
-          $Res Function(_$CheckPaymentStatusImpl) then) =
-      __$$CheckPaymentStatusImplCopyWithImpl<$Res>;
+abstract class _$$CreatePaymentDetailImplCopyWith<$Res> {
+  factory _$$CreatePaymentDetailImplCopyWith(_$CreatePaymentDetailImpl value,
+          $Res Function(_$CreatePaymentDetailImpl) then) =
+      __$$CreatePaymentDetailImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String orderId});
+  $Res call({CreatePaymentDetailRequestModel requestModel});
 }
 
 /// @nodoc
-class __$$CheckPaymentStatusImplCopyWithImpl<$Res>
-    extends _$CheckStatusEventCopyWithImpl<$Res, _$CheckPaymentStatusImpl>
-    implements _$$CheckPaymentStatusImplCopyWith<$Res> {
-  __$$CheckPaymentStatusImplCopyWithImpl(_$CheckPaymentStatusImpl _value,
-      $Res Function(_$CheckPaymentStatusImpl) _then)
+class __$$CreatePaymentDetailImplCopyWithImpl<$Res>
+    extends _$CreatePaymentDetailEventCopyWithImpl<$Res,
+        _$CreatePaymentDetailImpl>
+    implements _$$CreatePaymentDetailImplCopyWith<$Res> {
+  __$$CreatePaymentDetailImplCopyWithImpl(_$CreatePaymentDetailImpl _value,
+      $Res Function(_$CreatePaymentDetailImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? orderId = null,
+    Object? requestModel = null,
   }) {
-    return _then(_$CheckPaymentStatusImpl(
-      null == orderId
-          ? _value.orderId
-          : orderId // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$CreatePaymentDetailImpl(
+      null == requestModel
+          ? _value.requestModel
+          : requestModel // ignore: cast_nullable_to_non_nullable
+              as CreatePaymentDetailRequestModel,
     ));
   }
 }
 
 /// @nodoc
 
-class _$CheckPaymentStatusImpl implements _CheckPaymentStatus {
-  const _$CheckPaymentStatusImpl(this.orderId);
+class _$CreatePaymentDetailImpl implements _CreatePaymentDetail {
+  const _$CreatePaymentDetailImpl(this.requestModel);
 
   @override
-  final String orderId;
+  final CreatePaymentDetailRequestModel requestModel;
 
   @override
   String toString() {
-    return 'CheckStatusEvent.checkPaymentStatus(orderId: $orderId)';
+    return 'CreatePaymentDetailEvent.createPaymentDetail(requestModel: $requestModel)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CheckPaymentStatusImpl &&
-            (identical(other.orderId, orderId) || other.orderId == orderId));
+            other is _$CreatePaymentDetailImpl &&
+            (identical(other.requestModel, requestModel) ||
+                other.requestModel == requestModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, orderId);
+  int get hashCode => Object.hash(runtimeType, requestModel);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CheckPaymentStatusImplCopyWith<_$CheckPaymentStatusImpl> get copyWith =>
-      __$$CheckPaymentStatusImplCopyWithImpl<_$CheckPaymentStatusImpl>(
+  _$$CreatePaymentDetailImplCopyWith<_$CreatePaymentDetailImpl> get copyWith =>
+      __$$CreatePaymentDetailImplCopyWithImpl<_$CreatePaymentDetailImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String orderId) checkPaymentStatus,
+    required TResult Function(CreatePaymentDetailRequestModel requestModel)
+        createPaymentDetail,
   }) {
-    return checkPaymentStatus(orderId);
+    return createPaymentDetail(requestModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String orderId)? checkPaymentStatus,
+    TResult? Function(CreatePaymentDetailRequestModel requestModel)?
+        createPaymentDetail,
   }) {
-    return checkPaymentStatus?.call(orderId);
+    return createPaymentDetail?.call(requestModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String orderId)? checkPaymentStatus,
+    TResult Function(CreatePaymentDetailRequestModel requestModel)?
+        createPaymentDetail,
     required TResult orElse(),
   }) {
-    if (checkPaymentStatus != null) {
-      return checkPaymentStatus(orderId);
+    if (createPaymentDetail != null) {
+      return createPaymentDetail(requestModel);
     }
     return orElse();
   }
@@ -273,51 +285,53 @@ class _$CheckPaymentStatusImpl implements _CheckPaymentStatus {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_CheckPaymentStatus value) checkPaymentStatus,
+    required TResult Function(_CreatePaymentDetail value) createPaymentDetail,
   }) {
-    return checkPaymentStatus(this);
+    return createPaymentDetail(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_CheckPaymentStatus value)? checkPaymentStatus,
+    TResult? Function(_CreatePaymentDetail value)? createPaymentDetail,
   }) {
-    return checkPaymentStatus?.call(this);
+    return createPaymentDetail?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_CheckPaymentStatus value)? checkPaymentStatus,
+    TResult Function(_CreatePaymentDetail value)? createPaymentDetail,
     required TResult orElse(),
   }) {
-    if (checkPaymentStatus != null) {
-      return checkPaymentStatus(this);
+    if (createPaymentDetail != null) {
+      return createPaymentDetail(this);
     }
     return orElse();
   }
 }
 
-abstract class _CheckPaymentStatus implements CheckStatusEvent {
-  const factory _CheckPaymentStatus(final String orderId) =
-      _$CheckPaymentStatusImpl;
+abstract class _CreatePaymentDetail implements CreatePaymentDetailEvent {
+  const factory _CreatePaymentDetail(
+          final CreatePaymentDetailRequestModel requestModel) =
+      _$CreatePaymentDetailImpl;
 
-  String get orderId;
+  CreatePaymentDetailRequestModel get requestModel;
   @JsonKey(ignore: true)
-  _$$CheckPaymentStatusImplCopyWith<_$CheckPaymentStatusImpl> get copyWith =>
+  _$$CreatePaymentDetailImplCopyWith<_$CreatePaymentDetailImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$CheckStatusState {
+mixin _$CreatePaymentDetailState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(QrisStatusResponseModel checkStatusResponse)
+    required TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)
         loaded,
     required TResult Function(String message) error,
   }) =>
@@ -326,7 +340,9 @@ mixin _$CheckStatusState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult? Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -334,7 +350,9 @@ mixin _$CheckStatusState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -367,16 +385,17 @@ mixin _$CheckStatusState {
 }
 
 /// @nodoc
-abstract class $CheckStatusStateCopyWith<$Res> {
-  factory $CheckStatusStateCopyWith(
-          CheckStatusState value, $Res Function(CheckStatusState) then) =
-      _$CheckStatusStateCopyWithImpl<$Res, CheckStatusState>;
+abstract class $CreatePaymentDetailStateCopyWith<$Res> {
+  factory $CreatePaymentDetailStateCopyWith(CreatePaymentDetailState value,
+          $Res Function(CreatePaymentDetailState) then) =
+      _$CreatePaymentDetailStateCopyWithImpl<$Res, CreatePaymentDetailState>;
 }
 
 /// @nodoc
-class _$CheckStatusStateCopyWithImpl<$Res, $Val extends CheckStatusState>
-    implements $CheckStatusStateCopyWith<$Res> {
-  _$CheckStatusStateCopyWithImpl(this._value, this._then);
+class _$CreatePaymentDetailStateCopyWithImpl<$Res,
+        $Val extends CreatePaymentDetailState>
+    implements $CreatePaymentDetailStateCopyWith<$Res> {
+  _$CreatePaymentDetailStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -393,7 +412,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$CheckStatusStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$CreatePaymentDetailStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -407,7 +426,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'CheckStatusState.initial()';
+    return 'CreatePaymentDetailState.initial()';
   }
 
   @override
@@ -424,7 +443,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(QrisStatusResponseModel checkStatusResponse)
+    required TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -436,7 +456,9 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult? Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -447,7 +469,9 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -495,7 +519,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements CheckStatusState {
+abstract class _Initial implements CreatePaymentDetailState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -508,7 +532,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$CheckStatusStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$CreatePaymentDetailStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -522,7 +546,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'CheckStatusState.loading()';
+    return 'CreatePaymentDetailState.loading()';
   }
 
   @override
@@ -539,7 +563,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(QrisStatusResponseModel checkStatusResponse)
+    required TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -551,7 +576,9 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult? Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -562,7 +589,9 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -610,7 +639,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements CheckStatusState {
+abstract class _Loading implements CreatePaymentDetailState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -620,12 +649,13 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({QrisStatusResponseModel checkStatusResponse});
+  $Res call(
+      {CreatePaymentDetailResponseModel createPaymentDetailResponseModel});
 }
 
 /// @nodoc
 class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$CheckStatusStateCopyWithImpl<$Res, _$LoadedImpl>
+    extends _$CreatePaymentDetailStateCopyWithImpl<$Res, _$LoadedImpl>
     implements _$$LoadedImplCopyWith<$Res> {
   __$$LoadedImplCopyWithImpl(
       _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
@@ -634,13 +664,13 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? checkStatusResponse = null,
+    Object? createPaymentDetailResponseModel = null,
   }) {
     return _then(_$LoadedImpl(
-      null == checkStatusResponse
-          ? _value.checkStatusResponse
-          : checkStatusResponse // ignore: cast_nullable_to_non_nullable
-              as QrisStatusResponseModel,
+      null == createPaymentDetailResponseModel
+          ? _value.createPaymentDetailResponseModel
+          : createPaymentDetailResponseModel // ignore: cast_nullable_to_non_nullable
+              as CreatePaymentDetailResponseModel,
     ));
   }
 }
@@ -648,14 +678,14 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(this.checkStatusResponse);
+  const _$LoadedImpl(this.createPaymentDetailResponseModel);
 
   @override
-  final QrisStatusResponseModel checkStatusResponse;
+  final CreatePaymentDetailResponseModel createPaymentDetailResponseModel;
 
   @override
   String toString() {
-    return 'CheckStatusState.loaded(checkStatusResponse: $checkStatusResponse)';
+    return 'CreatePaymentDetailState.loaded(createPaymentDetailResponseModel: $createPaymentDetailResponseModel)';
   }
 
   @override
@@ -663,12 +693,15 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            (identical(other.checkStatusResponse, checkStatusResponse) ||
-                other.checkStatusResponse == checkStatusResponse));
+            (identical(other.createPaymentDetailResponseModel,
+                    createPaymentDetailResponseModel) ||
+                other.createPaymentDetailResponseModel ==
+                    createPaymentDetailResponseModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, checkStatusResponse);
+  int get hashCode =>
+      Object.hash(runtimeType, createPaymentDetailResponseModel);
 
   @JsonKey(ignore: true)
   @override
@@ -681,11 +714,12 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(QrisStatusResponseModel checkStatusResponse)
+    required TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)
         loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(checkStatusResponse);
+    return loaded(createPaymentDetailResponseModel);
   }
 
   @override
@@ -693,10 +727,12 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult? Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(checkStatusResponse);
+    return loaded?.call(createPaymentDetailResponseModel);
   }
 
   @override
@@ -704,12 +740,14 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(checkStatusResponse);
+      return loaded(createPaymentDetailResponseModel);
     }
     return orElse();
   }
@@ -752,11 +790,12 @@ class _$LoadedImpl implements _Loaded {
   }
 }
 
-abstract class _Loaded implements CheckStatusState {
-  const factory _Loaded(final QrisStatusResponseModel checkStatusResponse) =
-      _$LoadedImpl;
+abstract class _Loaded implements CreatePaymentDetailState {
+  const factory _Loaded(
+      final CreatePaymentDetailResponseModel
+          createPaymentDetailResponseModel) = _$LoadedImpl;
 
-  QrisStatusResponseModel get checkStatusResponse;
+  CreatePaymentDetailResponseModel get createPaymentDetailResponseModel;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -773,7 +812,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$CheckStatusStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$CreatePaymentDetailStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -803,7 +842,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'CheckStatusState.error(message: $message)';
+    return 'CreatePaymentDetailState.error(message: $message)';
   }
 
   @override
@@ -828,7 +867,8 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(QrisStatusResponseModel checkStatusResponse)
+    required TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)
         loaded,
     required TResult Function(String message) error,
   }) {
@@ -840,7 +880,9 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult? Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -851,7 +893,9 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(QrisStatusResponseModel checkStatusResponse)? loaded,
+    TResult Function(
+            CreatePaymentDetailResponseModel createPaymentDetailResponseModel)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -899,7 +943,7 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements CheckStatusState {
+abstract class _Error implements CreatePaymentDetailState {
   const factory _Error(final String message) = _$ErrorImpl;
 
   String get message;
