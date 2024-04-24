@@ -22,7 +22,7 @@ class GetServiceOrderBloc
           .getServiceOrderByScheduleId(event.scheduleId);
       response.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r.data ?? [])),
+        (r) => emit(_Loaded(r)),
       );
     });
   }

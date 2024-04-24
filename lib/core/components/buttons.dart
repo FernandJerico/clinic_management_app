@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../themes/colors.dart';
 
@@ -72,7 +73,7 @@ class Button extends StatelessWidget {
                     const SizedBox(width: 10.0),
                   Text(
                     label,
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       color: textColor,
                       fontSize: fontSize,
                       fontWeight: FontWeight.w600,
@@ -101,7 +102,7 @@ class Button extends StatelessWidget {
                     const SizedBox(width: 10.0),
                   Text(
                     label,
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       color: textColor,
                       fontSize: fontSize,
                       fontWeight: FontWeight.w600,

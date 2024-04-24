@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class ServiceOrderResponseModel {
-  final List<ServiceOrder>? data;
-  final String? message;
   final String? status;
+  final String? message;
+  final List<ServiceOrder>? data;
 
   ServiceOrderResponseModel({
-    this.data,
-    this.message,
     this.status,
+    this.message,
+    this.data,
   });
 
   factory ServiceOrderResponseModel.fromJson(String str) =>
@@ -18,19 +18,19 @@ class ServiceOrderResponseModel {
 
   factory ServiceOrderResponseModel.fromMap(Map<String, dynamic> json) =>
       ServiceOrderResponseModel(
+        status: json["status"],
+        message: json["message"],
         data: json["data"] == null
             ? []
             : List<ServiceOrder>.from(
                 json["data"]!.map((x) => ServiceOrder.fromMap(x))),
-        message: json["message"],
-        status: json["status"],
       );
 
   Map<String, dynamic> toMap() => {
+        "status": status,
+        "message": message,
         "data":
             data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
-        "message": message,
-        "status": status,
       };
 }
 
@@ -38,8 +38,8 @@ class ServiceOrder {
   final int? id;
   final int? quantity;
   final String? name;
-  final String? price;
-  final double? total;
+  final int? price;
+  final int? total;
 
   ServiceOrder({
     this.id,
@@ -59,7 +59,7 @@ class ServiceOrder {
         quantity: json["quantity"],
         name: json["name"],
         price: json["price"],
-        total: json["total"]?.toDouble(),
+        total: json["total"],
       );
 
   Map<String, dynamic> toMap() => {

@@ -2,6 +2,7 @@ import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/date_time_ext.dart';
 import 'package:clinic_management_app/features/patient-schedule/data/models/response/patient_schedule_response_model.dart';
 import 'package:clinic_management_app/features/patient-schedule/presentation/dialogs/create_medical_record_dialog.dart';
+import 'package:clinic_management_app/features/patient-schedule/presentation/pages/confirm_payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,6 +44,17 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
           patientScheduleId: patientScheduleId,
           scheduleTime: scheduleTime,
           complaint: complaint),
+    );
+  }
+
+  void createPayment(PatientSchedule schedulePatient, int totalPrice) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => ConfirmPaymentScreen(
+        schedulePatient: schedulePatient,
+        totalPrice: totalPrice,
+      ),
     );
   }
 
@@ -379,6 +391,12 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                                 patient.complaint!,
                                                 patient.doctorId!,
                                                 patient.patient!);
+                                          } else if (value ==
+                                              PasientStatus.completed) {
+                                            createPayment(
+                                              patient,
+                                              patient.totalPrice ?? 0,
+                                            );
                                           } else {
                                             scaffoldkey.currentState!
                                                 .openEndDrawer();

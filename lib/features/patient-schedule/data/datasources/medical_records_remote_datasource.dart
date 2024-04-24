@@ -57,7 +57,7 @@ class MedicalRecordsRemoteDatasource {
       int scheduleId) async {
     final authData = await AuthLocalDatasources().getAuthData();
     final url = Uri.parse(
-        '${Variables.baseUrl}/api/api-medical-records/services/$scheduleId');
+        '${Variables.baseUrl}/api/api-medical-records/service/$scheduleId');
     final response = await http.get(
       url,
       headers: {
