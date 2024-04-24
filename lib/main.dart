@@ -21,6 +21,7 @@ import 'features/master/presentation/bloc/data_patient/data_patient_bloc.dart';
 import 'features/master/presentation/bloc/data_service_medicine/data_service_medicine_bloc.dart';
 import 'features/patient-schedule/data/datasources/patient_schedule_remote_datasources.dart';
 import 'features/patient-schedule/presentation/bloc/create_medical_record/create_medical_record_bloc.dart';
+import 'features/patient-schedule/presentation/bloc/get_service_order/get_service_order_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/patient_schedule/patient_schedule_bloc.dart';
 import 'features/satusehat/presentation/bloc/city/city_bloc.dart';
 import 'features/satusehat/presentation/bloc/district/district_bloc.dart';
@@ -87,6 +88,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               CreateMedicalRecordBloc(MedicalRecordsRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              GetServiceOrderBloc(MedicalRecordsRemoteDatasource()),
         ),
       ],
       child: MaterialApp(
