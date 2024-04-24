@@ -13,15 +13,18 @@ part 'qris_state.dart';
 
 class QrisBloc extends Bloc<QrisEvent, QrisState> {
   final MidtransRemoteDatasource remoteDatasource;
+  QrisResponseModel? qrisResponseModel;
   QrisBloc(
     this.remoteDatasource,
   ) : super(const _Initial()) {
     on<_GenerateQrCode>((event, emit) async {
       emit(const _Loading());
       try {
-        final qrisResponseModel = await remoteDatasource.generateQrCode(
-            event.orderId, event.grossAmount);
-        emit(_QrisResponse(qrisResponseModel));
+        qrisResponseModel = await remoteDatasource.generateQrCode(
+          event.orderId,
+          event.grossAmount,
+        );
+        emit(_QrisResponse(qrisResponseModel!));
       } catch (e) {
         emit(_Error(e.toString()));
       }
@@ -31,7 +34,12 @@ class QrisBloc extends Bloc<QrisEvent, QrisState> {
       emit(const _Loading());
       try {
         final qrisStatusResponseModel =
-            await remoteDatasource.checkPaymentStatus(event.orderId);
+            await remoteDatasource.checkPaymentStatus(
+          event.orderId,
+        );
+        if (qrisStatusResponseModel.transactionStatus == 'pending') {
+          emit(_QrisResponse(qrisResponseModel!));
+        }
         emit(_QrisStatusCheck(qrisStatusResponseModel));
       } catch (e) {
         emit(_Error(e.toString()));

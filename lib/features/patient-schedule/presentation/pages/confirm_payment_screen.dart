@@ -11,8 +11,11 @@ import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
+import '../../../navbar/presentation/pages/navbar_screen.dart';
 import '../../data/models/response/patient_schedule_response_model.dart';
+import '../bloc/check_status/check_status_bloc.dart';
 import '../bloc/get_service_order/get_service_order_bloc.dart';
+import '../bloc/qris/qris_bloc.dart';
 import '../widgets/order_menu.dart';
 
 enum PaymentType { qris, cash }
@@ -48,10 +51,10 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
         );
 
     orderId = DateTime.now().millisecondsSinceEpoch.toString();
-    // context.read<QrisBloc>().add(QrisEvent.generateQRCode(
-    //       orderId,
-    //       widget.totalPrice,
-    //     ));
+    context.read<QrisBloc>().add(QrisEvent.generateQrCode(
+          orderId,
+          widget.totalPrice,
+        ));
 
     super.initState();
   }
@@ -303,137 +306,135 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                           const SpaceHeight(8.0),
                           const Divider(),
                           const SpaceHeight(8.0),
-                          // if (paymentType == PaymentType.qris) ...[
-                          //   BlocListener<CheckStatusBloc, CheckStatusState>(
-                          //     listener: (context, state) {
-                          //       state.maybeWhen(
-                          //         orElse: () {
-                          //           return;
-                          //         },
-                          //         loaded: (data) {
-                          //           print(data.transactionStatus);
-                          //           if (data.transactionStatus ==
-                          //               'settlement') {
-                          //             final requestModel =
-                          //                 CreatePaymentDetailRequestModel(
-                          //                     patientId: widget
-                          //                         .schedulePatient.patientId,
-                          //                     patientScheduleId: widget
-                          //                         .schedulePatient.id!
-                          //                         .toString(),
-                          //                     transactionTime: DateTime.now(),
-                          //                     totalPrice: totalPrice,
-                          //                     paymentMethod: 'QRIS');
-                          //             context
-                          //                 .read<CreatePaymentDetailBloc>()
-                          //                 .add(
-                          //                   CreatePaymentDetailEvent.create(
-                          //                       requestModel),
-                          //                 );
-                          //             ScaffoldMessenger.of(context)
-                          //                 .showSnackBar(
-                          //               const SnackBar(
-                          //                 content: Text('Pembayaran berhasil'),
-                          //                 backgroundColor: AppColors.green,
-                          //               ),
-                          //             );
-                          //             timer!.cancel();
-                          //             context.pushReplacement(DashboardPage());
-                          //           }
-                          //         },
-                          //       );
-                          //     },
-                          //     child: BlocListener<QrisBloc, QrisState>(
-                          //       listener: (context, state) {
-                          //         state.maybeWhen(
-                          //           orElse: () {
-                          //             return;
-                          //           },
-                          //           qrisResponse: (data) {
-                          //             //cek status secara berkala
-                          //             const onSec = Duration(seconds: 5);
-                          //             timer = Timer.periodic(onSec, (timer) {
-                          //               context.read<CheckStatusBloc>().add(
-                          //                   CheckStatusEvent.checkPaymentStatus(
-                          //                       orderId));
-                          //             });
-                          //           },
-                          //         );
-                          //       },
-                          //       child: BlocBuilder<QrisBloc, QrisState>(
-                          //         builder: (context, state) {
-                          //           return state.maybeWhen(
-                          //             orElse: () {
-                          //               return const SizedBox();
-                          //             },
-                          //             qrisResponse: (data) {
-                          //               print(data.actions!.first.url!);
-                          //               return Column(
-                          //                 mainAxisAlignment:
-                          //                     MainAxisAlignment.center,
-                          //                 children: [
-                          //                   Container(
-                          //                     width: 300.0,
-                          //                     height: 300.0,
-                          //                     decoration: BoxDecoration(
-                          //                       borderRadius:
-                          //                           BorderRadius.circular(20.0),
-                          //                       // color: AppColors.white,
-                          //                     ),
-                          //                     child: Center(
-                          //                       child: Image.network(
-                          //                         data.actions!.first.url!,
-                          //                       ),
-                          //                     ),
-                          //                   ),
-                          //                 ],
-                          //               );
-                          //             },
-                          //             loading: () {
-                          //               return Container(
-                          //                 width: 300.0,
-                          //                 height: 300.0,
-                          //                 decoration: BoxDecoration(
-                          //                   borderRadius:
-                          //                       BorderRadius.circular(20.0),
-                          //                   color: AppColors.white,
-                          //                 ),
-                          //                 child: const Center(
-                          //                   child: CircularProgressIndicator(),
-                          //                 ),
-                          //               );
-                          //             },
-                          //           );
-                          //         },
-                          //       ),
-                          //     ),
-                          //   ),
-                          //   // QrImageView(
-                          //   //   data: '1234567890',
-                          //   //   version: QrVersions.auto,
-                          //   //   size: 300.0,
-                          //   // ),
-                          // ] else if (paymentType == PaymentType.cash) ...[
-                          //   const Text(
-                          //     'Total Bayar',
-                          //     style: TextStyle(
-                          //       color: AppColors.primary,
-                          //       fontSize: 16,
-                          //       fontWeight: FontWeight.w500,
-                          //     ),
-                          //   ),
-                          //   const SpaceHeight(12.0),
-                          //   TextFormField(
-                          //     controller: nominalPaymentController,
-                          //     keyboardType: TextInputType.number,
-                          //     decoration: InputDecoration(
-                          //       border: OutlineInputBorder(
-                          //         borderRadius: BorderRadius.circular(8.0),
-                          //       ),
-                          //       hintText: 'Total harga',
-                          //     ),
-                          //   ),
-                          // ],
+                          if (paymentType == PaymentType.qris) ...[
+                            BlocListener<CheckStatusBloc, CheckStatusState>(
+                              listener: (context, state) {
+                                state.maybeWhen(
+                                  orElse: () {
+                                    return;
+                                  },
+                                  loaded: (data) {
+                                    debugPrint(data.transactionStatus);
+                                    if (data.transactionStatus ==
+                                        'settlement') {
+                                      // final requestModel =
+                                      //     CreatePaymentDetailRequestModel(
+                                      //         patientId: widget
+                                      //             .schedulePatient.patientId,
+                                      //         patientScheduleId: widget
+                                      //             .schedulePatient.id!
+                                      //             .toString(),
+                                      //         transactionTime: DateTime.now(),
+                                      //         totalPrice: totalPrice,
+                                      //         paymentMethod: 'QRIS');
+                                      // context
+                                      //     .read<CreatePaymentDetailBloc>()
+                                      //     .add(
+                                      //       CreatePaymentDetailEvent.create(
+                                      //           requestModel),
+                                      //     );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Pembayaran berhasil'),
+                                          backgroundColor: AppColors.green,
+                                        ),
+                                      );
+                                      timer!.cancel();
+                                      context
+                                          .pushReplacement(const NavbarScreen(
+                                        initialSelectedItem: 3,
+                                      ));
+                                    }
+                                  },
+                                );
+                              },
+                              child: BlocListener<QrisBloc, QrisState>(
+                                listener: (context, state) {
+                                  state.maybeWhen(
+                                    orElse: () {
+                                      return;
+                                    },
+                                    qrisResponse: (data) {
+                                      //cek status secara berkala
+                                      const onSec = Duration(seconds: 5);
+                                      timer = Timer.periodic(onSec, (timer) {
+                                        context.read<CheckStatusBloc>().add(
+                                            CheckStatusEvent.checkPaymentStatus(
+                                                orderId));
+                                      });
+                                    },
+                                  );
+                                },
+                                child: BlocBuilder<QrisBloc, QrisState>(
+                                  builder: (context, state) {
+                                    return state.maybeWhen(
+                                      orElse: () {
+                                        return const SizedBox();
+                                      },
+                                      qrisResponse: (data) {
+                                        debugPrint(data.actions!.first.url!);
+                                        return Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 300.0,
+                                              height: 300.0,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                // color: AppColors.white,
+                                              ),
+                                              child: Center(
+                                                child: Image.network(
+                                                  data.actions!.first.url!,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                      loading: () {
+                                        return Container(
+                                          width: 300.0,
+                                          height: 300.0,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                            color: AppColors.white,
+                                          ),
+                                          child: const Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ] else if (paymentType == PaymentType.cash) ...[
+                            const Text(
+                              'Total Bayar',
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SpaceHeight(12.0),
+                            TextFormField(
+                              controller: nominalPaymentController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                hintText: 'Total harga',
+                              ),
+                            ),
+                          ],
                           const SpaceHeight(100.0),
                         ],
                       ),
