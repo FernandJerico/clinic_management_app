@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../themes/colors.dart';
 
-enum PasientStatus {
+enum PatientStatus {
   waiting('Waiting'),
   confirmed('Confirmed'),
   processing('Processing'),
@@ -13,32 +13,32 @@ enum PasientStatus {
   notFound('Unknown status');
 
   final String value;
-  const PasientStatus(this.value);
+  const PatientStatus(this.value);
 
-  factory PasientStatus.fromValue(String value) {
+  factory PatientStatus.fromValue(String value) {
     return values.firstWhere(
       (element) => element.value == value,
-      orElse: () => PasientStatus.notFound,
+      orElse: () => PatientStatus.notFound,
     );
   }
 }
 
-extension PasientStatusExtension on PasientStatus {
+extension PasientStatusExtension on PatientStatus {
   Color get color {
     switch (this) {
-      case PasientStatus.waiting:
+      case PatientStatus.waiting:
         return AppColors.orderIsWaiting;
-      case PasientStatus.confirmed:
+      case PatientStatus.confirmed:
         return AppColors.orderIsConfirmed;
-      case PasientStatus.processing:
+      case PatientStatus.processing:
         return AppColors.orderIsProcessing;
-      case PasientStatus.processed:
+      case PatientStatus.processed:
         return AppColors.orderIsProcessing;
-      case PasientStatus.completed:
+      case PatientStatus.completed:
         return AppColors.orderIsCompleted;
-      case PasientStatus.rejected:
+      case PatientStatus.rejected:
         return AppColors.orderIsRejected;
-      case PasientStatus.onHold:
+      case PatientStatus.onHold:
         return AppColors.orderIsOnHold;
       default:
         throw Exception('Unknown status');
@@ -47,19 +47,19 @@ extension PasientStatusExtension on PasientStatus {
 
   Color get backgroundColor {
     switch (this) {
-      case PasientStatus.waiting:
+      case PatientStatus.waiting:
         return AppColors.orderIsWaiting.withOpacity(0.2);
-      case PasientStatus.confirmed:
+      case PatientStatus.confirmed:
         return AppColors.orderIsConfirmed.withOpacity(0.2);
-      case PasientStatus.processing:
+      case PatientStatus.processing:
         return AppColors.orderIsProcessing.withOpacity(0.2);
-      case PasientStatus.processed:
+      case PatientStatus.processed:
         return AppColors.orderIsProcessing.withOpacity(0.3);
-      case PasientStatus.completed:
+      case PatientStatus.completed:
         return AppColors.orderIsCompleted.withOpacity(0.2);
-      case PasientStatus.rejected:
+      case PatientStatus.rejected:
         return AppColors.orderIsRejected.withOpacity(0.2);
-      case PasientStatus.onHold:
+      case PatientStatus.onHold:
         return AppColors.orderIsOnHold.withOpacity(0.2);
       default:
         throw Exception('Unknown status');

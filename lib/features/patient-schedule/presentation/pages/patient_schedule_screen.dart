@@ -188,32 +188,32 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
           Row(
             children: [
               Badge(
-                backgroundColor: PasientStatus.waiting.color,
+                backgroundColor: PatientStatus.waiting.color,
                 smallSize: 18.0,
               ),
               const SpaceWidth(4.0),
-              Text(PasientStatus.waiting.value),
+              Text(PatientStatus.waiting.value),
               const SpaceWidth(40.0),
               Badge(
-                backgroundColor: PasientStatus.processing.color,
+                backgroundColor: PatientStatus.processing.color,
                 smallSize: 18.0,
               ),
               const SpaceWidth(4.0),
-              Text(PasientStatus.processing.value),
+              Text(PatientStatus.processing.value),
               const SpaceWidth(40.0),
               Badge(
-                backgroundColor: PasientStatus.completed.color,
+                backgroundColor: PatientStatus.completed.color,
                 smallSize: 18.0,
               ),
               const SpaceWidth(4.0),
-              Text(PasientStatus.completed.value),
+              Text(PatientStatus.completed.value),
               const SpaceWidth(40.0),
               Badge(
-                backgroundColor: PasientStatus.rejected.color,
+                backgroundColor: PatientStatus.rejected.color,
                 smallSize: 18.0,
               ),
               const SpaceWidth(4.0),
-              Text(PasientStatus.rejected.value),
+              Text(PatientStatus.rejected.value),
             ],
           ),
           const SpaceHeight(40.0),
@@ -285,27 +285,27 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                       borderRadius: BorderRadius.circular(12.0),
                                       child: ColoredBox(
                                         color: patient.status == 'waiting'
-                                            ? PasientStatus
+                                            ? PatientStatus
                                                 .waiting.backgroundColor
                                             : patient.status == 'processing'
-                                                ? PasientStatus
+                                                ? PatientStatus
                                                     .processing.backgroundColor
                                                 : patient.status == 'onHold'
-                                                    ? PasientStatus
+                                                    ? PatientStatus
                                                         .onHold.backgroundColor
                                                     : patient.status ==
                                                             'completed'
-                                                        ? PasientStatus
+                                                        ? PatientStatus
                                                             .completed
                                                             .backgroundColor
                                                         : patient.status ==
                                                                 'canceled'
-                                                            ? PasientStatus
+                                                            ? PatientStatus
                                                                 .rejected
                                                                 .backgroundColor
                                                             : patient.status ==
                                                                     'processed'
-                                                                ? PasientStatus
+                                                                ? PatientStatus
                                                                     .processed
                                                                     .backgroundColor
                                                                 : AppColors
@@ -317,28 +317,28 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                             patient.status ?? '',
                                             style: TextStyle(
                                               color: patient.status == 'waiting'
-                                                  ? PasientStatus.waiting.color
+                                                  ? PatientStatus.waiting.color
                                                   : patient.status ==
                                                           'processing'
-                                                      ? PasientStatus
+                                                      ? PatientStatus
                                                           .processing.color
                                                       : patient.status ==
                                                               'onHold'
-                                                          ? PasientStatus
+                                                          ? PatientStatus
                                                               .onHold.color
                                                           : patient.status ==
                                                                   'completed'
-                                                              ? PasientStatus
+                                                              ? PatientStatus
                                                                   .completed
                                                                   .color
                                                               : patient.status ==
                                                                       'canceled'
-                                                                  ? PasientStatus
+                                                                  ? PatientStatus
                                                                       .rejected
                                                                       .color
                                                                   : patient.status ==
                                                                           'processed'
-                                                                      ? PasientStatus
+                                                                      ? PatientStatus
                                                                           .processed
                                                                           .color
                                                                       : AppColors
@@ -351,30 +351,30 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                       ),
                                     )),
                                     DataCell(
-                                      PopupMenuButton<PasientStatus>(
+                                      PopupMenuButton<PatientStatus>(
                                         offset: const Offset(0, 50),
                                         icon: const Icon(Icons.more_horiz),
                                         itemBuilder: (BuildContext context) =>
-                                            <PopupMenuEntry<PasientStatus>>[
-                                          const PopupMenuItem<PasientStatus>(
-                                            value: PasientStatus.processing,
+                                            <PopupMenuEntry<PatientStatus>>[
+                                          const PopupMenuItem<PatientStatus>(
+                                            value: PatientStatus.processing,
                                             child: _PopupMenuItemValue(
-                                                PasientStatus.processing),
+                                                PatientStatus.processing),
                                           ),
-                                          const PopupMenuItem<PasientStatus>(
-                                            value: PasientStatus.completed,
+                                          const PopupMenuItem<PatientStatus>(
+                                            value: PatientStatus.completed,
                                             child: _PopupMenuItemValue(
-                                                PasientStatus.completed),
+                                                PatientStatus.completed),
                                           ),
-                                          const PopupMenuItem<PasientStatus>(
-                                            value: PasientStatus.rejected,
+                                          const PopupMenuItem<PatientStatus>(
+                                            value: PatientStatus.rejected,
                                             child: _PopupMenuItemValue(
-                                                PasientStatus.rejected),
+                                                PatientStatus.rejected),
                                           ),
                                         ],
-                                        onSelected: (PasientStatus value) {
+                                        onSelected: (PatientStatus value) {
                                           if (value ==
-                                              PasientStatus.processing) {
+                                              PatientStatus.processing) {
                                             createRmPatientTap(
                                                 patient.id!,
                                                 patient.scheduleTime!,
@@ -382,7 +382,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                                 patient.doctorId!,
                                                 patient.patient!);
                                           } else if (value ==
-                                              PasientStatus.completed) {
+                                              PatientStatus.completed) {
                                             createPayment(
                                               patient,
                                               patient.totalPrice ?? 0,
@@ -434,7 +434,7 @@ class SkeletonLoading extends StatelessWidget {
 }
 
 class _PopupMenuItemValue extends StatelessWidget {
-  final PasientStatus item;
+  final PatientStatus item;
   const _PopupMenuItemValue(this.item);
 
   @override
