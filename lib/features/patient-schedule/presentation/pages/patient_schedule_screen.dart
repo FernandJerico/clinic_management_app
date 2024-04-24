@@ -1,5 +1,7 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/date_time_ext.dart';
+import 'package:clinic_management_app/features/patient-schedule/data/models/response/patient_schedule_response_model.dart';
+import 'package:clinic_management_app/features/patient-schedule/presentation/dialogs/create_medical_record_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,6 +30,20 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
         .read<PatientScheduleBloc>()
         .add(const PatientScheduleEvent.getPatientSchedules());
     super.initState();
+  }
+
+  void createRmPatientTap(int patientScheduleId, DateTime scheduleTime,
+      String complaint, int doctorId, Patient patient) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => CreateMedicalRecordDialog(
+          doctorId: doctorId,
+          patient: patient,
+          patientScheduleId: patientScheduleId,
+          scheduleTime: scheduleTime,
+          complaint: complaint),
+    );
   }
 
   var columns = [
@@ -356,7 +372,12 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                         ],
                                         onSelected: (PasientStatus value) {
                                           if (value == PasientStatus.waiting) {
-                                            // createPatientTap(patientSchedules);
+                                            createRmPatientTap(
+                                                patient.id!,
+                                                patient.scheduleTime!,
+                                                patient.complaint!,
+                                                patient.doctorId!,
+                                                patient.patient!);
                                           } else {
                                             scaffoldkey.currentState!
                                                 .openEndDrawer();

@@ -1,9 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:clinic_management_app/features/patient-schedule/data/models/response/patient_schedule_response_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/int_ext.dart';
 import 'package:clinic_management_app/features/master/data/models/response/service_medicine_response_model.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_service_medicine/data_service_medicine_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/components/buttons.dart';
@@ -12,25 +15,23 @@ import '../../../../core/components/custom_dropdown.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
-import '../../../master/data/models/response/master_doctor_response_model.dart';
-import '../../../master/data/models/response/master_patient_response_model.dart';
 import '../../../master/presentation/widgets/medicine_card.dart';
 import '../../../master/presentation/widgets/medicine_dropdown.dart';
 
 class CreateMedicalRecordDialog extends StatefulWidget {
-  final MasterDoctor doctor;
-  final MasterPatient patient;
+  final int doctorId;
+  final Patient patient;
   final int patientScheduleId;
   final DateTime scheduleTime;
   final String complaint;
   const CreateMedicalRecordDialog({
-    super.key,
-    required this.doctor,
+    Key? key,
+    required this.doctorId,
     required this.patient,
     required this.patientScheduleId,
     required this.scheduleTime,
     required this.complaint,
-  });
+  }) : super(key: key);
 
   @override
   State<CreateMedicalRecordDialog> createState() =>
@@ -45,7 +46,6 @@ class _CreateMedicalRecordDialogState extends State<CreateMedicalRecordDialog> {
 
   late final ValueNotifier<String?> statusNotifier;
   late final TextEditingController patientNameController;
-  late final TextEditingController doctorNameController;
   late final TextEditingController nikController;
   late final TextEditingController complaintController;
   late final TextEditingController diagnosisController;
@@ -60,8 +60,6 @@ class _CreateMedicalRecordDialogState extends State<CreateMedicalRecordDialog> {
   void initState() {
     statusNotifier = ValueNotifier(statuses.first);
     patientNameController = TextEditingController(text: widget.patient.name);
-    doctorNameController =
-        TextEditingController(text: widget.doctor.doctorName);
     nikController = TextEditingController(text: widget.patient.nik);
     complaintController = TextEditingController(text: widget.complaint);
 
@@ -81,7 +79,6 @@ class _CreateMedicalRecordDialogState extends State<CreateMedicalRecordDialog> {
   @override
   void dispose() {
     patientNameController.dispose();
-    doctorNameController.dispose();
     statusNotifier.dispose();
     nikController.dispose();
     diagnosisController.dispose();
@@ -162,11 +159,6 @@ class _CreateMedicalRecordDialogState extends State<CreateMedicalRecordDialog> {
                           handlingTime = selectedDate,
                     ),
                     const SpaceHeight(24.0),
-                    CustomTextField(
-                      controller: doctorNameController,
-                      label: 'Dokter Pemeriksa',
-                      showLabel: false,
-                    ),
                     const SpaceHeight(24.0),
                     CustomTextField(
                       controller: complaintController,
