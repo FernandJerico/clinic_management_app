@@ -80,7 +80,9 @@ class SuccessPaymentDialog extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const NavbarScreen()));
+                              builder: (context) => const NavbarScreen(
+                                    initialSelectedItem: 3,
+                                  )));
                     },
                     label: 'Selesai',
                   ),

@@ -254,7 +254,9 @@ class _CreateReservationPatientDialogState
                           listener: (context, state) {
                             state.maybeWhen(
                               success: () {
-                                context.pushReplacement(const NavbarScreen());
+                                context.pushReplacement(const NavbarScreen(
+                                  initialSelectedItem: 3,
+                                ));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Reservation created!'),

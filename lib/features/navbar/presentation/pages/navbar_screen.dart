@@ -1,17 +1,23 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/auth/presentation/bloc/logout/logout_bloc.dart';
 import 'package:clinic_management_app/features/auth/presentation/pages/login_screen.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/master_screen.dart';
 import 'package:clinic_management_app/features/patient-schedule/presentation/pages/patient_schedule_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/themes/colors.dart';
 import '../widgets/nav_item.dart';
 
 class NavbarScreen extends StatefulWidget {
-  const NavbarScreen({super.key});
+  final int initialSelectedItem;
+  const NavbarScreen({
+    Key? key,
+    required this.initialSelectedItem,
+  }) : super(key: key);
 
   @override
   State<NavbarScreen> createState() => _NavbarScreenState();
@@ -27,6 +33,12 @@ class _NavbarScreenState extends State<NavbarScreen> {
     const PatientScheduleScreen(),
     const Center(child: Text('This is page 5')),
   ];
+
+  @override
+  void initState() {
+    _selectedIndex = widget.initialSelectedItem;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

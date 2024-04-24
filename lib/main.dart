@@ -122,7 +122,9 @@ class MyApp extends StatelessWidget {
               );
             } else {
               if (snapshot.hasData && snapshot.data == true) {
-                return const NavbarScreen();
+                return const NavbarScreen(
+                  initialSelectedItem: 0,
+                );
               } else {
                 return const LoginScreen();
               }

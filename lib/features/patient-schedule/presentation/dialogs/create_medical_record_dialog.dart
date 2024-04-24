@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:clinic_management_app/features/patient-schedule/data/models/response/patient_schedule_response_model.dart';
+import 'package:clinic_management_app/features/patient-schedule/presentation/bloc/patient_schedule/patient_schedule_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -337,6 +338,9 @@ class _CreateMedicalRecordDialogState extends State<CreateMedicalRecordDialog> {
                                         ));
                                       },
                                       loaded: (responseModel) {
+                                        context.read<PatientScheduleBloc>().add(
+                                            const PatientScheduleEvent
+                                                .getPatientSchedules());
                                         context.pop(true);
                                         showDialog(
                                           context: context,
