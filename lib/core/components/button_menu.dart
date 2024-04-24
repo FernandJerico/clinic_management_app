@@ -1,5 +1,7 @@
+import 'package:clinic_management_app/core/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../themes/colors.dart';
 
@@ -32,9 +34,10 @@ class ButtonMenu extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Flexible(child: Image.asset(iconPath)),
+            const SpaceHeight(4),
             Text(
               label,
-              style: const TextStyle(
+              style: GoogleFonts.poppins(
                 color: AppColors.primary,
                 fontWeight: FontWeight.w500,
               ),
