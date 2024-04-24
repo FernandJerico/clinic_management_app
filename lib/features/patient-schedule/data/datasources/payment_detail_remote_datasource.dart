@@ -24,7 +24,7 @@ class PaymentDetailRemoteDatasource {
       body: requestModel.toJson(),
     );
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return Right(CreatePaymentDetailResponseModel.fromJson(response.body));
     } else {
       return const Left('Failed to create payment detail');

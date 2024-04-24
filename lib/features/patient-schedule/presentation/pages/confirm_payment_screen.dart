@@ -12,8 +12,10 @@ import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../../../navbar/presentation/pages/navbar_screen.dart';
+import '../../data/models/request/create_payment_detail_request_model.dart';
 import '../../data/models/response/patient_schedule_response_model.dart';
 import '../bloc/check_status/check_status_bloc.dart';
+import '../bloc/create_payment_detail/create_payment_detail_bloc.dart';
 import '../bloc/get_service_order/get_service_order_bloc.dart';
 import '../bloc/qris/qris_bloc.dart';
 import '../widgets/order_menu.dart';
@@ -317,22 +319,23 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                     debugPrint(data.transactionStatus);
                                     if (data.transactionStatus ==
                                         'settlement') {
-                                      // final requestModel =
-                                      //     CreatePaymentDetailRequestModel(
-                                      //         patientId: widget
-                                      //             .schedulePatient.patientId,
-                                      //         patientScheduleId: widget
-                                      //             .schedulePatient.id!
-                                      //             .toString(),
-                                      //         transactionTime: DateTime.now(),
-                                      //         totalPrice: totalPrice,
-                                      //         paymentMethod: 'QRIS');
-                                      // context
-                                      //     .read<CreatePaymentDetailBloc>()
-                                      //     .add(
-                                      //       CreatePaymentDetailEvent.create(
-                                      //           requestModel),
-                                      //     );
+                                      final requestModel =
+                                          CreatePaymentDetailRequestModel(
+                                              patientId: widget
+                                                  .schedulePatient.patientId,
+                                              patientScheduleId: widget
+                                                  .schedulePatient.id!
+                                                  .toString(),
+                                              transactionTime: DateTime.now(),
+                                              totalPrice: totalPrice,
+                                              paymentMethod: 'QRIS');
+                                      context
+                                          .read<CreatePaymentDetailBloc>()
+                                          .add(
+                                            CreatePaymentDetailEvent
+                                                .createPaymentDetail(
+                                                    requestModel),
+                                          );
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         const SnackBar(
@@ -456,78 +459,80 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                       ),
                                     ),
                                     const SpaceWidth(8.0),
-                                    // Flexible(
-                                    //   child: BlocConsumer<
-                                    //       CreatePaymentDetailBloc,
-                                    //       CreatePaymentDetailState>(
-                                    //     listener: (context, state) {
-                                    //       state.maybeWhen(
-                                    //         orElse: () {},
-                                    //         error: (message) {
-                                    //           return ScaffoldMessenger.of(
-                                    //                   context)
-                                    //               .showSnackBar(const SnackBar(
-                                    //             content:
-                                    //                 Text('Pembayaran gagal'),
-                                    //             backgroundColor: AppColors.red,
-                                    //           ));
-                                    //         },
-                                    //         loaded: (responseModel) {
-                                    //           ScaffoldMessenger.of(context)
-                                    //               .showSnackBar(const SnackBar(
-                                    //             content:
-                                    //                 Text('Pembayaran berhasil'),
-                                    //             backgroundColor:
-                                    //                 AppColors.green,
-                                    //           ));
-                                    //           context.pushReplacement(
-                                    //             DashboardPage(),
-                                    //           );
-                                    //         },
-                                    //       );
-                                    //     },
-                                    //     builder: (context, state) {
-                                    //       return state.maybeWhen(
-                                    //         orElse: () {
-                                    //           return Button.filled(
-                                    //             onPressed: () async {
-                                    //               final requestModel =
-                                    //                   CreatePaymentDetailRequestModel(
-                                    //                       patientId: widget
-                                    //                           .schedulePatient
-                                    //                           .patientId,
-                                    //                       patientScheduleId:
-                                    //                           widget
-                                    //                               .schedulePatient
-                                    //                               .id!
-                                    //                               .toString(),
-                                    //                       transactionTime:
-                                    //                           DateTime.now(),
-                                    //                       totalPrice:
-                                    //                           totalPrice,
-                                    //                       paymentMethod:
-                                    //                           'Cash');
-                                    //               context
-                                    //                   .read<
-                                    //                       CreatePaymentDetailBloc>()
-                                    //                   .add(
-                                    //                     CreatePaymentDetailEvent
-                                    //                         .create(
-                                    //                             requestModel),
-                                    //                   );
-                                    //             },
-                                    //             label: 'Bayar',
-                                    //           );
-                                    //         },
-                                    //         loading: () => const Align(
-                                    //           alignment: Alignment.center,
-                                    //           child:
-                                    //               CircularProgressIndicator(),
-                                    //         ),
-                                    //       );
-                                    //     },
-                                    //   ),
-                                    // ),
+                                    Flexible(
+                                      child: BlocConsumer<
+                                          CreatePaymentDetailBloc,
+                                          CreatePaymentDetailState>(
+                                        listener: (context, state) {
+                                          state.maybeWhen(
+                                            orElse: () {},
+                                            error: (message) {
+                                              return ScaffoldMessenger.of(
+                                                      context)
+                                                  .showSnackBar(const SnackBar(
+                                                content:
+                                                    Text('Pembayaran gagal'),
+                                                backgroundColor: AppColors.red,
+                                              ));
+                                            },
+                                            loaded: (responseModel) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                content:
+                                                    Text('Pembayaran berhasil'),
+                                                backgroundColor:
+                                                    AppColors.green,
+                                              ));
+                                              context.pushReplacement(
+                                                const NavbarScreen(
+                                                  initialSelectedItem: 3,
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                        builder: (context, state) {
+                                          return state.maybeWhen(
+                                            orElse: () {
+                                              return Button.filled(
+                                                onPressed: () async {
+                                                  final requestModel =
+                                                      CreatePaymentDetailRequestModel(
+                                                          patientId: widget
+                                                              .schedulePatient
+                                                              .patientId,
+                                                          patientScheduleId:
+                                                              widget
+                                                                  .schedulePatient
+                                                                  .id!
+                                                                  .toString(),
+                                                          transactionTime:
+                                                              DateTime.now(),
+                                                          totalPrice:
+                                                              totalPrice,
+                                                          paymentMethod:
+                                                              'Cash');
+                                                  context
+                                                      .read<
+                                                          CreatePaymentDetailBloc>()
+                                                      .add(
+                                                        CreatePaymentDetailEvent
+                                                            .createPaymentDetail(
+                                                                requestModel),
+                                                      );
+                                                },
+                                                label: 'Bayar',
+                                              );
+                                            },
+                                            loading: () => const Align(
+                                              alignment: Alignment.center,
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),

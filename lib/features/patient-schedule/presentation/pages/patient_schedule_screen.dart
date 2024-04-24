@@ -202,18 +202,18 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
               Text(PasientStatus.processing.value),
               const SpaceWidth(40.0),
               Badge(
-                backgroundColor: PasientStatus.onHold.color,
-                smallSize: 18.0,
-              ),
-              const SpaceWidth(4.0),
-              Text(PasientStatus.onHold.value),
-              const SpaceWidth(40.0),
-              Badge(
                 backgroundColor: PasientStatus.completed.color,
                 smallSize: 18.0,
               ),
               const SpaceWidth(4.0),
               Text(PasientStatus.completed.value),
+              const SpaceWidth(40.0),
+              Badge(
+                backgroundColor: PasientStatus.rejected.color,
+                smallSize: 18.0,
+              ),
+              const SpaceWidth(4.0),
+              Text(PasientStatus.rejected.value),
             ],
           ),
           const SpaceHeight(40.0),
@@ -360,16 +360,6 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                             value: PasientStatus.processing,
                                             child: _PopupMenuItemValue(
                                                 PasientStatus.processing),
-                                          ),
-                                          const PopupMenuItem<PasientStatus>(
-                                            value: PasientStatus.onHold,
-                                            child: _PopupMenuItemValue(
-                                                PasientStatus.onHold),
-                                          ),
-                                          const PopupMenuItem<PasientStatus>(
-                                            value: PasientStatus.waiting,
-                                            child: _PopupMenuItemValue(
-                                                PasientStatus.waiting),
                                           ),
                                           const PopupMenuItem<PasientStatus>(
                                             value: PasientStatus.completed,
