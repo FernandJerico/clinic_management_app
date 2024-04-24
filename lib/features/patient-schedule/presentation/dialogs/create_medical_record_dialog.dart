@@ -90,6 +90,23 @@ class _CreateMedicalRecordDialogState extends State<CreateMedicalRecordDialog> {
     super.dispose();
   }
 
+  void calculateTotalPrice() {
+    int total = 0;
+    for (var i = 0; i < medicineSelected.length; i++) {
+      final item = medicineSelected[i];
+      final quantity = quantityNotifier[i].value;
+      total += item.price! * quantity;
+    }
+    setState(() {
+      totalPrice = total;
+    });
+  }
+
+  void updateQuantity(int index, int value) {
+    quantityNotifier[index].value = value;
+    calculateTotalPrice();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
