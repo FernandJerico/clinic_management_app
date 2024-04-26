@@ -185,36 +185,39 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
       body: ListView(
         padding: const EdgeInsets.all(24.0),
         children: [
-          Row(
-            children: [
-              Badge(
-                backgroundColor: PatientStatus.waiting.color,
-                smallSize: 18.0,
-              ),
-              const SpaceWidth(4.0),
-              Text(PatientStatus.waiting.value),
-              const SpaceWidth(40.0),
-              Badge(
-                backgroundColor: PatientStatus.processing.color,
-                smallSize: 18.0,
-              ),
-              const SpaceWidth(4.0),
-              Text(PatientStatus.processing.value),
-              const SpaceWidth(40.0),
-              Badge(
-                backgroundColor: PatientStatus.completed.color,
-                smallSize: 18.0,
-              ),
-              const SpaceWidth(4.0),
-              Text(PatientStatus.completed.value),
-              const SpaceWidth(40.0),
-              Badge(
-                backgroundColor: PatientStatus.rejected.color,
-                smallSize: 18.0,
-              ),
-              const SpaceWidth(4.0),
-              Text(PatientStatus.rejected.value),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Badge(
+                  backgroundColor: PatientStatus.waiting.color,
+                  smallSize: 18.0,
+                ),
+                const SpaceWidth(4.0),
+                Text(PatientStatus.waiting.value),
+                const SpaceWidth(40.0),
+                Badge(
+                  backgroundColor: PatientStatus.processing.color,
+                  smallSize: 18.0,
+                ),
+                const SpaceWidth(4.0),
+                Text(PatientStatus.processing.value),
+                const SpaceWidth(40.0),
+                Badge(
+                  backgroundColor: PatientStatus.completed.color,
+                  smallSize: 18.0,
+                ),
+                const SpaceWidth(4.0),
+                Text(PatientStatus.completed.value),
+                const SpaceWidth(40.0),
+                Badge(
+                  backgroundColor: PatientStatus.rejected.color,
+                  smallSize: 18.0,
+                ),
+                const SpaceWidth(4.0),
+                Text(PatientStatus.rejected.value),
+              ],
+            ),
           ),
           const SpaceHeight(40.0),
           Container(
