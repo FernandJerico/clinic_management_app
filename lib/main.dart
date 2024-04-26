@@ -126,9 +126,6 @@ class MyApp extends StatelessWidget {
               fontSize: 16.0,
               fontWeight: FontWeight.w500,
             ),
-            iconTheme: const IconThemeData(
-              color: AppColors.primary,
-            ),
           ),
         ),
         home: FutureBuilder(

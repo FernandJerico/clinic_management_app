@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_schedule_screen.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_screen.dart';
@@ -37,9 +38,12 @@ class _MasterScreenState extends State<MasterScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 80.0, vertical: 110.0),
+        padding: ResponsiveWidget.isLargeScreen(context)
+            ? const EdgeInsets.symmetric(horizontal: 80.0, vertical: 110.0)
+            : const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
         child: Wrap(
           runSpacing: 16,
+          verticalDirection: VerticalDirection.down,
           children: [
             ButtonMenu(
               label: 'Data Dokter',

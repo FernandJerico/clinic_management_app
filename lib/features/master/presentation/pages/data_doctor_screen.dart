@@ -1,4 +1,5 @@
 import 'package:clinic_management_app/core/components/components.dart';
+import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
@@ -115,6 +116,10 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                       padding: const EdgeInsets.all(8),
                                       child: Image.network(
                                         '${Variables.imageBaseUrl}/${doctor.photo.replaceAll('public/', '')}',
+                                        height: ResponsiveWidget.isLargeScreen(
+                                                context)
+                                            ? 75
+                                            : 50,
                                       ),
                                     ),
                                     const SpaceWidth(8),

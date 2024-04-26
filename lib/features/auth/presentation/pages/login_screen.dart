@@ -7,6 +7,7 @@ import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
+import '../../../../core/constants/responsive.dart';
 import '../../../../core/themes/colors.dart';
 import '../bloc/login/login_bloc.dart';
 
@@ -129,42 +130,43 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             // RIGHT CONTENT
-            Expanded(
-              flex: 1,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  width: context.deviceWidth,
-                  height: context.deviceHeight,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: Assets.images.splashScreen.provider(),
-                      fit: BoxFit.cover,
+            if (ResponsiveWidget.isLargeScreen(context))
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    width: context.deviceWidth,
+                    height: context.deviceHeight,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: Assets.images.splashScreen.provider(),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 67.0, right: 15.0, left: 120.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'Embark on efficiency with a single click, discover the seamless world of clinic management!',
-                          style: TextStyle(
-                            fontSize: 32.0,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 67.0, right: 15.0, left: 120.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'SELAMAT DATANG!, \nDi Klinik Pratama Fuji Cirebon',
+                            style: TextStyle(
+                              fontSize: 32.0,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.white,
+                            ),
+                            textAlign: TextAlign.end,
                           ),
-                          textAlign: TextAlign.end,
-                        ),
-                        const SpaceHeight(50.0),
-                        Flexible(child: Assets.images.dokterku.image()),
-                      ],
+                          const SpaceHeight(50.0),
+                          Flexible(child: Assets.images.dokterku.image()),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
