@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:clinic_management_app/core/constants/responsive.dart';
+import 'package:clinic_management_app/features/medical-record/presentation/pages/medical_record_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +33,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
   final List<Widget> _pages = [
     const Center(child: Text('This is page 1')),
     MasterScreen(onTap: (_) {}),
-    const Center(child: Text('This is page 3')),
+    const MedicalRecordScreen(),
     const PatientScheduleScreen(),
     const Center(child: Text('This is page 5')),
   ];
