@@ -33,6 +33,9 @@ class $AssetsIconsGen {
   SvgGenImage get folderOpen =>
       const SvgGenImage('assets/icons/folder-open.svg');
 
+  /// File path: assets/icons/history.svg
+  SvgGenImage get history => const SvgGenImage('assets/icons/history.svg');
+
   /// File path: assets/icons/logo.svg
   SvgGenImage get logo => const SvgGenImage('assets/icons/logo.svg');
 
@@ -57,6 +60,7 @@ class $AssetsIconsGen {
         delete,
         filter,
         folderOpen,
+        history,
         logo,
         setting,
         shoppingBagProduct,
