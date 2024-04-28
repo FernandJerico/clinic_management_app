@@ -359,16 +359,21 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                         icon: const Icon(Icons.more_horiz),
                                         itemBuilder: (BuildContext context) =>
                                             <PopupMenuEntry<PatientStatus>>[
-                                          const PopupMenuItem<PatientStatus>(
-                                            value: PatientStatus.processing,
-                                            child: _PopupMenuItemValue(
-                                                PatientStatus.processing),
-                                          ),
-                                          const PopupMenuItem<PatientStatus>(
-                                            value: PatientStatus.completed,
-                                            child: _PopupMenuItemValue(
-                                                PatientStatus.completed),
-                                          ),
+                                          patient.status == 'waiting'
+                                              ? const PopupMenuItem<
+                                                  PatientStatus>(
+                                                  value:
+                                                      PatientStatus.processing,
+                                                  child: _PopupMenuItemValue(
+                                                      PatientStatus.processing),
+                                                )
+                                              : const PopupMenuItem<
+                                                  PatientStatus>(
+                                                  value:
+                                                      PatientStatus.completed,
+                                                  child: _PopupMenuItemValue(
+                                                      PatientStatus.completed),
+                                                ),
                                           const PopupMenuItem<PatientStatus>(
                                             value: PatientStatus.rejected,
                                             child: _PopupMenuItemValue(
