@@ -1,6 +1,7 @@
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_remote_datasources.dart';
 import 'package:clinic_management_app/features/auth/presentation/pages/login_screen.dart';
+import 'package:clinic_management_app/features/history/data/datasource/history_transaction_remote_datasource.dart';
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/data/datasources/patient_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
@@ -16,6 +17,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'core/themes/colors.dart';
 import 'features/auth/presentation/bloc/login/login_bloc.dart';
 import 'features/auth/presentation/bloc/logout/logout_bloc.dart';
+import 'features/history/presentation/bloc/history_transaction/history_transaction_bloc.dart';
 import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
 import 'features/master/presentation/bloc/add_reservation/add_reservation_bloc.dart';
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
@@ -112,6 +114,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               GetMedicalRecordBloc(MedicalRecordsRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              HistoryTransactionBloc(HistoryTransactionRemoteDatasource()),
         ),
       ],
       child: MaterialApp(

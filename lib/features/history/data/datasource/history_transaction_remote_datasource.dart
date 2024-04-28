@@ -8,7 +8,7 @@ class HistoryTransactionRemoteDatasource {
   Future<Either<String, HistoryTransactionlResponseModel>>
       getHistoryTransaction() async {
     final authData = await AuthLocalDatasources().getAuthData();
-    final url = Uri.parse('${Variables.baseUrl}/api-payment-details');
+    final url = Uri.parse('${Variables.baseUrl}/api/api-payment-details');
     final response = await http.get(
       url,
       headers: {
