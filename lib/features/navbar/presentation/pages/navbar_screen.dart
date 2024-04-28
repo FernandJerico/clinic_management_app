@@ -106,7 +106,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                             iconPath: Assets.icons.chartPie.path,
                             isActive: _selectedIndex == 2,
                             onTap: () => _onItemTapped(2),
-                            text: 'Report',
+                            text: 'Records',
                           ),
                           NavItem(
                             iconPath: Assets.icons.shoppingBagProduct.path,
@@ -193,7 +193,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
                                   iconPath: Assets.icons.chartPie.path,
                                   isActive: _selectedIndex == 2,
                                   onTap: () => _onItemTapped(2),
-                                  text: 'Report',
+                                  text: 'Records',
                                 ),
                                 NavItem(
                                   iconPath:

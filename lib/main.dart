@@ -21,6 +21,7 @@ import 'features/master/presentation/bloc/add_reservation/add_reservation_bloc.d
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
 import 'features/master/presentation/bloc/data_patient/data_patient_bloc.dart';
 import 'features/master/presentation/bloc/data_service_medicine/data_service_medicine_bloc.dart';
+import 'features/medical-record/presentation/bloc/get_medical_record/get_medical_record_bloc.dart';
 import 'features/patient-schedule/data/datasources/patient_schedule_remote_datasources.dart';
 import 'features/patient-schedule/presentation/bloc/check_status/check_status_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/create_medical_record/create_medical_record_bloc.dart';
@@ -107,6 +108,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               CreatePaymentDetailBloc(PaymentDetailRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              GetMedicalRecordBloc(MedicalRecordsRemoteDatasource()),
         ),
       ],
       child: MaterialApp(
