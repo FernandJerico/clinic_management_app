@@ -20,18 +20,21 @@ mixin _$GetMedicalRecordEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getMedicalRecord,
+    required TResult Function(String name) getMedicalRecordByName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getMedicalRecord,
+    TResult? Function(String name)? getMedicalRecordByName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getMedicalRecord,
+    TResult Function(String name)? getMedicalRecordByName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,22 @@ mixin _$GetMedicalRecordEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetMedicalRecord value) getMedicalRecord,
+    required TResult Function(_GetMedicalRecordByName value)
+        getMedicalRecordByName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetMedicalRecord value)? getMedicalRecord,
+    TResult? Function(_GetMedicalRecordByName value)? getMedicalRecordByName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetMedicalRecord value)? getMedicalRecord,
+    TResult Function(_GetMedicalRecordByName value)? getMedicalRecordByName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -115,6 +122,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getMedicalRecord,
+    required TResult Function(String name) getMedicalRecordByName,
   }) {
     return started();
   }
@@ -124,6 +132,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getMedicalRecord,
+    TResult? Function(String name)? getMedicalRecordByName,
   }) {
     return started?.call();
   }
@@ -133,6 +142,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getMedicalRecord,
+    TResult Function(String name)? getMedicalRecordByName,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -146,6 +156,8 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetMedicalRecord value) getMedicalRecord,
+    required TResult Function(_GetMedicalRecordByName value)
+        getMedicalRecordByName,
   }) {
     return started(this);
   }
@@ -155,6 +167,7 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetMedicalRecord value)? getMedicalRecord,
+    TResult? Function(_GetMedicalRecordByName value)? getMedicalRecordByName,
   }) {
     return started?.call(this);
   }
@@ -164,6 +177,7 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetMedicalRecord value)? getMedicalRecord,
+    TResult Function(_GetMedicalRecordByName value)? getMedicalRecordByName,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -217,6 +231,7 @@ class _$GetMedicalRecordImpl implements _GetMedicalRecord {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getMedicalRecord,
+    required TResult Function(String name) getMedicalRecordByName,
   }) {
     return getMedicalRecord();
   }
@@ -226,6 +241,7 @@ class _$GetMedicalRecordImpl implements _GetMedicalRecord {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getMedicalRecord,
+    TResult? Function(String name)? getMedicalRecordByName,
   }) {
     return getMedicalRecord?.call();
   }
@@ -235,6 +251,7 @@ class _$GetMedicalRecordImpl implements _GetMedicalRecord {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getMedicalRecord,
+    TResult Function(String name)? getMedicalRecordByName,
     required TResult orElse(),
   }) {
     if (getMedicalRecord != null) {
@@ -248,6 +265,8 @@ class _$GetMedicalRecordImpl implements _GetMedicalRecord {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetMedicalRecord value) getMedicalRecord,
+    required TResult Function(_GetMedicalRecordByName value)
+        getMedicalRecordByName,
   }) {
     return getMedicalRecord(this);
   }
@@ -257,6 +276,7 @@ class _$GetMedicalRecordImpl implements _GetMedicalRecord {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetMedicalRecord value)? getMedicalRecord,
+    TResult? Function(_GetMedicalRecordByName value)? getMedicalRecordByName,
   }) {
     return getMedicalRecord?.call(this);
   }
@@ -266,6 +286,7 @@ class _$GetMedicalRecordImpl implements _GetMedicalRecord {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetMedicalRecord value)? getMedicalRecord,
+    TResult Function(_GetMedicalRecordByName value)? getMedicalRecordByName,
     required TResult orElse(),
   }) {
     if (getMedicalRecord != null) {
@@ -277,6 +298,151 @@ class _$GetMedicalRecordImpl implements _GetMedicalRecord {
 
 abstract class _GetMedicalRecord implements GetMedicalRecordEvent {
   const factory _GetMedicalRecord() = _$GetMedicalRecordImpl;
+}
+
+/// @nodoc
+abstract class _$$GetMedicalRecordByNameImplCopyWith<$Res> {
+  factory _$$GetMedicalRecordByNameImplCopyWith(
+          _$GetMedicalRecordByNameImpl value,
+          $Res Function(_$GetMedicalRecordByNameImpl) then) =
+      __$$GetMedicalRecordByNameImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String name});
+}
+
+/// @nodoc
+class __$$GetMedicalRecordByNameImplCopyWithImpl<$Res>
+    extends _$GetMedicalRecordEventCopyWithImpl<$Res,
+        _$GetMedicalRecordByNameImpl>
+    implements _$$GetMedicalRecordByNameImplCopyWith<$Res> {
+  __$$GetMedicalRecordByNameImplCopyWithImpl(
+      _$GetMedicalRecordByNameImpl _value,
+      $Res Function(_$GetMedicalRecordByNameImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+  }) {
+    return _then(_$GetMedicalRecordByNameImpl(
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetMedicalRecordByNameImpl implements _GetMedicalRecordByName {
+  const _$GetMedicalRecordByNameImpl(this.name);
+
+  @override
+  final String name;
+
+  @override
+  String toString() {
+    return 'GetMedicalRecordEvent.getMedicalRecordByName(name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetMedicalRecordByNameImpl &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetMedicalRecordByNameImplCopyWith<_$GetMedicalRecordByNameImpl>
+      get copyWith => __$$GetMedicalRecordByNameImplCopyWithImpl<
+          _$GetMedicalRecordByNameImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getMedicalRecord,
+    required TResult Function(String name) getMedicalRecordByName,
+  }) {
+    return getMedicalRecordByName(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? getMedicalRecord,
+    TResult? Function(String name)? getMedicalRecordByName,
+  }) {
+    return getMedicalRecordByName?.call(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getMedicalRecord,
+    TResult Function(String name)? getMedicalRecordByName,
+    required TResult orElse(),
+  }) {
+    if (getMedicalRecordByName != null) {
+      return getMedicalRecordByName(name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetMedicalRecord value) getMedicalRecord,
+    required TResult Function(_GetMedicalRecordByName value)
+        getMedicalRecordByName,
+  }) {
+    return getMedicalRecordByName(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetMedicalRecord value)? getMedicalRecord,
+    TResult? Function(_GetMedicalRecordByName value)? getMedicalRecordByName,
+  }) {
+    return getMedicalRecordByName?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetMedicalRecord value)? getMedicalRecord,
+    TResult Function(_GetMedicalRecordByName value)? getMedicalRecordByName,
+    required TResult orElse(),
+  }) {
+    if (getMedicalRecordByName != null) {
+      return getMedicalRecordByName(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetMedicalRecordByName implements GetMedicalRecordEvent {
+  const factory _GetMedicalRecordByName(final String name) =
+      _$GetMedicalRecordByNameImpl;
+
+  String get name;
+  @JsonKey(ignore: true)
+  _$$GetMedicalRecordByNameImplCopyWith<_$GetMedicalRecordByNameImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

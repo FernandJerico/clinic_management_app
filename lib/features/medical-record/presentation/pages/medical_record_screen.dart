@@ -37,9 +37,18 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
           title: 'Rekam Medis',
           withSearchInput: true,
           searchController: searchController,
-          keyboardType: TextInputType.text,
-          searchChanged: (value) {},
-          searchHint: 'Cari Rekam Medis Berdasarkan NIK',
+          searchChanged: (value) {
+            if (value.isNotEmpty) {
+              context.read<GetMedicalRecordBloc>().add(
+                  GetMedicalRecordEvent.getMedicalRecordByName(
+                      searchController.text));
+            } else {
+              context
+                  .read<GetMedicalRecordBloc>()
+                  .add(const GetMedicalRecordEvent.getMedicalRecord());
+            }
+          },
+          searchHint: 'Cari Rekam Medis Berdasarkan Nama',
         ),
       ),
       body: Padding(
