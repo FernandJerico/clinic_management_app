@@ -20,18 +20,21 @@ mixin _$HistoryTransactionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getHistoryTransaction,
+    required TResult Function(String name) getHistoryTransactionByName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getHistoryTransaction,
+    TResult? Function(String name)? getHistoryTransactionByName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getHistoryTransaction,
+    TResult Function(String name)? getHistoryTransactionByName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -40,18 +43,24 @@ mixin _$HistoryTransactionEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_GetHistoryTransaction value)
         getHistoryTransaction,
+    required TResult Function(_GetHistoryTransactionByName value)
+        getHistoryTransactionByName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetHistoryTransaction value)? getHistoryTransaction,
+    TResult? Function(_GetHistoryTransactionByName value)?
+        getHistoryTransactionByName,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetHistoryTransaction value)? getHistoryTransaction,
+    TResult Function(_GetHistoryTransactionByName value)?
+        getHistoryTransactionByName,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -116,6 +125,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getHistoryTransaction,
+    required TResult Function(String name) getHistoryTransactionByName,
   }) {
     return started();
   }
@@ -125,6 +135,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getHistoryTransaction,
+    TResult? Function(String name)? getHistoryTransactionByName,
   }) {
     return started?.call();
   }
@@ -134,6 +145,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getHistoryTransaction,
+    TResult Function(String name)? getHistoryTransactionByName,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -148,6 +160,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_GetHistoryTransaction value)
         getHistoryTransaction,
+    required TResult Function(_GetHistoryTransactionByName value)
+        getHistoryTransactionByName,
   }) {
     return started(this);
   }
@@ -157,6 +171,8 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetHistoryTransaction value)? getHistoryTransaction,
+    TResult? Function(_GetHistoryTransactionByName value)?
+        getHistoryTransactionByName,
   }) {
     return started?.call(this);
   }
@@ -166,6 +182,8 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetHistoryTransaction value)? getHistoryTransaction,
+    TResult Function(_GetHistoryTransactionByName value)?
+        getHistoryTransactionByName,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -222,6 +240,7 @@ class _$GetHistoryTransactionImpl implements _GetHistoryTransaction {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function() getHistoryTransaction,
+    required TResult Function(String name) getHistoryTransactionByName,
   }) {
     return getHistoryTransaction();
   }
@@ -231,6 +250,7 @@ class _$GetHistoryTransactionImpl implements _GetHistoryTransaction {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function()? getHistoryTransaction,
+    TResult? Function(String name)? getHistoryTransactionByName,
   }) {
     return getHistoryTransaction?.call();
   }
@@ -240,6 +260,7 @@ class _$GetHistoryTransactionImpl implements _GetHistoryTransaction {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function()? getHistoryTransaction,
+    TResult Function(String name)? getHistoryTransactionByName,
     required TResult orElse(),
   }) {
     if (getHistoryTransaction != null) {
@@ -254,6 +275,8 @@ class _$GetHistoryTransactionImpl implements _GetHistoryTransaction {
     required TResult Function(_Started value) started,
     required TResult Function(_GetHistoryTransaction value)
         getHistoryTransaction,
+    required TResult Function(_GetHistoryTransactionByName value)
+        getHistoryTransactionByName,
   }) {
     return getHistoryTransaction(this);
   }
@@ -263,6 +286,8 @@ class _$GetHistoryTransactionImpl implements _GetHistoryTransaction {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetHistoryTransaction value)? getHistoryTransaction,
+    TResult? Function(_GetHistoryTransactionByName value)?
+        getHistoryTransactionByName,
   }) {
     return getHistoryTransaction?.call(this);
   }
@@ -272,6 +297,8 @@ class _$GetHistoryTransactionImpl implements _GetHistoryTransaction {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetHistoryTransaction value)? getHistoryTransaction,
+    TResult Function(_GetHistoryTransactionByName value)?
+        getHistoryTransactionByName,
     required TResult orElse(),
   }) {
     if (getHistoryTransaction != null) {
@@ -283,6 +310,155 @@ class _$GetHistoryTransactionImpl implements _GetHistoryTransaction {
 
 abstract class _GetHistoryTransaction implements HistoryTransactionEvent {
   const factory _GetHistoryTransaction() = _$GetHistoryTransactionImpl;
+}
+
+/// @nodoc
+abstract class _$$GetHistoryTransactionByNameImplCopyWith<$Res> {
+  factory _$$GetHistoryTransactionByNameImplCopyWith(
+          _$GetHistoryTransactionByNameImpl value,
+          $Res Function(_$GetHistoryTransactionByNameImpl) then) =
+      __$$GetHistoryTransactionByNameImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String name});
+}
+
+/// @nodoc
+class __$$GetHistoryTransactionByNameImplCopyWithImpl<$Res>
+    extends _$HistoryTransactionEventCopyWithImpl<$Res,
+        _$GetHistoryTransactionByNameImpl>
+    implements _$$GetHistoryTransactionByNameImplCopyWith<$Res> {
+  __$$GetHistoryTransactionByNameImplCopyWithImpl(
+      _$GetHistoryTransactionByNameImpl _value,
+      $Res Function(_$GetHistoryTransactionByNameImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+  }) {
+    return _then(_$GetHistoryTransactionByNameImpl(
+      null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetHistoryTransactionByNameImpl
+    implements _GetHistoryTransactionByName {
+  const _$GetHistoryTransactionByNameImpl(this.name);
+
+  @override
+  final String name;
+
+  @override
+  String toString() {
+    return 'HistoryTransactionEvent.getHistoryTransactionByName(name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetHistoryTransactionByNameImpl &&
+            (identical(other.name, name) || other.name == name));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetHistoryTransactionByNameImplCopyWith<_$GetHistoryTransactionByNameImpl>
+      get copyWith => __$$GetHistoryTransactionByNameImplCopyWithImpl<
+          _$GetHistoryTransactionByNameImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getHistoryTransaction,
+    required TResult Function(String name) getHistoryTransactionByName,
+  }) {
+    return getHistoryTransactionByName(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? getHistoryTransaction,
+    TResult? Function(String name)? getHistoryTransactionByName,
+  }) {
+    return getHistoryTransactionByName?.call(name);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getHistoryTransaction,
+    TResult Function(String name)? getHistoryTransactionByName,
+    required TResult orElse(),
+  }) {
+    if (getHistoryTransactionByName != null) {
+      return getHistoryTransactionByName(name);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetHistoryTransaction value)
+        getHistoryTransaction,
+    required TResult Function(_GetHistoryTransactionByName value)
+        getHistoryTransactionByName,
+  }) {
+    return getHistoryTransactionByName(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetHistoryTransaction value)? getHistoryTransaction,
+    TResult? Function(_GetHistoryTransactionByName value)?
+        getHistoryTransactionByName,
+  }) {
+    return getHistoryTransactionByName?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetHistoryTransaction value)? getHistoryTransaction,
+    TResult Function(_GetHistoryTransactionByName value)?
+        getHistoryTransactionByName,
+    required TResult orElse(),
+  }) {
+    if (getHistoryTransactionByName != null) {
+      return getHistoryTransactionByName(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetHistoryTransactionByName implements HistoryTransactionEvent {
+  const factory _GetHistoryTransactionByName(final String name) =
+      _$GetHistoryTransactionByNameImpl;
+
+  String get name;
+  @JsonKey(ignore: true)
+  _$$GetHistoryTransactionByNameImplCopyWith<_$GetHistoryTransactionByNameImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

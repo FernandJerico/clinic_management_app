@@ -26,7 +26,7 @@ class BuildAppBar extends StatelessWidget {
     this.searchChanged,
     this.searchHint = 'Cari di sini',
     this.trailing,
-    required this.keyboardType,
+    this.keyboardType = TextInputType.text,
     this.withBackButton = false,
   }) : super(key: key);
 

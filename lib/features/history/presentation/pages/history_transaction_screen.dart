@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
@@ -19,7 +20,7 @@ class HistoryTransactionScreen extends StatefulWidget {
 }
 
 class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
-  final TextEditingController searchController = TextEditingController();
+  final searchController = TextEditingController();
   @override
   void initState() {
     context
@@ -29,14 +30,34 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
   }
 
   @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(100.0),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100.0),
         child: BuildAppBar(
           title: 'Riwayat Transaksi',
-          keyboardType: TextInputType.text,
+          searchController: searchController,
+          withSearchInput: true,
+          searchHint: 'Cari Riwayat Berdasarkan Nama',
+          keyboardType: TextInputType.name,
+          searchChanged: (value) {
+            if (value.isNotEmpty) {
+              context.read<HistoryTransactionBloc>().add(
+                  HistoryTransactionEvent.getHistoryTransactionByName(
+                      searchController.text));
+            } else {
+              context
+                  .read<HistoryTransactionBloc>()
+                  .add(const HistoryTransactionEvent.getHistoryTransaction());
+            }
+          },
         ),
       ),
       body: Padding(
@@ -100,20 +121,18 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                 return state.maybeWhen(
                   orElse: () {
                     return const Center(
-                      child: Text('data'),
+                      child: CircularProgressIndicator(),
                     );
                   },
                   loading: () {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const HistoryShimmerLoading();
                   },
                   loaded: (historyTransaction) {
                     return Expanded(
                       child: ListView.separated(
                         separatorBuilder: (context, index) =>
                             const SpaceHeight(12),
-                        itemCount: 5,
+                        itemCount: historyTransaction.length,
                         itemBuilder: (context, index) {
                           DateFormat formatter = DateFormat('d MMMM yyyy');
                           final transaction = historyTransaction[index];
@@ -217,6 +236,115 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class HistoryShimmerLoading extends StatelessWidget {
+  const HistoryShimmerLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
+        separatorBuilder: (context, index) => const SpaceHeight(12),
+        itemCount: 8,
+        itemBuilder: (context, index) {
+          return Container(
+            height: context.deviceHeight * 0.085,
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.stroke),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 24),
+                  child: Shimmer.fromColors(
+                    baseColor: AppColors.darkGrey,
+                    highlightColor: AppColors.grey.withOpacity(0.6),
+                    child: Container(
+                      width: 130,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: AppColors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Shimmer.fromColors(
+                  baseColor: AppColors.darkGrey,
+                  highlightColor: AppColors.grey.withOpacity(0.6),
+                  child: Container(
+                    width: 100,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: AppColors.grey.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+                Shimmer.fromColors(
+                  baseColor: AppColors.darkGrey,
+                  highlightColor: AppColors.grey.withOpacity(0.6),
+                  child: Container(
+                    width: 100,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: AppColors.grey.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+                Shimmer.fromColors(
+                  baseColor: AppColors.darkGrey,
+                  highlightColor: AppColors.grey.withOpacity(0.6),
+                  child: Container(
+                    width: 100,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: AppColors.grey.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+                Shimmer.fromColors(
+                  baseColor: AppColors.darkGrey,
+                  highlightColor: AppColors.grey.withOpacity(0.6),
+                  child: Container(
+                    width: 120,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: AppColors.grey.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 32),
+                  child: Shimmer.fromColors(
+                    baseColor: AppColors.darkGrey,
+                    highlightColor: AppColors.grey.withOpacity(0.6),
+                    child: Container(
+                      width: 100,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: AppColors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

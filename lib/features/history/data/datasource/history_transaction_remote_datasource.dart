@@ -23,4 +23,24 @@ class HistoryTransactionRemoteDatasource {
       return const Left('Failed to get history transaction');
     }
   }
+
+  Future<Either<String, HistoryTransactionlResponseModel>>
+      getHistoryTransactionByName(String name) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/api-payment-details?name=$name');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(HistoryTransactionlResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get history transaction');
+    }
+  }
 }

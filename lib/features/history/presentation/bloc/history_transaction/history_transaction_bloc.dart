@@ -24,5 +24,15 @@ class HistoryTransactionBloc
         (r) => emit(_Loaded(r.data ?? [])),
       );
     });
+
+    on<_GetHistoryTransactionByName>((event, emit) async {
+      emit(const _Loading());
+      final result = await historyTransactionRemoteDatasource
+          .getHistoryTransactionByName(event.name);
+      result.fold(
+        (l) => emit(_Error(l)),
+        (r) => emit(_Loaded(r.data ?? [])),
+      );
+    });
   }
 }
