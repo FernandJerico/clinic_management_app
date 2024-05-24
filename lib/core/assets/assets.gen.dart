@@ -109,6 +109,8 @@ class $AssetsImagesGen {
   AssetGenImage get createRmSuccess =>
       const AssetGenImage('assets/images/create_rm_success.png');
 
+  $AssetsImagesDashboardGen get dashboard => const $AssetsImagesDashboardGen();
+
   /// File path: assets/images/doctor_placeholder.png
   AssetGenImage get doctorPlaceholder =>
       const AssetGenImage('assets/images/doctor_placeholder.png');
@@ -141,6 +143,34 @@ class $AssetsImagesGen {
         klinikFujiLogo,
         medicine
       ];
+}
+
+class $AssetsImagesDashboardGen {
+  const $AssetsImagesDashboardGen();
+
+  /// File path: assets/images/dashboard/chart.png
+  AssetGenImage get chart =>
+      const AssetGenImage('assets/images/dashboard/chart.png');
+
+  /// File path: assets/images/dashboard/new-patient.png
+  AssetGenImage get newPatient =>
+      const AssetGenImage('assets/images/dashboard/new-patient.png');
+
+  /// File path: assets/images/dashboard/patient-registered.png
+  AssetGenImage get patientRegistered =>
+      const AssetGenImage('assets/images/dashboard/patient-registered.png');
+
+  /// File path: assets/images/dashboard/time-consultation.png
+  AssetGenImage get timeConsultation =>
+      const AssetGenImage('assets/images/dashboard/time-consultation.png');
+
+  /// File path: assets/images/dashboard/waiting-time.png
+  AssetGenImage get waitingTime =>
+      const AssetGenImage('assets/images/dashboard/waiting-time.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [chart, newPatient, patientRegistered, timeConsultation, waitingTime];
 }
 
 class $AssetsImagesMenuGen {
