@@ -36,8 +36,31 @@ class $AssetsIconsGen {
   /// File path: assets/icons/history.svg
   SvgGenImage get history => const SvgGenImage('assets/icons/history.svg');
 
+  /// File path: assets/icons/home-active.svg
+  SvgGenImage get homeActive =>
+      const SvgGenImage('assets/icons/home-active.svg');
+
+  /// File path: assets/icons/home.svg
+  SvgGenImage get home => const SvgGenImage('assets/icons/home.svg');
+
   /// File path: assets/icons/logo.svg
   SvgGenImage get logo => const SvgGenImage('assets/icons/logo.svg');
+
+  /// File path: assets/icons/notification-active.svg
+  SvgGenImage get notificationActive =>
+      const SvgGenImage('assets/icons/notification-active.svg');
+
+  /// File path: assets/icons/notification.svg
+  SvgGenImage get notification =>
+      const SvgGenImage('assets/icons/notification.svg');
+
+  /// File path: assets/icons/reservation-active.svg
+  SvgGenImage get reservationActive =>
+      const SvgGenImage('assets/icons/reservation-active.svg');
+
+  /// File path: assets/icons/reservation.svg
+  SvgGenImage get reservation =>
+      const SvgGenImage('assets/icons/reservation.svg');
 
   /// File path: assets/icons/setting.svg
   SvgGenImage get setting => const SvgGenImage('assets/icons/setting.svg');
@@ -61,7 +84,13 @@ class $AssetsIconsGen {
         filter,
         folderOpen,
         history,
+        homeActive,
+        home,
         logo,
+        notificationActive,
+        notification,
+        reservationActive,
+        reservation,
         setting,
         shoppingBagProduct,
         sort,
