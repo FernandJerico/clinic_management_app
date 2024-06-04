@@ -251,6 +251,23 @@ class _NavbarScreenState extends State<NavbarScreen> {
                         fontWeight: FontWeight.w600),
                   ),
                   backgroundColor: AppColors.primary,
+                  actions: [
+                    IconButton(
+                        onPressed: () {
+                          context
+                              .read<LogoutBloc>()
+                              .add(const LogoutEvent.logout());
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ));
+                        },
+                        icon: const Icon(
+                          Icons.logout,
+                          color: AppColors.white,
+                        )),
+                  ],
                   // leading: ResponsiveWidget.isSmallScreen(context)
                   //     ? Drawer(
                   //         backgroundColor: Colors.transparent,
