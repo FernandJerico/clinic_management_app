@@ -3,6 +3,7 @@ import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/features/history/presentation/pages/history_transaction_screen.dart';
 import 'package:clinic_management_app/features/home/presentation/pages/dashboard_screen.dart';
 import 'package:clinic_management_app/features/medical-record/presentation/pages/medical_record_screen.dart';
+import 'package:clinic_management_app/features/patients/presentation/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,7 +37,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
 
   final List<Widget> _pages = [
     // pages for patient
-    const Center(child: Text('This is page home patient')),
+    const HomeScreen(),
     const Center(child: Text('This is page reservation')),
     const Center(child: Text('This is page history')),
     // end pages for patient
@@ -242,13 +243,20 @@ class _NavbarScreenState extends State<NavbarScreen> {
           key: _scaffoldKey,
           appBar: ResponsiveWidget.isSmallScreen(context)
               ? AppBar(
-                  centerTitle: true,
-                  title: Text(
-                    'Klinik Pratama Fuji',
-                    style: GoogleFonts.poppins(
-                        color: AppColors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(Assets.images.klinikFujiLogo.path,
+                          width: 30.0, height: 30.0),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Klinik Pratama Fuji',
+                        style: GoogleFonts.poppins(
+                            color: AppColors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   backgroundColor: AppColors.primary,
                   actions: [

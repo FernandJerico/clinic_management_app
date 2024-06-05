@@ -65,5 +65,5 @@ class AppColors {
   static const Color title = Color(0xffEFF0F6);
 
   /// grey = #8B8D97
-  static const Color darkGrey = Color(0xff8B8D97);
+  static const Color darkGrey = Color(0xff505050);
 }

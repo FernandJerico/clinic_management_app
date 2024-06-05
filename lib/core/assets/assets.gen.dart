@@ -122,6 +122,15 @@ class $AssetsImagesGen {
   /// File path: assets/images/google.png
   AssetGenImage get google => const AssetGenImage('assets/images/google.png');
 
+  /// File path: assets/images/hero-1.png
+  AssetGenImage get hero1 => const AssetGenImage('assets/images/hero-1.png');
+
+  /// File path: assets/images/hero-2.png
+  AssetGenImage get hero2 => const AssetGenImage('assets/images/hero-2.png');
+
+  /// File path: assets/images/hero-3.png
+  AssetGenImage get hero3 => const AssetGenImage('assets/images/hero-3.png');
+
   /// File path: assets/images/klinik-fuji-logo.png
   AssetGenImage get klinikFujiLogo =>
       const AssetGenImage('assets/images/klinik-fuji-logo.png');
@@ -140,6 +149,9 @@ class $AssetsImagesGen {
         doctorPlaceholder,
         dokterku,
         google,
+        hero1,
+        hero2,
+        hero3,
         klinikFujiLogo,
         medicine
       ];
