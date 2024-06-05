@@ -4,6 +4,7 @@ import 'package:clinic_management_app/features/history/presentation/pages/histor
 import 'package:clinic_management_app/features/home/presentation/pages/dashboard_screen.dart';
 import 'package:clinic_management_app/features/medical-record/presentation/pages/medical_record_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/home_screen.dart';
+import 'package:clinic_management_app/features/patients/presentation/pages/reservation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,13 +33,12 @@ class NavbarScreen extends StatefulWidget {
 }
 
 class _NavbarScreenState extends State<NavbarScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
     // pages for patient
     const HomeScreen(),
-    const Center(child: Text('This is page reservation')),
+    const ReservationScreen(),
     const Center(child: Text('This is page history')),
     // end pages for patient
     const DashboardScreen(),
@@ -127,6 +127,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         );
       } else {
         return BottomNavigationBar(
+          backgroundColor: Colors.white,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           selectedItemColor: AppColors.primary,
@@ -240,25 +241,34 @@ class _NavbarScreenState extends State<NavbarScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          key: _scaffoldKey,
           appBar: ResponsiveWidget.isSmallScreen(context)
               ? AppBar(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(Assets.images.klinikFujiLogo.path,
-                          width: 30.0, height: 30.0),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Klinik Pratama Fuji',
-                        style: GoogleFonts.poppins(
-                            color: AppColors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  backgroundColor: AppColors.primary,
+                  centerTitle: true,
+                  title: _selectedIndex == 0 || _selectedIndex == 2
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(Assets.images.klinikFujiLogo.path,
+                                width: 30.0, height: 30.0),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Klinik Pratama Fuji',
+                              style: GoogleFonts.poppins(
+                                  color: _selectedIndex == 0
+                                      ? AppColors.white
+                                      : AppColors.primary,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        )
+                      : Text(
+                          'Reservasi Online',
+                          style: GoogleFonts.poppins(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                  backgroundColor:
+                      _selectedIndex == 0 ? AppColors.primary : Colors.white,
                   actions: [
                     IconButton(
                         onPressed: () {
@@ -276,18 +286,6 @@ class _NavbarScreenState extends State<NavbarScreen> {
                           color: AppColors.white,
                         )),
                   ],
-                  // leading: ResponsiveWidget.isSmallScreen(context)
-                  //     ? Drawer(
-                  //         backgroundColor: Colors.transparent,
-                  //         child: IconButton(
-                  //           icon:
-                  //               const Icon(Icons.menu, color: AppColors.white),
-                  //           onPressed: () {
-                  //             _scaffoldKey.currentState?.openDrawer();
-                  //           },
-                  //         ),
-                  //       )
-                  //     : null,
                 )
               : null,
           bottomNavigationBar: ResponsiveWidget.isSmallScreen(context)
@@ -301,50 +299,6 @@ class _NavbarScreenState extends State<NavbarScreen> {
                     }
                   })
               : null,
-          // drawer: ResponsiveWidget.isSmallScreen(context)
-          //     ? Drawer(
-          //         backgroundColor: AppColors.white,
-          //         width: context.deviceWidth * 0.3,
-          //         child: Column(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Padding(
-          //               padding: const EdgeInsets.only(top: 20),
-          //               child: Image.asset(
-          //                 Assets.images.klinikFujiLogo.path,
-          //                 width: 75.0,
-          //                 height: 75.0,
-          //               ),
-          //             ),
-          //             FutureBuilder(
-          //               future: roleUser(),
-          //               builder: (context, snapshot) {
-          //                 if (snapshot.hasData) {
-          //                   return snapshot.data as Widget;
-          //                 } else {
-          //                   return const CircularProgressIndicator();
-          //                 }
-          //               },
-          //             ),
-          //             NavItem(
-          //               iconPath: Assets.icons.logOut.path,
-          //               isActive: false,
-          //               text: 'Logout',
-          //               onTap: () {
-          //                 context
-          //                     .read<LogoutBloc>()
-          //                     .add(const LogoutEvent.logout());
-          //                 Navigator.pushReplacement(
-          //                     context,
-          //                     MaterialPageRoute(
-          //                       builder: (context) => const LoginScreen(),
-          //                     ));
-          //               },
-          //             ),
-          //           ],
-          //         ),
-          //       )
-          //     : null,
           backgroundColor: AppColors.white,
           body: ResponsiveWidget(
             smallScreen: _pages[_selectedIndex],
