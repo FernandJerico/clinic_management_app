@@ -98,16 +98,25 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             },
                             loading: () {
-                              return SizedBox(
+                              return Container(
                                 height: 50,
                                 width: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  gradient: const LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      Color(0xFF2B8D77),
+                                      Color(0xFF00BC00)
+                                    ],
+                                  ),
+                                ),
                                 child: ElevatedButton(
                                     onPressed: () {},
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.primary,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
+                                      backgroundColor: Colors.transparent,
+                                      shadowColor: Colors.transparent,
                                     ),
                                     child: const CircularProgressIndicator(
                                       color: AppColors.white,
