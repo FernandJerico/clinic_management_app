@@ -3,6 +3,7 @@ import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/features/history/presentation/pages/history_transaction_screen.dart';
 import 'package:clinic_management_app/features/home/presentation/pages/dashboard_screen.dart';
 import 'package:clinic_management_app/features/medical-record/presentation/pages/medical_record_screen.dart';
+import 'package:clinic_management_app/features/patients/presentation/pages/history_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/home_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/reservation_screen.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
     // pages for patient
     const HomeScreen(),
     const ReservationScreen(),
-    const Center(child: Text('This is page history')),
+    const HistoryScreen(),
     // end pages for patient
     const DashboardScreen(),
     MasterScreen(onTap: (_) {}),

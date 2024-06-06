@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       height: context.deviceHeight * 0.14,
-                      color: Colors.white,
+                      color: AppColors.white,
                     ),
                   ],
                 ),
@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Spacer(),
                   TextButton(
                     style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(Colors.white),
+                      backgroundColor: WidgetStateProperty.all(AppColors.white),
                       shape: WidgetStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return ChoiceChip(
                       showCheckmark: false,
                       selectedColor: AppColors.primary,
-                      backgroundColor: Colors.white,
+                      backgroundColor: AppColors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                         side: const BorderSide(
@@ -314,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(
                 height: context.deviceHeight * 0.375,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     separatorBuilder: (context, index) => const SizedBox(
@@ -339,7 +339,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           children: [
                             Container(
-                              height: context.deviceHeight * 0.11,
+                              height: double.infinity,
                               width: 10,
                               decoration: const BoxDecoration(
                                 color: AppColors.primary,
