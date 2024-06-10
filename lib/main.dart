@@ -32,6 +32,7 @@ import 'features/patient-schedule/presentation/bloc/create_payment_detail/create
 import 'features/patient-schedule/presentation/bloc/get_service_order/get_service_order_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/patient_schedule/patient_schedule_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/qris/qris_bloc.dart';
+import 'features/patients/presentation/bloc/history_reservation/history_reservation_bloc.dart';
 import 'features/patients/presentation/bloc/reservation/reservation_bloc.dart';
 import 'features/satusehat/presentation/bloc/city/city_bloc.dart';
 import 'features/satusehat/presentation/bloc/district/district_bloc.dart';
@@ -123,6 +124,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ReservationBloc(ReservationRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              HistoryReservationBloc(ReservationRemoteDatasource()),
         ),
       ],
       child: MaterialApp(

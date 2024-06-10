@@ -1,5 +1,8 @@
+import 'package:clinic_management_app/features/patients/presentation/bloc/history_reservation/history_reservation_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/themes/colors.dart';
 
@@ -11,6 +14,20 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  final searchController = TextEditingController();
+  @override
+  void initState() {
+    context
+        .read<HistoryReservationBloc>()
+        .add(const HistoryReservationEvent.getHistoryReservation());
+    super.initState();
+  }
+
+  String capitalize(String s) {
+    if (s.isEmpty) return s;
+    return s[0].toUpperCase() + s.substring(1).toLowerCase();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +45,18 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   color: Colors.white,
                 ),
                 child: TextFormField(
+                  controller: searchController,
+                  onChanged: (value) {
+                    if (value.isNotEmpty) {
+                      context.read<HistoryReservationBloc>().add(
+                          HistoryReservationEvent.getHistoryReservationByName(
+                              searchController.text));
+                    } else {
+                      context.read<HistoryReservationBloc>().add(
+                          const HistoryReservationEvent
+                              .getHistoryReservation());
+                    }
+                  },
                   decoration: const InputDecoration(
                     hintText: 'Cari Riwayat',
                     prefixIcon: Icon(Icons.search),
@@ -38,126 +67,189 @@ class _HistoryScreenState extends State<HistoryScreen> {
               const SizedBox(
                 height: 20,
               ),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 12,
-                ),
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * 0.135,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.25),
-                          spreadRadius: 0,
-                          blurRadius: 2,
-                          offset: const Offset(0, 1),
+              BlocBuilder<HistoryReservationBloc, HistoryReservationState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    orElse: () {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    loading: () {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    },
+                    loaded: (historyReservations) {
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 12,
                         ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: double.infinity,
-                          width: 10,
-                          decoration: const BoxDecoration(
-                            color: AppColors.orderIsWaiting,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4),
-                              bottomLeft: Radius.circular(4),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'Fajar Gema Ramadhan',
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.black),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16, vertical: 0),
-                                      height: 24,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.orderIsWaiting
-                                            .withOpacity(0.25),
-                                        borderRadius: BorderRadius.circular(4),
-                                        border: Border.all(
-                                            color: AppColors.orderIsWaiting),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Pending',
-                                        textAlign: TextAlign.center,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 10,
-                                            color: AppColors.orderIsWaiting),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Laki-Laki',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.black),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      '10 April 2002',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 12, color: AppColors.black),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  '0817330982122',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12, color: AppColors.black),
-                                ),
-                                Text(
-                                  'Poli Kulit dan Kelamin',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12, color: AppColors.black),
-                                ),
-                                Text(
-                                  'Senin Jam 10.00 WIB',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12, color: AppColors.black),
+                        itemCount: historyReservations.length,
+                        itemBuilder: (context, index) {
+                          final history = historyReservations[index];
+                          return Container(
+                            height: MediaQuery.of(context).size.height * 0.135,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.black.withOpacity(0.25),
+                                  spreadRadius: 0,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 1),
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  height: double.infinity,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    // ternary for pending, approved, or rejected
+                                    color: history.status == 'pending'
+                                        ? AppColors.orderIsWaiting
+                                        : history.status == 'approved'
+                                            ? AppColors.orderIsCompleted
+                                            : AppColors.orderIsRejected,
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4),
+                                      bottomLeft: Radius.circular(4),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                history.fullname ?? '',
+                                                style: GoogleFonts.poppins(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: AppColors.black),
+                                              ),
+                                            ),
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 0),
+                                              height: 24,
+                                              decoration: BoxDecoration(
+                                                color: history.status ==
+                                                        'pending'
+                                                    ? AppColors.orderIsWaiting
+                                                        .withOpacity(0.25)
+                                                    : history.status ==
+                                                            'approved'
+                                                        ? AppColors
+                                                            .orderIsCompleted
+                                                            .withOpacity(0.25)
+                                                        : AppColors
+                                                            .orderIsRejected
+                                                            .withOpacity(0.25),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                border: Border.all(
+                                                  color: history.status ==
+                                                          'pending'
+                                                      ? AppColors.orderIsWaiting
+                                                      : history.status ==
+                                                              'approved'
+                                                          ? AppColors
+                                                              .orderIsCompleted
+                                                          : AppColors
+                                                              .orderIsRejected,
+                                                ),
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                capitalize(
+                                                    history.status ?? ''),
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 10,
+                                                  color: history.status ==
+                                                          'pending'
+                                                      ? AppColors.orderIsWaiting
+                                                      : history.status ==
+                                                              'approved'
+                                                          ? AppColors
+                                                              .orderIsCompleted
+                                                          : AppColors
+                                                              .orderIsRejected,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              history.gender ?? '',
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: AppColors.black),
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              DateFormat('dd MMMM yyyy').format(
+                                                  history.birthDate ??
+                                                      DateTime.now()),
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 12,
+                                                  color: AppColors.black),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          history.phone ?? '',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 12,
+                                              color: AppColors.black),
+                                        ),
+                                        Text(
+                                          history.polyclinic ?? '',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 12,
+                                              color: AppColors.black),
+                                        ),
+                                        Text(
+                                          '${history.dayAppointment} Jam ${history.timeAppointment} WIB',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 12,
+                                              color: AppColors.black),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
                   );
                 },
               ),
