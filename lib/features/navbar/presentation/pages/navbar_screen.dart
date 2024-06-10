@@ -52,6 +52,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
   @override
   void initState() {
     super.initState();
+    _selectedIndex = widget.initialSelectedItem;
     _setInitialSelectedIndex();
   }
 
@@ -60,11 +61,14 @@ class _NavbarScreenState extends State<NavbarScreen> {
 
     setState(() {
       if (role == 'admin' || role == 'staff') {
-        _selectedIndex = 3; // Set the default page for admin/staff
+        _selectedIndex =
+            widget.initialSelectedItem == 0 ? 3 : widget.initialSelectedItem;
       } else if (role == 'doctor') {
-        _selectedIndex = 3; // Set the default page for doctor
+        _selectedIndex =
+            widget.initialSelectedItem == 0 ? 3 : widget.initialSelectedItem;
       } else {
-        _selectedIndex = 0; // Set the default page for patient
+        _selectedIndex =
+            widget.initialSelectedItem == 0 ? 0 : widget.initialSelectedItem;
       }
     });
   }

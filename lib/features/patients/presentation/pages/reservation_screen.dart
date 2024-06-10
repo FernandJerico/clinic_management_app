@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/features/patients/presentation/widgets/reservation_success_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -298,7 +299,12 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const ReservationSuccessDialog(),
+                      );
+                    },
                     child: Text(
                       'Buat Reservasi',
                       style: GoogleFonts.poppins(

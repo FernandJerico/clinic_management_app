@@ -131,6 +131,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/hero-3.png
   AssetGenImage get hero3 => const AssetGenImage('assets/images/hero-3.png');
 
+  /// File path: assets/images/horaayy.png
+  AssetGenImage get horaayy => const AssetGenImage('assets/images/horaayy.png');
+
   /// File path: assets/images/klinik-fuji-logo.png
   AssetGenImage get klinikFujiLogo =>
       const AssetGenImage('assets/images/klinik-fuji-logo.png');
@@ -152,6 +155,7 @@ class $AssetsImagesGen {
         hero1,
         hero2,
         hero3,
+        horaayy,
         klinikFujiLogo,
         medicine
       ];
