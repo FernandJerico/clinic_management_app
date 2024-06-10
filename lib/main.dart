@@ -9,6 +9,7 @@ import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_
 import 'package:clinic_management_app/features/patient-schedule/data/datasources/medical_records_remote_datasource.dart';
 import 'package:clinic_management_app/features/patient-schedule/data/datasources/midtrans_remote_datasource.dart';
 import 'package:clinic_management_app/features/patient-schedule/data/datasources/payment_detail_remote_datasource.dart';
+import 'package:clinic_management_app/features/patients/data/datasource/reservation_remote_datasource.dart';
 import 'package:clinic_management_app/features/satusehat/data/datasources/satusehat_master_wilayah_remote_datasources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +32,7 @@ import 'features/patient-schedule/presentation/bloc/create_payment_detail/create
 import 'features/patient-schedule/presentation/bloc/get_service_order/get_service_order_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/patient_schedule/patient_schedule_bloc.dart';
 import 'features/patient-schedule/presentation/bloc/qris/qris_bloc.dart';
+import 'features/patients/presentation/bloc/reservation/reservation_bloc.dart';
 import 'features/satusehat/presentation/bloc/city/city_bloc.dart';
 import 'features/satusehat/presentation/bloc/district/district_bloc.dart';
 import 'features/satusehat/presentation/bloc/province/province_bloc.dart';
@@ -118,6 +120,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               HistoryTransactionBloc(HistoryTransactionRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => ReservationBloc(ReservationRemoteDatasource()),
         ),
       ],
       child: MaterialApp(
