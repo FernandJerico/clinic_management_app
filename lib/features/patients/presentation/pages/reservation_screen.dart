@@ -8,6 +8,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/themes/colors.dart';
+import '../../../auth/data/datasources/auth_local_datasources.dart';
 
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({super.key});
@@ -42,6 +43,15 @@ class _ReservationScreenState extends State<ReservationScreen> {
   void initState() {
     super.initState();
     initializeDateFormatting('id_ID', null);
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    _dateController.dispose();
+    _dayAppointmentController.dispose();
+    super.dispose();
   }
 
   @override
@@ -350,11 +360,13 @@ class _ReservationScreenState extends State<ReservationScreen> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
                                 shadowColor: Colors.transparent),
-                            onPressed: () {
+                            onPressed: () async {
+                              final userId =
+                                  await AuthLocalDatasources().getAuthData();
                               if (_formKey.currentState!.validate()) {
                                 final createReservationPatient =
                                     CreateReservationRequestModel(
-                                  userId: '3',
+                                  userId: userId!.user!.id.toString(),
                                   fullname: _nameController.text,
                                   phone: _phoneController.text,
                                   gender: _selectedGender,
@@ -365,10 +377,12 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                       _dayAppointmentController.text,
                                   timeAppointment: _selectedTimeArrival,
                                 );
-                                context.read<ReservationBloc>().add(
-                                      ReservationEvent.createReservation(
-                                          data: createReservationPatient),
-                                    );
+                                if (context.mounted) {
+                                  context.read<ReservationBloc>().add(
+                                        ReservationEvent.createReservation(
+                                            data: createReservationPatient),
+                                      );
+                                }
                               }
                             },
                             child: Text(

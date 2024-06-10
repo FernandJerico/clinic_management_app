@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/assets/assets.gen.dart';
+import '../../../auth/data/datasources/auth_local_datasources.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +25,21 @@ class _HomeScreenState extends State<HomeScreen> {
     'Migrain',
     'Sakit Tenggorokan',
   ];
+  String? _username;
+
+  Future<void> _loadUsername() async {
+    final user = await AuthLocalDatasources().getAuthData();
+    setState(() {
+      _username = user!.user!.name;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          'Fernand Jerico',
+                          _username ?? '!',
                           style: GoogleFonts.poppins(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
