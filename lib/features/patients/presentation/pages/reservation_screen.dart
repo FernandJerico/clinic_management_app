@@ -264,38 +264,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         return null;
                       },
                     ),
-                    // DropdownButtonFormField<String>(
-                    //   decoration: InputDecoration(
-                    //     labelText: 'Hari Kedatangan',
-                    //     labelStyle: GoogleFonts.poppins(
-                    //       fontSize: 12,
-                    //     ),
-                    //     contentPadding: const EdgeInsets.symmetric(
-                    //         vertical: 4, horizontal: 16),
-                    //     hintStyle: GoogleFonts.poppins(fontSize: 12),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(4),
-                    //     ),
-                    //   ),
-                    //   value: _selectedDayArrival,
-                    //   items: _dayArrival.map((String option) {
-                    //     return DropdownMenuItem<String>(
-                    //       value: option,
-                    //       child: Text(option),
-                    //     );
-                    //   }).toList(),
-                    //   onChanged: (value) {
-                    //     setState(() {
-                    //       _selectedDayArrival = value;
-                    //     });
-                    //   },
-                    //   validator: (value) {
-                    //     if (value == null) {
-                    //       return 'Tolong pilih hari kedatangan Anda';
-                    //     }
-                    //     return null;
-                    //   },
-                    // ),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -430,7 +398,9 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                 backgroundColor: Colors.transparent,
                                 shadowColor: Colors.transparent),
                             onPressed: () {},
-                            child: const CircularProgressIndicator(),
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
                           ),
                         );
                       },
