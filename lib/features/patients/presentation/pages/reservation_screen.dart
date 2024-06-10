@@ -231,8 +231,9 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         DateTime? selectedDayAppointment = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
-                          firstDate: DateTime(2024),
-                          lastDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate:
+                              DateTime.now().add(const Duration(days: 10)),
                         );
                         if (selectedDayAppointment != null) {
                           setState(() {

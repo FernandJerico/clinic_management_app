@@ -43,12 +43,14 @@ class ReservationSuccessDialog extends StatelessWidget {
             const SizedBox(height: 16.0),
             Button.filled(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const NavbarScreen(initialSelectedItem: 2),
-                      ));
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const NavbarScreen(initialSelectedItem: 2),
+                    ),
+                    (route) => false,
+                  );
                 },
                 label: 'Kembali')
           ],
