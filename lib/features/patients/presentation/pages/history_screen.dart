@@ -1,8 +1,10 @@
+import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/patients/presentation/bloc/history_reservation/history_reservation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/themes/colors.dart';
 
@@ -71,14 +73,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 builder: (context, state) {
                   return state.maybeWhen(
                     orElse: () {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                    loading: () {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return const CardHistoryReservationShimmerLoading();
                     },
                     loaded: (historyReservations) {
                       return ListView.separated(
@@ -91,7 +86,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         itemBuilder: (context, index) {
                           final history = historyReservations[index];
                           return Container(
-                            height: MediaQuery.of(context).size.height * 0.135,
+                            height: context.deviceHeight * 0.135,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -260,6 +255,43 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CardHistoryReservationShimmerLoading extends StatelessWidget {
+  const CardHistoryReservationShimmerLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          height: context.deviceHeight * 0.135,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.grey.withOpacity(0.25),
+                blurRadius: 4,
+                offset: const Offset(2, 4),
+              )
+            ],
+          ),
+        ),
+      ),
+      separatorBuilder: (context, index) => const SizedBox(
+        height: 12,
+      ),
+      itemCount: 3,
     );
   }
 }

@@ -1,10 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
+import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/assets/assets.gen.dart';
+import '../../../../core/constants/variables.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _loadUsername();
+    context.read<DataDoctorBloc>().add(const DataDoctorEvent.getDoctors());
   }
 
   @override
@@ -328,87 +333,140 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 12,
             ),
             SizedBox(
-                height: context.deviceHeight * 0.375,
+                height: context.deviceHeight * 0.370,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 12,
-                    ),
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: context.deviceHeight * 0.11,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(4),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.grey.withOpacity(0.25),
-                              blurRadius: 4,
-                              offset: const Offset(2, 4),
-                            )
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: double.infinity,
-                              width: 10,
-                              decoration: const BoxDecoration(
-                                color: AppColors.primary,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4),
-                                  bottomLeft: Radius.circular(4),
-                                ),
-                              ),
+                  child: BlocBuilder<DataDoctorBloc, DataDoctorState>(
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        orElse: () {
+                          return const CardDoctorShimmerLoading();
+                        },
+                        loaded: (doctors) {
+                          return ListView.separated(
+                            physics: const NeverScrollableScrollPhysics(),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                              height: 12,
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.asset(
-                                Assets.images.menu.doctorIcon.path,
-                                fit: BoxFit.cover,
-                                width: context.deviceWidth * 0.2,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'dr. Hafidz SR, Sp. THT-KL',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.darkGrey),
+                            itemCount: doctors.length,
+                            itemBuilder: (context, index) {
+                              final doctor = doctors[index];
+                              return Container(
+                                height: context.deviceHeight * 0.11,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.grey.withOpacity(0.25),
+                                      blurRadius: 4,
+                                      offset: const Offset(2, 4),
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  'Spesialis Kulit dan Kelamin',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 12, color: AppColors.darkGrey),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: double.infinity,
+                                      width: 10,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.primary,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(4),
+                                          bottomLeft: Radius.circular(4),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.network(
+                                        '${Variables.imageBaseUrl}/${doctor.photo.replaceAll('public/', '')}',
+                                        fit: BoxFit.cover,
+                                        width: context.deviceWidth * 0.2,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 12,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'dr. ${doctor.doctorName}, Sp. ${doctor.doctorSpecialist}',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.darkGrey),
+                                        ),
+                                        Text(
+                                          doctor.doctorSpecialist,
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 12,
+                                              color: AppColors.darkGrey),
+                                        ),
+                                        Text(
+                                          'Poli Kulit dan Kelamin',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 10,
+                                              color: AppColors.darkGrey),
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  'Poli Kulit dan Kelamin',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 10, color: AppColors.darkGrey),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
+                              );
+                            },
+                          );
+                        },
                       );
                     },
                   ),
                 )),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CardDoctorShimmerLoading extends StatelessWidget {
+  const CardDoctorShimmerLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      separatorBuilder: (context, index) => const SizedBox(
+        height: 12,
+      ),
+      itemCount: 3,
+      itemBuilder: (context, index) => Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        child: Container(
+          height: context.deviceHeight * 0.11,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.grey.withOpacity(0.25),
+                blurRadius: 4,
+                offset: const Offset(2, 4),
+              )
+            ],
+          ),
         ),
       ),
     );
