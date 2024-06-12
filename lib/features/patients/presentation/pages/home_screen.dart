@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: AppColors.primary,
                     ),
                     Container(
-                      height: context.deviceHeight * 0.14,
+                      height: context.deviceHeight * 0.15,
                       color: AppColors.white,
                     ),
                   ],

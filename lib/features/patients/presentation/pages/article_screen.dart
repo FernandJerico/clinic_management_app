@@ -39,6 +39,15 @@ class _ArticleScreenState extends State<ArticleScreen> {
         ),
         centerTitle: true,
         backgroundColor: Colors.white,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: AppColors.primary,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
