@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: BlocBuilder<ArticleCategoryBloc, ArticleCategoryState>(
                   builder: (context, state) {
                     return state.maybeWhen(
-                      orElse: () => const CircularProgressIndicator(),
+                      orElse: () => const CategoryShimmerLoading(),
                       loaded: (articleCategory) {
                         return ListView.separated(
                           scrollDirection: Axis.horizontal,
@@ -440,6 +440,41 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CategoryShimmerLoading extends StatelessWidget {
+  const CategoryShimmerLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
+          child: Container(
+            width: context.deviceWidth * 0.25,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: AppColors.primary,
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          ),
+        );
+      },
+      separatorBuilder: (context, index) => const SizedBox(
+        width: 8,
+      ),
+      itemCount: 5,
     );
   }
 }
