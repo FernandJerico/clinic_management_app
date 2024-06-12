@@ -3,6 +3,7 @@ import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
 import 'package:clinic_management_app/features/patients/presentation/bloc/article/article_bloc.dart';
+import 'package:clinic_management_app/features/patients/presentation/pages/article_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -180,7 +181,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         const EdgeInsets.symmetric(vertical: 6, horizontal: 18),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const ArticleScreen();
+                        },
+                      ));
+                    },
                     child: Text(
                       'Lihat Semua',
                       style: GoogleFonts.poppins(
