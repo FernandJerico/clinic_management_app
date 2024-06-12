@@ -19,7 +19,7 @@ class DataDoctorBloc extends Bloc<DataDoctorEvent, DataDoctorState> {
       final result = await masterRemoteDatasources.getDoctors();
       result.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r.data)),
+        (r) => emit(_Loaded(r.data ?? [])),
       );
     });
 
@@ -29,7 +29,7 @@ class DataDoctorBloc extends Bloc<DataDoctorEvent, DataDoctorState> {
           await masterRemoteDatasources.getDoctorByName(event.doctorName);
       result.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r.data)),
+        (r) => emit(_Loaded(r.data ?? [])),
       );
     });
   }

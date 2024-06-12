@@ -115,7 +115,7 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                     Padding(
                                       padding: const EdgeInsets.all(8),
                                       child: Image.network(
-                                        '${Variables.imageBaseUrl}/${doctor.photo.replaceAll('public/', '')}',
+                                        '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
                                         height: ResponsiveWidget.isLargeScreen(
                                                 context)
                                             ? 75
@@ -130,14 +130,14 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          doctor.doctorName,
+                                          doctor.doctorName ?? '',
                                           style: GoogleFonts.poppins(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         const SpaceHeight(4.0),
                                         Text(
-                                          doctor.doctorPhone,
+                                          doctor.doctorPhone ?? '',
                                           style: GoogleFonts.poppins(
                                               fontSize: 14,
                                               fontWeight: FontWeight.normal),

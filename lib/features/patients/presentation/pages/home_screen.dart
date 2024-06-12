@@ -10,6 +10,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/constants/variables.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
+import '../bloc/article_category/article_category_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -22,13 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final CarouselController _carouselController = CarouselController();
   int _currentIndex = 0;
   int _selectedCategory = 0;
-  final List<String> _categories = [
-    'Semua',
-    'Kista Baker',
-    'Kesehatan Mental',
-    'Migrain',
-    'Sakit Tenggorokan',
-  ];
   String? _username;
 
   Future<void> _loadUsername() async {
@@ -42,6 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _loadUsername();
+    context
+        .read<ArticleCategoryBloc>()
+        .add(const ArticleCategoryEvent.getArticleCategory());
     context.read<DataDoctorBloc>().add(const DataDoctorEvent.getDoctors());
   }
 
@@ -197,41 +194,51 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(left: 20),
               child: SizedBox(
                 height: 40,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _categories.length,
-                  itemBuilder: (context, index) {
-                    return ChoiceChip(
-                      showCheckmark: false,
-                      selectedColor: AppColors.primary,
-                      backgroundColor: AppColors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        side: const BorderSide(
-                          color: AppColors.primary,
-                        ),
-                      ),
-                      label: Text(
-                        _categories[index],
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.normal,
-                          color: _selectedCategory == index
-                              ? Colors.white
-                              : AppColors.primary,
-                        ),
-                      ),
-                      selected: _selectedCategory == index,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _selectedCategory = selected ? index : 0;
-                        });
+                child: BlocBuilder<ArticleCategoryBloc, ArticleCategoryState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () => const CircularProgressIndicator(),
+                      loaded: (articleCategory) {
+                        return ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: articleCategory.length,
+                          itemBuilder: (context, index) {
+                            final category = articleCategory[index];
+                            return ChoiceChip(
+                              showCheckmark: false,
+                              selectedColor: AppColors.primary,
+                              backgroundColor: AppColors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: const BorderSide(
+                                  color: AppColors.primary,
+                                ),
+                              ),
+                              label: Text(
+                                category.name ?? '',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.normal,
+                                  color: _selectedCategory == index
+                                      ? Colors.white
+                                      : AppColors.primary,
+                                ),
+                              ),
+                              selected: _selectedCategory == index,
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  _selectedCategory = selected ? index : 0;
+                                });
+                              },
+                            );
+                          },
+                          separatorBuilder: (context, index) => const SizedBox(
+                            width: 8,
+                          ),
+                        );
                       },
                     );
                   },
-                  separatorBuilder: (context, index) => const SizedBox(
-                    width: 8,
-                  ),
                 ),
               ),
             ),
@@ -385,7 +392,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
                                       child: Image.network(
-                                        '${Variables.imageBaseUrl}/${doctor.photo.replaceAll('public/', '')}',
+                                        '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
                                         fit: BoxFit.cover,
                                         width: context.deviceWidth * 0.2,
                                       ),
@@ -400,14 +407,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'dr. ${doctor.doctorName}, Sp. ${doctor.doctorSpecialist}',
+                                          '${doctor.doctorName}',
                                           style: GoogleFonts.poppins(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.darkGrey),
                                         ),
                                         Text(
-                                          doctor.doctorSpecialist,
+                                          doctor.doctorSpecialist ?? '',
                                           style: GoogleFonts.poppins(
                                               fontSize: 12,
                                               color: AppColors.darkGrey),

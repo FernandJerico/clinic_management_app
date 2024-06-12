@@ -53,7 +53,7 @@ class DoctorDropdown extends StatelessWidget {
                               child: FittedBox(
                                 fit: BoxFit.cover,
                                 child: Image.network(
-                                    '${Variables.imageBaseUrl}/${item.photo.replaceAll('public/', '')}'),
+                                    '${Variables.imageBaseUrl}/${item.photo?.replaceAll('public/', '')}'),
                               ),
                             ),
                           ),
