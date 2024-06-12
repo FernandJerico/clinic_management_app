@@ -298,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return ListView.separated(
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           scrollDirection: Axis.horizontal,
-                          itemCount: articles.length,
+                          itemCount: articles.length > 5 ? 5 : articles.length,
                           separatorBuilder: (context, index) =>
                               const SizedBox(width: 8),
                           itemBuilder: (context, index) {
