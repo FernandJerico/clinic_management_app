@@ -3,6 +3,7 @@ import 'package:clinic_management_app/features/patients/presentation/pages/home_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/constants/variables.dart';
 import '../../../../core/themes/colors.dart';
@@ -147,7 +148,9 @@ class _ArticleScreenState extends State<ArticleScreen> {
             BlocBuilder<ArticleBloc, ArticleState>(
               builder: (context, state) {
                 return state.maybeWhen(
-                  orElse: () => const CircularProgressIndicator(),
+                  orElse: () {
+                    return const CardArticleShimmerLoading();
+                  },
                   loaded: (articles) {
                     if (articles.isEmpty) {
                       return Center(
@@ -244,6 +247,36 @@ class _ArticleScreenState extends State<ArticleScreen> {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CardArticleShimmerLoading extends StatelessWidget {
+  const CardArticleShimmerLoading({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.separated(
+        separatorBuilder: (context, index) => const SizedBox(height: 16),
+        itemCount: 3,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (context, index) {
+          return Shimmer.fromColors(
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
+            child: Container(
+              height: context.deviceHeight * 0.22,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
