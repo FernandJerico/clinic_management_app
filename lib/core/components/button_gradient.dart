@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../themes/colors.dart';
 
-enum ButtonStyleType { filled, outlined }
+enum ButtonStyleType { gradient, gradientLoading }
 
 class Button extends StatelessWidget {
-  const Button.filled({
+  const Button.gradient({
     super.key,
     required this.onPressed,
     required this.label,
-    this.style = ButtonStyleType.filled,
+    this.style = ButtonStyleType.gradient,
     this.color = AppColors.primary,
     this.textColor = Colors.white,
     this.width = double.infinity,
@@ -21,11 +22,11 @@ class Button extends StatelessWidget {
     this.fontSize = 14.0,
   });
 
-  const Button.outlined({
+  const Button.gradientLoading({
     super.key,
     required this.onPressed,
-    required this.label,
-    this.style = ButtonStyleType.outlined,
+    this.label = '',
+    this.style = ButtonStyleType.gradientLoading,
     this.color = Colors.transparent,
     this.textColor = AppColors.primary,
     this.width = double.infinity,
@@ -52,17 +53,23 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: height,
       width: width,
-      child: style == ButtonStyleType.filled
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF2B8D77), Color(0xFF00BC00)],
+        ),
+      ),
+      child: style == ButtonStyleType.gradient
           ? ElevatedButton(
               onPressed: disabled ? null : onPressed,
               style: ElevatedButton.styleFrom(
-                backgroundColor: color,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +79,7 @@ class Button extends StatelessWidget {
                     const SizedBox(width: 10.0),
                   Text(
                     label,
-                    style: TextStyle(
+                    style: GoogleFonts.poppins(
                       color: textColor,
                       fontSize: fontSize,
                       fontWeight: FontWeight.w600,
@@ -84,14 +91,11 @@ class Button extends StatelessWidget {
                 ],
               ),
             )
-          : OutlinedButton(
+          : ElevatedButton(
               onPressed: disabled ? null : onPressed,
-              style: OutlinedButton.styleFrom(
-                backgroundColor: color,
-                side: const BorderSide(color: Colors.grey),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -99,13 +103,8 @@ class Button extends StatelessWidget {
                   icon ?? const SizedBox.shrink(),
                   if (icon != null && label.isNotEmpty)
                     const SizedBox(width: 10.0),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  const CircularProgressIndicator(
+                    color: Colors.white,
                   ),
                   if (suffixIcon != null && label.isNotEmpty)
                     const SizedBox(width: 10.0),

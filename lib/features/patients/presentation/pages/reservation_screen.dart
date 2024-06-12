@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/features/patients/data/model/request/add_reservation_request_model.dart';
 import 'package:clinic_management_app/features/patients/presentation/bloc/reservation/reservation_bloc.dart';
 import 'package:clinic_management_app/features/patients/presentation/widgets/reservation_success_widget.dart';
@@ -26,7 +27,11 @@ class _ReservationScreenState extends State<ReservationScreen> {
   String? _selectedGender;
   final List<String> _genders = ['Laki-Laki', 'Perempuan'];
   String? _selectedPolyclinic;
-  final List<String> _polyclinics = ['Poli 1', 'Poli 2', 'Poli 3'];
+  final List<String> _polyclinics = [
+    'Umum',
+    'Lab. Elektrokardiogram (EKG)',
+    'Audiometri Spirometri'
+  ];
   String? _selectedTimeArrival;
   final List<String> _timeArrival = [
     '08:00 - 09.00',
@@ -243,7 +248,14 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           initialDate: DateTime.now(),
                           firstDate: DateTime.now(),
                           lastDate:
-                              DateTime.now().add(const Duration(days: 10)),
+                              DateTime.now().add(const Duration(days: 14)),
+                          selectableDayPredicate: (DateTime date) {
+                            // Disable Sundays
+                            if (date.weekday == DateTime.sunday) {
+                              return false;
+                            }
+                            return true;
+                          },
                         );
                         if (selectedDayAppointment != null) {
                           setState(() {
@@ -396,26 +408,10 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         );
                       },
                       loading: () {
-                        return Container(
+                        return Button.gradientLoading(
                           height: 48,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [Color(0xFF2B8D77), Color(0xFF00BC00)],
-                            ),
-                          ),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent),
-                            onPressed: () {},
-                            child: const CircularProgressIndicator(
-                              color: Colors.white,
-                            ),
-                          ),
+                          label: '',
+                          onPressed: () {},
                         );
                       },
                     );

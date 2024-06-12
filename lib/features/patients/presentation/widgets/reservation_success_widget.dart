@@ -1,5 +1,5 @@
 import 'package:clinic_management_app/core/assets/assets.gen.dart';
-import 'package:clinic_management_app/core/components/buttons.dart';
+import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,7 +41,7 @@ class ReservationSuccessDialog extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16.0),
-            Button.filled(
+            Button.gradient(
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,

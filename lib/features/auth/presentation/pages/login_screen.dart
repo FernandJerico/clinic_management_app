@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/assets/assets.gen.dart';
-import '../../../../core/components/buttons.dart';
+import '../../../../core/components/button_gradient.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/constants/responsive.dart';
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: (context, state) {
                           return state.maybeWhen(
                             orElse: () {
-                              return Button.filled(
+                              return Button.gradient(
                                 onPressed: () {
                                   context.read<LoginBloc>().add(
                                         LoginEvent.login(
