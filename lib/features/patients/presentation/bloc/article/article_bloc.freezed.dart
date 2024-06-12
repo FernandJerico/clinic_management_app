@@ -22,6 +22,7 @@ mixin _$ArticleEvent {
     required TResult Function() getArticles,
     required TResult Function(String id) getArticleDetail,
     required TResult Function(String title) getArticleByTitle,
+    required TResult Function(int categoryId) getArticleByCategoryId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$ArticleEvent {
     TResult? Function()? getArticles,
     TResult? Function(String id)? getArticleDetail,
     TResult? Function(String title)? getArticleByTitle,
+    TResult? Function(int categoryId)? getArticleByCategoryId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$ArticleEvent {
     TResult Function()? getArticles,
     TResult Function(String id)? getArticleDetail,
     TResult Function(String title)? getArticleByTitle,
+    TResult Function(int categoryId)? getArticleByCategoryId,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +50,8 @@ mixin _$ArticleEvent {
     required TResult Function(_GetArticles value) getArticles,
     required TResult Function(_GetArticleDetail value) getArticleDetail,
     required TResult Function(_GetArticleByTitle value) getArticleByTitle,
+    required TResult Function(_GetArticleByCategoryId value)
+        getArticleByCategoryId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +60,7 @@ mixin _$ArticleEvent {
     TResult? Function(_GetArticles value)? getArticles,
     TResult? Function(_GetArticleDetail value)? getArticleDetail,
     TResult? Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult? Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +69,7 @@ mixin _$ArticleEvent {
     TResult Function(_GetArticles value)? getArticles,
     TResult Function(_GetArticleDetail value)? getArticleDetail,
     TResult Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -128,6 +135,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() getArticles,
     required TResult Function(String id) getArticleDetail,
     required TResult Function(String title) getArticleByTitle,
+    required TResult Function(int categoryId) getArticleByCategoryId,
   }) {
     return started();
   }
@@ -139,6 +147,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? getArticles,
     TResult? Function(String id)? getArticleDetail,
     TResult? Function(String title)? getArticleByTitle,
+    TResult? Function(int categoryId)? getArticleByCategoryId,
   }) {
     return started?.call();
   }
@@ -150,6 +159,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? getArticles,
     TResult Function(String id)? getArticleDetail,
     TResult Function(String title)? getArticleByTitle,
+    TResult Function(int categoryId)? getArticleByCategoryId,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -165,6 +175,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(_GetArticles value) getArticles,
     required TResult Function(_GetArticleDetail value) getArticleDetail,
     required TResult Function(_GetArticleByTitle value) getArticleByTitle,
+    required TResult Function(_GetArticleByCategoryId value)
+        getArticleByCategoryId,
   }) {
     return started(this);
   }
@@ -176,6 +188,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_GetArticles value)? getArticles,
     TResult? Function(_GetArticleDetail value)? getArticleDetail,
     TResult? Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult? Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
   }) {
     return started?.call(this);
   }
@@ -187,6 +200,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_GetArticles value)? getArticles,
     TResult Function(_GetArticleDetail value)? getArticleDetail,
     TResult Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -242,6 +256,7 @@ class _$GetArticlesImpl implements _GetArticles {
     required TResult Function() getArticles,
     required TResult Function(String id) getArticleDetail,
     required TResult Function(String title) getArticleByTitle,
+    required TResult Function(int categoryId) getArticleByCategoryId,
   }) {
     return getArticles();
   }
@@ -253,6 +268,7 @@ class _$GetArticlesImpl implements _GetArticles {
     TResult? Function()? getArticles,
     TResult? Function(String id)? getArticleDetail,
     TResult? Function(String title)? getArticleByTitle,
+    TResult? Function(int categoryId)? getArticleByCategoryId,
   }) {
     return getArticles?.call();
   }
@@ -264,6 +280,7 @@ class _$GetArticlesImpl implements _GetArticles {
     TResult Function()? getArticles,
     TResult Function(String id)? getArticleDetail,
     TResult Function(String title)? getArticleByTitle,
+    TResult Function(int categoryId)? getArticleByCategoryId,
     required TResult orElse(),
   }) {
     if (getArticles != null) {
@@ -279,6 +296,8 @@ class _$GetArticlesImpl implements _GetArticles {
     required TResult Function(_GetArticles value) getArticles,
     required TResult Function(_GetArticleDetail value) getArticleDetail,
     required TResult Function(_GetArticleByTitle value) getArticleByTitle,
+    required TResult Function(_GetArticleByCategoryId value)
+        getArticleByCategoryId,
   }) {
     return getArticles(this);
   }
@@ -290,6 +309,7 @@ class _$GetArticlesImpl implements _GetArticles {
     TResult? Function(_GetArticles value)? getArticles,
     TResult? Function(_GetArticleDetail value)? getArticleDetail,
     TResult? Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult? Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
   }) {
     return getArticles?.call(this);
   }
@@ -301,6 +321,7 @@ class _$GetArticlesImpl implements _GetArticles {
     TResult Function(_GetArticles value)? getArticles,
     TResult Function(_GetArticleDetail value)? getArticleDetail,
     TResult Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
     required TResult orElse(),
   }) {
     if (getArticles != null) {
@@ -383,6 +404,7 @@ class _$GetArticleDetailImpl implements _GetArticleDetail {
     required TResult Function() getArticles,
     required TResult Function(String id) getArticleDetail,
     required TResult Function(String title) getArticleByTitle,
+    required TResult Function(int categoryId) getArticleByCategoryId,
   }) {
     return getArticleDetail(id);
   }
@@ -394,6 +416,7 @@ class _$GetArticleDetailImpl implements _GetArticleDetail {
     TResult? Function()? getArticles,
     TResult? Function(String id)? getArticleDetail,
     TResult? Function(String title)? getArticleByTitle,
+    TResult? Function(int categoryId)? getArticleByCategoryId,
   }) {
     return getArticleDetail?.call(id);
   }
@@ -405,6 +428,7 @@ class _$GetArticleDetailImpl implements _GetArticleDetail {
     TResult Function()? getArticles,
     TResult Function(String id)? getArticleDetail,
     TResult Function(String title)? getArticleByTitle,
+    TResult Function(int categoryId)? getArticleByCategoryId,
     required TResult orElse(),
   }) {
     if (getArticleDetail != null) {
@@ -420,6 +444,8 @@ class _$GetArticleDetailImpl implements _GetArticleDetail {
     required TResult Function(_GetArticles value) getArticles,
     required TResult Function(_GetArticleDetail value) getArticleDetail,
     required TResult Function(_GetArticleByTitle value) getArticleByTitle,
+    required TResult Function(_GetArticleByCategoryId value)
+        getArticleByCategoryId,
   }) {
     return getArticleDetail(this);
   }
@@ -431,6 +457,7 @@ class _$GetArticleDetailImpl implements _GetArticleDetail {
     TResult? Function(_GetArticles value)? getArticles,
     TResult? Function(_GetArticleDetail value)? getArticleDetail,
     TResult? Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult? Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
   }) {
     return getArticleDetail?.call(this);
   }
@@ -442,6 +469,7 @@ class _$GetArticleDetailImpl implements _GetArticleDetail {
     TResult Function(_GetArticles value)? getArticles,
     TResult Function(_GetArticleDetail value)? getArticleDetail,
     TResult Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
     required TResult orElse(),
   }) {
     if (getArticleDetail != null) {
@@ -529,6 +557,7 @@ class _$GetArticleByTitleImpl implements _GetArticleByTitle {
     required TResult Function() getArticles,
     required TResult Function(String id) getArticleDetail,
     required TResult Function(String title) getArticleByTitle,
+    required TResult Function(int categoryId) getArticleByCategoryId,
   }) {
     return getArticleByTitle(title);
   }
@@ -540,6 +569,7 @@ class _$GetArticleByTitleImpl implements _GetArticleByTitle {
     TResult? Function()? getArticles,
     TResult? Function(String id)? getArticleDetail,
     TResult? Function(String title)? getArticleByTitle,
+    TResult? Function(int categoryId)? getArticleByCategoryId,
   }) {
     return getArticleByTitle?.call(title);
   }
@@ -551,6 +581,7 @@ class _$GetArticleByTitleImpl implements _GetArticleByTitle {
     TResult Function()? getArticles,
     TResult Function(String id)? getArticleDetail,
     TResult Function(String title)? getArticleByTitle,
+    TResult Function(int categoryId)? getArticleByCategoryId,
     required TResult orElse(),
   }) {
     if (getArticleByTitle != null) {
@@ -566,6 +597,8 @@ class _$GetArticleByTitleImpl implements _GetArticleByTitle {
     required TResult Function(_GetArticles value) getArticles,
     required TResult Function(_GetArticleDetail value) getArticleDetail,
     required TResult Function(_GetArticleByTitle value) getArticleByTitle,
+    required TResult Function(_GetArticleByCategoryId value)
+        getArticleByCategoryId,
   }) {
     return getArticleByTitle(this);
   }
@@ -577,6 +610,7 @@ class _$GetArticleByTitleImpl implements _GetArticleByTitle {
     TResult? Function(_GetArticles value)? getArticles,
     TResult? Function(_GetArticleDetail value)? getArticleDetail,
     TResult? Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult? Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
   }) {
     return getArticleByTitle?.call(this);
   }
@@ -588,6 +622,7 @@ class _$GetArticleByTitleImpl implements _GetArticleByTitle {
     TResult Function(_GetArticles value)? getArticles,
     TResult Function(_GetArticleDetail value)? getArticleDetail,
     TResult Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
     required TResult orElse(),
   }) {
     if (getArticleByTitle != null) {
@@ -605,6 +640,163 @@ abstract class _GetArticleByTitle implements ArticleEvent {
   @JsonKey(ignore: true)
   _$$GetArticleByTitleImplCopyWith<_$GetArticleByTitleImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetArticleByCategoryIdImplCopyWith<$Res> {
+  factory _$$GetArticleByCategoryIdImplCopyWith(
+          _$GetArticleByCategoryIdImpl value,
+          $Res Function(_$GetArticleByCategoryIdImpl) then) =
+      __$$GetArticleByCategoryIdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int categoryId});
+}
+
+/// @nodoc
+class __$$GetArticleByCategoryIdImplCopyWithImpl<$Res>
+    extends _$ArticleEventCopyWithImpl<$Res, _$GetArticleByCategoryIdImpl>
+    implements _$$GetArticleByCategoryIdImplCopyWith<$Res> {
+  __$$GetArticleByCategoryIdImplCopyWithImpl(
+      _$GetArticleByCategoryIdImpl _value,
+      $Res Function(_$GetArticleByCategoryIdImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? categoryId = null,
+  }) {
+    return _then(_$GetArticleByCategoryIdImpl(
+      null == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetArticleByCategoryIdImpl implements _GetArticleByCategoryId {
+  const _$GetArticleByCategoryIdImpl(this.categoryId);
+
+  @override
+  final int categoryId;
+
+  @override
+  String toString() {
+    return 'ArticleEvent.getArticleByCategoryId(categoryId: $categoryId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetArticleByCategoryIdImpl &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, categoryId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetArticleByCategoryIdImplCopyWith<_$GetArticleByCategoryIdImpl>
+      get copyWith => __$$GetArticleByCategoryIdImplCopyWithImpl<
+          _$GetArticleByCategoryIdImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getArticles,
+    required TResult Function(String id) getArticleDetail,
+    required TResult Function(String title) getArticleByTitle,
+    required TResult Function(int categoryId) getArticleByCategoryId,
+  }) {
+    return getArticleByCategoryId(categoryId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? getArticles,
+    TResult? Function(String id)? getArticleDetail,
+    TResult? Function(String title)? getArticleByTitle,
+    TResult? Function(int categoryId)? getArticleByCategoryId,
+  }) {
+    return getArticleByCategoryId?.call(categoryId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getArticles,
+    TResult Function(String id)? getArticleDetail,
+    TResult Function(String title)? getArticleByTitle,
+    TResult Function(int categoryId)? getArticleByCategoryId,
+    required TResult orElse(),
+  }) {
+    if (getArticleByCategoryId != null) {
+      return getArticleByCategoryId(categoryId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetArticles value) getArticles,
+    required TResult Function(_GetArticleDetail value) getArticleDetail,
+    required TResult Function(_GetArticleByTitle value) getArticleByTitle,
+    required TResult Function(_GetArticleByCategoryId value)
+        getArticleByCategoryId,
+  }) {
+    return getArticleByCategoryId(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetArticles value)? getArticles,
+    TResult? Function(_GetArticleDetail value)? getArticleDetail,
+    TResult? Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult? Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
+  }) {
+    return getArticleByCategoryId?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetArticles value)? getArticles,
+    TResult Function(_GetArticleDetail value)? getArticleDetail,
+    TResult Function(_GetArticleByTitle value)? getArticleByTitle,
+    TResult Function(_GetArticleByCategoryId value)? getArticleByCategoryId,
+    required TResult orElse(),
+  }) {
+    if (getArticleByCategoryId != null) {
+      return getArticleByCategoryId(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetArticleByCategoryId implements ArticleEvent {
+  const factory _GetArticleByCategoryId(final int categoryId) =
+      _$GetArticleByCategoryIdImpl;
+
+  int get categoryId;
+  @JsonKey(ignore: true)
+  _$$GetArticleByCategoryIdImplCopyWith<_$GetArticleByCategoryIdImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc

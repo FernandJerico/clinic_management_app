@@ -7,4 +7,6 @@ class ArticleEvent with _$ArticleEvent {
   const factory ArticleEvent.getArticleDetail(String id) = _GetArticleDetail;
   const factory ArticleEvent.getArticleByTitle(String title) =
       _GetArticleByTitle;
+  const factory ArticleEvent.getArticleByCategoryId(int categoryId) =
+      _GetArticleByCategoryId;
 }

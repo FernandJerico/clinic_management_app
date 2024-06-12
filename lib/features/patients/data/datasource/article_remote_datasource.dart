@@ -65,4 +65,25 @@ class ArticleRemoteDatasource {
       return const Left('Failed to get article by title');
     }
   }
+
+  Future<Either<String, ArticleResponseModel>> getArticleByCategoryId(
+      int categoryId) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse(
+        '${Variables.baseUrl}/api/api-articles?category_id=$categoryId');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(ArticleResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get article by category id');
+    }
+  }
 }

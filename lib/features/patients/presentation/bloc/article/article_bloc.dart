@@ -28,5 +28,15 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
         (r) => emit(_Loaded(r.data ?? [])),
       );
     });
+
+    on<_GetArticleByCategoryId>((event, emit) async {
+      emit(const _Loading());
+      final result = await articleRemoteDatasource
+          .getArticleByCategoryId(event.categoryId);
+      result.fold(
+        (l) => emit(_Error(l)),
+        (r) => emit(_Loaded(r.data ?? [])),
+      );
+    });
   }
 }

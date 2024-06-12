@@ -11,6 +11,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/constants/variables.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
+import '../../data/model/response/article_category_response_model.dart';
 import '../bloc/article_category/article_category_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final CarouselController _carouselController = CarouselController();
   int _currentIndex = 0;
-  int _selectedCategory = 0;
+  int? _selectedCategory = -1;
   String? _username;
 
   Future<void> _loadUsername() async {
@@ -201,11 +202,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     return state.maybeWhen(
                       orElse: () => const CategoryShimmerLoading(),
                       loaded: (articleCategory) {
+                        final allCategories = [
+                          ArticleCategory(id: -1, name: 'Semua'),
+                          ...articleCategory
+                        ];
                         return ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemCount: articleCategory.length,
+                          itemCount: allCategories.length,
                           itemBuilder: (context, index) {
-                            final category = articleCategory[index];
+                            final category = allCategories[index];
                             return ChoiceChip(
                               showCheckmark: false,
                               selectedColor: AppColors.primary,
@@ -221,22 +226,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: 12,
                                   fontWeight: FontWeight.normal,
-                                  color: _selectedCategory == index
+                                  color: _selectedCategory == category.id
                                       ? Colors.white
                                       : AppColors.primary,
                                 ),
                               ),
-                              selected: _selectedCategory == index,
+                              selected: _selectedCategory == category.id,
                               onSelected: (bool selected) {
                                 setState(() {
-                                  _selectedCategory = selected ? index : 0;
+                                  _selectedCategory =
+                                      selected ? category.id : null;
                                 });
+                                if (selected) {
+                                  if (category.id == -1) {
+                                    context
+                                        .read<ArticleBloc>()
+                                        .add(const ArticleEvent.getArticles());
+                                  } else {
+                                    context.read<ArticleBloc>().add(
+                                        ArticleEvent.getArticleByCategoryId(
+                                            category.id!));
+                                  }
+                                }
+                                debugPrint(
+                                    'Selected Category: $_selectedCategory');
                               },
                             );
                           },
-                          separatorBuilder: (context, index) => const SizedBox(
-                            width: 8,
-                          ),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(width: 8),
                         );
                       },
                     );
@@ -258,6 +276,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         return const CardArticleShimmerLoading();
                       },
                       loaded: (articles) {
+                        if (articles.isEmpty) {
+                          return Center(
+                            child: Text(
+                              'Tidak Ada Artikel',
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.black,
+                              ),
+                            ),
+                          );
+                        }
                         return ListView.separated(
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           scrollDirection: Axis.horizontal,
