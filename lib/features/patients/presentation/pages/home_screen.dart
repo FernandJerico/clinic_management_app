@@ -467,17 +467,21 @@ class CardArticleShimmerLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      separatorBuilder: (context, index) => const SizedBox(width: 8),
+      itemCount: 3,
+      scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: Container(
-            width: context.deviceWidth * 0.6,
+            width: MediaQuery.of(context).size.width * 0.6,
             decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.grey.withOpacity(0.25),
+                  color: Colors.grey.withOpacity(0.25),
                   blurRadius: 3,
                   offset: const Offset(0, 2),
                 ),
@@ -486,10 +490,6 @@ class CardArticleShimmerLoading extends StatelessWidget {
           ),
         );
       },
-      separatorBuilder: (context, index) => const SizedBox(
-        width: 8,
-      ),
-      itemCount: 5,
     );
   }
 }
@@ -513,11 +513,8 @@ class CategoryShimmerLoading extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: AppColors.primary,
-              ),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
           ),
         );
       },

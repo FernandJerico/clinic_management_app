@@ -19,11 +19,27 @@ class AuthRemoteDatasources {
     );
 
     if (response.statusCode == 200) {
-      await AuthLocalDatasources()
-          .saveAuthData(AuthResponseModel.fromJson(response.body));
-      return Right(AuthResponseModel.fromJson(response.body));
+      try {
+        await AuthLocalDatasources()
+            .saveAuthData(AuthResponseModel.fromJson(response.body));
+        return Right(AuthResponseModel.fromJson(response.body));
+      } catch (e) {
+        return const Left('Failed to parse authentication data.');
+      }
     } else {
-      return Left(json.decode(response.body)['message']);
+      try {
+        final responseBody = json.decode(response.body);
+        final message = responseBody['message'];
+        if (message is List) {
+          return Left(message.join(', '));
+        } else if (message is String) {
+          return Left(message);
+        } else {
+          return const Left('An unknown error occurred.');
+        }
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
     }
   }
 
