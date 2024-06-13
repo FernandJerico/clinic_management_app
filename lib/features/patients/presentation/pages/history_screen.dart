@@ -86,7 +86,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         itemBuilder: (context, index) {
                           final history = historyReservations[index];
                           return Container(
-                            height: context.deviceHeight * 0.135,
+                            height: context.deviceHeight * 0.145,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: Colors.white,

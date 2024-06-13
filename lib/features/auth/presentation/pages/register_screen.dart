@@ -10,7 +10,6 @@ import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/constants/responsive.dart';
 import '../../../../core/themes/colors.dart';
-import '../../../navbar/presentation/pages/navbar_screen.dart';
 import '../bloc/register/register_bloc.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -76,15 +75,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       BlocConsumer<RegisterBloc, RegisterState>(
                         listener: (context, state) {
                           state.maybeWhen(
-                            success: (data) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const NavbarScreen(
-                                    initialSelectedItem: 0,
-                                  ),
+                            success: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content:
+                                      Text('Register Berhasil Silakan Login'),
+                                  backgroundColor: AppColors.green,
                                 ),
                               );
+                              context.push(const LoginScreen());
                             },
                             error: (message) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -104,10 +103,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onPressed: () {
                                   context.read<RegisterBloc>().add(
                                         RegisterEvent.register(
-                                          email: emailController.text,
                                           password: passwordController.text,
                                           fullname: fullnameController.text,
                                           phone: phoneController.text,
+                                          email: emailController.text,
                                         ),
                                       );
                                 },
@@ -115,30 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               );
                             },
                             loading: () {
-                              return Container(
-                                height: 50,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  gradient: const LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xFF2B8D77),
-                                      Color(0xFF00BC00)
-                                    ],
-                                  ),
-                                ),
-                                child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      shadowColor: Colors.transparent,
-                                    ),
-                                    child: const CircularProgressIndicator(
-                                      color: AppColors.white,
-                                    )),
-                              );
+                              return Button.gradientLoading(onPressed: () {});
                             },
                           );
                         },

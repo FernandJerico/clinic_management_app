@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../data/datasources/auth_remote_datasources.dart';
-import '../../../data/models/responses/auth_response_model.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -17,7 +16,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           event.email, event.password, event.fullname, event.phone);
       result.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Success(r)),
+        (r) => emit(const _Success()),
       );
     });
   }

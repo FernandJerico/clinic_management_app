@@ -65,13 +65,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         listener: (context, state) {
                           state.maybeWhen(
                             success: (data) {
-                              Navigator.pushReplacement(
+                              Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const NavbarScreen(
                                     initialSelectedItem: 0,
                                   ),
                                 ),
+                                (route) => false,
                               );
                             },
                             error: (message) {
@@ -101,30 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             },
                             loading: () {
-                              return Container(
-                                height: 50,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  gradient: const LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      Color(0xFF2B8D77),
-                                      Color(0xFF00BC00)
-                                    ],
-                                  ),
-                                ),
-                                child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      shadowColor: Colors.transparent,
-                                    ),
-                                    child: const CircularProgressIndicator(
-                                      color: AppColors.white,
-                                    )),
-                              );
+                              return Button.gradientLoading(onPressed: () {});
                             },
                           );
                         },

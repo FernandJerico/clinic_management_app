@@ -19,6 +19,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'core/themes/colors.dart';
 import 'features/auth/presentation/bloc/login/login_bloc.dart';
 import 'features/auth/presentation/bloc/logout/logout_bloc.dart';
+import 'features/auth/presentation/bloc/register/register_bloc.dart';
 import 'features/history/presentation/bloc/history_transaction/history_transaction_bloc.dart';
 import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
 import 'features/master/presentation/bloc/add_reservation/add_reservation_bloc.dart';
@@ -55,6 +56,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => LoginBloc(AuthRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) => RegisterBloc(AuthRemoteDatasources()),
         ),
         BlocProvider(
           create: (context) => LogoutBloc(AuthRemoteDatasources()),

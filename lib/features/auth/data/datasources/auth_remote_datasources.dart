@@ -44,38 +44,26 @@ class AuthRemoteDatasources {
   }
 
   //register with http
-  Future<Either<String, AuthResponseModel>> register(
-      String name, String email, String password, String phone) async {
+  Future<Either<String, String>> register(
+      String email, String password, String name, String phone) async {
     final url = Uri.parse('${Variables.baseUrl}/api/register');
-    final response = await http.post(
-      url,
-      body: {
-        'name': name,
-        'email': email,
-        'password': password,
-        'phone': phone
-      },
-    );
+    final response = await http.post(url, body: {
+      'email': email,
+      'name': name,
+      'password': password,
+      'phone': phone
+    }, headers: {
+      'Accept': 'application/json',
+    });
 
     if (response.statusCode == 200) {
-      try {
-        await AuthLocalDatasources()
-            .saveAuthData(AuthResponseModel.fromJson(response.body));
-        return Right(AuthResponseModel.fromJson(response.body));
-      } catch (e) {
-        return const Left('Failed to parse authentication data.');
-      }
+      return const Right('Register Success');
     } else {
       try {
         final responseBody = json.decode(response.body);
-        final message = responseBody['message'];
-        if (message is List) {
-          return Left(message.join(', '));
-        } else if (message is String) {
-          return Left(message);
-        } else {
-          return const Left('An unknown error occurred.');
-        }
+        var message = responseBody['message'];
+
+        return Left(message);
       } catch (e) {
         return const Left('Failed to parse error message.');
       }
