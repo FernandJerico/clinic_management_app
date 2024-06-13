@@ -1,6 +1,7 @@
 import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/auth/presentation/pages/login_screen.dart';
+import 'package:clinic_management_app/features/patients/presentation/widgets/success_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,14 +77,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         listener: (context, state) {
                           state.maybeWhen(
                             success: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text('Register Berhasil Silakan Login'),
-                                  backgroundColor: AppColors.green,
+                              showDialog(
+                                context: context,
+                                builder: (context) => SuccessDialog(
+                                  message: 'Register Berhasil!\nSilahkan Login',
+                                  buttonText: 'Login',
+                                  onPressed: () =>
+                                      context.push(const LoginScreen()),
                                 ),
                               );
-                              context.push(const LoginScreen());
                             },
                             error: (message) {
                               ScaffoldMessenger.of(context).showSnackBar(

@@ -1,11 +1,18 @@
 import 'package:clinic_management_app/core/assets/assets.gen.dart';
 import 'package:clinic_management_app/core/components/button_gradient.dart';
-import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ReservationSuccessDialog extends StatelessWidget {
-  const ReservationSuccessDialog({super.key});
+class SuccessDialog extends StatelessWidget {
+  final String message;
+  final String buttonText;
+  //onpressed function button
+  final Function() onPressed;
+  const SuccessDialog(
+      {super.key,
+      required this.message,
+      required this.buttonText,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +42,7 @@ class ReservationSuccessDialog extends StatelessWidget {
             ),
             const SizedBox(height: 16.0),
             Text(
-              'Reservasi Berhasil!',
+              message,
               style: GoogleFonts.poppins(
                   fontSize: 18, fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
@@ -43,16 +50,9 @@ class ReservationSuccessDialog extends StatelessWidget {
             const SizedBox(height: 16.0),
             Button.gradient(
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const NavbarScreen(initialSelectedItem: 2),
-                    ),
-                    (route) => false,
-                  );
+                  onPressed();
                 },
-                label: 'Kembali')
+                label: buttonText)
           ],
         ),
       ),

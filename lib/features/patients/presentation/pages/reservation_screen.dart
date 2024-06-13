@@ -1,7 +1,7 @@
 import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/features/patients/data/model/request/add_reservation_request_model.dart';
 import 'package:clinic_management_app/features/patients/presentation/bloc/reservation/reservation_bloc.dart';
-import 'package:clinic_management_app/features/patients/presentation/widgets/reservation_success_widget.dart';
+import 'package:clinic_management_app/features/patients/presentation/widgets/success_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/themes/colors.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
+import '../../../navbar/presentation/pages/navbar_screen.dart';
 
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({super.key});
@@ -340,8 +341,20 @@ class _ReservationScreenState extends State<ReservationScreen> {
                       success: () {
                         return showDialog(
                           context: context,
-                          builder: (context) =>
-                              const ReservationSuccessDialog(),
+                          builder: (context) => SuccessDialog(
+                            message: 'Reservasi Berhasil!',
+                            buttonText: 'Kembali',
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const NavbarScreen(
+                                      initialSelectedItem: 2),
+                                ),
+                                (route) => false,
+                              );
+                            },
+                          ),
                         );
                       },
                       error: (message) {
