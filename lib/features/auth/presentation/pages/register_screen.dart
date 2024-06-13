@@ -1,28 +1,30 @@
+import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
-import 'package:clinic_management_app/features/auth/presentation/pages/register_screen.dart';
-import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
+import 'package:clinic_management_app/features/auth/presentation/pages/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/assets/assets.gen.dart';
-import '../../../../core/components/button_gradient.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/constants/responsive.dart';
 import '../../../../core/themes/colors.dart';
+import '../../../navbar/presentation/pages/navbar_screen.dart';
 import '../bloc/login/login_bloc.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
+  final fullnameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,10 +41,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const SpaceHeight(80.0),
+                      const SpaceHeight(40.0),
                       const Center(
                         child: Text(
-                          'Masuk ke Akun Anda',
+                          'Register Akun Anda',
                           style: TextStyle(
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold,
@@ -51,8 +53,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SpaceHeight(30.0),
                       CustomTextField(
+                        controller: fullnameController,
+                        label: 'Nama Lengkap',
+                      ),
+                      const SpaceHeight(20.0),
+                      CustomTextField(
                         controller: emailController,
                         label: 'Email',
+                      ),
+                      const SpaceHeight(20.0),
+                      CustomTextField(
+                        controller: phoneController,
+                        label: 'Nomor Telepon',
                       ),
                       const SpaceHeight(20.0),
                       CustomTextField(
@@ -88,15 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           return state.maybeWhen(
                             orElse: () {
                               return Button.gradient(
-                                onPressed: () {
-                                  context.read<LoginBloc>().add(
-                                        LoginEvent.login(
-                                          emailController.text,
-                                          passwordController.text,
-                                        ),
-                                      );
-                                },
-                                label: 'MASUK',
+                                onPressed: () {},
+                                label: 'DAFTAR',
                               );
                             },
                             loading: () {
@@ -132,18 +137,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: Alignment.topLeft,
                         child: InkWell(
-                          onTap: () => context.push(const RegisterScreen()),
+                          onTap: () => context.push(const LoginScreen()),
                           child: Text.rich(TextSpan(
                             children: [
                               const TextSpan(
-                                text: 'Belum Memiliki Akun? ',
+                                text: 'Sudah Memiliki Akun? ',
                                 style: TextStyle(
                                   fontSize: 12.0,
                                   color: AppColors.darkGrey,
                                 ),
                               ),
                               TextSpan(
-                                text: 'Daftar Disini',
+                                text: 'Masuk',
                                 style: GoogleFonts.poppins(
                                   fontSize: 12.0,
                                   color: AppColors.black,
@@ -154,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           )),
                         ),
                       ),
-                      const SpaceHeight(100.0),
+                      const SpaceHeight(60.0),
                       const Text(
                         '© 2024 Klinik Pratama Fuji | Clinic Management App',
                         textAlign: TextAlign.center,
