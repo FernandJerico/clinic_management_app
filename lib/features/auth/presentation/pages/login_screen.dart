@@ -58,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       CustomTextField(
                         controller: passwordController,
                         label: 'Kata Sandi',
+                        obscureText: true,
                       ),
                       const SpaceHeight(40.0),
                       BlocConsumer<LoginBloc, LoginState>(

@@ -11,7 +11,7 @@ import '../../../../core/components/spaces.dart';
 import '../../../../core/constants/responsive.dart';
 import '../../../../core/themes/colors.dart';
 import '../../../navbar/presentation/pages/navbar_screen.dart';
-import '../bloc/login/login_bloc.dart';
+import '../bloc/register/register_bloc.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -70,9 +70,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       CustomTextField(
                         controller: passwordController,
                         label: 'Kata Sandi',
+                        obscureText: true,
                       ),
                       const SpaceHeight(40.0),
-                      BlocConsumer<LoginBloc, LoginState>(
+                      BlocConsumer<RegisterBloc, RegisterState>(
                         listener: (context, state) {
                           state.maybeWhen(
                             success: (data) {
@@ -100,7 +101,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           return state.maybeWhen(
                             orElse: () {
                               return Button.gradient(
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.read<RegisterBloc>().add(
+                                        RegisterEvent.register(
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                          fullname: fullnameController.text,
+                                          phone: phoneController.text,
+                                        ),
+                                      );
+                                },
                                 label: 'DAFTAR',
                               );
                             },
