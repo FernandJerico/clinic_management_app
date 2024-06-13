@@ -256,8 +256,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             category.id!));
                                   }
                                 }
-                                debugPrint(
-                                    'Selected Category: $_selectedCategory');
                               },
                             );
                           },

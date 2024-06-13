@@ -188,7 +188,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                               DetailArticleScreen(article: article),
                             ),
                             child: Container(
-                              height: context.deviceHeight * 0.22,
+                              height: context.deviceHeight * 0.23,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
