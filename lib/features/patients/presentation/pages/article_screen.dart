@@ -10,6 +10,7 @@ import '../../../../core/themes/colors.dart';
 import '../../data/model/response/article_category_response_model.dart';
 import '../bloc/article/article_bloc.dart';
 import '../bloc/article_category/article_category_bloc.dart';
+import 'detail_article_screen.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen({super.key});
@@ -182,69 +183,74 @@ class _ArticleScreenState extends State<ArticleScreen> {
                             const SizedBox(height: 16),
                         itemBuilder: (context, index) {
                           final article = articles[index];
-                          return Container(
-                            height: context.deviceHeight * 0.22,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.grey.withOpacity(0.25),
-                                  blurRadius: 3,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
+                          return InkWell(
+                            onTap: () => context.push(
+                              DetailArticleScreen(article: article),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: context.deviceHeight * 0.13,
-                                  width: double.infinity,
-                                  child: ClipRRect(
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(8),
-                                      topRight: Radius.circular(8),
-                                    ),
-                                    child: Image.network(
-                                      '${Variables.imageBaseUrl}/${article.image?.replaceAll('public/', '')}',
-                                      fit: BoxFit.cover,
-                                    ),
+                            child: Container(
+                              height: context.deviceHeight * 0.22,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.grey.withOpacity(0.25),
+                                    blurRadius: 3,
+                                    offset: const Offset(0, 2),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    article.title ?? '',
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                      color: AppColors.black,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 2,
-                                      horizontal: 6,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          AppColors.primary.withOpacity(0.25),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Text(
-                                      article.category?.name ?? '',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 10,
-                                        color: AppColors.primary,
+                                ],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: context.deviceHeight * 0.13,
+                                    width: double.infinity,
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(8),
+                                        topRight: Radius.circular(8),
+                                      ),
+                                      child: Image.network(
+                                        '${Variables.imageBaseUrl}/${article.image?.replaceAll('public/', '')}',
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      article.title ?? '',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.normal,
+                                        color: AppColors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 2,
+                                        horizontal: 6,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            AppColors.primary.withOpacity(0.25),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Text(
+                                        article.category?.name ?? '',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 10,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },
