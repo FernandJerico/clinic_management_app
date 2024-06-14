@@ -290,7 +290,9 @@ class CardArticleShimmerLoading extends StatelessWidget {
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
             child: Container(
-              height: context.deviceHeight * 0.22,
+              height: ResponsiveWidget.isLargeScreen(context)
+                  ? context.deviceHeight * 0.3
+                  : context.deviceHeight * 0.23,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),

@@ -561,7 +561,9 @@ class CardArticleShimmerLoading extends StatelessWidget {
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.6,
+            width: ResponsiveWidget.isLargeScreen(context)
+                ? context.deviceWidth * 0.25
+                : context.deviceWidth * 0.6,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -595,7 +597,9 @@ class CategoryShimmerLoading extends StatelessWidget {
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: Container(
-            width: context.deviceWidth * 0.25,
+            width: ResponsiveWidget.isLargeScreen(context)
+                ? context.deviceWidth * 0.1
+                : context.deviceWidth * 0.15,
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(20),
@@ -607,7 +611,7 @@ class CategoryShimmerLoading extends StatelessWidget {
       separatorBuilder: (context, index) => const SizedBox(
         width: 8,
       ),
-      itemCount: 5,
+      itemCount: ResponsiveWidget.isLargeScreen(context) ? 9 : 5,
     );
   }
 }
