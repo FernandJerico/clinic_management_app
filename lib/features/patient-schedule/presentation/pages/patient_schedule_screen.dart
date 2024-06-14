@@ -10,6 +10,7 @@ import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/enums/pasient_status.dart';
 import '../../../../core/themes/colors.dart';
+import '../../../auth/data/datasources/auth_local_datasources.dart';
 import '../../../master/presentation/widgets/build_app_bar.dart';
 import '../bloc/patient_schedule/patient_schedule_bloc.dart';
 import 'package:shimmer/shimmer.dart';
@@ -354,54 +355,104 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                       ),
                                     )),
                                     DataCell(
-                                      PopupMenuButton<PatientStatus>(
-                                        offset: const Offset(0, 50),
-                                        icon: const Icon(Icons.more_horiz),
-                                        itemBuilder: (BuildContext context) =>
-                                            <PopupMenuEntry<PatientStatus>>[
-                                          patient.status == 'waiting'
-                                              ? const PopupMenuItem<
-                                                  PatientStatus>(
-                                                  value:
-                                                      PatientStatus.processing,
-                                                  child: _PopupMenuItemValue(
-                                                      PatientStatus.processing),
-                                                )
-                                              : const PopupMenuItem<
-                                                  PatientStatus>(
-                                                  value:
-                                                      PatientStatus.completed,
-                                                  child: _PopupMenuItemValue(
-                                                      PatientStatus.completed),
-                                                ),
-                                          const PopupMenuItem<PatientStatus>(
-                                            value: PatientStatus.rejected,
-                                            child: _PopupMenuItemValue(
-                                                PatientStatus.rejected),
-                                          ),
-                                        ],
-                                        onSelected: (PatientStatus value) {
-                                          if (value ==
-                                              PatientStatus.processing) {
-                                            createRmPatientTap(
-                                                patient.id!,
-                                                patient.scheduleTime!,
-                                                patient.complaint!,
-                                                patient.doctorId!,
-                                                patient.patient!);
-                                          } else if (value ==
-                                              PatientStatus.completed) {
-                                            createPayment(
-                                              patient,
-                                              patient.totalPrice ?? 0,
-                                            );
+                                      FutureBuilder(
+                                        future: AuthLocalDatasources()
+                                            .getAuthData(),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          } else if (snapshot.hasError) {
+                                            return Text(
+                                                'Error: ${snapshot.error}');
                                           } else {
-                                            scaffoldkey.currentState!
-                                                .openEndDrawer();
+                                            final role =
+                                                snapshot.data?.user?.role;
+                                            return PopupMenuButton<
+                                                PatientStatus>(
+                                              offset: const Offset(0, 50),
+                                              icon:
+                                                  const Icon(Icons.more_horiz),
+                                              itemBuilder:
+                                                  (BuildContext context) {
+                                                return [
+                                                  if (patient.status ==
+                                                      'waiting')
+                                                    const PopupMenuItem<
+                                                        PatientStatus>(
+                                                      value: PatientStatus
+                                                          .processing,
+                                                      child:
+                                                          _PopupMenuItemValue(
+                                                              PatientStatus
+                                                                  .processing),
+                                                    ),
+                                                  if (patient.status ==
+                                                      'waiting')
+                                                    const PopupMenuItem<
+                                                        PatientStatus>(
+                                                      value: PatientStatus
+                                                          .rejected,
+                                                      child:
+                                                          _PopupMenuItemValue(
+                                                              PatientStatus
+                                                                  .rejected),
+                                                    ),
+                                                  if (!(role == 'doctor' &&
+                                                          patient.status ==
+                                                              'processed') &&
+                                                      patient.status !=
+                                                          'completed' &&
+                                                      patient.status !=
+                                                          'waiting')
+                                                    const PopupMenuItem<
+                                                        PatientStatus>(
+                                                      value: PatientStatus
+                                                          .completed,
+                                                      child:
+                                                          _PopupMenuItemValue(
+                                                              PatientStatus
+                                                                  .completed),
+                                                    ),
+                                                  if (patient.status !=
+                                                      'waiting')
+                                                    const PopupMenuItem<
+                                                        PatientStatus>(
+                                                      value: PatientStatus
+                                                          .rejected,
+                                                      child:
+                                                          _PopupMenuItemValue(
+                                                              PatientStatus
+                                                                  .rejected),
+                                                    ),
+                                                ];
+                                              },
+                                              onSelected:
+                                                  (PatientStatus value) {
+                                                if (value ==
+                                                    PatientStatus.processing) {
+                                                  createRmPatientTap(
+                                                      patient.id!,
+                                                      patient.scheduleTime!,
+                                                      patient.complaint!,
+                                                      patient.doctorId!,
+                                                      patient.patient!);
+                                                } else if (value ==
+                                                    PatientStatus.completed) {
+                                                  createPayment(
+                                                    patient,
+                                                    patient.totalPrice ?? 0,
+                                                  );
+                                                } else {
+                                                  scaffoldkey.currentState!
+                                                      .openEndDrawer();
+                                                }
+                                              },
+                                            );
                                           }
                                         },
                                       ),
-                                    )
+                                    ),
                                   ]),
                                 )
                                 .toList(),
