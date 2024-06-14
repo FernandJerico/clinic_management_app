@@ -168,7 +168,101 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600),
                                           ),
-                                          onTap: () {},
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  backgroundColor: Colors.white,
+                                                  title: const Text(
+                                                      'Accept Reservation'),
+                                                  content: Form(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        TextFormField(
+                                                          maxLines: 3,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            hintText:
+                                                                'Masukkan Pesan',
+                                                            border:
+                                                                OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        const SpaceHeight(16),
+                                                        Row(
+                                                          children: [
+                                                            ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    side: const BorderSide(
+                                                                        color: AppColors
+                                                                            .primary),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(8),
+                                                                  ),
+                                                                ),
+                                                                onPressed: () {
+                                                                  context.pop();
+                                                                },
+                                                                child: Text(
+                                                                  'Cancel',
+                                                                  style: GoogleFonts.poppins(
+                                                                      fontSize:
+                                                                          18,
+                                                                      color: AppColors
+                                                                          .primary),
+                                                                )),
+                                                            const SpaceWidth(
+                                                                32),
+                                                            ElevatedButton(
+                                                                style: ElevatedButton
+                                                                    .styleFrom(
+                                                                  backgroundColor:
+                                                                      AppColors
+                                                                          .primary,
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    side: const BorderSide(
+                                                                        color: AppColors
+                                                                            .primary),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(8),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () {},
+                                                                child: Text(
+                                                                  'Accept',
+                                                                  style: GoogleFonts.poppins(
+                                                                      fontSize:
+                                                                          18,
+                                                                      color: Colors
+                                                                          .white),
+                                                                ))
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
                                         ),
                                       ];
                                     },
