@@ -255,7 +255,7 @@ class _CreateReservationPatientDialogState
                             state.maybeWhen(
                               success: () {
                                 context.pushReplacement(const NavbarScreen(
-                                  initialSelectedItem: 3,
+                                  initialSelectedItem: 6,
                                 ));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(

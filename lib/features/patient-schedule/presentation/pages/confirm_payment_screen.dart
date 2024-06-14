@@ -346,7 +346,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                       timer!.cancel();
                                       context
                                           .pushReplacement(const NavbarScreen(
-                                        initialSelectedItem: 3,
+                                        initialSelectedItem: 6,
                                       ));
                                     }
                                   },

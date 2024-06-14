@@ -38,15 +38,15 @@ class _NavbarScreenState extends State<NavbarScreen> {
 
   final List<Widget> _pages = [
     // pages for patient
-    const HomeScreen(),
-    const ReservationScreen(),
-    const HistoryScreen(),
+    const HomeScreen(), // 0
+    const ReservationScreen(), // 1
+    const HistoryScreen(), // 2
     // end pages for patient
-    const DashboardScreen(),
-    MasterScreen(onTap: (_) {}),
-    const MedicalRecordScreen(),
-    const PatientScheduleScreen(),
-    const HistoryTransactionScreen(),
+    const DashboardScreen(), // 3
+    MasterScreen(onTap: (_) {}), // 4
+    const MedicalRecordScreen(), // 5
+    const PatientScheduleScreen(), // 6
+    const HistoryTransactionScreen(), //7
   ];
 
   @override
