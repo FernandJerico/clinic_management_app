@@ -3,6 +3,7 @@ import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_schedule_screen.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_doctor_screen.dart';
+import 'package:clinic_management_app/features/master/presentation/pages/data_reservation_screen.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_service_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -81,7 +82,7 @@ class _MasterScreenState extends State<MasterScreen> {
               label: 'Reservasi Online',
               iconPath: Assets.images.menu.serviceIcon.path,
               onPressed: () {
-                context.push(const DataServiceScreen());
+                context.push(const DataReservationScreen());
               },
             ),
           ],

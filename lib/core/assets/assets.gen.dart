@@ -17,6 +17,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/Log Out.svg
   SvgGenImage get logOut => const SvgGenImage('assets/icons/Log Out.svg');
 
+  /// File path: assets/icons/action.svg
+  SvgGenImage get action => const SvgGenImage('assets/icons/action.svg');
+
   /// File path: assets/icons/calendar.svg
   SvgGenImage get calendar => const SvgGenImage('assets/icons/calendar.svg');
 
@@ -78,6 +81,7 @@ class $AssetsIconsGen {
   /// List of all assets
   List<SvgGenImage> get values => [
         logOut,
+        action,
         calendar,
         chartPie,
         delete,
