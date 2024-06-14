@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -188,7 +189,9 @@ class _ArticleScreenState extends State<ArticleScreen> {
                               DetailArticleScreen(article: article),
                             ),
                             child: Container(
-                              height: context.deviceHeight * 0.23,
+                              height: ResponsiveWidget.isLargeScreen(context)
+                                  ? context.deviceHeight * 0.3
+                                  : context.deviceHeight * 0.23,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(8),
@@ -204,7 +207,10 @@ class _ArticleScreenState extends State<ArticleScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: context.deviceHeight * 0.13,
+                                    height:
+                                        ResponsiveWidget.isLargeScreen(context)
+                                            ? context.deviceHeight * 0.225
+                                            : context.deviceHeight * 0.13,
                                     width: double.infinity,
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.only(

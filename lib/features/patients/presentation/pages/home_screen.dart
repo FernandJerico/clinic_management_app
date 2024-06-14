@@ -11,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/assets/assets.gen.dart';
+import '../../../../core/constants/responsive.dart';
 import '../../../../core/constants/variables.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
 import '../../data/model/response/article_category_response_model.dart';
@@ -61,11 +62,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Container(
                       width: double.infinity,
-                      height: context.deviceHeight * 0.19,
+                      height: ResponsiveWidget.isLargeScreen(context)
+                          ? context.deviceHeight * 0.25
+                          : context.deviceHeight * 0.19,
                       color: AppColors.primary,
                     ),
                     Container(
-                      height: context.deviceHeight * 0.15,
+                      height: ResponsiveWidget.isLargeScreen(context)
+                          ? context.deviceHeight * 0.25
+                          : context.deviceHeight * 0.15,
                       color: AppColors.white,
                     ),
                   ],
@@ -102,10 +107,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 options: CarouselOptions(
                                   enlargeCenterPage: false,
                                   enableInfiniteScroll: true,
-                                  height: 155,
+                                  height:
+                                      ResponsiveWidget.isLargeScreen(context)
+                                          ? 310
+                                          : 155,
                                   aspectRatio: 16 / 8,
                                   scrollDirection: Axis.horizontal,
-                                  viewportFraction: 1,
+                                  viewportFraction:
+                                      ResponsiveWidget.isLargeScreen(context)
+                                          ? 0.8
+                                          : 1,
                                   pauseAutoPlayOnTouch: true,
                                   autoPlay: true,
                                   onPageChanged: (index, reason) {
@@ -232,7 +243,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               label: Text(
                                 category.name ?? '',
                                 style: GoogleFonts.poppins(
-                                  fontSize: 12,
+                                  fontSize:
+                                      ResponsiveWidget.isLargeScreen(context)
+                                          ? 14
+                                          : 12,
                                   fontWeight: FontWeight.normal,
                                   color: _selectedCategory == category.id
                                       ? Colors.white
@@ -274,7 +288,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 20),
               child: SizedBox(
-                height: context.deviceHeight * 0.22,
+                height: ResponsiveWidget.isLargeScreen(context)
+                    ? context.deviceHeight * 0.23
+                    : context.deviceHeight * 0.22,
                 child: BlocBuilder<ArticleBloc, ArticleState>(
                   builder: (context, state) {
                     return state.maybeWhen(
@@ -306,7 +322,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               onTap: () => context
                                   .push(DetailArticleScreen(article: article)),
                               child: Container(
-                                width: context.deviceWidth * 0.6,
+                                width: ResponsiveWidget.isLargeScreen(context)
+                                    ? context.deviceWidth * 0.25
+                                    : context.deviceWidth * 0.6,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(8),
@@ -340,7 +358,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: Text(
                                         article.title ?? '',
                                         style: GoogleFonts.poppins(
-                                          fontSize: 10,
+                                          fontSize:
+                                              ResponsiveWidget.isLargeScreen(
+                                                      context)
+                                                  ? 13
+                                                  : 10,
                                           fontWeight: FontWeight.normal,
                                           color: AppColors.black,
                                         ),
@@ -360,7 +382,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Text(
                                           article.category?.name ?? '',
                                           style: GoogleFonts.poppins(
-                                            fontSize: 8,
+                                            fontSize:
+                                                ResponsiveWidget.isLargeScreen(
+                                                        context)
+                                                    ? 10
+                                                    : 8,
                                             color: AppColors.primary,
                                           ),
                                         ),
@@ -396,7 +422,9 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 12,
             ),
             SizedBox(
-                height: context.deviceHeight * 0.370,
+                height: ResponsiveWidget.isLargeScreen(context)
+                    ? context.deviceHeight * 0.4
+                    : context.deviceHeight * 0.37,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: BlocBuilder<DataDoctorBloc, DataDoctorState>(
@@ -416,7 +444,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               final doctor = doctors[index];
                               return Container(
-                                height: context.deviceHeight * 0.11,
+                                height: ResponsiveWidget.isLargeScreen(context)
+                                    ? context.deviceHeight * 0.12
+                                    : context.deviceHeight * 0.11,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -445,12 +475,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                     const SizedBox(
                                       width: 8,
                                     ),
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: Image.network(
-                                        '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
-                                        fit: BoxFit.cover,
-                                        width: context.deviceWidth * 0.2,
+                                    Padding(
+                                      padding: const EdgeInsets.all(4),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Image.network(
+                                          '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
+                                          fit: BoxFit.cover,
+                                          width: ResponsiveWidget.isLargeScreen(
+                                                  context)
+                                              ? context.deviceWidth * 0.075
+                                              : context.deviceWidth * 0.2,
+                                        ),
                                       ),
                                     ),
                                     const SizedBox(
@@ -465,20 +501,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           '${doctor.doctorName}',
                                           style: GoogleFonts.poppins(
-                                              fontSize: 12,
+                                              fontSize: ResponsiveWidget
+                                                      .isLargeScreen(context)
+                                                  ? 14
+                                                  : 12,
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.darkGrey),
                                         ),
                                         Text(
                                           doctor.doctorSpecialist ?? '',
                                           style: GoogleFonts.poppins(
-                                              fontSize: 12,
+                                              fontSize: ResponsiveWidget
+                                                      .isLargeScreen(context)
+                                                  ? 14
+                                                  : 12,
                                               color: AppColors.darkGrey),
                                         ),
                                         Text(
                                           'Poli Kulit dan Kelamin',
                                           style: GoogleFonts.poppins(
-                                              fontSize: 10,
+                                              fontSize: ResponsiveWidget
+                                                      .isLargeScreen(context)
+                                                  ? 14
+                                                  : 10,
                                               color: AppColors.darkGrey),
                                         ),
                                       ],

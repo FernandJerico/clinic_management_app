@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:clinic_management_app/features/patients/data/model/response/article_response_model.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,8 @@ class _DetailArticleScreenState extends State<DetailArticleScreen> {
               Text(
                 widget.article.title!,
                 style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.w600),
+                    fontSize: ResponsiveWidget.isLargeScreen(context) ? 26 : 20,
+                    fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),
               Container(
@@ -68,7 +70,7 @@ class _DetailArticleScreenState extends State<DetailArticleScreen> {
                 child: Text(
                   widget.article.category?.name ?? '',
                   style: GoogleFonts.poppins(
-                    fontSize: 12,
+                    fontSize: ResponsiveWidget.isLargeScreen(context) ? 14 : 12,
                     color: AppColors.primary,
                   ),
                 ),
@@ -80,14 +82,16 @@ class _DetailArticleScreenState extends State<DetailArticleScreen> {
                     TextSpan(
                       text: 'Ditinjau oleh ',
                       style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        color: AppColors.grey,
+                        fontSize:
+                            ResponsiveWidget.isLargeScreen(context) ? 14 : 12,
+                        color: AppColors.darkGrey,
                       ),
                     ),
                     TextSpan(
                       text: 'Admin ',
                       style: GoogleFonts.poppins(
-                        fontSize: 12,
+                        fontSize:
+                            ResponsiveWidget.isLargeScreen(context) ? 14 : 12,
                         color: AppColors.primary,
                       ),
                     ),
@@ -96,8 +100,9 @@ class _DetailArticleScreenState extends State<DetailArticleScreen> {
                         DateTime.parse(widget.article.createdAt.toString()),
                       ),
                       style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        color: AppColors.grey,
+                        fontSize:
+                            ResponsiveWidget.isLargeScreen(context) ? 14 : 12,
+                        color: AppColors.darkGrey,
                       ),
                     ),
                   ],
@@ -107,7 +112,7 @@ class _DetailArticleScreenState extends State<DetailArticleScreen> {
               Image.network(
                 '${Variables.imageBaseUrl}/${widget.article.image?.replaceAll('public/', '')}',
                 width: double.infinity,
-                height: 200,
+                height: ResponsiveWidget.isLargeScreen(context) ? 400 : 200,
                 fit: BoxFit.cover,
               ),
               const SizedBox(height: 16),
@@ -115,7 +120,9 @@ class _DetailArticleScreenState extends State<DetailArticleScreen> {
                 data: widget.article.content,
                 style: {
                   'body': Style(
-                    fontSize: FontSize(14),
+                    fontSize: ResponsiveWidget.isLargeScreen(context)
+                        ? FontSize(16)
+                        : FontSize(14),
                     color: AppColors.black,
                   ),
                 },
