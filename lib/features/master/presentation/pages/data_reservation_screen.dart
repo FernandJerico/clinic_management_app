@@ -46,7 +46,17 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
           searchController: searchController,
           keyboardType: TextInputType.text,
           withBackButton: true,
-          searchChanged: (value) {},
+          searchChanged: (value) {
+            if (value.isNotEmpty) {
+              context.read<DataReservationBloc>().add(
+                  DataReservationEvent.getReservationDataByName(
+                      searchController.text));
+            } else {
+              context
+                  .read<DataReservationBloc>()
+                  .add(const DataReservationEvent.getReservationData());
+            }
+          },
           searchHint: 'Cari Reseverasi',
         ),
       ),
