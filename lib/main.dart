@@ -25,6 +25,7 @@ import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
 import 'features/master/presentation/bloc/add_reservation/add_reservation_bloc.dart';
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
 import 'features/master/presentation/bloc/data_patient/data_patient_bloc.dart';
+import 'features/master/presentation/bloc/data_reservation/data_reservation_bloc.dart';
 import 'features/master/presentation/bloc/data_service_medicine/data_service_medicine_bloc.dart';
 import 'features/medical-record/presentation/bloc/get_medical_record/get_medical_record_bloc.dart';
 import 'features/patient-schedule/data/datasources/patient_schedule_remote_datasources.dart';
@@ -76,6 +77,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               DataServiceMedicineBloc(MasterRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) => DataReservationBloc(MasterRemoteDatasources()),
         ),
         BlocProvider(
           create: (context) =>

@@ -2,6 +2,7 @@ import 'package:clinic_management_app/core/constants/variables.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
 import 'package:clinic_management_app/features/master/data/models/response/doctor_schedule_response_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/master_doctor_response_model.dart';
+import 'package:clinic_management_app/features/master/data/models/response/master_reservation_response_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/service_medicine_response_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -146,6 +147,37 @@ class MasterRemoteDatasources {
       return const Right('Success add patient');
     } else {
       return const Left('Failed to get patients');
+    }
+  }
+
+  Future<Either<String, MasterReservationResponseModel>>
+      getReservationData() async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-reservations-admin');
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    });
+    if (response.statusCode == 200) {
+      return Right(MasterReservationResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get reservation data');
+    }
+  }
+
+  Future<Either<String, MasterReservationResponseModel>>
+      getReservationDataByName(String name) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse(
+        '${Variables.baseUrl}/api/api-reservations-admin?fullname=$name');
+    final response = await http.get(url, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    });
+    if (response.statusCode == 200) {
+      return Right(MasterReservationResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get reservation data');
     }
   }
 }
