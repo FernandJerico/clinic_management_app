@@ -21,6 +21,7 @@ import 'features/auth/presentation/bloc/login/login_bloc.dart';
 import 'features/auth/presentation/bloc/logout/logout_bloc.dart';
 import 'features/auth/presentation/bloc/register/register_bloc.dart';
 import 'features/history/presentation/bloc/history_transaction/history_transaction_bloc.dart';
+import 'features/master/presentation/bloc/accept_reservation/accept_reservation_bloc.dart';
 import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
 import 'features/master/presentation/bloc/add_reservation/add_reservation_bloc.dart';
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
@@ -80,6 +81,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DataReservationBloc(MasterRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) => AcceptReservationBloc(MasterRemoteDatasources()),
         ),
         BlocProvider(
           create: (context) =>

@@ -180,4 +180,43 @@ class MasterRemoteDatasources {
       return const Left('Failed to get reservation data');
     }
   }
+
+  Future<Either<String, String>> acceptReservation(
+      String reservationId, String status, String message) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/api-reservations/$reservationId');
+    final response = await http.put(url, body: {
+      'status': status,
+      'note': message,
+    }, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json'
+    });
+
+    if (response.statusCode == 200) {
+      return const Right('Success to accept reservation');
+    } else {
+      return const Left('Failed to accept reservation');
+    }
+  }
+
+  Future<Either<String, String>> rejectReservation(
+      String reservationId, String status, String message) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/api-reservations/$reservationId');
+    final response = await http.put(url, body: {
+      'status': status,
+      'note': message,
+    }, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json'
+    });
+    if (response.statusCode == 200) {
+      return const Right('Success to reject reservation');
+    } else {
+      return const Left('Failed to reject reservation');
+    }
+  }
 }

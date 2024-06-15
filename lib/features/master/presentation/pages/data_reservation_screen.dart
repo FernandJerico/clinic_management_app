@@ -1,9 +1,11 @@
 import 'package:clinic_management_app/core/assets/assets.gen.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/features/master/presentation/bloc/accept_reservation/accept_reservation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/components/spaces.dart';
@@ -19,7 +21,9 @@ class DataReservationScreen extends StatefulWidget {
 }
 
 class _DataReservationScreenState extends State<DataReservationScreen> {
+  final _formKey = GlobalKey<FormState>();
   final searchController = TextEditingController();
+  final messageController = TextEditingController();
 
   String capitalize(String s) {
     if (s.isEmpty) return s;
@@ -31,6 +35,7 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
     context
         .read<DataReservationBloc>()
         .add(const DataReservationEvent.getReservationData());
+    initializeDateFormatting('id_ID', null);
     super.initState();
   }
 
@@ -224,6 +229,7 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                           title: const Text(
                                                               'Accept Reservation'),
                                                           content: Form(
+                                                            key: _formKey,
                                                             child: Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -231,6 +237,8 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                               children: [
                                                                 TextFormField(
                                                                   maxLines: 3,
+                                                                  controller:
+                                                                      messageController,
                                                                   decoration:
                                                                       InputDecoration(
                                                                     hintText:
@@ -264,6 +272,8 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                                             () {
                                                                           context
                                                                               .pop();
+                                                                          messageController
+                                                                              .clear();
                                                                         },
                                                                         child:
                                                                             Text(
@@ -274,28 +284,50 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                                         )),
                                                                     const SpaceWidth(
                                                                         32),
-                                                                    ElevatedButton(
-                                                                        style: ElevatedButton
-                                                                            .styleFrom(
-                                                                          backgroundColor:
-                                                                              AppColors.primary,
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            side:
-                                                                                const BorderSide(color: AppColors.primary),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(8),
+                                                                    BlocListener<
+                                                                        AcceptReservationBloc,
+                                                                        AcceptReservationState>(
+                                                                      listener:
+                                                                          (context,
+                                                                              state) {
+                                                                        state.maybeWhen(
+                                                                            orElse: () {},
+                                                                            success: () {
+                                                                              context.pop();
+                                                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                                                const SnackBar(
+                                                                                  backgroundColor: AppColors.green,
+                                                                                  content: Text('Reservation accepted successfully'),
+                                                                                ),
+                                                                              );
+                                                                              context.read<DataReservationBloc>().add(const DataReservationEvent.getReservationData());
+                                                                            },
+                                                                            error: (message) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                  content: Text(message),
+                                                                                  backgroundColor: AppColors.red,
+                                                                                )));
+                                                                      },
+                                                                      child: ElevatedButton(
+                                                                          style: ElevatedButton.styleFrom(
+                                                                            backgroundColor:
+                                                                                AppColors.primary,
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              side: const BorderSide(color: AppColors.primary),
+                                                                              borderRadius: BorderRadius.circular(8),
+                                                                            ),
                                                                           ),
-                                                                        ),
-                                                                        onPressed:
-                                                                            () {},
-                                                                        child:
-                                                                            Text(
-                                                                          'Accept',
-                                                                          style: GoogleFonts.poppins(
-                                                                              fontSize: 18,
-                                                                              color: Colors.white),
-                                                                        ))
+                                                                          onPressed: () {
+                                                                            if (_formKey.currentState!.validate()) {
+                                                                              context.read<AcceptReservationBloc>().add(AcceptReservationEvent.acceptReservation(reservationId: history.id.toString(), status: 'approved', message: messageController.text));
+                                                                            }
+                                                                          },
+                                                                          child: Text(
+                                                                            'Accept',
+                                                                            style:
+                                                                                GoogleFonts.poppins(fontSize: 18, color: Colors.white),
+                                                                          )),
+                                                                    )
                                                                   ],
                                                                 ),
                                                               ],
