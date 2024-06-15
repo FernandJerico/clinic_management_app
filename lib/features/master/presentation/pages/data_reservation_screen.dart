@@ -31,6 +31,13 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
   }
 
   @override
+  void dispose() {
+    searchController.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     context
         .read<DataReservationBloc>()
