@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:clinic_management_app/core/constants/variables.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
 import 'package:clinic_management_app/features/master/data/models/response/doctor_schedule_response_model.dart';
@@ -197,7 +199,14 @@ class MasterRemoteDatasources {
     if (response.statusCode == 200) {
       return const Right('Success to accept reservation');
     } else {
-      return const Left('Failed to accept reservation');
+      try {
+        final responseBody = json.decode(response.body);
+        var message = responseBody['message'];
+
+        return Left(message);
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
     }
   }
 
@@ -216,7 +225,14 @@ class MasterRemoteDatasources {
     if (response.statusCode == 200) {
       return const Right('Success to reject reservation');
     } else {
-      return const Left('Failed to reject reservation');
+      try {
+        final responseBody = json.decode(response.body);
+        var message = responseBody['message'];
+
+        return Left(message);
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
     }
   }
 }
