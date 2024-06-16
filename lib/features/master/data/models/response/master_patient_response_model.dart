@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class MasterPatientResponseModel {
@@ -60,8 +61,10 @@ class MasterPatient {
   final String? maritalStatus;
   final String? relationshipName;
   final String? relationshipPhone;
+  final int? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final int? userId;
 
   MasterPatient({
     this.id,
@@ -89,8 +92,10 @@ class MasterPatient {
     this.maritalStatus,
     this.relationshipName,
     this.relationshipPhone,
+    this.status,
     this.createdAt,
     this.updatedAt,
+    this.userId,
   });
 
   factory MasterPatient.fromJson(String str) =>
@@ -126,12 +131,14 @@ class MasterPatient {
         maritalStatus: json["marital_status"],
         relationshipName: json["relationship_name"],
         relationshipPhone: json["relationship_phone"],
+        status: json["status"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
+        userId: json["user_id"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -161,7 +168,14 @@ class MasterPatient {
         "marital_status": maritalStatus,
         "relationship_name": relationshipName,
         "relationship_phone": relationshipPhone,
+        "status": status,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "user_id": userId,
       };
+
+  @override
+  String toString() {
+    return '$name';
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:clinic_management_app/features/master/data/models/response/master_patient_response_model.dart';
 import 'package:clinic_management_app/features/patients/data/model/request/add_reservation_request_model.dart';
 import 'package:clinic_management_app/features/patients/data/model/response/history_reservation_response_model.dart';
 import 'package:dartz/dartz.dart';
@@ -66,6 +67,25 @@ class ReservationRemoteDatasource {
       return Right(HistoryReservationResponseModel.fromJson(response.body));
     } else {
       return const Left('Failed to get history reservation');
+    }
+  }
+
+  Future<Either<String, MasterPatientResponseModel>> getPatient() async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-patients-patient');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(MasterPatientResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Failed to get patient data');
     }
   }
 }

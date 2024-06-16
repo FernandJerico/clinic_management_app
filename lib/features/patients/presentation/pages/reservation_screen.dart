@@ -1,4 +1,5 @@
 import 'package:clinic_management_app/core/components/button_gradient.dart';
+import 'package:clinic_management_app/core/components/custom_dropdown.dart';
 import 'package:clinic_management_app/features/patients/data/model/request/add_reservation_request_model.dart';
 import 'package:clinic_management_app/features/patients/presentation/bloc/reservation/reservation_bloc.dart';
 import 'package:clinic_management_app/features/patients/presentation/widgets/success_widget.dart';
@@ -11,6 +12,7 @@ import 'package:intl/intl.dart';
 import '../../../../core/themes/colors.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
 import '../../../navbar/presentation/pages/navbar_screen.dart';
+import '../bloc/get_patient/get_patient_bloc.dart';
 
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({super.key});
@@ -27,6 +29,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
   final _dayAppointmentController = TextEditingController();
   String? _selectedGender;
   final List<String> _genders = ['Laki-Laki', 'Perempuan'];
+  int? _selectedPatient;
   String? _selectedPolyclinic;
   final List<String> _polyclinics = [
     'Umum',
@@ -49,6 +52,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
   void initState() {
     super.initState();
     initializeDateFormatting('id_ID', null);
+    context.read<GetPatientBloc>().add(const GetPatientEvent.getPatient());
   }
 
   @override
@@ -71,15 +75,78 @@ class _ReservationScreenState extends State<ReservationScreen> {
             key: _formKey,
             child: Column(
               children: [
-                BuildTextFormField(
-                  titleText: 'Nama Lengkap',
-                  hintText: 'Masukkan Nama Lengkap Anda',
-                  controller: _nameController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Nama Lengkap wajib diisi';
-                    }
-                    return null;
+                BlocBuilder<GetPatientBloc, GetPatientState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return CustomDropdown(
+                          value: _selectedPatient,
+                          items: const [],
+                          label: 'Nama Lengkap',
+                          onChanged: (value) {},
+                        );
+                      },
+                      loaded: (patients) {
+                        if (patients.isEmpty) {
+                          return Column(
+                            children: [
+                              Text(
+                                'Belum ada pasien yang terdaftar',
+                                style: GoogleFonts.poppins(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(height: 8),
+                              Button.gradient(
+                                  onPressed: () {}, label: 'Tambah Data')
+                            ],
+                          );
+                        }
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Nama Lengkap',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            DropdownButtonFormField<int>(
+                              dropdownColor: Colors.white,
+                              decoration: InputDecoration(
+                                labelText: 'Nama Lengkap',
+                                labelStyle: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 16),
+                                hintStyle: GoogleFonts.poppins(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                              value: _selectedPatient,
+                              items: patients.map((patient) {
+                                return DropdownMenuItem<int>(
+                                  value: patient.id,
+                                  child: Text(patient.name ?? ''),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedPatient = value;
+                                });
+                              },
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Tolong pilih nama pasien Anda';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
                 const SizedBox(height: 10),
@@ -105,6 +172,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     ),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<String>(
+                      dropdownColor: Colors.white,
                       decoration: InputDecoration(
                         labelText: 'Jenis Kelamin',
                         labelStyle: GoogleFonts.poppins(
@@ -198,6 +266,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     ),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<String>(
+                      dropdownColor: Colors.white,
                       decoration: InputDecoration(
                         labelText: 'Poliklinik',
                         labelStyle: GoogleFonts.poppins(
@@ -244,18 +313,20 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     TextFormField(
                       controller: _dayAppointmentController,
                       onTap: () async {
+                        DateTime initialDate = DateTime.now();
+                        if (initialDate.weekday == DateTime.sunday) {
+                          // Jika hari ini adalah Minggu, pilih tanggal besok sebagai initialDate
+                          initialDate =
+                              initialDate.add(const Duration(days: 1));
+                        }
                         DateTime? selectedDayAppointment = await showDatePicker(
                           context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 14)),
+                          initialDate: initialDate,
+                          firstDate: initialDate,
+                          lastDate: initialDate.add(const Duration(days: 7)),
                           selectableDayPredicate: (DateTime date) {
                             // Disable Sundays
-                            if (date.weekday == DateTime.sunday) {
-                              return false;
-                            }
-                            return true;
+                            return date.weekday != DateTime.sunday;
                           },
                         );
                         if (selectedDayAppointment != null) {
@@ -300,6 +371,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     ),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<String>(
+                      dropdownColor: Colors.white,
                       decoration: InputDecoration(
                         labelText: 'Waktu Kedatangan',
                         labelStyle: GoogleFonts.poppins(

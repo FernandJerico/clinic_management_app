@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'spaces.dart';
 
@@ -36,6 +37,7 @@ class CustomDropdown<T> extends StatelessWidget {
         DropdownButtonFormField<T>(
           value: value,
           onChanged: onChanged,
+          dropdownColor: Colors.white,
           items: items.map((T item) {
             return DropdownMenuItem<T>(
               value: item,
@@ -43,15 +45,20 @@ class CustomDropdown<T> extends StatelessWidget {
             );
           }).toList(),
           decoration: InputDecoration(
+            label: Text(label),
+            labelStyle: GoogleFonts.poppins(
+              fontSize: 12,
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+            hintStyle: GoogleFonts.poppins(fontSize: 12),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderRadius: BorderRadius.circular(4),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(4),
               borderSide: const BorderSide(color: Colors.grey),
             ),
-            hintText: label,
           ),
         ),
       ],

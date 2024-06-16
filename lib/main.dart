@@ -43,6 +43,7 @@ import 'features/patient-schedule/presentation/bloc/patient_schedule/patient_sch
 import 'features/patient-schedule/presentation/bloc/qris/qris_bloc.dart';
 import 'features/patients/presentation/bloc/article/article_bloc.dart';
 import 'features/patients/presentation/bloc/article_category/article_category_bloc.dart';
+import 'features/patients/presentation/bloc/get_patient/get_patient_bloc.dart';
 import 'features/patients/presentation/bloc/history_reservation/history_reservation_bloc.dart';
 import 'features/patients/presentation/bloc/reservation/reservation_bloc.dart';
 import 'features/satusehat/presentation/bloc/city/city_bloc.dart';
@@ -170,6 +171,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               GetSubDistrictBinderBloc(BinderbyteWilayahRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => GetPatientBloc(ReservationRemoteDatasource()),
         ),
       ],
       child: MaterialApp(
