@@ -227,24 +227,25 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          patient.name,
+                                          patient.name ?? '',
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
-                                        Text(patient.gender),
+                                        Text(patient.gender ?? ''),
                                       ],
                                     )),
-                                    DataCell(
-                                        Center(child: Text(patient.gender))),
+                                    DataCell(Center(
+                                        child: Text(patient.gender ?? ''))),
                                     DataCell(
                                       Center(
                                         child: Text(
-                                          patient.birthDate.toFormattedDate(),
+                                          patient.birthDate!.toFormattedDate(),
                                         ),
                                       ),
                                     ),
-                                    DataCell(Center(child: Text(patient.nik))),
-                                    DataCell(Text(patient.email)),
+                                    DataCell(
+                                        Center(child: Text(patient.nik ?? ''))),
+                                    DataCell(Text(patient.email ?? '')),
                                     DataCell(Button.filled(
                                       onPressed: () {
                                         createReservationPatientTap(patient);

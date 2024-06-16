@@ -20,7 +20,7 @@ class DataPatientBloc extends Bloc<DataPatientEvent, DataPatientState> {
       final result = await masterRemoteDatasources.getPatients();
       result.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r.data)),
+        (r) => emit(_Loaded(r.data ?? [])),
       );
     });
 
@@ -29,7 +29,7 @@ class DataPatientBloc extends Bloc<DataPatientEvent, DataPatientState> {
       final result = await masterRemoteDatasources.getPatientByNIK(event.nik);
       result.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r.data)),
+        (r) => emit(_Loaded(r.data ?? [])),
       );
     });
   }

@@ -132,7 +132,7 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
                                         Row(
                                           children: [
                                             Text(
-                                              medicalRecord.patient!.name,
+                                              medicalRecord.patient!.name ?? '',
                                               style: GoogleFonts.poppins(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold),

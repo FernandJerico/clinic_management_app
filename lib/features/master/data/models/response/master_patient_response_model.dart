@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class MasterPatientResponseModel {
-  final bool success;
-  final String message;
-  final List<MasterPatient> data;
+  final bool? success;
+  final String? message;
+  final List<MasterPatient>? data;
 
   MasterPatientResponseModel({
-    required this.success,
-    required this.message,
-    required this.data,
+    this.success,
+    this.message,
+    this.data,
   });
 
   factory MasterPatientResponseModel.fromJson(String str) =>
@@ -20,72 +20,77 @@ class MasterPatientResponseModel {
       MasterPatientResponseModel(
         success: json["success"],
         message: json["message"],
-        data: List<MasterPatient>.from(
-            json["data"].map((x) => MasterPatient.fromMap(x))),
+        data: json["data"] == null
+            ? []
+            : List<MasterPatient>.from(
+                json["data"]!.map((x) => MasterPatient.fromMap(x))),
       );
 
   Map<String, dynamic> toMap() => {
         "success": success,
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toMap())),
+        "data":
+            data == null ? [] : List<dynamic>.from(data!.map((x) => x.toMap())),
       };
 }
 
 class MasterPatient {
-  final int id;
-  final String nik;
-  final String kk;
-  final String name;
-  final String phone;
-  final String email;
-  final String gender;
-  final String birthPlace;
-  final DateTime birthDate;
-  final int isDeceased;
-  final String addressLine;
-  final String city;
-  final String cityCode;
-  final String province;
-  final String provinceCode;
-  final String district;
-  final String districtCode;
-  final String village;
-  final String rt;
-  final String rw;
-  final String postalCode;
-  final String maritalStatus;
-  final String relationshipName;
-  final String relationshipPhone;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final int? id;
+  final String? nik;
+  final String? kk;
+  final String? name;
+  final String? phone;
+  final String? email;
+  final String? gender;
+  final String? birthPlace;
+  final DateTime? birthDate;
+  final int? isDeceased;
+  final String? addressLine;
+  final String? city;
+  final String? cityCode;
+  final String? province;
+  final String? provinceCode;
+  final String? district;
+  final String? districtCode;
+  final String? village;
+  final String? villageCode;
+  final String? rt;
+  final String? rw;
+  final String? postalCode;
+  final String? maritalStatus;
+  final String? relationshipName;
+  final String? relationshipPhone;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   MasterPatient({
-    required this.id,
-    required this.nik,
-    required this.kk,
-    required this.name,
-    required this.phone,
-    required this.email,
-    required this.gender,
-    required this.birthPlace,
-    required this.birthDate,
-    required this.isDeceased,
-    required this.addressLine,
-    required this.city,
-    required this.cityCode,
-    required this.province,
-    required this.provinceCode,
-    required this.district,
-    required this.districtCode,
-    required this.village,
-    required this.rt,
-    required this.rw,
-    required this.postalCode,
-    required this.maritalStatus,
-    required this.relationshipName,
-    required this.relationshipPhone,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.nik,
+    this.kk,
+    this.name,
+    this.phone,
+    this.email,
+    this.gender,
+    this.birthPlace,
+    this.birthDate,
+    this.isDeceased,
+    this.addressLine,
+    this.city,
+    this.cityCode,
+    this.province,
+    this.provinceCode,
+    this.district,
+    this.districtCode,
+    this.village,
+    this.villageCode,
+    this.rt,
+    this.rw,
+    this.postalCode,
+    this.maritalStatus,
+    this.relationshipName,
+    this.relationshipPhone,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory MasterPatient.fromJson(String str) =>
@@ -102,7 +107,9 @@ class MasterPatient {
         email: json["email"],
         gender: json["gender"],
         birthPlace: json["birth_place"],
-        birthDate: DateTime.parse(json["birth_date"]),
+        birthDate: json["birth_date"] == null
+            ? null
+            : DateTime.parse(json["birth_date"]),
         isDeceased: json["is_deceased"],
         addressLine: json["address_line"],
         city: json["city"],
@@ -112,14 +119,19 @@ class MasterPatient {
         district: json["district"],
         districtCode: json["district_code"],
         village: json["village"],
+        villageCode: json["village_code"],
         rt: json["rt"],
         rw: json["rw"],
         postalCode: json["postal_code"],
         maritalStatus: json["marital_status"],
         relationshipName: json["relationship_name"],
         relationshipPhone: json["relationship_phone"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toMap() => {
@@ -132,7 +144,7 @@ class MasterPatient {
         "gender": gender,
         "birth_place": birthPlace,
         "birth_date":
-            "${birthDate.year.toString().padLeft(4, '0')}-${birthDate.month.toString().padLeft(2, '0')}-${birthDate.day.toString().padLeft(2, '0')}",
+            "${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}",
         "is_deceased": isDeceased,
         "address_line": addressLine,
         "city": city,
@@ -142,13 +154,14 @@ class MasterPatient {
         "district": district,
         "district_code": districtCode,
         "village": village,
+        "village_code": villageCode,
         "rt": rt,
         "rw": rw,
         "postal_code": postalCode,
         "marital_status": maritalStatus,
         "relationship_name": relationshipName,
         "relationship_phone": relationshipPhone,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

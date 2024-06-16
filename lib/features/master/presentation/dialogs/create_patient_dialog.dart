@@ -1,10 +1,11 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/features/binderbyte/data/model/response/city_response_model.dart';
+import 'package:clinic_management_app/features/binderbyte/data/model/response/district_response_model.dart';
+import 'package:clinic_management_app/features/binderbyte/data/model/response/province_response_model.dart';
+import 'package:clinic_management_app/features/binderbyte/presentation/bloc/get_province_binder/get_province_binder_bloc.dart';
 import 'package:clinic_management_app/features/master/data/models/request/add_patient_request_model.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
 import 'package:clinic_management_app/features/master/presentation/pages/data_patient_screen.dart';
-import 'package:clinic_management_app/features/satusehat/data/models/response/city_response_model.dart';
-import 'package:clinic_management_app/features/satusehat/data/models/response/province_response_model.dart';
-import 'package:clinic_management_app/features/satusehat/presentation/bloc/district/district_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,10 +17,10 @@ import '../../../../core/components/custom_dropdown.dart';
 import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
-import '../../../satusehat/data/models/response/wilayah_response_model.dart';
-import '../../../satusehat/presentation/bloc/city/city_bloc.dart';
-import '../../../satusehat/presentation/bloc/province/province_bloc.dart';
-import '../../../satusehat/presentation/bloc/sub-district/sub_district_bloc.dart';
+import '../../../binderbyte/data/model/response/sub_district_response_model.dart';
+import '../../../binderbyte/presentation/bloc/get_city_binder/get_city_binder_bloc.dart';
+import '../../../binderbyte/presentation/bloc/get_district_binder/get_district_binder_bloc.dart';
+import '../../../binderbyte/presentation/bloc/get_sub_district_binder/get_sub_district_binder_bloc.dart';
 
 class CreatePatientDialog extends StatefulWidget {
   const CreatePatientDialog({
@@ -41,10 +42,14 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
   ];
 
   String? selectedGender;
-  City? selectCity;
-  Province? selectProvince;
-  Wilayah? selectVillage;
-  Wilayah? selectDistrict;
+  // City? selectCity;
+  CityBB? selectCity;
+  // Province? selectProvince;
+  ProvinceBB? selectProvince;
+  // Wilayah? selectDistrict;
+  DistrictBB? selectDistrict;
+  // Wilayah? selectVillage;
+  SubDistrictBB? selectVillage;
   String? selectMaritalStatus;
   int? isDeceased = 0;
   DateTime? birthDate;
@@ -76,7 +81,10 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
 
   @override
   void initState() {
-    context.read<ProvinceBloc>().add(const ProvinceEvent.getProvince());
+    // context.read<ProvinceBloc>().add(const ProvinceEvent.getProvince());
+    context
+        .read<GetProvinceBinderBloc>()
+        .add(const GetProvinceBinderEvent.getProvince());
     super.initState();
     selectedGender = null;
     patientNameController = TextEditingController();
@@ -219,7 +227,7 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                   showLabel: false,
                 ),
                 const SpaceHeight(24.0),
-                BlocBuilder<ProvinceBloc, ProvinceState>(
+                BlocBuilder<GetProvinceBinderBloc, GetProvinceBinderState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       orElse: () {
@@ -231,8 +239,11 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                           items: provinces,
                           label: 'Provinsi',
                           onChanged: (value) {
-                            context.read<CityBloc>().add(CityEvent.getCity(
-                                int.parse(value!.code ?? '0')));
+                            // context.read<CityBloc>().add(CityEvent.getCity(
+                            //     int.parse(value!.code ?? '0')));
+                            context.read<GetCityBinderBloc>().add(
+                                GetCityBinderEvent.getCity(value!.id ?? '0'));
+                            debugPrint('province id: ${value.id}');
                             setState(() {
                               selectProvince = value;
                             });
@@ -244,7 +255,7 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                   },
                 ),
                 const SpaceHeight(24.0),
-                BlocBuilder<CityBloc, CityState>(
+                BlocBuilder<GetCityBinderBloc, GetCityBinderState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       orElse: () {
@@ -262,9 +273,13 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                           items: cities,
                           label: 'Kota/Kabupaten',
                           onChanged: (value) {
-                            context.read<DistrictBloc>().add(
-                                DistrictEvent.getDistrict(
-                                    int.parse(value!.code ?? '0')));
+                            // context.read<DistrictBloc>().add(
+                            //     DistrictEvent.getDistrict(
+                            //         int.parse(value!.id ?? '0')));
+                            context.read<GetDistrictBinderBloc>().add(
+                                GetDistrictBinderEvent.getDistrict(
+                                    value!.id ?? '0'));
+                            debugPrint('city id: ${value.id ?? '0'}');
                             setState(() {
                               selectCity = value;
                             });
@@ -276,7 +291,7 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                   },
                 ),
                 const SpaceHeight(24.0),
-                BlocBuilder<DistrictBloc, DistrictState>(
+                BlocBuilder<GetDistrictBinderBloc, GetDistrictBinderState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       orElse: () {
@@ -294,9 +309,14 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                           items: districts,
                           label: 'Kecamatan',
                           onChanged: (value) {
-                            context.read<SubDistrictBloc>().add(
-                                SubDistrictEvent.getSubDistrict(
-                                    int.parse(value!.code ?? '0')));
+                            // context.read<SubDistrictBloc>().add(
+                            //     SubDistrictEvent.getSubDistrict(
+                            //         int.parse(value!.code ?? '0')));
+                            context.read<GetSubDistrictBinderBloc>().add(
+                                  GetSubDistrictBinderEvent.getSubDistrict(
+                                      value!.id ?? '0'),
+                                );
+                            debugPrint('district id: ${value.id ?? '0'}');
                             setState(() {
                               selectDistrict = value;
                             });
@@ -308,7 +328,8 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                   },
                 ),
                 const SpaceHeight(24.0),
-                BlocBuilder<SubDistrictBloc, SubDistrictState>(
+                BlocBuilder<GetSubDistrictBinderBloc,
+                    GetSubDistrictBinderState>(
                   builder: (context, state) {
                     return state.maybeWhen(
                       orElse: () {
@@ -417,13 +438,13 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                                     birthDate: formatDate(birthDate!),
                                     addressLine: addressController.text,
                                     province: selectProvince!.name,
-                                    provinceCode: selectProvince!.code,
+                                    provinceCode: selectProvince!.id,
                                     city: selectCity!.name,
-                                    cityCode: selectCity!.code,
+                                    cityCode: selectCity!.id,
                                     district: selectDistrict!.name,
-                                    districtCode: selectDistrict!.code,
+                                    districtCode: selectDistrict!.id,
                                     village: selectVillage!.name,
-                                    villageCode: selectVillage!.code,
+                                    villageCode: selectVillage!.id,
                                     rt: rtController.text,
                                     rw: rwController.text,
                                     postalCode: postalCodeController.text,

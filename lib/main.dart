@@ -1,6 +1,7 @@
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_remote_datasources.dart';
 import 'package:clinic_management_app/features/auth/presentation/pages/login_screen.dart';
+import 'package:clinic_management_app/features/binderbyte/data/datasource/binderbyte_wilayah_remote_datasource.dart';
 import 'package:clinic_management_app/features/history/data/datasource/history_transaction_remote_datasource.dart';
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/data/datasources/patient_remote_datasources.dart';
@@ -20,6 +21,10 @@ import 'core/themes/colors.dart';
 import 'features/auth/presentation/bloc/login/login_bloc.dart';
 import 'features/auth/presentation/bloc/logout/logout_bloc.dart';
 import 'features/auth/presentation/bloc/register/register_bloc.dart';
+import 'features/binderbyte/presentation/bloc/get_city_binder/get_city_binder_bloc.dart';
+import 'features/binderbyte/presentation/bloc/get_district_binder/get_district_binder_bloc.dart';
+import 'features/binderbyte/presentation/bloc/get_province_binder/get_province_binder_bloc.dart';
+import 'features/binderbyte/presentation/bloc/get_sub_district_binder/get_sub_district_binder_bloc.dart';
 import 'features/history/presentation/bloc/history_transaction/history_transaction_bloc.dart';
 import 'features/master/presentation/bloc/accept_reservation/accept_reservation_bloc.dart';
 import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
@@ -149,6 +154,22 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ArticleBloc(ArticleRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              GetProvinceBinderBloc(BinderbyteWilayahRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              GetCityBinderBloc(BinderbyteWilayahRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              GetDistrictBinderBloc(BinderbyteWilayahRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              GetSubDistrictBinderBloc(BinderbyteWilayahRemoteDatasource()),
         ),
       ],
       child: MaterialApp(
