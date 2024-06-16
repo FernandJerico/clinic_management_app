@@ -3,6 +3,7 @@ import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/features/history/presentation/pages/history_transaction_screen.dart';
 import 'package:clinic_management_app/features/home/presentation/pages/dashboard_screen.dart';
 import 'package:clinic_management_app/features/medical-record/presentation/pages/medical_record_screen.dart';
+import 'package:clinic_management_app/features/patients/presentation/pages/add_patient_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/history_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/home_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/reservation_screen.dart';
@@ -275,21 +276,30 @@ class _NavbarScreenState extends State<NavbarScreen> {
                   backgroundColor:
                       _selectedIndex == 0 ? AppColors.primary : Colors.white,
                   actions: [
-                    IconButton(
-                        onPressed: () {
-                          context
-                              .read<LogoutBloc>()
-                              .add(const LogoutEvent.logout());
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ));
-                        },
-                        icon: const Icon(
-                          Icons.logout,
-                          color: AppColors.white,
-                        )),
+                    _selectedIndex == 0 || _selectedIndex == 2
+                        ? IconButton(
+                            onPressed: () {
+                              context
+                                  .read<LogoutBloc>()
+                                  .add(const LogoutEvent.logout());
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ));
+                            },
+                            icon: const Icon(
+                              Icons.logout,
+                              color: AppColors.white,
+                            ))
+                        : IconButton(
+                            onPressed: () {
+                              context.push(const AddPatientScreen());
+                            },
+                            icon: const Icon(
+                              Icons.add_box_rounded,
+                              color: AppColors.primary,
+                            ))
                   ],
                 )
               : null,

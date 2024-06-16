@@ -424,8 +424,10 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             content: Text('Patient Created Successfully'),
                             backgroundColor: AppColors.green,
                           ));
-                          context.pushReplacement(
-                              const NavbarScreen(initialSelectedItem: 1));
+                          context.pushAndRemoveUntil(
+                            const NavbarScreen(initialSelectedItem: 1),
+                            (route) => false,
+                          );
                         },
                       );
                     },
