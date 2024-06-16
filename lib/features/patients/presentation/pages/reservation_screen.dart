@@ -118,6 +118,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                             DropdownButtonFormField<int>(
                               dropdownColor: Colors.white,
                               decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
                                 labelText: 'Nama Lengkap',
                                 labelStyle: GoogleFonts.poppins(
                                   fontSize: 12,
@@ -179,6 +181,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     DropdownButtonFormField<String>(
                       dropdownColor: Colors.white,
                       decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                         labelText: 'Jenis Kelamin',
                         labelStyle: GoogleFonts.poppins(
                           fontSize: 12,
@@ -273,6 +276,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     DropdownButtonFormField<String>(
                       dropdownColor: Colors.white,
                       decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                         labelText: 'Poliklinik',
                         labelStyle: GoogleFonts.poppins(
                           fontSize: 12,
@@ -378,6 +382,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     DropdownButtonFormField<String>(
                       dropdownColor: Colors.white,
                       decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
                         labelText: 'Waktu Kedatangan',
                         labelStyle: GoogleFonts.poppins(
                           fontSize: 12,
