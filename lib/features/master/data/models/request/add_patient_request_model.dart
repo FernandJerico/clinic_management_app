@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class AddPatientRequestModel {
+  final int? userId;
   final String? nik;
   final String? kk;
   final String? name;
@@ -25,8 +26,10 @@ class AddPatientRequestModel {
   final String? maritalStatus;
   final String? relationshipName;
   final String? relationshipPhone;
+  final int? status;
 
   AddPatientRequestModel({
+    this.userId,
     this.nik,
     this.kk,
     this.name,
@@ -51,6 +54,7 @@ class AddPatientRequestModel {
     this.maritalStatus,
     this.relationshipName,
     this.relationshipPhone,
+    this.status,
   });
 
   factory AddPatientRequestModel.fromJson(String str) =>
@@ -60,6 +64,7 @@ class AddPatientRequestModel {
 
   factory AddPatientRequestModel.fromMap(Map<String, dynamic> json) =>
       AddPatientRequestModel(
+        userId: json["user_id"],
         nik: json["nik"],
         kk: json["kk"],
         name: json["name"],
@@ -84,9 +89,11 @@ class AddPatientRequestModel {
         maritalStatus: json["marital_status"],
         relationshipName: json["relationship_name"],
         relationshipPhone: json["relationship_phone"],
+        status: json["status"],
       );
 
   Map<String, dynamic> toMap() => {
+        "user_id": userId,
         "nik": nik,
         "kk": kk,
         "name": name,
@@ -111,5 +118,6 @@ class AddPatientRequestModel {
         "marital_status": maritalStatus,
         "relationship_name": relationshipName,
         "relationship_phone": relationshipPhone,
+        "status": status,
       };
 }

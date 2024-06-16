@@ -1,7 +1,9 @@
 import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/core/components/custom_dropdown.dart';
+import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/patients/data/model/request/add_reservation_request_model.dart';
 import 'package:clinic_management_app/features/patients/presentation/bloc/reservation/reservation_bloc.dart';
+import 'package:clinic_management_app/features/patients/presentation/pages/add_patient_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/widgets/success_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,7 +99,10 @@ class _ReservationScreenState extends State<ReservationScreen> {
                               ),
                               const SizedBox(height: 8),
                               Button.gradient(
-                                  onPressed: () {}, label: 'Tambah Data')
+                                  onPressed: () {
+                                    context.push(const AddPatientScreen());
+                                  },
+                                  label: 'Tambah Data')
                             ],
                           );
                         }

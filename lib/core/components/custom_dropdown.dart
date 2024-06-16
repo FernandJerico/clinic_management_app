@@ -38,6 +38,12 @@ class CustomDropdown<T> extends StatelessWidget {
           value: value,
           onChanged: onChanged,
           dropdownColor: Colors.white,
+          validator: (value) {
+            if (value == null) {
+              return 'This field is required.';
+            }
+            return null;
+          },
           items: items.map((T item) {
             return DropdownMenuItem<T>(
               value: item,

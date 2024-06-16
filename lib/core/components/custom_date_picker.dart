@@ -83,11 +83,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           readOnly: true,
           decoration: InputDecoration(
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(4),
               borderSide: const BorderSide(color: Colors.grey),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(4),
               borderSide: const BorderSide(color: Colors.grey),
             ),
             prefixIcon: Padding(

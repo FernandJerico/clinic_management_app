@@ -50,6 +50,12 @@ class CustomTextField extends StatelessWidget {
           keyboardType: keyboardType,
           readOnly: readOnly,
           maxLines: isDescription ? 5 : 1,
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'This field is required.';
+            }
+            return null;
+          },
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
