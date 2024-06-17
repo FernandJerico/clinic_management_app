@@ -15,6 +15,7 @@ import '../../../../core/themes/colors.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
 import '../../../master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
 import '../../../navbar/presentation/pages/navbar_screen.dart';
+import '../bloc/get_doctor_schedules/get_doctor_schedules_bloc.dart';
 import '../bloc/get_patient/get_patient_bloc.dart';
 
 class ReservationScreen extends StatefulWidget {
@@ -41,16 +42,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
   int? _selectedDoctor;
 
   String? _selectedTimeArrival;
-  final List<String> _timeArrival = [
-    '08:00 - 09.00',
-    '09:00 - 10.00',
-    '10:00 - 11.00',
-    '11:00 - 12.00',
-    '13:00 - 14.00',
-    '14:00 - 15.00',
-    '15:00 - 16.00',
-    '16:00 - 17.00',
-  ];
 
   @override
   void initState() {
@@ -218,6 +209,11 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                 );
                               }).toList(),
                               onChanged: (value) {
+                                context.read<GetDoctorSchedulesBloc>().add(
+                                      GetDoctorSchedulesEvent
+                                          .getDoctorSchedules(
+                                              doctorId: value.toString()),
+                                    );
                                 setState(() {
                                   _selectedDoctor = value;
                                 });
@@ -267,7 +263,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         if (selectedDayAppointment != null) {
                           setState(() {
                             _dayAppointmentController.text =
-                                DateFormat('EEEE, d MMMM yyyy', 'id_ID')
+                                DateFormat('EEEE, dd-MM-yyyy', 'id_ID')
                                     .format(selectedDayAppointment);
                           });
                         }
@@ -296,50 +292,68 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Waktu Kedatangan',
-                      style: GoogleFonts.poppins(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    DropdownButtonFormField<String>(
-                      dropdownColor: Colors.white,
-                      decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        labelText: 'Waktu Kedatangan',
-                        labelStyle: GoogleFonts.poppins(
-                          fontSize: 12,
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 16),
-                        hintStyle: GoogleFonts.poppins(fontSize: 12),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      value: _selectedTimeArrival,
-                      items: _timeArrival.map((String option) {
-                        return DropdownMenuItem<String>(
-                          value: option,
-                          child: Text(option),
+                BlocBuilder<GetDoctorSchedulesBloc, GetDoctorSchedulesState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return CustomDropdown(
+                          value: _selectedTimeArrival,
+                          items: const [],
+                          label: 'Waktu Kedatangan',
+                          onChanged: (value) {},
                         );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedTimeArrival = value;
-                        });
                       },
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Tolong pilih jam kedatangan Anda';
-                        }
-                        return null;
+                      loaded: (doctorSchedules) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Waktu Kedatangan',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            DropdownButtonFormField<String>(
+                              isExpanded: true,
+                              dropdownColor: Colors.white,
+                              decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                labelText: 'Waktu Kedatangan',
+                                labelStyle: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 16),
+                                hintStyle: GoogleFonts.poppins(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                              value: _selectedTimeArrival,
+                              items: doctorSchedules.map((schedule) {
+                                return DropdownMenuItem<String>(
+                                  value: schedule.time,
+                                  child: Text(schedule.time ?? ''),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedTimeArrival = value;
+                                });
+                              },
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Tolong pilih waktu kedatangan Anda';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
+                        );
                       },
-                    ),
-                  ],
+                    );
+                  },
                 ),
                 const SizedBox(height: 10),
                 Column(
@@ -452,10 +466,16 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                 final createReservationPatient =
                                     CreateReservationRequestModel(
                                   userId: userId!.user!.id.toString(),
-                                  polyclinic: _selectedDoctor.toString(),
+                                  patientId: _selectedPatient.toString(),
+                                  phone: _phoneController.text,
+                                  doctorId: _selectedDoctor.toString(),
                                   dayAppointment:
                                       _dayAppointmentController.text,
                                   timeAppointment: _selectedTimeArrival,
+                                  guarantor: _selectedGuarantor,
+                                  bpjsNumber: _bpjsController.text.isEmpty
+                                      ? null
+                                      : _bpjsController.text,
                                 );
                                 if (context.mounted) {
                                   context.read<ReservationBloc>().add(

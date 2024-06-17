@@ -2,23 +2,23 @@ import 'dart:convert';
 
 class CreateReservationRequestModel {
   final String? userId;
-  final String? fullname;
+  final String? patientId;
   final String? phone;
-  final String? gender;
-  final DateTime? birthDate;
-  final String? polyclinic;
+  final String? doctorId;
   final String? dayAppointment;
   final String? timeAppointment;
+  final String? guarantor;
+  final String? bpjsNumber;
 
   CreateReservationRequestModel({
     this.userId,
-    this.fullname,
+    this.patientId,
     this.phone,
-    this.gender,
-    this.birthDate,
-    this.polyclinic,
+    this.doctorId,
     this.dayAppointment,
     this.timeAppointment,
+    this.guarantor,
+    this.bpjsNumber,
   });
 
   factory CreateReservationRequestModel.fromJson(String str) =>
@@ -29,26 +29,23 @@ class CreateReservationRequestModel {
   factory CreateReservationRequestModel.fromMap(Map<String, dynamic> json) =>
       CreateReservationRequestModel(
         userId: json["user_id"],
-        fullname: json["fullname"],
+        patientId: json["patient_id"],
         phone: json["phone"],
-        gender: json["gender"],
-        birthDate: json["birth_date"] == null
-            ? null
-            : DateTime.parse(json["birth_date"]),
-        polyclinic: json["polyclinic"],
+        doctorId: json["doctor_id"],
         dayAppointment: json["day_appointment"],
         timeAppointment: json["time_appointment"],
+        guarantor: json["guarantor"],
+        bpjsNumber: json["bpjs_number"],
       );
 
   Map<String, dynamic> toMap() => {
         "user_id": userId,
-        "fullname": fullname,
+        "patient_id": patientId,
         "phone": phone,
-        "gender": gender,
-        "birth_date":
-            "${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}",
-        "polyclinic": polyclinic,
+        "doctor_id": doctorId,
         "day_appointment": dayAppointment,
         "time_appointment": timeAppointment,
+        "guarantor": guarantor,
+        "bpjs_number": bpjsNumber,
       };
 }

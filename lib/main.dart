@@ -43,6 +43,7 @@ import 'features/patient-schedule/presentation/bloc/patient_schedule/patient_sch
 import 'features/patient-schedule/presentation/bloc/qris/qris_bloc.dart';
 import 'features/patients/presentation/bloc/article/article_bloc.dart';
 import 'features/patients/presentation/bloc/article_category/article_category_bloc.dart';
+import 'features/patients/presentation/bloc/get_doctor_schedules/get_doctor_schedules_bloc.dart';
 import 'features/patients/presentation/bloc/get_patient/get_patient_bloc.dart';
 import 'features/patients/presentation/bloc/history_reservation/history_reservation_bloc.dart';
 import 'features/patients/presentation/bloc/reservation/reservation_bloc.dart';
@@ -175,6 +176,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => GetPatientBloc(ReservationRemoteDatasource()),
         ),
+        BlocProvider(
+          create: (context) =>
+              GetDoctorSchedulesBloc(ReservationRemoteDatasource()),
+        ),
       ],
       child: MaterialApp(
         title: 'Clinic Management App',
@@ -182,6 +187,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           useMaterial3: true,
+          datePickerTheme:
+              const DatePickerThemeData(backgroundColor: Colors.white),
           textTheme: GoogleFonts.latoTextTheme(
             Theme.of(context).textTheme,
           ),
