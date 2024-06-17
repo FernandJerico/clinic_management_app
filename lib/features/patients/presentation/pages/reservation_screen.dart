@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/themes/colors.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
+import '../../../master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
 import '../../../navbar/presentation/pages/navbar_screen.dart';
 import '../bloc/get_patient/get_patient_bloc.dart';
 
@@ -25,19 +26,20 @@ class ReservationScreen extends StatefulWidget {
 
 class _ReservationScreenState extends State<ReservationScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _dateController = TextEditingController();
   final _dayAppointmentController = TextEditingController();
-  String? _selectedGender;
-  final List<String> _genders = ['Laki-Laki', 'Perempuan'];
-  int? _selectedPatient;
-  String? _selectedPolyclinic;
-  final List<String> _polyclinics = [
-    'Umum',
-    'Lab. Elektrokardiogram (EKG)',
-    'Audiometri Spirometri'
+  final _bpjsController = TextEditingController();
+
+  String? _selectedGuarantor;
+  final List<String> _guarantors = [
+    'Pribadi',
+    'BPJS Kesehatan',
   ];
+
+  int? _selectedPatient;
+
+  int? _selectedDoctor;
+
   String? _selectedTimeArrival;
   final List<String> _timeArrival = [
     '08:00 - 09.00',
@@ -55,14 +57,14 @@ class _ReservationScreenState extends State<ReservationScreen> {
     super.initState();
     initializeDateFormatting('id_ID', null);
     context.read<GetPatientBloc>().add(const GetPatientEvent.getPatient());
+    context.read<DataDoctorBloc>().add(const DataDoctorEvent.getDoctors());
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
     _phoneController.dispose();
-    _dateController.dispose();
     _dayAppointmentController.dispose();
+    _bpjsController.dispose();
     super.dispose();
   }
 
@@ -169,145 +171,69 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   },
                 ),
                 const SizedBox(height: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Jenis Kelamin',
-                      style: GoogleFonts.poppins(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    DropdownButtonFormField<String>(
-                      dropdownColor: Colors.white,
-                      decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        labelText: 'Jenis Kelamin',
-                        labelStyle: GoogleFonts.poppins(
-                          fontSize: 12,
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 16),
-                        hintStyle: GoogleFonts.poppins(fontSize: 12),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      value: _selectedGender,
-                      items: _genders.map((String option) {
-                        return DropdownMenuItem<String>(
-                          value: option,
-                          child: Text(option),
+                BlocBuilder<DataDoctorBloc, DataDoctorState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return CustomDropdown(
+                          value: _selectedPatient,
+                          items: const [],
+                          label: 'Dokter',
+                          onChanged: (value) {},
                         );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedGender = value;
-                        });
                       },
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Tolong pilih jenis kelamin Anda';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tanggal Lahir',
-                      style: GoogleFonts.poppins(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormField(
-                      controller: _dateController,
-                      onTap: () async {
-                        DateTime? selectedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1960),
-                          lastDate: DateTime.now(),
+                      loaded: (doctors) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Dokter',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 8),
+                            DropdownButtonFormField<int>(
+                              isExpanded: true,
+                              dropdownColor: Colors.white,
+                              decoration: InputDecoration(
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                labelText: 'Dokter',
+                                labelStyle: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 4, horizontal: 16),
+                                hintStyle: GoogleFonts.poppins(fontSize: 12),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                              value: _selectedDoctor,
+                              items: doctors.map((doctor) {
+                                return DropdownMenuItem<int>(
+                                  value: doctor.id,
+                                  child: Text(
+                                      '${doctor.doctorName} (Poli ${doctor.polyclinic})'),
+                                );
+                              }).toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedDoctor = value;
+                                });
+                              },
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Tolong pilih dokter yang Anda tuju';
+                                }
+                                return null;
+                              },
+                            ),
+                          ],
                         );
-                        if (selectedDate != null) {
-                          setState(() {
-                            _dateController.text =
-                                "${selectedDate.toLocal()}".split(' ')[0];
-                          });
-                        }
                       },
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.calendar_today,
-                          color: AppColors.primary,
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 16),
-                        hintText: 'Masukkan Tanggal Lahir Anda',
-                        hintStyle: GoogleFonts.poppins(fontSize: 12),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Tanggal Lahir wajib diisi';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Poliklinik',
-                      style: GoogleFonts.poppins(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    DropdownButtonFormField<String>(
-                      dropdownColor: Colors.white,
-                      decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        labelText: 'Poliklinik',
-                        labelStyle: GoogleFonts.poppins(
-                          fontSize: 12,
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 4, horizontal: 16),
-                        hintStyle: GoogleFonts.poppins(fontSize: 12),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                      value: _selectedPolyclinic,
-                      items: _polyclinics.map((String option) {
-                        return DropdownMenuItem<String>(
-                          value: option,
-                          child: Text(option),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedPolyclinic = value;
-                        });
-                      },
-                      validator: (value) {
-                        if (value == null) {
-                          return 'Tolong pilih poliklinik yang Anda tuju';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
+                    );
+                  },
                 ),
                 const SizedBox(height: 10),
                 Column(
@@ -415,6 +341,58 @@ class _ReservationScreenState extends State<ReservationScreen> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Jaminan Kesehatan',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    DropdownButtonFormField<String>(
+                      dropdownColor: Colors.white,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        labelText: 'Jaminan Kesehatan',
+                        labelStyle: GoogleFonts.poppins(
+                          fontSize: 12,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 16),
+                        hintStyle: GoogleFonts.poppins(fontSize: 12),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                      value: _selectedGuarantor,
+                      items: _guarantors.map((String option) {
+                        return DropdownMenuItem<String>(
+                          value: option,
+                          child: Text(option),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedGuarantor = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Tolong pilih jaminan kesehatan Anda';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                BuildTextFormField(
+                  titleText: 'Nomor Jaminan Kesehatan (Jika Ada)',
+                  hintText: 'Masukkan Nomor Jaminan Kesehatan Anda',
+                  controller: _bpjsController,
+                ),
                 const SizedBox(height: 28),
                 BlocConsumer<ReservationBloc, ReservationState>(
                   listener: (context, state) {
@@ -474,12 +452,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                 final createReservationPatient =
                                     CreateReservationRequestModel(
                                   userId: userId!.user!.id.toString(),
-                                  fullname: _nameController.text,
-                                  phone: _phoneController.text,
-                                  gender: _selectedGender,
-                                  birthDate:
-                                      DateTime.parse(_dateController.text),
-                                  polyclinic: _selectedPolyclinic,
+                                  polyclinic: _selectedDoctor.toString(),
                                   dayAppointment:
                                       _dayAppointmentController.text,
                                   timeAppointment: _selectedTimeArrival,
@@ -531,7 +504,7 @@ class BuildTextFormField extends StatelessWidget {
     required this.titleText,
     required this.hintText,
     required this.controller,
-    required this.validator,
+    this.validator,
   });
 
   @override

@@ -45,6 +45,7 @@ class MasterDoctor {
   final String? photo;
   final String? address;
   final String? sip;
+  final String? polyclinic;
   final dynamic createdAt;
   final dynamic updatedAt;
 
@@ -59,6 +60,7 @@ class MasterDoctor {
     this.photo,
     this.address,
     this.sip,
+    this.polyclinic,
     this.createdAt,
     this.updatedAt,
   });
@@ -79,6 +81,7 @@ class MasterDoctor {
         photo: json["photo"],
         address: json["address"],
         sip: json["sip"],
+        polyclinic: json["polyclinic"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
       );
@@ -94,6 +97,7 @@ class MasterDoctor {
         "photo": photo,
         "address": address,
         "sip": sip,
+        "polyclinic": polyclinic,
         "created_at": createdAt,
         "updated_at": updatedAt,
       };
