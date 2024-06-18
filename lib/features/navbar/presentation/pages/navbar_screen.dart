@@ -83,7 +83,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
     String role = await _fetchRoleUser();
 
     if (ResponsiveWidget.isSmallScreen(context)) {
-      if (role == 'admin' || role == 'staff') {
+      if (role == 'admin') {
         return BottomNavigationBar(
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
@@ -96,6 +96,30 @@ class _NavbarScreenState extends State<NavbarScreen> {
             BottomNavigationBarItem(
               icon: SvgPicture.asset(Assets.icons.folderOpen.path),
               label: 'Master',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.icons.chartPie.path),
+              label: 'Records',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.icons.shoppingBagProduct.path),
+              label: 'Patient',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.icons.history.path),
+              label: 'History',
+            ),
+          ],
+        );
+      } else if (role == 'staff') {
+        return BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          selectedItemColor: AppColors.primary,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.icons.logo.path),
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(Assets.icons.chartPie.path),
@@ -158,7 +182,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
         );
       }
     } else {
-      if (role == 'admin' || role == 'staff') {
+      if (role == 'admin') {
         return Column(
           children: [
             NavItem(
@@ -172,6 +196,35 @@ class _NavbarScreenState extends State<NavbarScreen> {
               isActive: _selectedIndex == 4,
               onTap: () => _onItemTapped(4),
               text: 'Master',
+            ),
+            NavItem(
+              iconPath: Assets.icons.chartPie.path,
+              isActive: _selectedIndex == 5,
+              onTap: () => _onItemTapped(5),
+              text: 'Records',
+            ),
+            NavItem(
+              iconPath: Assets.icons.shoppingBagProduct.path,
+              isActive: _selectedIndex == 6,
+              onTap: () => _onItemTapped(6),
+              text: 'Patient',
+            ),
+            NavItem(
+              iconPath: Assets.icons.history.path,
+              isActive: _selectedIndex == 7,
+              onTap: () => _onItemTapped(7),
+              text: 'History',
+            ),
+          ],
+        );
+      } else if (role == 'staff') {
+        return Column(
+          children: [
+            NavItem(
+              iconPath: Assets.icons.logo.path,
+              isActive: _selectedIndex == 3,
+              onTap: () => _onItemTapped(3),
+              text: 'Home',
             ),
             NavItem(
               iconPath: Assets.icons.chartPie.path,
