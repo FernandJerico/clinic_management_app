@@ -193,7 +193,7 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                             ),
                                             alignment: Alignment.center,
                                             child: Text(
-                                              'Status: ${capitalize(history.status.toString())}',
+                                              'Status: ${history.status == 'pending' ? 'Menunggu Persetujuan' : history.status == 'approved' ? 'Reservasi Disetujui' : 'Reservasi Ditolak'}',
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.poppins(
                                                 fontSize: 14,
