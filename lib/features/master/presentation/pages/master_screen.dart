@@ -80,7 +80,7 @@ class _MasterScreenState extends State<MasterScreen> {
             const SpaceWidth(45.0),
             ButtonMenu(
               label: 'Reservasi Online',
-              iconPath: Assets.images.menu.serviceIcon.path,
+              iconPath: Assets.images.menu.reservationIcon.path,
               onPressed: () {
                 context.push(const DataReservationScreen());
               },

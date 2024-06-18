@@ -204,6 +204,10 @@ class $AssetsImagesMenuGen {
   AssetGenImage get patientIcon =>
       const AssetGenImage('assets/images/menu/patient-icon.png');
 
+  /// File path: assets/images/menu/reservation-icon.png
+  AssetGenImage get reservationIcon =>
+      const AssetGenImage('assets/images/menu/reservation-icon.png');
+
   /// File path: assets/images/menu/schedule-icon.png
   AssetGenImage get scheduleIcon =>
       const AssetGenImage('assets/images/menu/schedule-icon.png');
@@ -214,7 +218,7 @@ class $AssetsImagesMenuGen {
 
   /// List of all assets
   List<AssetGenImage> get values =>
-      [doctorIcon, patientIcon, scheduleIcon, serviceIcon];
+      [doctorIcon, patientIcon, reservationIcon, scheduleIcon, serviceIcon];
 }
 
 class $AssetsImagesProductsGen {
