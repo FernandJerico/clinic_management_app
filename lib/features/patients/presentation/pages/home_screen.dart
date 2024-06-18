@@ -16,6 +16,7 @@ import '../../../../core/constants/variables.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
 import '../../data/model/response/article_category_response_model.dart';
 import '../bloc/article_category/article_category_bloc.dart';
+import 'detail_doctor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -443,92 +444,98 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: doctors.length,
                             itemBuilder: (context, index) {
                               final doctor = doctors[index];
-                              return Container(
-                                height: ResponsiveWidget.isLargeScreen(context)
-                                    ? context.deviceHeight * 0.12
-                                    : context.deviceHeight * 0.11,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.grey.withOpacity(0.25),
-                                      blurRadius: 4,
-                                      offset: const Offset(2, 4),
-                                    )
-                                  ],
-                                ),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      height: double.infinity,
-                                      width: 10,
-                                      decoration: const BoxDecoration(
-                                        color: AppColors.primary,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(4),
-                                          bottomLeft: Radius.circular(4),
+                              return InkWell(
+                                onTap: () => context
+                                    .push(DetailDoctorScreen(doctor: doctor)),
+                                child: Container(
+                                  height:
+                                      ResponsiveWidget.isLargeScreen(context)
+                                          ? context.deviceHeight * 0.12
+                                          : context.deviceHeight * 0.11,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(4),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColors.grey.withOpacity(0.25),
+                                        blurRadius: 4,
+                                        offset: const Offset(2, 4),
+                                      )
+                                    ],
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: double.infinity,
+                                        width: 10,
+                                        decoration: const BoxDecoration(
+                                          color: AppColors.primary,
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(4),
+                                            bottomLeft: Radius.circular(4),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(4),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.network(
-                                          '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
-                                          fit: BoxFit.cover,
-                                          width: ResponsiveWidget.isLargeScreen(
-                                                  context)
-                                              ? context.deviceWidth * 0.075
-                                              : context.deviceWidth * 0.2,
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(4),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child: Image.network(
+                                            '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
+                                            fit: BoxFit.cover,
+                                            width: ResponsiveWidget
+                                                    .isLargeScreen(context)
+                                                ? context.deviceWidth * 0.075
+                                                : context.deviceWidth * 0.2,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 12,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${doctor.doctorName}',
-                                          style: GoogleFonts.poppins(
-                                              fontSize: ResponsiveWidget
-                                                      .isLargeScreen(context)
-                                                  ? 14
-                                                  : 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: AppColors.darkGrey),
-                                        ),
-                                        Text(
-                                          doctor.doctorSpecialist ?? '',
-                                          style: GoogleFonts.poppins(
-                                              fontSize: ResponsiveWidget
-                                                      .isLargeScreen(context)
-                                                  ? 14
-                                                  : 12,
-                                              color: AppColors.darkGrey),
-                                        ),
-                                        Text(
-                                          'Poli Kulit dan Kelamin',
-                                          style: GoogleFonts.poppins(
-                                              fontSize: ResponsiveWidget
-                                                      .isLargeScreen(context)
-                                                  ? 14
-                                                  : 10,
-                                              color: AppColors.darkGrey),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                      const SizedBox(
+                                        width: 12,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '${doctor.doctorName}',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: ResponsiveWidget
+                                                        .isLargeScreen(context)
+                                                    ? 14
+                                                    : 12,
+                                                fontWeight: FontWeight.bold,
+                                                color: AppColors.darkGrey),
+                                          ),
+                                          Text(
+                                            doctor.doctorSpecialist ?? '',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: ResponsiveWidget
+                                                        .isLargeScreen(context)
+                                                    ? 14
+                                                    : 12,
+                                                color: AppColors.darkGrey),
+                                          ),
+                                          Text(
+                                            'Poli Kulit dan Kelamin',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: ResponsiveWidget
+                                                        .isLargeScreen(context)
+                                                    ? 14
+                                                    : 10,
+                                                color: AppColors.darkGrey),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               );
                             },

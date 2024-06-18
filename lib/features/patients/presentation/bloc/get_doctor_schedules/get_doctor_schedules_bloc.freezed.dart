@@ -20,18 +20,21 @@ mixin _$GetDoctorSchedulesEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String doctorId, String day) getDoctorSchedules,
+    required TResult Function(String doctorId) getDoctorScheduleByDoctorId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String doctorId, String day)? getDoctorSchedules,
+    TResult? Function(String doctorId)? getDoctorScheduleByDoctorId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String doctorId, String day)? getDoctorSchedules,
+    TResult Function(String doctorId)? getDoctorScheduleByDoctorId,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,24 @@ mixin _$GetDoctorSchedulesEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetDoctorSchedules value) getDoctorSchedules,
+    required TResult Function(_GetDoctorScheduleByDoctorId value)
+        getDoctorScheduleByDoctorId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetDoctorSchedules value)? getDoctorSchedules,
+    TResult? Function(_GetDoctorScheduleByDoctorId value)?
+        getDoctorScheduleByDoctorId,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetDoctorSchedules value)? getDoctorSchedules,
+    TResult Function(_GetDoctorScheduleByDoctorId value)?
+        getDoctorScheduleByDoctorId,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -93,12 +102,19 @@ class __$$StartedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StartedImpl implements _Started {
+class _$StartedImpl with DiagnosticableTreeMixin implements _Started {
   const _$StartedImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GetDoctorSchedulesEvent.started()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'GetDoctorSchedulesEvent.started'));
   }
 
   @override
@@ -115,6 +131,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String doctorId, String day) getDoctorSchedules,
+    required TResult Function(String doctorId) getDoctorScheduleByDoctorId,
   }) {
     return started();
   }
@@ -124,6 +141,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String doctorId, String day)? getDoctorSchedules,
+    TResult? Function(String doctorId)? getDoctorScheduleByDoctorId,
   }) {
     return started?.call();
   }
@@ -133,6 +151,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String doctorId, String day)? getDoctorSchedules,
+    TResult Function(String doctorId)? getDoctorScheduleByDoctorId,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -146,6 +165,8 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetDoctorSchedules value) getDoctorSchedules,
+    required TResult Function(_GetDoctorScheduleByDoctorId value)
+        getDoctorScheduleByDoctorId,
   }) {
     return started(this);
   }
@@ -155,6 +176,8 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetDoctorSchedules value)? getDoctorSchedules,
+    TResult? Function(_GetDoctorScheduleByDoctorId value)?
+        getDoctorScheduleByDoctorId,
   }) {
     return started?.call(this);
   }
@@ -164,6 +187,8 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetDoctorSchedules value)? getDoctorSchedules,
+    TResult Function(_GetDoctorScheduleByDoctorId value)?
+        getDoctorScheduleByDoctorId,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -216,7 +241,9 @@ class __$$GetDoctorSchedulesImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GetDoctorSchedulesImpl implements _GetDoctorSchedules {
+class _$GetDoctorSchedulesImpl
+    with DiagnosticableTreeMixin
+    implements _GetDoctorSchedules {
   const _$GetDoctorSchedulesImpl({required this.doctorId, required this.day});
 
   @override
@@ -225,8 +252,18 @@ class _$GetDoctorSchedulesImpl implements _GetDoctorSchedules {
   final String day;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GetDoctorSchedulesEvent.getDoctorSchedules(doctorId: $doctorId, day: $day)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'GetDoctorSchedulesEvent.getDoctorSchedules'))
+      ..add(DiagnosticsProperty('doctorId', doctorId))
+      ..add(DiagnosticsProperty('day', day));
   }
 
   @override
@@ -254,6 +291,7 @@ class _$GetDoctorSchedulesImpl implements _GetDoctorSchedules {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(String doctorId, String day) getDoctorSchedules,
+    required TResult Function(String doctorId) getDoctorScheduleByDoctorId,
   }) {
     return getDoctorSchedules(doctorId, day);
   }
@@ -263,6 +301,7 @@ class _$GetDoctorSchedulesImpl implements _GetDoctorSchedules {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(String doctorId, String day)? getDoctorSchedules,
+    TResult? Function(String doctorId)? getDoctorScheduleByDoctorId,
   }) {
     return getDoctorSchedules?.call(doctorId, day);
   }
@@ -272,6 +311,7 @@ class _$GetDoctorSchedulesImpl implements _GetDoctorSchedules {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(String doctorId, String day)? getDoctorSchedules,
+    TResult Function(String doctorId)? getDoctorScheduleByDoctorId,
     required TResult orElse(),
   }) {
     if (getDoctorSchedules != null) {
@@ -285,6 +325,8 @@ class _$GetDoctorSchedulesImpl implements _GetDoctorSchedules {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetDoctorSchedules value) getDoctorSchedules,
+    required TResult Function(_GetDoctorScheduleByDoctorId value)
+        getDoctorScheduleByDoctorId,
   }) {
     return getDoctorSchedules(this);
   }
@@ -294,6 +336,8 @@ class _$GetDoctorSchedulesImpl implements _GetDoctorSchedules {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetDoctorSchedules value)? getDoctorSchedules,
+    TResult? Function(_GetDoctorScheduleByDoctorId value)?
+        getDoctorScheduleByDoctorId,
   }) {
     return getDoctorSchedules?.call(this);
   }
@@ -303,6 +347,8 @@ class _$GetDoctorSchedulesImpl implements _GetDoctorSchedules {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetDoctorSchedules value)? getDoctorSchedules,
+    TResult Function(_GetDoctorScheduleByDoctorId value)?
+        getDoctorScheduleByDoctorId,
     required TResult orElse(),
   }) {
     if (getDoctorSchedules != null) {
@@ -322,6 +368,165 @@ abstract class _GetDoctorSchedules implements GetDoctorSchedulesEvent {
   @JsonKey(ignore: true)
   _$$GetDoctorSchedulesImplCopyWith<_$GetDoctorSchedulesImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetDoctorScheduleByDoctorIdImplCopyWith<$Res> {
+  factory _$$GetDoctorScheduleByDoctorIdImplCopyWith(
+          _$GetDoctorScheduleByDoctorIdImpl value,
+          $Res Function(_$GetDoctorScheduleByDoctorIdImpl) then) =
+      __$$GetDoctorScheduleByDoctorIdImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String doctorId});
+}
+
+/// @nodoc
+class __$$GetDoctorScheduleByDoctorIdImplCopyWithImpl<$Res>
+    extends _$GetDoctorSchedulesEventCopyWithImpl<$Res,
+        _$GetDoctorScheduleByDoctorIdImpl>
+    implements _$$GetDoctorScheduleByDoctorIdImplCopyWith<$Res> {
+  __$$GetDoctorScheduleByDoctorIdImplCopyWithImpl(
+      _$GetDoctorScheduleByDoctorIdImpl _value,
+      $Res Function(_$GetDoctorScheduleByDoctorIdImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? doctorId = null,
+  }) {
+    return _then(_$GetDoctorScheduleByDoctorIdImpl(
+      doctorId: null == doctorId
+          ? _value.doctorId
+          : doctorId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetDoctorScheduleByDoctorIdImpl
+    with DiagnosticableTreeMixin
+    implements _GetDoctorScheduleByDoctorId {
+  const _$GetDoctorScheduleByDoctorIdImpl({required this.doctorId});
+
+  @override
+  final String doctorId;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'GetDoctorSchedulesEvent.getDoctorScheduleByDoctorId(doctorId: $doctorId)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty(
+          'type', 'GetDoctorSchedulesEvent.getDoctorScheduleByDoctorId'))
+      ..add(DiagnosticsProperty('doctorId', doctorId));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetDoctorScheduleByDoctorIdImpl &&
+            (identical(other.doctorId, doctorId) ||
+                other.doctorId == doctorId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, doctorId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetDoctorScheduleByDoctorIdImplCopyWith<_$GetDoctorScheduleByDoctorIdImpl>
+      get copyWith => __$$GetDoctorScheduleByDoctorIdImplCopyWithImpl<
+          _$GetDoctorScheduleByDoctorIdImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String doctorId, String day) getDoctorSchedules,
+    required TResult Function(String doctorId) getDoctorScheduleByDoctorId,
+  }) {
+    return getDoctorScheduleByDoctorId(doctorId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String doctorId, String day)? getDoctorSchedules,
+    TResult? Function(String doctorId)? getDoctorScheduleByDoctorId,
+  }) {
+    return getDoctorScheduleByDoctorId?.call(doctorId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String doctorId, String day)? getDoctorSchedules,
+    TResult Function(String doctorId)? getDoctorScheduleByDoctorId,
+    required TResult orElse(),
+  }) {
+    if (getDoctorScheduleByDoctorId != null) {
+      return getDoctorScheduleByDoctorId(doctorId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetDoctorSchedules value) getDoctorSchedules,
+    required TResult Function(_GetDoctorScheduleByDoctorId value)
+        getDoctorScheduleByDoctorId,
+  }) {
+    return getDoctorScheduleByDoctorId(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetDoctorSchedules value)? getDoctorSchedules,
+    TResult? Function(_GetDoctorScheduleByDoctorId value)?
+        getDoctorScheduleByDoctorId,
+  }) {
+    return getDoctorScheduleByDoctorId?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetDoctorSchedules value)? getDoctorSchedules,
+    TResult Function(_GetDoctorScheduleByDoctorId value)?
+        getDoctorScheduleByDoctorId,
+    required TResult orElse(),
+  }) {
+    if (getDoctorScheduleByDoctorId != null) {
+      return getDoctorScheduleByDoctorId(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetDoctorScheduleByDoctorId implements GetDoctorSchedulesEvent {
+  const factory _GetDoctorScheduleByDoctorId({required final String doctorId}) =
+      _$GetDoctorScheduleByDoctorIdImpl;
+
+  String get doctorId;
+  @JsonKey(ignore: true)
+  _$$GetDoctorScheduleByDoctorIdImplCopyWith<_$GetDoctorScheduleByDoctorIdImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -415,12 +620,19 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
+class _$InitialImpl with DiagnosticableTreeMixin implements _Initial {
   const _$InitialImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GetDoctorSchedulesState.initial()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'GetDoctorSchedulesState.initial'));
   }
 
   @override
@@ -529,12 +741,19 @@ class __$$LoadingImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
+class _$LoadingImpl with DiagnosticableTreeMixin implements _Loading {
   const _$LoadingImpl();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GetDoctorSchedulesState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'GetDoctorSchedulesState.loading'));
   }
 
   @override
@@ -658,7 +877,7 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadedImpl implements _Loaded {
+class _$LoadedImpl with DiagnosticableTreeMixin implements _Loaded {
   const _$LoadedImpl(final List<DoctorSchedule> doctorSchedules)
       : _doctorSchedules = doctorSchedules;
 
@@ -671,8 +890,16 @@ class _$LoadedImpl implements _Loaded {
   }
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GetDoctorSchedulesState.loaded(doctorSchedules: $doctorSchedules)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GetDoctorSchedulesState.loaded'))
+      ..add(DiagnosticsProperty('doctorSchedules', doctorSchedules));
   }
 
   @override
@@ -812,15 +1039,23 @@ class __$$ErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErrorImpl implements _Error {
+class _$ErrorImpl with DiagnosticableTreeMixin implements _Error {
   const _$ErrorImpl(this.message);
 
   @override
   final String message;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GetDoctorSchedulesState.error(message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GetDoctorSchedulesState.error'))
+      ..add(DiagnosticsProperty('message', message));
   }
 
   @override

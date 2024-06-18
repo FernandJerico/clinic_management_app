@@ -124,4 +124,37 @@ class ReservationRemoteDatasource {
       return const Left('Failed to get doctor schedules');
     }
   }
+
+  Future<Either<String, DoctorScheduleResponseModel>>
+      getDoctorScheduleByDoctorId(String doctorId) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse(
+        '${Variables.baseUrl}/api/api-doctor-schedules?doctor_id=$doctorId');
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(DoctorScheduleResponseModel.fromJson(response.body));
+    } else {
+      try {
+        final responseBody = json.decode(response.body);
+        final message = responseBody['message'];
+        if (message is List) {
+          return Left(message.join(', '));
+        } else if (message is String) {
+          return Left(message);
+        } else {
+          return const Left('An unknown error occurred.');
+        }
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
+    }
+  }
 }
