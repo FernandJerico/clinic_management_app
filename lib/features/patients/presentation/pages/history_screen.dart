@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/themes/colors.dart';
+import 'detail_history_screen.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -87,161 +88,171 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         itemCount: historyReservations.length,
                         itemBuilder: (context, index) {
                           final history = historyReservations[index];
-                          return Container(
-                            height: context.deviceHeight * 0.145,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(4),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.black.withOpacity(0.25),
-                                  spreadRadius: 0,
-                                  blurRadius: 2,
-                                  offset: const Offset(0, 1),
-                                ),
-                              ],
+                          return InkWell(
+                            onTap: () => context.push(
+                              DetailHistoryScreen(history: history),
                             ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: double.infinity,
-                                  width: 10,
-                                  decoration: BoxDecoration(
-                                    // ternary for pending, approved, or rejected
-                                    color: history.status == 'pending'
-                                        ? AppColors.orderIsWaiting
-                                        : history.status == 'approved'
-                                            ? AppColors.orderIsCompleted
-                                            : AppColors.orderIsRejected,
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4),
-                                      bottomLeft: Radius.circular(4),
+                            child: Container(
+                              height: context.deviceHeight * 0.145,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(4),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: AppColors.black.withOpacity(0.25),
+                                    spreadRadius: 0,
+                                    blurRadius: 2,
+                                    offset: const Offset(0, 1),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: double.infinity,
+                                    width: 10,
+                                    decoration: BoxDecoration(
+                                      // ternary for pending, approved, or rejected
+                                      color: history.status == 'pending'
+                                          ? AppColors.orderIsWaiting
+                                          : history.status == 'approved'
+                                              ? AppColors.orderIsCompleted
+                                              : AppColors.orderIsRejected,
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(4),
+                                        bottomLeft: Radius.circular(4),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                history.patient!.name ?? '',
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  history.patient!.name ?? '',
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: AppColors.black),
+                                                ),
+                                              ),
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 16,
+                                                        vertical: 0),
+                                                height: 24,
+                                                decoration: BoxDecoration(
+                                                  color: history.status ==
+                                                          'pending'
+                                                      ? AppColors.orderIsWaiting
+                                                          .withOpacity(0.25)
+                                                      : history.status ==
+                                                              'approved'
+                                                          ? AppColors
+                                                              .orderIsCompleted
+                                                              .withOpacity(0.25)
+                                                          : AppColors
+                                                              .orderIsRejected
+                                                              .withOpacity(
+                                                                  0.25),
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                  border: Border.all(
+                                                    color: history.status ==
+                                                            'pending'
+                                                        ? AppColors
+                                                            .orderIsWaiting
+                                                        : history.status ==
+                                                                'approved'
+                                                            ? AppColors
+                                                                .orderIsCompleted
+                                                            : AppColors
+                                                                .orderIsRejected,
+                                                  ),
+                                                ),
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  capitalize(
+                                                      history.status ?? ''),
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.poppins(
+                                                    fontSize: 10,
+                                                    color: history.status ==
+                                                            'pending'
+                                                        ? AppColors
+                                                            .orderIsWaiting
+                                                        : history.status ==
+                                                                'approved'
+                                                            ? AppColors
+                                                                .orderIsCompleted
+                                                            : AppColors
+                                                                .orderIsRejected,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                history.patient!.gender ?? '',
                                                 style: GoogleFonts.poppins(
-                                                    fontSize: 16,
+                                                    fontSize: 12,
                                                     fontWeight: FontWeight.bold,
                                                     color: AppColors.black),
                                               ),
-                                            ),
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 16,
-                                                      vertical: 0),
-                                              height: 24,
-                                              decoration: BoxDecoration(
-                                                color: history.status ==
-                                                        'pending'
-                                                    ? AppColors.orderIsWaiting
-                                                        .withOpacity(0.25)
-                                                    : history.status ==
-                                                            'approved'
-                                                        ? AppColors
-                                                            .orderIsCompleted
-                                                            .withOpacity(0.25)
-                                                        : AppColors
-                                                            .orderIsRejected
-                                                            .withOpacity(0.25),
-                                                borderRadius:
-                                                    BorderRadius.circular(4),
-                                                border: Border.all(
-                                                  color: history.status ==
-                                                          'pending'
-                                                      ? AppColors.orderIsWaiting
-                                                      : history.status ==
-                                                              'approved'
-                                                          ? AppColors
-                                                              .orderIsCompleted
-                                                          : AppColors
-                                                              .orderIsRejected,
-                                                ),
+                                              const SizedBox(
+                                                width: 8,
                                               ),
-                                              alignment: Alignment.center,
-                                              child: Text(
-                                                capitalize(
-                                                    history.status ?? ''),
-                                                textAlign: TextAlign.center,
+                                              Text(
+                                                DateFormat('dd MMMM yyyy')
+                                                    .format(history.patient!
+                                                            .birthDate ??
+                                                        DateTime.now()),
                                                 style: GoogleFonts.poppins(
-                                                  fontSize: 10,
-                                                  color: history.status ==
-                                                          'pending'
-                                                      ? AppColors.orderIsWaiting
-                                                      : history.status ==
-                                                              'approved'
-                                                          ? AppColors
-                                                              .orderIsCompleted
-                                                          : AppColors
-                                                              .orderIsRejected,
-                                                ),
+                                                    fontSize: 12,
+                                                    color: AppColors.black),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              history.patient!.gender ?? '',
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: AppColors.black),
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(
-                                              DateFormat('dd MMMM yyyy').format(
-                                                  history.patient!.birthDate ??
-                                                      DateTime.now()),
-                                              style: GoogleFonts.poppins(
-                                                  fontSize: 12,
-                                                  color: AppColors.black),
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          history.phone ?? '',
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 12,
-                                              color: AppColors.black),
-                                        ),
-                                        Text(
-                                          history.doctor!.polyclinic ?? '',
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 12,
-                                              color: AppColors.black),
-                                        ),
-                                        Text(
-                                          '${DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(history.dayAppointment!)} Jam ${history.timeAppointment} WIB',
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 12,
-                                              color: AppColors.black),
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                          Text(
+                                            history.phone ?? '',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 12,
+                                                color: AppColors.black),
+                                          ),
+                                          Text(
+                                            history.doctor!.polyclinic ?? '',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 12,
+                                                color: AppColors.black),
+                                          ),
+                                          Text(
+                                            '${DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(history.dayAppointment!)} Jam ${history.timeAppointment} WIB',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 12,
+                                                color: AppColors.black),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },
