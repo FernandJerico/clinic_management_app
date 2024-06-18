@@ -198,7 +198,7 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                       color: AppColors.black)),
               const SizedBox(height: 10),
               Container(
-                height: context.deviceHeight * 0.21,
+                height: context.deviceHeight * 0.24,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -312,6 +312,11 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                             ),
                             Text(
                               'Nomor BPJS: ${widget.history.bpjsNumber}',
+                              style: GoogleFonts.poppins(
+                                  fontSize: 13, color: AppColors.black),
+                            ),
+                            Text(
+                              'Keluhan: ${widget.history.complaint}',
                               style: GoogleFonts.poppins(
                                   fontSize: 13, color: AppColors.black),
                             ),
