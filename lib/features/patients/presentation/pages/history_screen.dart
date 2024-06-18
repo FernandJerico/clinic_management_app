@@ -3,6 +3,7 @@ import 'package:clinic_management_app/features/patients/presentation/bloc/histor
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -22,6 +23,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     context
         .read<HistoryReservationBloc>()
         .add(const HistoryReservationEvent.getHistoryReservation());
+    initializeDateFormatting('id_ID', null);
     super.initState();
   }
 
@@ -131,7 +133,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                history.fullname ?? '',
+                                                history.patient!.name ?? '',
                                                 style: GoogleFonts.poppins(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
@@ -198,7 +200,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                         Row(
                                           children: [
                                             Text(
-                                              history.gender ?? '',
+                                              history.patient!.gender ?? '',
                                               style: GoogleFonts.poppins(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.bold,
@@ -209,7 +211,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                             ),
                                             Text(
                                               DateFormat('dd MMMM yyyy').format(
-                                                  history.birthDate ??
+                                                  history.patient!.birthDate ??
                                                       DateTime.now()),
                                               style: GoogleFonts.poppins(
                                                   fontSize: 12,
@@ -224,13 +226,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                               color: AppColors.black),
                                         ),
                                         Text(
-                                          history.polyclinic ?? '',
+                                          history.doctor!.polyclinic ?? '',
                                           style: GoogleFonts.poppins(
                                               fontSize: 12,
                                               color: AppColors.black),
                                         ),
                                         Text(
-                                          '${history.dayAppointment} Jam ${history.timeAppointment} WIB',
+                                          '${DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(history.dayAppointment!)} Jam ${history.timeAppointment} WIB',
                                           style: GoogleFonts.poppins(
                                               fontSize: 12,
                                               color: AppColors.black),
