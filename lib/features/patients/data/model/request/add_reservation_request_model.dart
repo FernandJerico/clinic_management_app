@@ -9,6 +9,7 @@ class CreateReservationRequestModel {
   final String? timeAppointment;
   final String? guarantor;
   final String? bpjsNumber;
+  final String? complaint;
 
   CreateReservationRequestModel({
     this.userId,
@@ -19,6 +20,7 @@ class CreateReservationRequestModel {
     this.timeAppointment,
     this.guarantor,
     this.bpjsNumber,
+    this.complaint,
   });
 
   factory CreateReservationRequestModel.fromJson(String str) =>
@@ -36,6 +38,7 @@ class CreateReservationRequestModel {
         timeAppointment: json["time_appointment"],
         guarantor: json["guarantor"],
         bpjsNumber: json["bpjs_number"],
+        complaint: json["complaint"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -47,5 +50,6 @@ class CreateReservationRequestModel {
         "time_appointment": timeAppointment,
         "guarantor": guarantor,
         "bpjs_number": bpjsNumber,
+        "complaint": complaint,
       };
 }

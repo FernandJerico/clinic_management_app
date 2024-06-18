@@ -18,8 +18,8 @@ class GetDoctorSchedulesBloc
   ) : super(const _Initial()) {
     on<_GetDoctorSchedules>((event, emit) async {
       emit(const _Loading());
-      final result =
-          await reservationRemoteDatasource.getDoctorSchedules(event.doctorId);
+      final result = await reservationRemoteDatasource.getDoctorSchedules(
+          event.doctorId, event.day);
       result.fold(
         (l) => emit(_Error(l)),
         (r) => emit(_Loaded(r.data ?? [])),

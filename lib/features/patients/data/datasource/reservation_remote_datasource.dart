@@ -105,10 +105,10 @@ class ReservationRemoteDatasource {
   }
 
   Future<Either<String, DoctorScheduleResponseModel>> getDoctorSchedules(
-      String doctorId) async {
+      String doctorId, String day) async {
     final authData = await AuthLocalDatasources().getAuthData();
     final url = Uri.parse(
-        '${Variables.baseUrl}/api/api-doctor-schedules?doctor_id=$doctorId');
+        '${Variables.baseUrl}/api/api-doctor-schedules?doctor_id=$doctorId&day=$day');
     final response = await http.get(
       url,
       headers: {

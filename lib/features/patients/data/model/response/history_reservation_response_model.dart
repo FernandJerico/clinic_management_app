@@ -43,7 +43,8 @@ class HistoryReservation {
   final DateTime? dayAppointment;
   final String? timeAppointment;
   final String? guarantor;
-  final dynamic bpjsNumber;
+  final String? bpjsNumber;
+  final String? complaint;
   final String? status;
   final dynamic note;
   final DateTime? createdAt;
@@ -62,6 +63,7 @@ class HistoryReservation {
     this.timeAppointment,
     this.guarantor,
     this.bpjsNumber,
+    this.complaint,
     this.status,
     this.note,
     this.createdAt,
@@ -89,6 +91,7 @@ class HistoryReservation {
         timeAppointment: json["time_appointment"],
         guarantor: json["guarantor"],
         bpjsNumber: json["bpjs_number"],
+        complaint: json["complaint"],
         status: json["status"],
         note: json["note"],
         createdAt: json["created_at"] == null
@@ -114,6 +117,7 @@ class HistoryReservation {
         "time_appointment": timeAppointment,
         "guarantor": guarantor,
         "bpjs_number": bpjsNumber,
+        "complaint": complaint,
         "status": status,
         "note": note,
         "created_at": createdAt?.toIso8601String(),

@@ -5,5 +5,6 @@ class GetDoctorSchedulesEvent with _$GetDoctorSchedulesEvent {
   const factory GetDoctorSchedulesEvent.started() = _Started;
   const factory GetDoctorSchedulesEvent.getDoctorSchedules({
     required String doctorId,
+    required String day,
   }) = _GetDoctorSchedules;
 }

@@ -30,6 +30,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
   final _phoneController = TextEditingController();
   final _dayAppointmentController = TextEditingController();
   final _bpjsController = TextEditingController();
+  final _complaintController = TextEditingController();
 
   String? _selectedGuarantor;
   final List<String> _guarantors = [
@@ -56,6 +57,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
     _phoneController.dispose();
     _dayAppointmentController.dispose();
     _bpjsController.dispose();
+    _complaintController.dispose();
     super.dispose();
   }
 
@@ -209,11 +211,6 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                 );
                               }).toList(),
                               onChanged: (value) {
-                                context.read<GetDoctorSchedulesBloc>().add(
-                                      GetDoctorSchedulesEvent
-                                          .getDoctorSchedules(
-                                              doctorId: value.toString()),
-                                    );
                                 setState(() {
                                   _selectedDoctor = value;
                                 });
@@ -267,6 +264,17 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                     .format(selectedDayAppointment);
                           });
                         }
+                        if (context.mounted) {
+                          context.read<GetDoctorSchedulesBloc>().add(
+                                GetDoctorSchedulesEvent.getDoctorSchedules(
+                                    doctorId: _selectedDoctor.toString(),
+                                    day: DateFormat('EEEE', 'id_ID')
+                                        .format(selectedDayAppointment!)),
+                              );
+                        }
+                        debugPrint('value: $_selectedDoctor');
+                        debugPrint(
+                            'value: ${DateFormat('EEEE', 'id_ID').format(selectedDayAppointment!)}');
                       },
                       readOnly: true,
                       decoration: InputDecoration(
@@ -407,6 +415,18 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   hintText: 'Masukkan Nomor Jaminan Kesehatan Anda',
                   controller: _bpjsController,
                 ),
+                const SizedBox(height: 10),
+                BuildTextFormField(
+                  titleText: 'Keluhan Anda',
+                  hintText: 'Masukkan Keluhan Anda',
+                  controller: _complaintController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Keluhan wajib diisi';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(height: 28),
                 BlocConsumer<ReservationBloc, ReservationState>(
                   listener: (context, state) {
@@ -476,6 +496,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                   bpjsNumber: _bpjsController.text.isEmpty
                                       ? null
                                       : _bpjsController.text,
+                                  complaint: _complaintController.text,
                                 );
                                 if (context.mounted) {
                                   context.read<ReservationBloc>().add(
