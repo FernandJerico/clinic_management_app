@@ -183,8 +183,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                 ),
                                                 alignment: Alignment.center,
                                                 child: Text(
-                                                  capitalize(
-                                                      history.status ?? ''),
+                                                  history.status == 'pending'
+                                                      ? 'Menunggu'
+                                                      : history.status ==
+                                                              'approved'
+                                                          ? 'Disetujui'
+                                                          : 'Ditolak',
                                                   textAlign: TextAlign.center,
                                                   style: GoogleFonts.poppins(
                                                     fontSize: 10,
