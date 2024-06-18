@@ -5,6 +5,7 @@ class AcceptReservationEvent with _$AcceptReservationEvent {
   const factory AcceptReservationEvent.started() = _Started;
   const factory AcceptReservationEvent.acceptReservation({
     required String reservationId,
+    required String patientId,
     required String status,
     required String message,
   }) = _AcceptReservation;

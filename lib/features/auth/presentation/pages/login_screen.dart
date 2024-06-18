@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: (context, state) {
                           return state.maybeWhen(
                             orElse: () {
-                              return Button.gradient(
+                              return ButtonGradient.filled(
                                 onPressed: () {
                                   context.read<LoginBloc>().add(
                                         LoginEvent.login(
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             },
                             loading: () {
-                              return Button.gradientLoading(onPressed: () {});
+                              return ButtonGradient.loading(onPressed: () {});
                             },
                           );
                         },

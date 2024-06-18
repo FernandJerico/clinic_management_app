@@ -183,12 +183,13 @@ class MasterRemoteDatasources {
     }
   }
 
-  Future<Either<String, String>> acceptReservation(
-      String reservationId, String status, String message) async {
+  Future<Either<String, String>> acceptReservation(String reservationId,
+      String patientId, String status, String message) async {
     final authData = await AuthLocalDatasources().getAuthData();
     final url =
         Uri.parse('${Variables.baseUrl}/api/api-reservations/$reservationId');
     final response = await http.put(url, body: {
+      'patient_id': patientId,
       'status': status,
       'note': message,
     }, headers: {

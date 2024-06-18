@@ -48,7 +48,7 @@ class SuccessDialog extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16.0),
-            Button.gradient(
+            ButtonGradient.filled(
                 onPressed: () {
                   onPressed();
                 },

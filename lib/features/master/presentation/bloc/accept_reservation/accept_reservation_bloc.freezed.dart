@@ -19,8 +19,8 @@ mixin _$AcceptReservationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(
-            String reservationId, String status, String message)
+    required TResult Function(String reservationId, String patientId,
+            String status, String message)
         acceptReservation,
     required TResult Function(
             String reservationId, String status, String message)
@@ -30,7 +30,8 @@ mixin _$AcceptReservationEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String reservationId, String status, String message)?
+    TResult? Function(String reservationId, String patientId, String status,
+            String message)?
         acceptReservation,
     TResult? Function(String reservationId, String status, String message)?
         rejectReservation,
@@ -39,7 +40,8 @@ mixin _$AcceptReservationEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String reservationId, String status, String message)?
+    TResult Function(String reservationId, String patientId, String status,
+            String message)?
         acceptReservation,
     TResult Function(String reservationId, String status, String message)?
         rejectReservation,
@@ -128,8 +130,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(
-            String reservationId, String status, String message)
+    required TResult Function(String reservationId, String patientId,
+            String status, String message)
         acceptReservation,
     required TResult Function(
             String reservationId, String status, String message)
@@ -142,7 +144,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String reservationId, String status, String message)?
+    TResult? Function(String reservationId, String patientId, String status,
+            String message)?
         acceptReservation,
     TResult? Function(String reservationId, String status, String message)?
         rejectReservation,
@@ -154,7 +157,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String reservationId, String status, String message)?
+    TResult Function(String reservationId, String patientId, String status,
+            String message)?
         acceptReservation,
     TResult Function(String reservationId, String status, String message)?
         rejectReservation,
@@ -211,7 +215,8 @@ abstract class _$$AcceptReservationImplCopyWith<$Res> {
           $Res Function(_$AcceptReservationImpl) then) =
       __$$AcceptReservationImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String reservationId, String status, String message});
+  $Res call(
+      {String reservationId, String patientId, String status, String message});
 }
 
 /// @nodoc
@@ -226,6 +231,7 @@ class __$$AcceptReservationImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? reservationId = null,
+    Object? patientId = null,
     Object? status = null,
     Object? message = null,
   }) {
@@ -233,6 +239,10 @@ class __$$AcceptReservationImplCopyWithImpl<$Res>
       reservationId: null == reservationId
           ? _value.reservationId
           : reservationId // ignore: cast_nullable_to_non_nullable
+              as String,
+      patientId: null == patientId
+          ? _value.patientId
+          : patientId // ignore: cast_nullable_to_non_nullable
               as String,
       status: null == status
           ? _value.status
@@ -251,11 +261,14 @@ class __$$AcceptReservationImplCopyWithImpl<$Res>
 class _$AcceptReservationImpl implements _AcceptReservation {
   const _$AcceptReservationImpl(
       {required this.reservationId,
+      required this.patientId,
       required this.status,
       required this.message});
 
   @override
   final String reservationId;
+  @override
+  final String patientId;
   @override
   final String status;
   @override
@@ -263,7 +276,7 @@ class _$AcceptReservationImpl implements _AcceptReservation {
 
   @override
   String toString() {
-    return 'AcceptReservationEvent.acceptReservation(reservationId: $reservationId, status: $status, message: $message)';
+    return 'AcceptReservationEvent.acceptReservation(reservationId: $reservationId, patientId: $patientId, status: $status, message: $message)';
   }
 
   @override
@@ -273,12 +286,15 @@ class _$AcceptReservationImpl implements _AcceptReservation {
             other is _$AcceptReservationImpl &&
             (identical(other.reservationId, reservationId) ||
                 other.reservationId == reservationId) &&
+            (identical(other.patientId, patientId) ||
+                other.patientId == patientId) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, reservationId, status, message);
+  int get hashCode =>
+      Object.hash(runtimeType, reservationId, patientId, status, message);
 
   @JsonKey(ignore: true)
   @override
@@ -291,40 +307,42 @@ class _$AcceptReservationImpl implements _AcceptReservation {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(
-            String reservationId, String status, String message)
+    required TResult Function(String reservationId, String patientId,
+            String status, String message)
         acceptReservation,
     required TResult Function(
             String reservationId, String status, String message)
         rejectReservation,
   }) {
-    return acceptReservation(reservationId, status, message);
+    return acceptReservation(reservationId, patientId, status, message);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String reservationId, String status, String message)?
+    TResult? Function(String reservationId, String patientId, String status,
+            String message)?
         acceptReservation,
     TResult? Function(String reservationId, String status, String message)?
         rejectReservation,
   }) {
-    return acceptReservation?.call(reservationId, status, message);
+    return acceptReservation?.call(reservationId, patientId, status, message);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String reservationId, String status, String message)?
+    TResult Function(String reservationId, String patientId, String status,
+            String message)?
         acceptReservation,
     TResult Function(String reservationId, String status, String message)?
         rejectReservation,
     required TResult orElse(),
   }) {
     if (acceptReservation != null) {
-      return acceptReservation(reservationId, status, message);
+      return acceptReservation(reservationId, patientId, status, message);
     }
     return orElse();
   }
@@ -367,10 +385,12 @@ class _$AcceptReservationImpl implements _AcceptReservation {
 abstract class _AcceptReservation implements AcceptReservationEvent {
   const factory _AcceptReservation(
       {required final String reservationId,
+      required final String patientId,
       required final String status,
       required final String message}) = _$AcceptReservationImpl;
 
   String get reservationId;
+  String get patientId;
   String get status;
   String get message;
   @JsonKey(ignore: true)
@@ -464,8 +484,8 @@ class _$RejectReservationImpl implements _RejectReservation {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(
-            String reservationId, String status, String message)
+    required TResult Function(String reservationId, String patientId,
+            String status, String message)
         acceptReservation,
     required TResult Function(
             String reservationId, String status, String message)
@@ -478,7 +498,8 @@ class _$RejectReservationImpl implements _RejectReservation {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String reservationId, String status, String message)?
+    TResult? Function(String reservationId, String patientId, String status,
+            String message)?
         acceptReservation,
     TResult? Function(String reservationId, String status, String message)?
         rejectReservation,
@@ -490,7 +511,8 @@ class _$RejectReservationImpl implements _RejectReservation {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String reservationId, String status, String message)?
+    TResult Function(String reservationId, String patientId, String status,
+            String message)?
         acceptReservation,
     TResult Function(String reservationId, String status, String message)?
         rejectReservation,

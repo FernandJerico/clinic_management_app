@@ -435,7 +435,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                       builder: (context, state) {
                         return state.maybeWhen(
                           orElse: () {
-                            return Button.gradient(
+                            return ButtonGradient.filled(
                               onPressed: () async {
                                 final userId =
                                     await AuthLocalDatasources().getAuthData();
@@ -488,7 +488,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                             );
                           },
                           loading: () {
-                            return Button.gradientLoading(
+                            return ButtonGradient.loading(
                               onPressed: () {},
                             );
                           },

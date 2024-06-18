@@ -101,7 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         builder: (context, state) {
                           return state.maybeWhen(
                             orElse: () {
-                              return Button.gradient(
+                              return ButtonGradient.filled(
                                 onPressed: () {
                                   context.read<RegisterBloc>().add(
                                         RegisterEvent.register(
@@ -116,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               );
                             },
                             loading: () {
-                              return Button.gradientLoading(onPressed: () {});
+                              return ButtonGradient.loading(onPressed: () {});
                             },
                           );
                         },

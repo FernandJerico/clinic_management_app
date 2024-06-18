@@ -93,7 +93,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                                     fontSize: 12, fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(height: 8),
-                              Button.gradient(
+                              ButtonGradient.filled(
                                   onPressed: () {
                                     context.push(const AddPatientScreen());
                                   },
@@ -517,7 +517,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         );
                       },
                       loading: () {
-                        return Button.gradientLoading(
+                        return ButtonGradient.loading(
                           height: 48,
                           label: '',
                           onPressed: () {},

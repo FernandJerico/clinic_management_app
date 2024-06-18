@@ -15,6 +15,7 @@ class AcceptReservationBloc
       emit(const _Loading());
       final result = await masterRemoteDatasources.acceptReservation(
         event.reservationId,
+        event.patientId,
         event.status,
         event.message,
       );

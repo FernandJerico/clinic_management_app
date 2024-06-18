@@ -5,8 +5,8 @@ import '../themes/colors.dart';
 
 enum ButtonStyleType { gradient, gradientLoading }
 
-class Button extends StatelessWidget {
-  const Button.gradient({
+class ButtonGradient extends StatelessWidget {
+  const ButtonGradient.filled({
     super.key,
     required this.onPressed,
     required this.label,
@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
     this.fontSize = 14.0,
   });
 
-  const Button.gradientLoading({
+  const ButtonGradient.loading({
     super.key,
     required this.onPressed,
     this.label = '',
