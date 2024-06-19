@@ -80,7 +80,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               showDialog(
                                 context: context,
                                 builder: (context) => SuccessDialog(
-                                  message: 'Register Berhasil!\nSilahkan Login',
+                                  message:
+                                      'Register Berhasil!\nSilahkan Cek Email Anda Untuk Verifikasi.',
                                   buttonText: 'Login',
                                   onPressed: () =>
                                       context.push(const LoginScreen()),

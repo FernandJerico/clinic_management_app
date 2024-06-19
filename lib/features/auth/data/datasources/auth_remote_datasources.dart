@@ -57,7 +57,14 @@ class AuthRemoteDatasources {
     });
 
     if (response.statusCode == 200) {
-      return const Right('Register Success');
+      try {
+        final responseBody = json.decode(response.body);
+        var message = responseBody['message'];
+
+        return Right(message);
+      } catch (e) {
+        return const Right('Failed to parse message.');
+      }
     } else {
       try {
         final responseBody = json.decode(response.body);
