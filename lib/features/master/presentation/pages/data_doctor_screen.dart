@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/core/components/components.dart';
 import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
@@ -7,8 +10,15 @@ import 'package:clinic_management_app/features/master/presentation/widgets/build
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
+import '../../../../core/components/button_loading.dart';
 import '../../../../core/constants/variables.dart';
+import '../../../navbar/presentation/pages/navbar_screen.dart';
+import '../../data/models/request/add_reservation_request_model.dart';
+import '../../data/models/response/master_doctor_response_model.dart';
+import '../bloc/add_reservation/add_reservation_bloc.dart';
 import '../widgets/card_shimmer_loading.dart';
 
 class DataDoctorScreen extends StatefulWidget {
@@ -20,12 +30,58 @@ class DataDoctorScreen extends StatefulWidget {
 
 class _DataDoctorScreenState extends State<DataDoctorScreen> {
   final searchController = TextEditingController();
+  MasterDoctor? selectedDoctor;
+  late final TextEditingController doctorNameController;
+  late final TextEditingController doctorEmailController;
+  late final TextEditingController doctorPhoneController;
+  late final TextEditingController doctorNikController;
+  late final TextEditingController doctorSpecialistController;
+  late final TextEditingController sipController;
+  late final TextEditingController idIhsController;
+  late final TextEditingController addressController;
+  late DateTime? scheduleTime;
+  late DateTime? birthDate;
+
+  final ImagePicker _picker = ImagePicker();
+  File? _image;
+
+  String formatDate(DateTime date) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+
+    final String formattedDate = formatter.format(date);
+
+    return formattedDate;
+  }
 
   @override
   void initState() {
+    doctorNameController = TextEditingController();
+    doctorEmailController = TextEditingController();
+    doctorPhoneController = TextEditingController();
+    doctorNikController = TextEditingController();
+    doctorSpecialistController = TextEditingController();
+    sipController = TextEditingController();
+    idIhsController = TextEditingController();
+    addressController = TextEditingController();
+    scheduleTime = DateTime.now();
+    birthDate = DateTime.now();
     context.read<DataDoctorBloc>().add(const DataDoctorEvent.getDoctors());
     super.initState();
   }
+
+  // Future<void> _pickImage(ImageSource source) async {
+  //   try {
+  //     final pickedFile = await _picker.pickImage(source: source);
+
+  //     if (pickedFile != null) {
+  //       setState(() {
+  //         _image = File(pickedFile.path);
+  //       });
+  //     }
+  //   } catch (e) {
+  //     debugPrint('Error picking image: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +95,326 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
           searchController: searchController,
           keyboardType: TextInputType.text,
           withBackButton: true,
+          trailing: ButtonGradient.filled(
+              width: context.deviceWidth * 0.15,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    backgroundColor: Colors.white,
+                    content: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SingleChildScrollView(
+                            child: SizedBox(
+                              width: context.deviceWidth / 4,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Row(
+                                    children: [
+                                      Text(
+                                        'Tambah Dokter',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16.0,
+                                          color: AppColors.darkGrey,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                    ],
+                                  ),
+                                  const SpaceHeight(20.0),
+                                  const Text(
+                                    'Nama Dokter',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  CustomTextField(
+                                    controller: doctorNameController,
+                                    label: 'Masukkan Nama Dokter',
+                                    showLabel: false,
+                                  ),
+                                  const SpaceHeight(20.0),
+                                  const Text(
+                                    'Email',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  CustomTextField(
+                                    controller: doctorEmailController,
+                                    label: 'example@gmail.com',
+                                    showLabel: false,
+                                  ),
+                                  const SpaceHeight(20.0),
+                                  const Text(
+                                    'Nomor Telepon',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  CustomTextField(
+                                    controller: doctorPhoneController,
+                                    label: 'Masukkan Nomor Telepon Dokter',
+                                    showLabel: false,
+                                  ),
+                                  const SpaceHeight(20.0),
+                                  const Text(
+                                    'NIK',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  CustomTextField(
+                                    controller: doctorNikController,
+                                    label: 'Masukkan NIK Dokter',
+                                    showLabel: false,
+                                  ),
+                                  const SpaceHeight(20.0),
+                                  const Text(
+                                    'Spesialis',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  CustomTextField(
+                                    controller: doctorSpecialistController,
+                                    label: 'Masukkan Spesialis Dokter',
+                                    showLabel: false,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SpaceWidth(50.0),
+                          SingleChildScrollView(
+                            child: SizedBox(
+                              width: context.deviceWidth / 4,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Foto Dokter',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  Container(
+                                      height: 71,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: AppColors.darkGrey,
+                                        ),
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 6, right: 12),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 60,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(4),
+                                                  color: AppColors.grey),
+                                              child: _image == null
+                                                  ? const Icon(Icons
+                                                      .no_photography_outlined)
+                                                  : Image.file(
+                                                      _image!,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                            ),
+                                            ElevatedButton(
+                                                onPressed: () async {
+                                                  final pickedFile =
+                                                      await _picker.pickImage(
+                                                          source: ImageSource
+                                                              .gallery);
+                                                  if (pickedFile != null) {
+                                                    setState(() {
+                                                      _image =
+                                                          File(pickedFile.path);
+                                                    });
+                                                  }
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      AppColors.primary,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4),
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  'Upload Gambar',
+                                                  style: GoogleFonts.poppins(
+                                                      color: Colors.white,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ))
+                                          ],
+                                        ),
+                                      )),
+                                  const SpaceHeight(20.0),
+                                  const Text(
+                                    'SIP',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  CustomTextField(
+                                    controller: sipController,
+                                    label: 'Masukkan SIP Dokter',
+                                    showLabel: false,
+                                  ),
+                                  const SpaceHeight(20.0),
+                                  const Text(
+                                    'ID IHS',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  CustomTextField(
+                                    controller: idIhsController,
+                                    label: 'Masukkan ID IHS Dokter',
+                                    showLabel: false,
+                                  ),
+                                  const SpaceHeight(20.0),
+                                  CustomTextField(
+                                    controller: addressController,
+                                    label: 'Masukkan Alamat Dokter',
+                                    showLabel: false,
+                                    isDescription: true,
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                        child: Button.outlined(
+                                          onPressed: () => context.pop(),
+                                          label: 'Cancel',
+                                        ),
+                                      ),
+                                      const SpaceWidth(10.0),
+                                      Flexible(
+                                          child: BlocConsumer<
+                                              AddReservationBloc,
+                                              AddReservationState>(
+                                        listener: (context, state) {
+                                          state.maybeWhen(
+                                            success: () {
+                                              context.pushReplacement(
+                                                  const NavbarScreen(
+                                                initialSelectedItem: 6,
+                                              ));
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Reservation created!'),
+                                                  backgroundColor:
+                                                      AppColors.green,
+                                                ),
+                                              );
+                                            },
+                                            error: (message) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(message),
+                                                  backgroundColor:
+                                                      AppColors.red,
+                                                ),
+                                              );
+                                            },
+                                            orElse: () {},
+                                          );
+                                        },
+                                        builder: (context, state) {
+                                          return state.maybeWhen(
+                                            orElse: () {
+                                              return Button.filled(
+                                                onPressed: () {
+                                                  final requestData =
+                                                      AddReservationRequestModel(
+                                                    // patientId:
+                                                    //     widget.patient?.id,
+                                                    doctorId:
+                                                        selectedDoctor?.id,
+                                                    scheduleTime: scheduleTime!,
+                                                    // complaint:
+                                                    //     complaintController
+                                                    //         .text,
+                                                    status: 'waiting',
+                                                    totalPrice: 0,
+                                                  );
+                                                  context
+                                                      .read<
+                                                          AddReservationBloc>()
+                                                      .add(AddReservationEvent
+                                                          .addReservation(
+                                                              data:
+                                                                  requestData));
+                                                },
+                                                label: 'Create',
+                                              );
+                                            },
+                                            loading: () {
+                                              return const ButtonLoading();
+                                            },
+                                          );
+                                        },
+                                      )),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+              label: 'Tambah Dokter'),
           searchChanged: (value) {
             if (value.isNotEmpty && value.length > 2) {
               context
@@ -114,12 +490,16 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8),
-                                      child: Image.network(
-                                        '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
-                                        height: ResponsiveWidget.isLargeScreen(
-                                                context)
-                                            ? 75
-                                            : 50,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Image.network(
+                                          '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
+                                          height:
+                                              ResponsiveWidget.isLargeScreen(
+                                                      context)
+                                                  ? 100
+                                                  : 50,
+                                        ),
                                       ),
                                     ),
                                     const SpaceWidth(8),
