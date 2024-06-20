@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/core/components/components.dart';
-import 'package:clinic_management_app/core/constants/responsive.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
+import 'package:clinic_management_app/features/master/data/models/request/add_doctor_request_model.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
 import 'package:clinic_management_app/features/master/presentation/widgets/build_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +15,8 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/components/button_loading.dart';
 import '../../../../core/constants/variables.dart';
-import '../../../navbar/presentation/pages/navbar_screen.dart';
-import '../../data/models/request/add_reservation_request_model.dart';
 import '../../data/models/response/master_doctor_response_model.dart';
-import '../bloc/add_reservation/add_reservation_bloc.dart';
+import '../bloc/add_and_edit_doctor/add_and_edit_doctor_bloc.dart';
 import '../widgets/card_shimmer_loading.dart';
 
 class DataDoctorScreen extends StatefulWidget {
@@ -39,6 +37,7 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
   late final TextEditingController sipController;
   late final TextEditingController idIhsController;
   late final TextEditingController addressController;
+  late final TextEditingController polyclinicController;
   late DateTime? scheduleTime;
   late DateTime? birthDate;
 
@@ -63,6 +62,7 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
     sipController = TextEditingController();
     idIhsController = TextEditingController();
     addressController = TextEditingController();
+    polyclinicController = TextEditingController();
     scheduleTime = DateTime.now();
     birthDate = DateTime.now();
     context.read<DataDoctorBloc>().add(const DataDoctorEvent.getDoctors());
@@ -202,6 +202,21 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                     label: 'Masukkan Spesialis Dokter',
                                     showLabel: false,
                                   ),
+                                  const SpaceHeight(20.0),
+                                  const Text(
+                                    'Poliklinik',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
+                                  CustomTextField(
+                                    controller: polyclinicController,
+                                    label: 'Masukkan Poliklinik Dokter',
+                                    showLabel: false,
+                                  ),
                                 ],
                               ),
                             ),
@@ -317,13 +332,22 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                     showLabel: false,
                                   ),
                                   const SpaceHeight(20.0),
+                                  const Text(
+                                    'Alamat',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12.0,
+                                      color: AppColors.darkGrey,
+                                    ),
+                                  ),
+                                  const SpaceHeight(8.0),
                                   CustomTextField(
                                     controller: addressController,
                                     label: 'Masukkan Alamat Dokter',
                                     showLabel: false,
                                     isDescription: true,
                                   ),
-                                  const SpaceHeight(8.0),
+                                  const SpaceHeight(20.0),
                                   Row(
                                     children: [
                                       Flexible(
@@ -335,20 +359,21 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                       const SpaceWidth(10.0),
                                       Flexible(
                                           child: BlocConsumer<
-                                              AddReservationBloc,
-                                              AddReservationState>(
+                                              AddAndEditDoctorBloc,
+                                              AddAndEditDoctorState>(
                                         listener: (context, state) {
                                           state.maybeWhen(
                                             success: () {
-                                              context.pushReplacement(
-                                                  const NavbarScreen(
-                                                initialSelectedItem: 6,
-                                              ));
+                                              context.pop();
+                                              context
+                                                  .read<DataDoctorBloc>()
+                                                  .add(const DataDoctorEvent
+                                                      .getDoctors());
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
                                                 const SnackBar(
-                                                  content: Text(
-                                                      'Reservation created!'),
+                                                  content:
+                                                      Text('Doctor created!'),
                                                   backgroundColor:
                                                       AppColors.green,
                                                 ),
@@ -373,24 +398,36 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                               return Button.filled(
                                                 onPressed: () {
                                                   final requestData =
-                                                      AddReservationRequestModel(
-                                                    // patientId:
-                                                    //     widget.patient?.id,
-                                                    doctorId:
-                                                        selectedDoctor?.id,
-                                                    scheduleTime: scheduleTime!,
-                                                    // complaint:
-                                                    //     complaintController
-                                                    //         .text,
-                                                    status: 'waiting',
-                                                    totalPrice: 0,
+                                                      AddDoctorRequestModel(
+                                                    doctorName:
+                                                        doctorNameController
+                                                            .text,
+                                                    doctorEmail:
+                                                        doctorEmailController
+                                                            .text,
+                                                    doctorPhone:
+                                                        doctorPhoneController
+                                                            .text,
+                                                    doctorSpecialist:
+                                                        doctorSpecialistController
+                                                            .text,
+                                                    sip: sipController.text,
+                                                    idIhs: idIhsController.text,
+                                                    address:
+                                                        addressController.text,
+                                                    photo: _image!,
+                                                    polyclinic:
+                                                        polyclinicController
+                                                            .text,
+                                                    nik: doctorNikController
+                                                        .text,
                                                   );
                                                   context
                                                       .read<
-                                                          AddReservationBloc>()
-                                                      .add(AddReservationEvent
-                                                          .addReservation(
-                                                              data:
+                                                          AddAndEditDoctorBloc>()
+                                                      .add(AddAndEditDoctorEvent
+                                                          .addDoctor(
+                                                              doctor:
                                                                   requestData));
                                                 },
                                                 label: 'Create',
@@ -490,16 +527,12 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.network(
+                                      child: CircleAvatar(
+                                        radius: 60,
+                                        backgroundImage: Image.network(
                                           '${Variables.imageBaseUrl}/${doctor.photo?.replaceAll('public/', '')}',
-                                          height:
-                                              ResponsiveWidget.isLargeScreen(
-                                                      context)
-                                                  ? 100
-                                                  : 50,
-                                        ),
+                                          fit: BoxFit.cover,
+                                        ).image,
                                       ),
                                     ),
                                     const SpaceWidth(8),

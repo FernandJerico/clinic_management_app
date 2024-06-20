@@ -59,28 +59,39 @@ class MasterRemoteDatasources {
 
   Future<Either<String, String>> addDoctor(AddDoctorRequestModel data) async {
     final authData = await AuthLocalDatasources().getAuthData();
+    var headers = {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    };
+
     final url = Uri.parse('${Variables.baseUrl}/api/api-doctors');
-    final response = await http.post(
-      url,
-      headers: {
-        'Authorization': 'Bearer ${authData?.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: data.toJson(),
+    final request = http.MultipartRequest('POST', url);
+    request.headers.addAll(headers);
+
+    // Tambahkan field dengan addField
+    request.fields['doctor_name'] = data.doctorName!;
+    request.fields['doctor_specialist'] = data.doctorSpecialist!;
+    request.fields['doctor_phone'] = data.doctorPhone!;
+    request.fields['doctor_email'] = data.doctorEmail!;
+    request.fields['sip'] = data.sip!;
+    request.fields['id_ihs'] = data.idIhs!;
+    request.fields['nik'] = data.nik!;
+    request.fields['polyclinic'] = data.polyclinic!;
+    request.fields['address'] = data.address!;
+
+    // Tambahkan file dengan addFile
+    request.files.add(
+      await http.MultipartFile.fromPath('photo', data.photo!.path),
     );
 
-    if (response.statusCode == 200) {
+    // Kirim request
+    http.StreamedResponse response = await request.send();
+
+    // Tangani respons
+    if (response.statusCode == 201) {
       return const Right('Success add doctor');
     } else {
-      try {
-        final responseBody = json.decode(response.body);
-        var message = responseBody['message'];
-
-        return Left(message);
-      } catch (e) {
-        return const Left('Failed to parse error message.');
-      }
+      return Left(response.reasonPhrase!);
     }
   }
 

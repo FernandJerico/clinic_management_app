@@ -1,4 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 
 class AddDoctorRequestModel {
   final String? doctorName;
@@ -6,7 +9,7 @@ class AddDoctorRequestModel {
   final String? doctorPhone;
   final String? doctorSpecialist;
   final String? address;
-  final String? photo;
+  final File? photo;
   final String? sip;
   final String? idIhs;
   final String? nik;
@@ -37,7 +40,7 @@ class AddDoctorRequestModel {
         doctorPhone: json["doctor_phone"],
         doctorSpecialist: json["doctor_specialist"],
         address: json["address"],
-        photo: json["photo"],
+        photo: json["photo"] != null ? File(json["photo"]) : null,
         sip: json["sip"],
         idIhs: json["id_ihs"],
         nik: json["nik"],
@@ -50,10 +53,34 @@ class AddDoctorRequestModel {
         "doctor_phone": doctorPhone,
         "doctor_specialist": doctorSpecialist,
         "address": address,
-        "photo": photo,
+        "photo": photo?.path,
         "sip": sip,
         "id_ihs": idIhs,
         "nik": nik,
         "polyclinic": polyclinic,
       };
+
+  Future<http.MultipartRequest> toMultipartRequest(Uri uri) async {
+    final request = http.MultipartRequest('POST', uri);
+
+    request.fields['doctor_name'] = doctorName ?? '';
+    request.fields['doctor_email'] = doctorEmail ?? '';
+    request.fields['doctor_phone'] = doctorPhone ?? '';
+    request.fields['doctor_specialist'] = doctorSpecialist ?? '';
+    request.fields['address'] = address ?? '';
+    request.fields['sip'] = sip ?? '';
+    request.fields['id_ihs'] = idIhs ?? '';
+    request.fields['nik'] = nik ?? '';
+    request.fields['polyclinic'] = polyclinic ?? '';
+
+    if (photo != null) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'photo',
+        photo!.path,
+        filename: basename(photo!.path),
+      ));
+    }
+
+    return request;
+  }
 }

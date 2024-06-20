@@ -27,6 +27,7 @@ import 'features/binderbyte/presentation/bloc/get_province_binder/get_province_b
 import 'features/binderbyte/presentation/bloc/get_sub_district_binder/get_sub_district_binder_bloc.dart';
 import 'features/history/presentation/bloc/history_transaction/history_transaction_bloc.dart';
 import 'features/master/presentation/bloc/accept_reservation/accept_reservation_bloc.dart';
+import 'features/master/presentation/bloc/add_and_edit_doctor/add_and_edit_doctor_bloc.dart';
 import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
 import 'features/master/presentation/bloc/add_reservation/add_reservation_bloc.dart';
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
@@ -179,6 +180,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               GetDoctorSchedulesBloc(ReservationRemoteDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => AddAndEditDoctorBloc(MasterRemoteDatasources()),
         ),
       ],
       child: MaterialApp(
