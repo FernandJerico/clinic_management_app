@@ -8,5 +8,9 @@ class AddAndEditDoctorEvent with _$AddAndEditDoctorEvent {
   }) = _AddDoctor;
   const factory AddAndEditDoctorEvent.editDoctor({
     required AddDoctorRequestModel doctor,
+    required String doctorId,
   }) = _EditDoctor;
+  const factory AddAndEditDoctorEvent.deleteDoctor({
+    required String doctorId,
+  }) = _DeleteDoctor;
 }

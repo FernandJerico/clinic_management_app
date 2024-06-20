@@ -95,21 +95,55 @@ class MasterRemoteDatasources {
     }
   }
 
-  Future<Either<String, String>> editDoctor(AddDoctorRequestModel data) async {
+  Future<Either<String, String>> editDoctor(
+      AddDoctorRequestModel data, String doctorId) async {
     final authData = await AuthLocalDatasources().getAuthData();
-    final url = Uri.parse('${Variables.baseUrl}/api/api-doctors');
-    final response = await http.put(
-      url,
-      headers: {
-        'Authorization': 'Bearer ${authData?.token}',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: data.toJson(),
-    );
+    var headers = {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    };
+
+    final url = Uri.parse('${Variables.baseUrl}/api/api-doctors/$doctorId');
+    final request = http.MultipartRequest('PUT', url);
+    request.headers.addAll(headers);
+
+    request.fields['doctor_name'] = data.doctorName!;
+    request.fields['doctor_specialist'] = data.doctorSpecialist!;
+    request.fields['doctor_phone'] = data.doctorPhone!;
+    request.fields['doctor_email'] = data.doctorEmail!;
+    request.fields['sip'] = data.sip!;
+    request.fields['id_ihs'] = data.idIhs!;
+    request.fields['nik'] = data.nik!;
+    request.fields['polyclinic'] = data.polyclinic!;
+    request.fields['address'] = data.address!;
+
+    if (data.photo != null) {
+      request.files.add(
+        await http.MultipartFile.fromPath('photo', data.photo!.path),
+      );
+    } else if (data.photo == null) {
+      request.fields['photo'] = data.photo!.path;
+    }
+
+    // Kirim request
+    http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
       return const Right('Success edit doctor');
+    } else {
+      return Left(response.reasonPhrase!);
+    }
+  }
+
+  Future<Either<String, String>> deleteDoctor(String doctorId) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-doctors/$doctorId');
+    final response = await http.delete(url, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    });
+    if (response.statusCode == 200) {
+      return const Right('Success delete doctor');
     } else {
       try {
         final responseBody = json.decode(response.body);

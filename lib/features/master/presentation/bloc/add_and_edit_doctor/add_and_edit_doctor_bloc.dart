@@ -22,7 +22,17 @@ class AddAndEditDoctorBloc
 
     on<_EditDoctor>((event, emit) async {
       emit(const _Loading());
-      final result = await masterRemoteDatasources.editDoctor(event.doctor);
+      final result = await masterRemoteDatasources.editDoctor(
+          event.doctor, event.doctorId);
+      result.fold(
+        (l) => emit(_Error(l)),
+        (r) => emit(const _Success()),
+      );
+    });
+
+    on<_DeleteDoctor>((event, emit) async {
+      emit(const _Loading());
+      final result = await masterRemoteDatasources.deleteDoctor(event.doctorId);
       result.fold(
         (l) => emit(_Error(l)),
         (r) => emit(const _Success()),
