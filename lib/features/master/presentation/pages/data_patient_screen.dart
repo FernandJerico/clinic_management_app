@@ -1,8 +1,10 @@
+import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/date_time_ext.dart';
 import 'package:clinic_management_app/features/master/presentation/widgets/build_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/components/button_gradient.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
@@ -56,6 +58,14 @@ class _DataPatientScreenState extends State<DataPatientScreen> {
           searchHint: 'Cari Pasien Berdasarkan NIK',
           keyboardType: TextInputType.number,
           withBackButton: true,
+          trailing: ButtonGradient.filled(
+              width: context.deviceWidth * 0.15,
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => const CreatePatientDialog());
+              },
+              label: 'Pasien Baru'),
           searchChanged: (value) {
             if (value.isNotEmpty && value.length > 1) {
               context

@@ -129,6 +129,7 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       content: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: SingleChildScrollView(
