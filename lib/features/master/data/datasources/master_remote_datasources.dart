@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:clinic_management_app/core/constants/variables.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
 import 'package:clinic_management_app/features/master/data/models/request/add_doctor_request_model.dart';
+import 'package:clinic_management_app/features/master/data/models/request/service_medicines_request_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/doctor_schedule_response_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/master_doctor_response_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/master_reservation_response_model.dart';
@@ -230,6 +231,98 @@ class MasterRemoteDatasources {
       return Right(ServiceMedicineResponseModel.fromJson(response.body));
     } else {
       return const Left('Failed to get service medicines');
+    }
+  }
+
+  Future<Either<String, String>> addServiceMedicines(
+      ServiceMedicinesRequestModel data) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    var headers = {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    };
+
+    final url = Uri.parse('${Variables.baseUrl}/api/api-service-medicines');
+    final request = http.MultipartRequest('POST', url);
+    request.headers.addAll(headers);
+
+    // Tambahkan field dengan addField
+    request.fields['name'] = data.name!;
+    request.fields['category'] = data.category!;
+    request.fields['price'] = data.price!;
+    request.fields['quantity'] = data.quantity!;
+
+    // Tambahkan file dengan addFile
+    request.files.add(
+      await http.MultipartFile.fromPath('photo', data.photo!.path),
+    );
+
+    // Kirim request
+    http.StreamedResponse response = await request.send();
+
+    // Tangani respons
+    if (response.statusCode == 201) {
+      return const Right('Success add service medicines');
+    } else {
+      return Left(response.reasonPhrase!);
+    }
+  }
+
+  Future<Either<String, String>> editServiceMedicines(
+      ServiceMedicinesRequestModel data, String serviceId) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    var headers = {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    };
+
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/api-service-medicines/$serviceId');
+    final request = http.MultipartRequest('PUT', url);
+    request.headers.addAll(headers);
+
+    // Tambahkan field dengan addField
+    request.fields['name'] = data.name!;
+    request.fields['category'] = data.category!;
+    request.fields['price'] = data.price!;
+    request.fields['quantity'] = data.quantity!;
+
+    // Tambahkan file dengan addFile
+    request.files.add(
+      await http.MultipartFile.fromPath('photo', data.photo!.path),
+    );
+
+    // Kirim request
+    http.StreamedResponse response = await request.send();
+
+    // Tangani respons
+    if (response.statusCode == 200) {
+      return const Right('Success update service medicines');
+    } else {
+      return Left(response.reasonPhrase!);
+    }
+  }
+
+  Future<Either<String, String>> deleteServiceMedicines(
+      String serviceId) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url =
+        Uri.parse('${Variables.baseUrl}/api/api-service-medicines/$serviceId');
+    final response = await http.delete(url, headers: {
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    });
+    if (response.statusCode == 200) {
+      return const Right('Success delete service medicines');
+    } else {
+      try {
+        final responseBody = json.decode(response.body);
+        var message = responseBody['message'];
+
+        return Left(message);
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
     }
   }
 
