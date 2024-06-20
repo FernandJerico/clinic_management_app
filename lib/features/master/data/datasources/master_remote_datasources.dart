@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:clinic_management_app/core/constants/variables.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
+import 'package:clinic_management_app/features/master/data/models/request/add_doctor_request_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/doctor_schedule_response_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/master_doctor_response_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/master_reservation_response_model.dart';
@@ -53,6 +54,60 @@ class MasterRemoteDatasources {
       return Right(MasterPatientResponseModel.fromJson(response.body));
     } else {
       return const Left('Failed to get patients');
+    }
+  }
+
+  Future<Either<String, String>> addDoctor(AddDoctorRequestModel data) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-doctors');
+    final response = await http.post(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: data.toJson(),
+    );
+
+    if (response.statusCode == 200) {
+      return const Right('Success add doctor');
+    } else {
+      try {
+        final responseBody = json.decode(response.body);
+        var message = responseBody['message'];
+
+        return Left(message);
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
+    }
+  }
+
+  Future<Either<String, String>> editDoctor(AddDoctorRequestModel data) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+    final url = Uri.parse('${Variables.baseUrl}/api/api-doctors');
+    final response = await http.put(
+      url,
+      headers: {
+        'Authorization': 'Bearer ${authData?.token}',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: data.toJson(),
+    );
+
+    if (response.statusCode == 200) {
+      return const Right('Success edit doctor');
+    } else {
+      try {
+        final responseBody = json.decode(response.body);
+        var message = responseBody['message'];
+
+        return Left(message);
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
     }
   }
 
