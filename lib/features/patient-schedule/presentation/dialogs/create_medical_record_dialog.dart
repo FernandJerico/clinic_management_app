@@ -114,6 +114,7 @@ class _CreateMedicalRecordDialogState extends State<CreateMedicalRecordDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: AppColors.white,
       content: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
         child: Row(

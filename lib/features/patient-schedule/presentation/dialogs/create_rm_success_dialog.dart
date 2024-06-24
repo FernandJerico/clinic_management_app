@@ -11,6 +11,7 @@ class CreateRMSuccessDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       title: const Align(
         alignment: Alignment.topRight,
         child: CloseButton(),

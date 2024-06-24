@@ -404,6 +404,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                                   snapshot.data?.user?.role;
                                               return PopupMenuButton<
                                                   PatientStatus>(
+                                                color: Colors.white,
                                                 offset: const Offset(0, 50),
                                                 icon: const Icon(
                                                     Icons.more_horiz),

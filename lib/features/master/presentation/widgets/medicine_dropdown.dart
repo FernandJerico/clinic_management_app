@@ -21,6 +21,7 @@ class MedicineDropdown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         DropdownButtonFormField<ServiceMedicine>(
+          dropdownColor: Colors.white,
           value: value,
           onChanged: onChanged,
           selectedItemBuilder: (context) => items
