@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/int_ext.dart';
+import 'package:clinic_management_app/features/master/presentation/dialogs/success_payment_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -336,18 +337,27 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                                 .createPaymentDetail(
                                                     requestModel),
                                           );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text('Pembayaran berhasil'),
-                                          backgroundColor: AppColors.green,
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            SuccessPaymentDialog(
+                                          paymentMethod: 'QRIS',
+                                          totalPrice: totalPrice,
+                                          transactionTime: DateTime.now(),
                                         ),
                                       );
-                                      timer!.cancel();
-                                      context
-                                          .pushReplacement(const NavbarScreen(
-                                        initialSelectedItem: 6,
-                                      ));
+                                      // ScaffoldMessenger.of(context)
+                                      //     .showSnackBar(
+                                      //   const SnackBar(
+                                      //     content: Text('Pembayaran berhasil'),
+                                      //     backgroundColor: AppColors.green,
+                                      //   ),
+                                      // );
+                                      // timer!.cancel();
+                                      // context
+                                      //     .pushReplacement(const NavbarScreen(
+                                      //   initialSelectedItem: 6,
+                                      // ));
                                     }
                                   },
                                 );
