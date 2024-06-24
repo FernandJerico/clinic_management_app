@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:clinic_management_app/features/master/data/models/request/add_reservation_request_model.dart';
-import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
+import 'package:clinic_management_app/features/master/presentation/dialogs/success_reservation_dialog.dart';
 import 'package:clinic_management_app/features/patient-schedule/presentation/bloc/patient_schedule/patient_schedule_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +77,7 @@ class _CreateReservationPatientDialogState
 
   @override
   Widget build(BuildContext context) {
-    int? queueNumber = context.watch<PatientScheduleBloc>().state.whenOrNull(
+    final queueNumber = context.watch<PatientScheduleBloc>().state.whenOrNull(
           loaded: (patientSchedules) =>
               patientSchedules
                   .where((element) =>
@@ -266,15 +266,22 @@ class _CreateReservationPatientDialogState
                           listener: (context, state) {
                             state.maybeWhen(
                               success: () {
-                                context.pushReplacement(const NavbarScreen(
-                                  initialSelectedItem: 6,
-                                ));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Reservation created!'),
-                                    backgroundColor: AppColors.green,
-                                  ),
+                                Navigator.pop(context);
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      SuccessReservationDialog(
+                                          queueNumber: queueNumber ?? 1),
                                 );
+                                // context.pushReplacement(const NavbarScreen(
+                                //   initialSelectedItem: 6,
+                                // ));
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   const SnackBar(
+                                //     content: Text('Reservation created!'),
+                                //     backgroundColor: AppColors.green,
+                                //   ),
+                                // );
                               },
                               error: (message) {
                                 ScaffoldMessenger.of(context).showSnackBar(
