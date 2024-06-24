@@ -32,6 +32,7 @@ class _SuccessPaymentDialogState extends State<SuccessPaymentDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.white,
       content: SingleChildScrollView(
         padding: const EdgeInsets.all(30.0),
         child: Column(

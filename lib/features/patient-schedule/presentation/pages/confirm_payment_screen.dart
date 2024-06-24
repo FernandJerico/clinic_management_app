@@ -12,7 +12,6 @@ import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
-import '../../../navbar/presentation/pages/navbar_screen.dart';
 import '../../data/models/request/create_payment_detail_request_model.dart';
 import '../../data/models/response/patient_schedule_response_model.dart';
 import '../bloc/check_status/check_status_bloc.dart';
@@ -456,7 +455,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                         ? Align(
                             alignment: Alignment.bottomCenter,
                             child: ColoredBox(
-                              color: AppColors.white,
+                              color: Colors.white,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 24.0, vertical: 16.0),
@@ -485,18 +484,28 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                               ));
                                             },
                                             loaded: (responseModel) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                content:
-                                                    Text('Pembayaran berhasil'),
-                                                backgroundColor:
-                                                    AppColors.green,
-                                              ));
-                                              context.pushReplacement(
-                                                const NavbarScreen(
-                                                  initialSelectedItem: 6,
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    SuccessPaymentDialog(
+                                                  paymentMethod: 'Cash',
+                                                  totalPrice: totalPrice,
+                                                  transactionTime:
+                                                      DateTime.now(),
                                                 ),
                                               );
+                                              // ScaffoldMessenger.of(context)
+                                              //     .showSnackBar(const SnackBar(
+                                              //   content:
+                                              //       Text('Pembayaran berhasil'),
+                                              //   backgroundColor:
+                                              //       AppColors.green,
+                                              // ));
+                                              // context.pushReplacement(
+                                              //   const NavbarScreen(
+                                              //     initialSelectedItem: 6,
+                                              //   ),
+                                              // );
                                             },
                                           );
                                         },
