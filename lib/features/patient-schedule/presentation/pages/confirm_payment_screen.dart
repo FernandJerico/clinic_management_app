@@ -51,6 +51,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
     context.read<GetServiceOrderBloc>().add(
           GetServiceOrderEvent.getServiceOrder(widget.schedulePatient.id!),
         );
+    // context.read<>();
 
     orderId = DateTime.now().millisecondsSinceEpoch.toString();
     context.read<QrisBloc>().add(QrisEvent.generateQrCode(
@@ -506,6 +507,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                                                   .schedulePatient
                                                                   .id!
                                                                   .toString(),
+                                                          // medicalRecordId: widget.schedulePatient.,
                                                           transactionTime:
                                                               DateTime.now(),
                                                           totalPrice:
