@@ -21,6 +21,7 @@ mixin _$PatientScheduleEvent {
     required TResult Function() started,
     required TResult Function() getPatientSchedules,
     required TResult Function(String nik) getPatientSchedulesByNIK,
+    required TResult Function() getPatientQueue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$PatientScheduleEvent {
     TResult? Function()? started,
     TResult? Function()? getPatientSchedules,
     TResult? Function(String nik)? getPatientSchedulesByNIK,
+    TResult? Function()? getPatientQueue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$PatientScheduleEvent {
     TResult Function()? started,
     TResult Function()? getPatientSchedules,
     TResult Function(String nik)? getPatientSchedulesByNIK,
+    TResult Function()? getPatientQueue,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +47,7 @@ mixin _$PatientScheduleEvent {
     required TResult Function(_GetPatientSchedules value) getPatientSchedules,
     required TResult Function(_GetPatientSchedulesByNIK value)
         getPatientSchedulesByNIK,
+    required TResult Function(_GetPatientQueue value) getPatientQueue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +56,7 @@ mixin _$PatientScheduleEvent {
     TResult? Function(_GetPatientSchedules value)? getPatientSchedules,
     TResult? Function(_GetPatientSchedulesByNIK value)?
         getPatientSchedulesByNIK,
+    TResult? Function(_GetPatientQueue value)? getPatientQueue,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,6 +64,7 @@ mixin _$PatientScheduleEvent {
     TResult Function(_Started value)? started,
     TResult Function(_GetPatientSchedules value)? getPatientSchedules,
     TResult Function(_GetPatientSchedulesByNIK value)? getPatientSchedulesByNIK,
+    TResult Function(_GetPatientQueue value)? getPatientQueue,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -124,6 +130,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() started,
     required TResult Function() getPatientSchedules,
     required TResult Function(String nik) getPatientSchedulesByNIK,
+    required TResult Function() getPatientQueue,
   }) {
     return started();
   }
@@ -134,6 +141,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function()? getPatientSchedules,
     TResult? Function(String nik)? getPatientSchedulesByNIK,
+    TResult? Function()? getPatientQueue,
   }) {
     return started?.call();
   }
@@ -144,6 +152,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function()? getPatientSchedules,
     TResult Function(String nik)? getPatientSchedulesByNIK,
+    TResult Function()? getPatientQueue,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -159,6 +168,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_GetPatientSchedules value) getPatientSchedules,
     required TResult Function(_GetPatientSchedulesByNIK value)
         getPatientSchedulesByNIK,
+    required TResult Function(_GetPatientQueue value) getPatientQueue,
   }) {
     return started(this);
   }
@@ -170,6 +180,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_GetPatientSchedules value)? getPatientSchedules,
     TResult? Function(_GetPatientSchedulesByNIK value)?
         getPatientSchedulesByNIK,
+    TResult? Function(_GetPatientQueue value)? getPatientQueue,
   }) {
     return started?.call(this);
   }
@@ -180,6 +191,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_GetPatientSchedules value)? getPatientSchedules,
     TResult Function(_GetPatientSchedulesByNIK value)? getPatientSchedulesByNIK,
+    TResult Function(_GetPatientQueue value)? getPatientQueue,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -235,6 +247,7 @@ class _$GetPatientSchedulesImpl implements _GetPatientSchedules {
     required TResult Function() started,
     required TResult Function() getPatientSchedules,
     required TResult Function(String nik) getPatientSchedulesByNIK,
+    required TResult Function() getPatientQueue,
   }) {
     return getPatientSchedules();
   }
@@ -245,6 +258,7 @@ class _$GetPatientSchedulesImpl implements _GetPatientSchedules {
     TResult? Function()? started,
     TResult? Function()? getPatientSchedules,
     TResult? Function(String nik)? getPatientSchedulesByNIK,
+    TResult? Function()? getPatientQueue,
   }) {
     return getPatientSchedules?.call();
   }
@@ -255,6 +269,7 @@ class _$GetPatientSchedulesImpl implements _GetPatientSchedules {
     TResult Function()? started,
     TResult Function()? getPatientSchedules,
     TResult Function(String nik)? getPatientSchedulesByNIK,
+    TResult Function()? getPatientQueue,
     required TResult orElse(),
   }) {
     if (getPatientSchedules != null) {
@@ -270,6 +285,7 @@ class _$GetPatientSchedulesImpl implements _GetPatientSchedules {
     required TResult Function(_GetPatientSchedules value) getPatientSchedules,
     required TResult Function(_GetPatientSchedulesByNIK value)
         getPatientSchedulesByNIK,
+    required TResult Function(_GetPatientQueue value) getPatientQueue,
   }) {
     return getPatientSchedules(this);
   }
@@ -281,6 +297,7 @@ class _$GetPatientSchedulesImpl implements _GetPatientSchedules {
     TResult? Function(_GetPatientSchedules value)? getPatientSchedules,
     TResult? Function(_GetPatientSchedulesByNIK value)?
         getPatientSchedulesByNIK,
+    TResult? Function(_GetPatientQueue value)? getPatientQueue,
   }) {
     return getPatientSchedules?.call(this);
   }
@@ -291,6 +308,7 @@ class _$GetPatientSchedulesImpl implements _GetPatientSchedules {
     TResult Function(_Started value)? started,
     TResult Function(_GetPatientSchedules value)? getPatientSchedules,
     TResult Function(_GetPatientSchedulesByNIK value)? getPatientSchedulesByNIK,
+    TResult Function(_GetPatientQueue value)? getPatientQueue,
     required TResult orElse(),
   }) {
     if (getPatientSchedules != null) {
@@ -375,6 +393,7 @@ class _$GetPatientSchedulesByNIKImpl implements _GetPatientSchedulesByNIK {
     required TResult Function() started,
     required TResult Function() getPatientSchedules,
     required TResult Function(String nik) getPatientSchedulesByNIK,
+    required TResult Function() getPatientQueue,
   }) {
     return getPatientSchedulesByNIK(nik);
   }
@@ -385,6 +404,7 @@ class _$GetPatientSchedulesByNIKImpl implements _GetPatientSchedulesByNIK {
     TResult? Function()? started,
     TResult? Function()? getPatientSchedules,
     TResult? Function(String nik)? getPatientSchedulesByNIK,
+    TResult? Function()? getPatientQueue,
   }) {
     return getPatientSchedulesByNIK?.call(nik);
   }
@@ -395,6 +415,7 @@ class _$GetPatientSchedulesByNIKImpl implements _GetPatientSchedulesByNIK {
     TResult Function()? started,
     TResult Function()? getPatientSchedules,
     TResult Function(String nik)? getPatientSchedulesByNIK,
+    TResult Function()? getPatientQueue,
     required TResult orElse(),
   }) {
     if (getPatientSchedulesByNIK != null) {
@@ -410,6 +431,7 @@ class _$GetPatientSchedulesByNIKImpl implements _GetPatientSchedulesByNIK {
     required TResult Function(_GetPatientSchedules value) getPatientSchedules,
     required TResult Function(_GetPatientSchedulesByNIK value)
         getPatientSchedulesByNIK,
+    required TResult Function(_GetPatientQueue value) getPatientQueue,
   }) {
     return getPatientSchedulesByNIK(this);
   }
@@ -421,6 +443,7 @@ class _$GetPatientSchedulesByNIKImpl implements _GetPatientSchedulesByNIK {
     TResult? Function(_GetPatientSchedules value)? getPatientSchedules,
     TResult? Function(_GetPatientSchedulesByNIK value)?
         getPatientSchedulesByNIK,
+    TResult? Function(_GetPatientQueue value)? getPatientQueue,
   }) {
     return getPatientSchedulesByNIK?.call(this);
   }
@@ -431,6 +454,7 @@ class _$GetPatientSchedulesByNIKImpl implements _GetPatientSchedulesByNIK {
     TResult Function(_Started value)? started,
     TResult Function(_GetPatientSchedules value)? getPatientSchedules,
     TResult Function(_GetPatientSchedulesByNIK value)? getPatientSchedulesByNIK,
+    TResult Function(_GetPatientQueue value)? getPatientQueue,
     required TResult orElse(),
   }) {
     if (getPatientSchedulesByNIK != null) {
@@ -448,6 +472,122 @@ abstract class _GetPatientSchedulesByNIK implements PatientScheduleEvent {
   @JsonKey(ignore: true)
   _$$GetPatientSchedulesByNIKImplCopyWith<_$GetPatientSchedulesByNIKImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetPatientQueueImplCopyWith<$Res> {
+  factory _$$GetPatientQueueImplCopyWith(_$GetPatientQueueImpl value,
+          $Res Function(_$GetPatientQueueImpl) then) =
+      __$$GetPatientQueueImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetPatientQueueImplCopyWithImpl<$Res>
+    extends _$PatientScheduleEventCopyWithImpl<$Res, _$GetPatientQueueImpl>
+    implements _$$GetPatientQueueImplCopyWith<$Res> {
+  __$$GetPatientQueueImplCopyWithImpl(
+      _$GetPatientQueueImpl _value, $Res Function(_$GetPatientQueueImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetPatientQueueImpl implements _GetPatientQueue {
+  const _$GetPatientQueueImpl();
+
+  @override
+  String toString() {
+    return 'PatientScheduleEvent.getPatientQueue()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetPatientQueueImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getPatientSchedules,
+    required TResult Function(String nik) getPatientSchedulesByNIK,
+    required TResult Function() getPatientQueue,
+  }) {
+    return getPatientQueue();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? getPatientSchedules,
+    TResult? Function(String nik)? getPatientSchedulesByNIK,
+    TResult? Function()? getPatientQueue,
+  }) {
+    return getPatientQueue?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getPatientSchedules,
+    TResult Function(String nik)? getPatientSchedulesByNIK,
+    TResult Function()? getPatientQueue,
+    required TResult orElse(),
+  }) {
+    if (getPatientQueue != null) {
+      return getPatientQueue();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetPatientSchedules value) getPatientSchedules,
+    required TResult Function(_GetPatientSchedulesByNIK value)
+        getPatientSchedulesByNIK,
+    required TResult Function(_GetPatientQueue value) getPatientQueue,
+  }) {
+    return getPatientQueue(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetPatientSchedules value)? getPatientSchedules,
+    TResult? Function(_GetPatientSchedulesByNIK value)?
+        getPatientSchedulesByNIK,
+    TResult? Function(_GetPatientQueue value)? getPatientQueue,
+  }) {
+    return getPatientQueue?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetPatientSchedules value)? getPatientSchedules,
+    TResult Function(_GetPatientSchedulesByNIK value)? getPatientSchedulesByNIK,
+    TResult Function(_GetPatientQueue value)? getPatientQueue,
+    required TResult orElse(),
+  }) {
+    if (getPatientQueue != null) {
+      return getPatientQueue(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetPatientQueue implements PatientScheduleEvent {
+  const factory _GetPatientQueue() = _$GetPatientQueueImpl;
 }
 
 /// @nodoc

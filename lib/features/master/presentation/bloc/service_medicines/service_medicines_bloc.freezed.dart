@@ -233,10 +233,10 @@ class __$$AddServiceMedicinesImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? data = null,
   }) {
     return _then(_$AddServiceMedicinesImpl(
-      freezed == data
+      null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as ServiceMedicinesRequestModel,
@@ -262,12 +262,11 @@ class _$AddServiceMedicinesImpl implements _AddServiceMedicines {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddServiceMedicinesImpl &&
-            const DeepCollectionEquality().equals(other.data, data));
+            (identical(other.data, data) || other.data == data));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+  int get hashCode => Object.hash(runtimeType, data);
 
   @JsonKey(ignore: true)
   @override
@@ -388,11 +387,11 @@ class __$$EditServiceMedicinesImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? data = null,
     Object? serviceId = null,
   }) {
     return _then(_$EditServiceMedicinesImpl(
-      data: freezed == data
+      data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as ServiceMedicinesRequestModel,
@@ -425,14 +424,13 @@ class _$EditServiceMedicinesImpl implements _EditServiceMedicines {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EditServiceMedicinesImpl &&
-            const DeepCollectionEquality().equals(other.data, data) &&
+            (identical(other.data, data) || other.data == data) &&
             (identical(other.serviceId, serviceId) ||
                 other.serviceId == serviceId));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(data), serviceId);
+  int get hashCode => Object.hash(runtimeType, data, serviceId);
 
   @JsonKey(ignore: true)
   @override

@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:clinic_management_app/features/master/data/models/request/add_reservation_request_model.dart';
 import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
+import 'package:clinic_management_app/features/patient-schedule/presentation/bloc/patient_schedule/patient_schedule_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -75,7 +77,17 @@ class _CreateReservationPatientDialogState
 
   @override
   Widget build(BuildContext context) {
+    int? queueNumber = context.watch<PatientScheduleBloc>().state.whenOrNull(
+          loaded: (patientSchedules) =>
+              patientSchedules
+                  .where((element) =>
+                      DateFormat('yyyy-MM-dd').format(element.scheduleTime!) ==
+                      DateFormat('yyyy-MM-dd').format(DateTime.now()))
+                  .length +
+              1,
+        );
     return AlertDialog(
+      backgroundColor: Colors.white,
       content: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
         child: Row(
@@ -288,7 +300,9 @@ class _CreateReservationPatientDialogState
                                       complaint: complaintController.text,
                                       status: 'waiting',
                                       totalPrice: 0,
+                                      queueNumber: queueNumber ?? 1,
                                     );
+                                    debugPrint(requestData.toJson().toString());
                                     context.read<AddReservationBloc>().add(
                                         AddReservationEvent.addReservation(
                                             data: requestData));

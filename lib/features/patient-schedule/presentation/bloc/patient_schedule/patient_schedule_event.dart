@@ -7,4 +7,5 @@ class PatientScheduleEvent with _$PatientScheduleEvent {
       _GetPatientSchedules;
   const factory PatientScheduleEvent.getPatientSchedulesByNIK(String nik) =
       _GetPatientSchedulesByNIK;
+  const factory PatientScheduleEvent.getPatientQueue() = _GetPatientQueue;
 }

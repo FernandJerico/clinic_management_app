@@ -54,7 +54,7 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                       color: AppColors.black)),
               const SizedBox(height: 10),
               Container(
-                height: context.deviceHeight * 0.14,
+                height: context.deviceHeight * 0.15,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -198,7 +198,7 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                       color: AppColors.black)),
               const SizedBox(height: 10),
               Container(
-                height: context.deviceHeight * 0.24,
+                height: context.deviceHeight * 0.275,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,

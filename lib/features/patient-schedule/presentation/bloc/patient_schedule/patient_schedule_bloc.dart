@@ -33,5 +33,14 @@ class PatientScheduleBloc
         (r) => emit(_Loaded(r.data ?? [])),
       );
     });
+
+    on<_GetPatientQueue>((event, emit) async {
+      emit(const _Loading());
+      final result = await remoteDatasources.getPatientQueue();
+      result.fold(
+        (l) => emit(_Error(l)),
+        (r) => emit(_Loaded(r.data ?? [])),
+      );
+    });
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:clinic_management_app/features/master/data/models/request/add_reservation_request_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +25,19 @@ class PatientRemoteDatasources {
     if (response.statusCode == 200) {
       return const Right('Success add reservation');
     } else {
-      return const Left('Failed to add reservation');
+      try {
+        final responseBody = json.decode(response.body);
+        final message = responseBody['message'];
+        if (message is List) {
+          return Left(message.join(', '));
+        } else if (message is String) {
+          return Left(message);
+        } else {
+          return const Left('An unknown error occurred.');
+        }
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
     }
   }
 }

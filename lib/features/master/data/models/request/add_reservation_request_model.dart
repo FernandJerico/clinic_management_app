@@ -7,6 +7,7 @@ class AddReservationRequestModel {
   final String? complaint;
   final String? status;
   final int? totalPrice;
+  final int? queueNumber;
 
   AddReservationRequestModel({
     this.patientId,
@@ -15,6 +16,7 @@ class AddReservationRequestModel {
     this.complaint,
     this.status,
     this.totalPrice,
+    this.queueNumber,
   });
 
   factory AddReservationRequestModel.fromJson(String str) =>
@@ -32,6 +34,7 @@ class AddReservationRequestModel {
         complaint: json["complaint"],
         status: json["status"],
         totalPrice: json["total_price"],
+        queueNumber: json["queue_number"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -41,5 +44,6 @@ class AddReservationRequestModel {
         "complaint": complaint,
         "status": status,
         "total_price": totalPrice,
+        "queue_number": queueNumber,
       };
 }

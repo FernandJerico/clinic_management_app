@@ -27,6 +27,7 @@ class DoctorDropdown extends StatelessWidget {
           value: value,
           onChanged: onChanged,
           isExpanded: true,
+          dropdownColor: Colors.white,
           selectedItemBuilder: (context) => items
               .map((MasterDoctor item) => DropdownMenuItem<MasterDoctor>(
                     value: item,
@@ -58,17 +59,19 @@ class DoctorDropdown extends StatelessWidget {
                             ),
                           ),
                           const SpaceWidth(14.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text('Nama Dokter'),
-                              Text(
-                                '${item.doctorName} (${item.doctorSpecialist})',
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w600,
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('Nama Dokter'),
+                                Text(
+                                  '${item.doctorName} (${item.doctorSpecialist})',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),

@@ -5,6 +5,7 @@ import 'package:clinic_management_app/features/patient-schedule/presentation/dia
 import 'package:clinic_management_app/features/patient-schedule/presentation/pages/confirm_payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
@@ -60,6 +61,19 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
   }
 
   var columns = [
+    DataColumn(
+      label: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Button.filled(
+          onPressed: () {},
+          label: 'No Antrian',
+          width: null,
+          color: AppColors.title,
+          textColor: AppColors.black.withOpacity(0.5),
+          fontSize: 14.0,
+        ),
+      ),
+    ),
     DataColumn(
       label: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -247,6 +261,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                             DataCell(SkeletonLoading()),
                             DataCell(SkeletonLoading()),
                             DataCell(SkeletonLoading()),
+                            DataCell(SkeletonLoading()),
                           ])
                         ],
                       );
@@ -258,6 +273,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                             ? [
                                 const DataRow(
                                   cells: [
+                                    DataCell.empty,
                                     DataCell.empty,
                                     DataCell.empty,
                                     DataCell(Row(
@@ -277,180 +293,200 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                             : patientSchedules
                                 .map(
                                   (patient) => DataRow(cells: [
+                                    DataCell(Center(
+                                      child: Text(
+                                        patient.queueNumber.toString(),
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )),
                                     DataCell(Text(patient.patient!.name ?? '')),
                                     DataCell(Text(
                                         '${patient.complaint!.length > 10 ? patient.complaint!.substring(0, 10) : patient.complaint!}...')),
-                                    DataCell(
-                                        Text(patient.patient!.gender ?? '')),
-                                    DataCell(Text(patient.patient!.birthDate!
-                                        .toFormattedDate())),
-                                    DataCell(Text(patient.patient!.nik ?? '')),
-                                    DataCell(ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: ColoredBox(
-                                        color: patient.status == 'waiting'
-                                            ? PatientStatus
-                                                .waiting.backgroundColor
-                                            : patient.status == 'processing'
-                                                ? PatientStatus
-                                                    .processing.backgroundColor
-                                                : patient.status == 'onHold'
-                                                    ? PatientStatus
-                                                        .onHold.backgroundColor
-                                                    : patient.status ==
-                                                            'completed'
-                                                        ? PatientStatus
-                                                            .completed
-                                                            .backgroundColor
-                                                        : patient.status ==
-                                                                'canceled'
-                                                            ? PatientStatus
-                                                                .rejected
-                                                                .backgroundColor
-                                                            : patient.status ==
-                                                                    'processed'
-                                                                ? PatientStatus
-                                                                    .processed
-                                                                    .backgroundColor
-                                                                : AppColors
-                                                                    .white,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 12.0, vertical: 8.0),
-                                          child: Text(
-                                            patient.status ?? '',
-                                            style: TextStyle(
-                                              color: patient.status == 'waiting'
-                                                  ? PatientStatus.waiting.color
-                                                  : patient.status ==
-                                                          'processing'
-                                                      ? PatientStatus
-                                                          .processing.color
+                                    DataCell(Center(
+                                        child: Text(
+                                            patient.patient!.gender ?? ''))),
+                                    DataCell(Center(
+                                      child: Text(patient.patient!.birthDate!
+                                          .toFormattedDate()),
+                                    )),
+                                    DataCell(Center(
+                                        child:
+                                            Text(patient.patient!.nik ?? ''))),
+                                    DataCell(Center(
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        child: ColoredBox(
+                                          color: patient.status == 'waiting'
+                                              ? PatientStatus
+                                                  .waiting.backgroundColor
+                                              : patient.status == 'processing'
+                                                  ? PatientStatus.processing
+                                                      .backgroundColor
+                                                  : patient.status == 'onHold'
+                                                      ? PatientStatus.onHold
+                                                          .backgroundColor
                                                       : patient.status ==
-                                                              'onHold'
+                                                              'completed'
                                                           ? PatientStatus
-                                                              .onHold.color
+                                                              .completed
+                                                              .backgroundColor
                                                           : patient.status ==
-                                                                  'completed'
+                                                                  'canceled'
                                                               ? PatientStatus
-                                                                  .completed
-                                                                  .color
+                                                                  .rejected
+                                                                  .backgroundColor
                                                               : patient.status ==
-                                                                      'canceled'
+                                                                      'processed'
                                                                   ? PatientStatus
-                                                                      .rejected
-                                                                      .color
-                                                                  : patient.status ==
-                                                                          'processed'
-                                                                      ? PatientStatus
-                                                                          .processed
-                                                                          .color
-                                                                      : AppColors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.5),
+                                                                      .processed
+                                                                      .backgroundColor
+                                                                  : AppColors
+                                                                      .white,
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12.0,
+                                                vertical: 8.0),
+                                            child: Text(
+                                              patient.status ?? '',
+                                              style: TextStyle(
+                                                color: patient.status ==
+                                                        'waiting'
+                                                    ? PatientStatus
+                                                        .waiting.color
+                                                    : patient.status ==
+                                                            'processing'
+                                                        ? PatientStatus
+                                                            .processing.color
+                                                        : patient.status ==
+                                                                'onHold'
+                                                            ? PatientStatus
+                                                                .onHold.color
+                                                            : patient.status ==
+                                                                    'completed'
+                                                                ? PatientStatus
+                                                                    .completed
+                                                                    .color
+                                                                : patient.status ==
+                                                                        'canceled'
+                                                                    ? PatientStatus
+                                                                        .rejected
+                                                                        .color
+                                                                    : patient.status ==
+                                                                            'processed'
+                                                                        ? PatientStatus
+                                                                            .processed
+                                                                            .color
+                                                                        : AppColors
+                                                                            .black
+                                                                            .withOpacity(0.5),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                     )),
                                     DataCell(
-                                      FutureBuilder(
-                                        future: AuthLocalDatasources()
-                                            .getAuthData(),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.connectionState ==
-                                              ConnectionState.waiting) {
-                                            return const CircularProgressIndicator();
-                                          } else if (snapshot.hasError) {
-                                            return Text(
-                                                'Error: ${snapshot.error}');
-                                          } else {
-                                            final role =
-                                                snapshot.data?.user?.role;
-                                            return PopupMenuButton<
-                                                PatientStatus>(
-                                              offset: const Offset(0, 50),
-                                              icon:
-                                                  const Icon(Icons.more_horiz),
-                                              itemBuilder:
-                                                  (BuildContext context) {
-                                                return [
-                                                  if (patient.status ==
-                                                      'waiting')
-                                                    const PopupMenuItem<
-                                                        PatientStatus>(
-                                                      value: PatientStatus
-                                                          .processing,
-                                                      child:
-                                                          _PopupMenuItemValue(
-                                                              PatientStatus
-                                                                  .processing),
-                                                    ),
-                                                  if (patient.status ==
-                                                      'waiting')
-                                                    const PopupMenuItem<
-                                                        PatientStatus>(
-                                                      value: PatientStatus
-                                                          .rejected,
-                                                      child:
-                                                          _PopupMenuItemValue(
-                                                              PatientStatus
-                                                                  .rejected),
-                                                    ),
-                                                  if (!(role == 'doctor' &&
-                                                          patient.status ==
-                                                              'processed') &&
-                                                      patient.status !=
-                                                          'completed' &&
-                                                      patient.status !=
-                                                          'waiting')
-                                                    const PopupMenuItem<
-                                                        PatientStatus>(
-                                                      value: PatientStatus
-                                                          .completed,
-                                                      child:
-                                                          _PopupMenuItemValue(
-                                                              PatientStatus
-                                                                  .completed),
-                                                    ),
-                                                  if (patient.status !=
-                                                      'waiting')
-                                                    const PopupMenuItem<
-                                                        PatientStatus>(
-                                                      value: PatientStatus
-                                                          .rejected,
-                                                      child:
-                                                          _PopupMenuItemValue(
-                                                              PatientStatus
-                                                                  .rejected),
-                                                    ),
-                                                ];
-                                              },
-                                              onSelected:
-                                                  (PatientStatus value) {
-                                                if (value ==
-                                                    PatientStatus.processing) {
-                                                  createRmPatientTap(
-                                                      patient.id!,
-                                                      patient.scheduleTime!,
-                                                      patient.complaint!,
-                                                      patient.doctorId!,
-                                                      patient.patient!);
-                                                } else if (value ==
-                                                    PatientStatus.completed) {
-                                                  createPayment(
-                                                    patient,
-                                                    patient.totalPrice ?? 0,
-                                                  );
-                                                } else {
-                                                  scaffoldkey.currentState!
-                                                      .openEndDrawer();
-                                                }
-                                              },
-                                            );
-                                          }
-                                        },
+                                      Center(
+                                        child: FutureBuilder(
+                                          future: AuthLocalDatasources()
+                                              .getAuthData(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const CircularProgressIndicator();
+                                            } else if (snapshot.hasError) {
+                                              return Text(
+                                                  'Error: ${snapshot.error}');
+                                            } else {
+                                              final role =
+                                                  snapshot.data?.user?.role;
+                                              return PopupMenuButton<
+                                                  PatientStatus>(
+                                                offset: const Offset(0, 50),
+                                                icon: const Icon(
+                                                    Icons.more_horiz),
+                                                itemBuilder:
+                                                    (BuildContext context) {
+                                                  return [
+                                                    if (patient.status ==
+                                                        'waiting')
+                                                      const PopupMenuItem<
+                                                          PatientStatus>(
+                                                        value: PatientStatus
+                                                            .processing,
+                                                        child:
+                                                            _PopupMenuItemValue(
+                                                                PatientStatus
+                                                                    .processing),
+                                                      ),
+                                                    if (patient.status ==
+                                                        'waiting')
+                                                      const PopupMenuItem<
+                                                          PatientStatus>(
+                                                        value: PatientStatus
+                                                            .rejected,
+                                                        child:
+                                                            _PopupMenuItemValue(
+                                                                PatientStatus
+                                                                    .rejected),
+                                                      ),
+                                                    if (!(role == 'doctor' &&
+                                                            patient.status ==
+                                                                'processed') &&
+                                                        patient.status !=
+                                                            'completed' &&
+                                                        patient.status !=
+                                                            'waiting')
+                                                      const PopupMenuItem<
+                                                          PatientStatus>(
+                                                        value: PatientStatus
+                                                            .completed,
+                                                        child:
+                                                            _PopupMenuItemValue(
+                                                                PatientStatus
+                                                                    .completed),
+                                                      ),
+                                                    if (patient.status !=
+                                                        'waiting')
+                                                      const PopupMenuItem<
+                                                          PatientStatus>(
+                                                        value: PatientStatus
+                                                            .rejected,
+                                                        child:
+                                                            _PopupMenuItemValue(
+                                                                PatientStatus
+                                                                    .rejected),
+                                                      ),
+                                                  ];
+                                                },
+                                                onSelected:
+                                                    (PatientStatus value) {
+                                                  if (value ==
+                                                      PatientStatus
+                                                          .processing) {
+                                                    createRmPatientTap(
+                                                        patient.id!,
+                                                        patient.scheduleTime!,
+                                                        patient.complaint!,
+                                                        patient.doctorId!,
+                                                        patient.patient!);
+                                                  } else if (value ==
+                                                      PatientStatus.completed) {
+                                                    createPayment(
+                                                      patient,
+                                                      patient.totalPrice ?? 0,
+                                                    );
+                                                  } else {
+                                                    scaffoldkey.currentState!
+                                                        .openEndDrawer();
+                                                  }
+                                                },
+                                              );
+                                            }
+                                          },
+                                        ),
                                       ),
                                     ),
                                   ]),
