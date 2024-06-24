@@ -3,8 +3,6 @@ import 'dart:convert';
 class CreatePaymentDetailRequestModel {
   final int? patientId;
   final String? patientScheduleId;
-  final int? medicalRecordId;
-  final int? medicalRecordServiceId;
   final String? paymentMethod;
   final int? totalPrice;
   final DateTime? transactionTime;
@@ -12,8 +10,6 @@ class CreatePaymentDetailRequestModel {
   CreatePaymentDetailRequestModel({
     this.patientId,
     this.patientScheduleId,
-    this.medicalRecordId,
-    this.medicalRecordServiceId,
     this.paymentMethod,
     this.totalPrice,
     this.transactionTime,
@@ -28,8 +24,6 @@ class CreatePaymentDetailRequestModel {
       CreatePaymentDetailRequestModel(
         patientId: json["patient_id"],
         patientScheduleId: json["patient_schedule_id"],
-        medicalRecordId: json["medical_record_id"],
-        medicalRecordServiceId: json["medical_record_service_id"],
         paymentMethod: json["payment_method"],
         totalPrice: json["total_price"],
         transactionTime: json["transaction_time"] == null
@@ -40,8 +34,6 @@ class CreatePaymentDetailRequestModel {
   Map<String, dynamic> toMap() => {
         "patient_id": patientId,
         "patient_schedule_id": patientScheduleId,
-        "medical_record_id": medicalRecordId,
-        "medical_record_service_id": medicalRecordServiceId,
         "payment_method": paymentMethod,
         "total_price": totalPrice,
         "transaction_time": transactionTime?.toIso8601String(),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/constants/variables.dart';
@@ -27,7 +29,19 @@ class PaymentDetailRemoteDatasource {
     if (response.statusCode == 200) {
       return Right(CreatePaymentDetailResponseModel.fromJson(response.body));
     } else {
-      return const Left('Failed to create payment detail');
+      try {
+        final responseBody = json.decode(response.body);
+        final message = responseBody['message'];
+        if (message is List) {
+          return Left(message.join(', '));
+        } else if (message is String) {
+          return Left(message);
+        } else {
+          return const Left('An unknown error occurred.');
+        }
+      } catch (e) {
+        return const Left('Failed to parse error message.');
+      }
     }
   }
 }

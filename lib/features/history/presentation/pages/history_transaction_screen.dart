@@ -9,6 +9,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../../../master/presentation/widgets/build_app_bar.dart';
+import '../../../patient-schedule/presentation/bloc/get_service_order/get_service_order_bloc.dart';
 import '../bloc/history_transaction/history_transaction_bloc.dart';
 
 class HistoryTransactionScreen extends StatefulWidget {
@@ -134,6 +135,10 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                             const SpaceHeight(12),
                         itemCount: historyTransaction.length,
                         itemBuilder: (context, index) {
+                          context.read<GetServiceOrderBloc>().add(
+                                GetServiceOrderEvent.getServiceOrder(
+                                    historyTransaction[index].id!),
+                              );
                           DateFormat formatter = DateFormat('d MMMM yyyy');
                           final transaction = historyTransaction[index];
                           return Container(
@@ -190,12 +195,37 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                                             fontSize: 14,
                                             fontWeight: FontWeight.normal),
                                       ),
-                                      Text(
-                                        'Paracetamol\n Amoxilin\nVitamin C',
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal),
-                                      ),
+                                      BlocBuilder<GetServiceOrderBloc,
+                                              GetServiceOrderState>(
+                                          builder: (context, state) {
+                                        return state.maybeWhen(
+                                          orElse: () {
+                                            return const CircularProgressIndicator();
+                                          },
+                                          loaded: (serviceOrder) {
+                                            return SizedBox(
+                                              width: context.deviceWidth * 0.08,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                itemCount:
+                                                    serviceOrder.data!.length,
+                                                itemBuilder: (context, index) {
+                                                  final data =
+                                                      serviceOrder.data![index];
+                                                  return Text(
+                                                    data.name!,
+                                                    style: GoogleFonts.poppins(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }),
                                       Container(
                                         margin:
                                             const EdgeInsets.only(right: 24),

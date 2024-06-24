@@ -33,5 +33,15 @@ class GetMedicalRecordBloc
         (r) => emit(_Loaded(r.data ?? [])),
       );
     });
+
+    on<_GetMedicalRecordByScheduleId>((event, emit) async {
+      emit(const _Loading());
+      final result =
+          await remoteDatasource.getMedicalRecordByScheduleId(event.scheduleId);
+      result.fold(
+        (l) => emit(_Error(l)),
+        (r) => emit(_Loaded(r.data ?? [])),
+      );
+    });
   }
 }

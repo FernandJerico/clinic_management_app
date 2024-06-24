@@ -51,14 +51,12 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
     context.read<GetServiceOrderBloc>().add(
           GetServiceOrderEvent.getServiceOrder(widget.schedulePatient.id!),
         );
-    // context.read<>();
 
     orderId = DateTime.now().millisecondsSinceEpoch.toString();
     context.read<QrisBloc>().add(QrisEvent.generateQrCode(
           orderId,
           widget.totalPrice,
         ));
-
     super.initState();
   }
 
@@ -66,6 +64,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Row(
           children: [
             // LEFT CONTENT
@@ -470,9 +469,8 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                             error: (message) {
                                               return ScaffoldMessenger.of(
                                                       context)
-                                                  .showSnackBar(const SnackBar(
-                                                content:
-                                                    Text('Pembayaran gagal'),
+                                                  .showSnackBar(SnackBar(
+                                                content: Text(message),
                                                 backgroundColor: AppColors.red,
                                               ));
                                             },
@@ -486,7 +484,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                               ));
                                               context.pushReplacement(
                                                 const NavbarScreen(
-                                                  initialSelectedItem: 3,
+                                                  initialSelectedItem: 6,
                                                 ),
                                               );
                                             },
@@ -507,7 +505,6 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                                                   .schedulePatient
                                                                   .id!
                                                                   .toString(),
-                                                          // medicalRecordId: widget.schedulePatient.,
                                                           transactionTime:
                                                               DateTime.now(),
                                                           totalPrice:
