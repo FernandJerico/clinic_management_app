@@ -1,11 +1,20 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/int_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/assets/assets.gen.dart';
+import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../../../master/presentation/widgets/build_app_bar.dart';
@@ -22,11 +31,39 @@ class HistoryTransactionScreen extends StatefulWidget {
 
 class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
   final searchController = TextEditingController();
+
+  final GlobalKey _globalKey = GlobalKey();
+
+  Future<void> _capturePng(String patientName, String time) async {
+    try {
+      RenderRepaintBoundary boundary = _globalKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
+      ui.Image image = await boundary.toImage();
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+
+      final directory = await getDownloadsDirectory();
+      final imagePath = '${directory!.path}/$patientName - $time.png';
+      final imageFile = File(imagePath);
+      await imageFile.writeAsBytes(pngBytes);
+
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Gambar berhasil disimpan di $imagePath'),
+        backgroundColor: Colors.green,
+      ));
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   @override
   void initState() {
     context
         .read<HistoryTransactionBloc>()
         .add(const HistoryTransactionEvent.getHistoryTransaction());
+    initializeDateFormatting('id_ID', null);
     super.initState();
   }
 
@@ -142,7 +179,189 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                               );
                           DateFormat formatter = DateFormat('d MMMM yyyy');
                           return InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.white,
+                                    content: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          RepaintBoundary(
+                                            key: _globalKey,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16,
+                                                      horizontal: 40),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Center(
+                                                      child: Assets
+                                                          .icons.success
+                                                          .svg()),
+                                                  const SpaceHeight(26.0),
+                                                  const Center(
+                                                    child: Text(
+                                                      'Riwayat Pembayaran Konsultasi Pasien',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SpaceHeight(32.0),
+                                                  const Text('Nama Pasien'),
+                                                  const SpaceHeight(5.0),
+                                                  Text(
+                                                    transaction.patient!.name ??
+                                                        '',
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  const Divider(),
+                                                  const SpaceHeight(10.0),
+                                                  const Text('Layanan & Obat'),
+                                                  const SpaceHeight(5.0),
+                                                  BlocBuilder<
+                                                      GetServiceOrderBloc,
+                                                      GetServiceOrderState>(
+                                                    builder: (context, state) {
+                                                      return state.maybeWhen(
+                                                        orElse: () {
+                                                          return const CircularProgressIndicator();
+                                                        },
+                                                        loaded: (serviceOrder) {
+                                                          //menampilkan nama layanan dan obat beserta harga
+                                                          final service =
+                                                              serviceOrder.data!
+                                                                  .map((e) =>
+                                                                      '${e.name} - ${e.price!.currencyFormatRp}')
+                                                                  .join('\n');
+                                                          return Row(
+                                                            children: [
+                                                              Text(
+                                                                service,
+                                                                style:
+                                                                    const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                  const Divider(),
+                                                  const SpaceHeight(10.0),
+                                                  const Text('Metode Bayar'),
+                                                  const SpaceHeight(5.0),
+                                                  Text(
+                                                    transaction.paymentMethod ??
+                                                        '',
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  const Divider(),
+                                                  const SpaceHeight(10.0),
+                                                  const Text('Total Tagihan'),
+                                                  const SpaceHeight(5.0),
+                                                  Text(
+                                                    transaction.totalPrice!
+                                                        .currencyFormatRp,
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  // const SpaceHeight(10.0),
+                                                  const Divider(),
+                                                  const SpaceHeight(10.0),
+                                                  const Text('Nominal Bayar'),
+                                                  const SpaceHeight(5.0),
+                                                  Text(
+                                                    transaction.totalPrice!
+                                                        .currencyFormatRp,
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  // const SpaceHeight(10.0),
+                                                  const Divider(),
+                                                  const SpaceHeight(10.0),
+                                                  const Text(
+                                                      'Waktu Pembayaran'),
+                                                  const SpaceHeight(5.0),
+                                                  Text(
+                                                    DateFormat(
+                                                            'EEEE, dd-MM-yyyy, HH:mm',
+                                                            'id_ID')
+                                                        .format(transaction
+                                                            .transactionTime!
+                                                            .toLocal()),
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  const SpaceHeight(32.0),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Flexible(
+                                                child: Button.outlined(
+                                                  onPressed: () {
+                                                    context.pop();
+                                                  },
+                                                  label: 'Kembali',
+                                                ),
+                                              ),
+                                              const SpaceWidth(8.0),
+                                              Flexible(
+                                                child: Button.filled(
+                                                  onPressed: () {},
+                                                  label: 'Print',
+                                                ),
+                                              ),
+                                              const SpaceWidth(8.0),
+                                              Flexible(
+                                                child: Button.outlined(
+                                                  onPressed: () {
+                                                    _capturePng(
+                                                        transaction
+                                                            .patient!.name!,
+                                                        DateFormat('dd-MM-yyyy',
+                                                                'id_ID')
+                                                            .format(transaction
+                                                                .transactionTime!));
+                                                  },
+                                                  label: 'Simpan',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                             child: Container(
                               height: context.deviceHeight * 0.085,
                               decoration: BoxDecoration(
