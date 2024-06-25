@@ -13,6 +13,7 @@ import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../../data/models/request/add_doctor_request_model.dart';
+import '../../data/models/request/edit_doctor_request_model.dart';
 import '../bloc/add_and_edit_doctor/add_and_edit_doctor_bloc.dart';
 import '../bloc/data_doctor/data_doctor_bloc.dart';
 
@@ -91,17 +92,17 @@ class _DoctorDialogState extends State<DoctorDialog> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           Text(
-                            'Tambah Dokter',
-                            style: TextStyle(
+                            '${widget.type == 'add' ? 'Tambah' : 'Edit'} Dokter',
+                            style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 16.0,
                               color: AppColors.darkGrey,
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                         ],
                       ),
                       const SpaceHeight(20.0),
@@ -330,154 +331,144 @@ class _DoctorDialogState extends State<DoctorDialog> {
                           const SpaceWidth(10.0),
                           Flexible(
                               child: BlocConsumer<AddAndEditDoctorBloc,
-                                  AddAndEditDoctorState>(
-                            listener: (context, state) {
-                              state.maybeWhen(
-                                success: () {
-                                  context.pop();
-                                  context
-                                      .read<DataDoctorBloc>()
-                                      .add(const DataDoctorEvent.getDoctors());
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Doctor created!'),
-                                      backgroundColor: AppColors.green,
-                                    ),
-                                  );
-                                },
-                                error: (message) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(message),
-                                      backgroundColor: AppColors.red,
-                                    ),
-                                  );
-                                },
-                                orElse: () {},
-                              );
-                            },
-                            builder: (context, state) {
-                              return state.maybeWhen(
-                                  orElse: () {
-                                    return Button.filled(
-                                      onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          if (widget.type == 'add') {
-                                            final requestData =
-                                                AddDoctorRequestModel(
-                                              doctorName:
-                                                  doctorNameController.text,
-                                              doctorEmail:
-                                                  doctorEmailController.text,
-                                              doctorPhone:
-                                                  doctorPhoneController.text,
-                                              doctorSpecialist:
-                                                  doctorSpecialistController
-                                                      .text,
-                                              sip: sipController.text,
-                                              idIhs: idIhsController.text,
-                                              address: addressController.text,
-                                              photo: _image!,
-                                              polyclinic:
-                                                  polyclinicController.text,
-                                              nik: doctorNikController.text,
-                                            );
-                                            context
-                                                .read<AddAndEditDoctorBloc>()
-                                                .add(AddAndEditDoctorEvent
-                                                    .addDoctor(
-                                                        doctor: requestData));
-                                          } else if (widget.type == 'edit') {
-                                            if (widget.type == 'edit') {
-                                              if (_image == null) {
-                                                // Edit without changing photo
-                                                final requestData =
-                                                    AddDoctorRequestModel(
-                                                  doctorName:
-                                                      doctorNameController.text,
-                                                  doctorEmail:
-                                                      doctorEmailController
-                                                          .text,
-                                                  doctorPhone:
-                                                      doctorPhoneController
-                                                          .text,
-                                                  doctorSpecialist:
-                                                      doctorSpecialistController
-                                                          .text,
-                                                  sip: sipController.text,
-                                                  idIhs: idIhsController.text,
-                                                  address:
-                                                      addressController.text,
-                                                  polyclinic:
-                                                      polyclinicController.text,
-                                                  nik: doctorNikController.text,
-                                                );
-                                                context
-                                                    .read<
-                                                        AddAndEditDoctorBloc>()
-                                                    .add(
-                                                      AddAndEditDoctorEvent
-                                                          .editDoctor(
-                                                        doctorId: widget
-                                                            .doctor!.id
-                                                            .toString(),
-                                                        doctor: requestData,
-                                                      ),
-                                                    );
-                                              } else {
-                                                // Edit with changing photo
-                                                final requestData =
-                                                    AddDoctorRequestModel(
-                                                  doctorName:
-                                                      doctorNameController.text,
-                                                  doctorEmail:
-                                                      doctorEmailController
-                                                          .text,
-                                                  doctorPhone:
-                                                      doctorPhoneController
-                                                          .text,
-                                                  doctorSpecialist:
-                                                      doctorSpecialistController
-                                                          .text,
-                                                  sip: sipController.text,
-                                                  idIhs: idIhsController.text,
-                                                  address:
-                                                      addressController.text,
-                                                  photo: _image!,
-                                                  polyclinic:
-                                                      polyclinicController.text,
-                                                  nik: doctorNikController.text,
-                                                );
-                                                context
-                                                    .read<
-                                                        AddAndEditDoctorBloc>()
-                                                    .add(
-                                                      AddAndEditDoctorEvent
-                                                          .editDoctor(
-                                                        doctorId: widget
-                                                            .doctor!.id
-                                                            .toString(),
-                                                        doctor: requestData,
-                                                      ),
-                                                    );
-                                              }
-                                            }
-                                          }
+                                      AddAndEditDoctorState>(
+                                  listener: (context, state) {
+                            state.maybeWhen(
+                              success: () {
+                                context.pop();
+                                context
+                                    .read<DataDoctorBloc>()
+                                    .add(const DataDoctorEvent.getDoctors());
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Doctor created!'),
+                                    backgroundColor: AppColors.green,
+                                  ),
+                                );
+                              },
+                              error: (message) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(message),
+                                    backgroundColor: AppColors.red,
+                                  ),
+                                );
+                              },
+                              orElse: () {},
+                            );
+                          }, builder: (context, state) {
+                            return state.maybeWhen(
+                              orElse: () {
+                                return Button.filled(
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      if (widget.type == 'add') {
+                                        final requestData =
+                                            AddDoctorRequestModel(
+                                          doctorName: doctorNameController.text,
+                                          doctorEmail:
+                                              doctorEmailController.text,
+                                          doctorPhone:
+                                              doctorPhoneController.text,
+                                          doctorSpecialist:
+                                              doctorSpecialistController.text,
+                                          sip: sipController.text,
+                                          idIhs: idIhsController.text,
+                                          address: addressController.text,
+                                          photo: _image!,
+                                          polyclinic: polyclinicController.text,
+                                          nik: doctorNikController.text,
+                                        );
+                                        context
+                                            .read<AddAndEditDoctorBloc>()
+                                            .add(
+                                                AddAndEditDoctorEvent.addDoctor(
+                                                    doctor: requestData));
+                                      } else if (widget.type == 'edit') {
+                                        if (_image == null) {
+                                          // Edit without changing photo
+                                          context
+                                              .read<AddAndEditDoctorBloc>()
+                                              .add(
+                                                AddAndEditDoctorEvent
+                                                    .editDoctor(
+                                                  doctorId: widget.doctor!.id
+                                                      .toString(),
+                                                  doctor:
+                                                      EditDoctorRequestModel(
+                                                    doctorName:
+                                                        doctorNameController
+                                                            .text,
+                                                    doctorEmail:
+                                                        doctorEmailController
+                                                            .text,
+                                                    doctorPhone:
+                                                        doctorPhoneController
+                                                            .text,
+                                                    doctorSpecialist:
+                                                        doctorSpecialistController
+                                                            .text,
+                                                    sip: sipController.text,
+                                                    idIhs: idIhsController.text,
+                                                    address:
+                                                        addressController.text,
+                                                    polyclinic:
+                                                        polyclinicController
+                                                            .text,
+                                                    nik: doctorNikController
+                                                        .text,
+                                                  ),
+                                                ),
+                                              );
+                                        } else {
+                                          // Edit with changing photo
+                                          context
+                                              .read<AddAndEditDoctorBloc>()
+                                              .add(
+                                                AddAndEditDoctorEvent
+                                                    .editDoctor(
+                                                  doctorId: widget.doctor!.id
+                                                      .toString(),
+                                                  doctor:
+                                                      EditDoctorRequestModel(
+                                                    doctorName:
+                                                        doctorNameController
+                                                            .text,
+                                                    doctorEmail:
+                                                        doctorEmailController
+                                                            .text,
+                                                    doctorPhone:
+                                                        doctorPhoneController
+                                                            .text,
+                                                    doctorSpecialist:
+                                                        doctorSpecialistController
+                                                            .text,
+                                                    sip: sipController.text,
+                                                    idIhs: idIhsController.text,
+                                                    address:
+                                                        addressController.text,
+                                                    photo: _image!,
+                                                    polyclinic:
+                                                        polyclinicController
+                                                            .text,
+                                                    nik: doctorNikController
+                                                        .text,
+                                                  ),
+                                                ),
+                                              );
                                         }
-                                      },
-                                      label: 'Create',
-                                    );
+                                      }
+                                    }
                                   },
-                                  loading: () {
-                                    return const ButtonLoading();
-                                  },
-                                  error: (message) => ScaffoldMessenger(
-                                          child: SnackBar(
-                                        content: Text(message),
-                                        backgroundColor: AppColors.red,
-                                      )));
-                            },
-                          )),
+                                  label:
+                                      widget.type == 'add' ? 'Create' : 'Edit',
+                                );
+                              },
+                              loading: () {
+                                return const ButtonLoading();
+                              },
+                            );
+                          })),
                         ],
                       )
                     ],

@@ -20,7 +20,7 @@ mixin _$AddAndEditDoctorEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(AddDoctorRequestModel doctor, String doctorId)
+    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
         editDoctor,
     required TResult Function(String doctorId) deleteDoctor,
   }) =>
@@ -29,7 +29,7 @@ mixin _$AddAndEditDoctorEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(AddDoctorRequestModel doctor, String doctorId)?
+    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
         editDoctor,
     TResult? Function(String doctorId)? deleteDoctor,
   }) =>
@@ -38,7 +38,8 @@ mixin _$AddAndEditDoctorEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(AddDoctorRequestModel doctor, String doctorId)? editDoctor,
+    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
+        editDoctor,
     TResult Function(String doctorId)? deleteDoctor,
     required TResult orElse(),
   }) =>
@@ -129,7 +130,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(AddDoctorRequestModel doctor, String doctorId)
+    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
         editDoctor,
     required TResult Function(String doctorId) deleteDoctor,
   }) {
@@ -141,7 +142,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(AddDoctorRequestModel doctor, String doctorId)?
+    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
         editDoctor,
     TResult? Function(String doctorId)? deleteDoctor,
   }) {
@@ -153,7 +154,8 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(AddDoctorRequestModel doctor, String doctorId)? editDoctor,
+    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
+        editDoctor,
     TResult Function(String doctorId)? deleteDoctor,
     required TResult orElse(),
   }) {
@@ -271,7 +273,7 @@ class _$AddDoctorImpl implements _AddDoctor {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(AddDoctorRequestModel doctor, String doctorId)
+    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
         editDoctor,
     required TResult Function(String doctorId) deleteDoctor,
   }) {
@@ -283,7 +285,7 @@ class _$AddDoctorImpl implements _AddDoctor {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(AddDoctorRequestModel doctor, String doctorId)?
+    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
         editDoctor,
     TResult? Function(String doctorId)? deleteDoctor,
   }) {
@@ -295,7 +297,8 @@ class _$AddDoctorImpl implements _AddDoctor {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(AddDoctorRequestModel doctor, String doctorId)? editDoctor,
+    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
+        editDoctor,
     TResult Function(String doctorId)? deleteDoctor,
     required TResult orElse(),
   }) {
@@ -359,7 +362,7 @@ abstract class _$$EditDoctorImplCopyWith<$Res> {
           _$EditDoctorImpl value, $Res Function(_$EditDoctorImpl) then) =
       __$$EditDoctorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AddDoctorRequestModel doctor, String doctorId});
+  $Res call({EditDoctorRequestModel doctor, String doctorId});
 }
 
 /// @nodoc
@@ -373,14 +376,14 @@ class __$$EditDoctorImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? doctor = null,
+    Object? doctor = freezed,
     Object? doctorId = null,
   }) {
     return _then(_$EditDoctorImpl(
-      doctor: null == doctor
+      doctor: freezed == doctor
           ? _value.doctor
           : doctor // ignore: cast_nullable_to_non_nullable
-              as AddDoctorRequestModel,
+              as EditDoctorRequestModel,
       doctorId: null == doctorId
           ? _value.doctorId
           : doctorId // ignore: cast_nullable_to_non_nullable
@@ -395,7 +398,7 @@ class _$EditDoctorImpl implements _EditDoctor {
   const _$EditDoctorImpl({required this.doctor, required this.doctorId});
 
   @override
-  final AddDoctorRequestModel doctor;
+  final EditDoctorRequestModel doctor;
   @override
   final String doctorId;
 
@@ -409,13 +412,14 @@ class _$EditDoctorImpl implements _EditDoctor {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EditDoctorImpl &&
-            (identical(other.doctor, doctor) || other.doctor == doctor) &&
+            const DeepCollectionEquality().equals(other.doctor, doctor) &&
             (identical(other.doctorId, doctorId) ||
                 other.doctorId == doctorId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, doctor, doctorId);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(doctor), doctorId);
 
   @JsonKey(ignore: true)
   @override
@@ -428,7 +432,7 @@ class _$EditDoctorImpl implements _EditDoctor {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(AddDoctorRequestModel doctor, String doctorId)
+    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
         editDoctor,
     required TResult Function(String doctorId) deleteDoctor,
   }) {
@@ -440,7 +444,7 @@ class _$EditDoctorImpl implements _EditDoctor {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(AddDoctorRequestModel doctor, String doctorId)?
+    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
         editDoctor,
     TResult? Function(String doctorId)? deleteDoctor,
   }) {
@@ -452,7 +456,8 @@ class _$EditDoctorImpl implements _EditDoctor {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(AddDoctorRequestModel doctor, String doctorId)? editDoctor,
+    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
+        editDoctor,
     TResult Function(String doctorId)? deleteDoctor,
     required TResult orElse(),
   }) {
@@ -502,10 +507,10 @@ class _$EditDoctorImpl implements _EditDoctor {
 
 abstract class _EditDoctor implements AddAndEditDoctorEvent {
   const factory _EditDoctor(
-      {required final AddDoctorRequestModel doctor,
+      {required final EditDoctorRequestModel doctor,
       required final String doctorId}) = _$EditDoctorImpl;
 
-  AddDoctorRequestModel get doctor;
+  EditDoctorRequestModel get doctor;
   String get doctorId;
   @JsonKey(ignore: true)
   _$$EditDoctorImplCopyWith<_$EditDoctorImpl> get copyWith =>
@@ -579,7 +584,7 @@ class _$DeleteDoctorImpl implements _DeleteDoctor {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(AddDoctorRequestModel doctor, String doctorId)
+    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
         editDoctor,
     required TResult Function(String doctorId) deleteDoctor,
   }) {
@@ -591,7 +596,7 @@ class _$DeleteDoctorImpl implements _DeleteDoctor {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(AddDoctorRequestModel doctor, String doctorId)?
+    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
         editDoctor,
     TResult? Function(String doctorId)? deleteDoctor,
   }) {
@@ -603,7 +608,8 @@ class _$DeleteDoctorImpl implements _DeleteDoctor {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(AddDoctorRequestModel doctor, String doctorId)? editDoctor,
+    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
+        editDoctor,
     TResult Function(String doctorId)? deleteDoctor,
     required TResult orElse(),
   }) {

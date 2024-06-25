@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
 
-class AddDoctorRequestModel {
+class EditDoctorRequestModel {
   final String? doctorName;
   final String? doctorEmail;
   final String? doctorPhone;
@@ -15,7 +13,7 @@ class AddDoctorRequestModel {
   final String? nik;
   final String? polyclinic;
 
-  AddDoctorRequestModel({
+  EditDoctorRequestModel({
     this.doctorName,
     this.doctorEmail,
     this.doctorPhone,
@@ -28,19 +26,19 @@ class AddDoctorRequestModel {
     this.polyclinic,
   });
 
-  factory AddDoctorRequestModel.fromJson(String str) =>
-      AddDoctorRequestModel.fromMap(json.decode(str));
+  factory EditDoctorRequestModel.fromJson(String str) =>
+      EditDoctorRequestModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory AddDoctorRequestModel.fromMap(Map<String, dynamic> json) =>
-      AddDoctorRequestModel(
+  factory EditDoctorRequestModel.fromMap(Map<String, dynamic> json) =>
+      EditDoctorRequestModel(
         doctorName: json["doctor_name"],
         doctorEmail: json["doctor_email"],
         doctorPhone: json["doctor_phone"],
         doctorSpecialist: json["doctor_specialist"],
         address: json["address"],
-        photo: json["photo"],
+        photo: json["photo"] != null ? File(json["photo"]) : null,
         sip: json["sip"],
         idIhs: json["id_ihs"],
         nik: json["nik"],
@@ -59,26 +57,4 @@ class AddDoctorRequestModel {
         "nik": nik,
         "polyclinic": polyclinic,
       };
-
-  Future<http.MultipartRequest> toMultipartRequest(Uri uri) async {
-    final request = http.MultipartRequest('POST', uri);
-
-    request.fields['doctor_name'] = doctorName ?? '';
-    request.fields['doctor_email'] = doctorEmail ?? '';
-    request.fields['doctor_phone'] = doctorPhone ?? '';
-    request.fields['doctor_specialist'] = doctorSpecialist ?? '';
-    request.fields['address'] = address ?? '';
-    request.fields['sip'] = sip ?? '';
-    request.fields['id_ihs'] = idIhs ?? '';
-    request.fields['nik'] = nik ?? '';
-    request.fields['polyclinic'] = polyclinic ?? '';
-
-    request.files.add(await http.MultipartFile.fromPath(
-      'photo',
-      photo!.path,
-      filename: basename(photo!.path),
-    ));
-
-    return request;
-  }
 }

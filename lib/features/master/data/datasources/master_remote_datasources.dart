@@ -9,9 +9,11 @@ import 'package:clinic_management_app/features/master/data/models/response/maste
 import 'package:clinic_management_app/features/master/data/models/response/master_reservation_response_model.dart';
 import 'package:clinic_management_app/features/master/data/models/response/service_medicine_response_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/request/add_patient_request_model.dart';
+import '../models/request/edit_doctor_request_model.dart';
 import '../models/response/master_patient_response_model.dart';
 
 class MasterRemoteDatasources {
@@ -97,8 +99,9 @@ class MasterRemoteDatasources {
   }
 
   Future<Either<String, String>> editDoctor(
-      AddDoctorRequestModel data, String doctorId) async {
+      String doctorId, EditDoctorRequestModel data) async {
     final authData = await AuthLocalDatasources().getAuthData();
+
     var headers = {
       'Authorization': 'Bearer ${authData?.token}',
       'Accept': 'application/json',
@@ -108,6 +111,7 @@ class MasterRemoteDatasources {
     final request = http.MultipartRequest('PUT', url);
     request.headers.addAll(headers);
 
+    // buat function untuk update field
     request.fields['doctor_name'] = data.doctorName!;
     request.fields['doctor_specialist'] = data.doctorSpecialist!;
     request.fields['doctor_phone'] = data.doctorPhone!;
@@ -117,20 +121,17 @@ class MasterRemoteDatasources {
     request.fields['nik'] = data.nik!;
     request.fields['polyclinic'] = data.polyclinic!;
     request.fields['address'] = data.address!;
+    request.fields['photo'] = data.photo!.path;
 
-    if (data.photo != null) {
-      request.files.add(
-        await http.MultipartFile.fromPath('photo', data.photo!.path),
-      );
-    } else if (data.photo == null) {
-      request.fields['photo'] = data.photo!.path;
-    }
-
-    // Kirim request
+    // kirim update request
     http.StreamedResponse response = await request.send();
 
+    final responseString = await response.stream.bytesToString();
+    debugPrint('Response body: $responseString');
+
+    // tangani respons
     if (response.statusCode == 200) {
-      return const Right('Success edit doctor');
+      return const Right('Success update doctor');
     } else {
       return Left(response.reasonPhrase!);
     }

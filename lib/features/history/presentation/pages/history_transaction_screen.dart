@@ -135,126 +135,177 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                             const SpaceHeight(12),
                         itemCount: historyTransaction.length,
                         itemBuilder: (context, index) {
+                          final transaction = historyTransaction[index];
                           context.read<GetServiceOrderBloc>().add(
                                 GetServiceOrderEvent.getServiceOrder(
-                                    historyTransaction[index].id!),
+                                    transaction.id!),
                               );
                           DateFormat formatter = DateFormat('d MMMM yyyy');
-                          final transaction = historyTransaction[index];
-                          return Container(
-                            height: context.deviceHeight * 0.085,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.stroke),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: context.deviceHeight * 0.85,
-                                  width: 16,
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.primary,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(12),
-                                      bottomLeft: Radius.circular(12),
+                          return InkWell(
+                            onTap: () {},
+                            child: Container(
+                              height: context.deviceHeight * 0.085,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.stroke),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: context.deviceHeight * 0.85,
+                                    width: 16,
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.primary,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        bottomLeft: Radius.circular(12),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Flexible(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 12),
-                                        child: Text(
-                                          '${transaction.patient?.name}',
+                                  Flexible(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 12),
+                                          child: Text(
+                                            '${transaction.patient?.name}',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                        ),
+                                        Text(
+                                          '${transaction.paymentMethod}',
                                           style: GoogleFonts.poppins(
                                               fontSize: 14,
                                               fontWeight: FontWeight.normal),
                                         ),
-                                      ),
-                                      Text(
-                                        '${transaction.paymentMethod}',
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      Text(
-                                        transaction
-                                            .totalPrice!.currencyFormatRp,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      Text(
-                                        formatter.format(
-                                            transaction.transactionTime!),
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      BlocBuilder<GetServiceOrderBloc,
-                                              GetServiceOrderState>(
-                                          builder: (context, state) {
-                                        return state.maybeWhen(
-                                          orElse: () {
-                                            return const CircularProgressIndicator();
-                                          },
-                                          loaded: (serviceOrder) {
-                                            return SizedBox(
-                                              width: context.deviceWidth * 0.08,
-                                              child: ListView.builder(
-                                                shrinkWrap: true,
-                                                itemCount:
-                                                    serviceOrder.data!.length,
-                                                itemBuilder: (context, index) {
-                                                  final data =
-                                                      serviceOrder.data![index];
-                                                  return Text(
-                                                    data.name!,
-                                                    style: GoogleFonts.poppins(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      }),
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 24),
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 10, vertical: 6),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4.5),
-                                          color: transaction.totalPrice == 0
-                                              ? AppColors.red.withOpacity(0.1)
-                                              : AppColors.primary
-                                                  .withOpacity(0.1),
-                                        ),
-                                        child: Text(
-                                          transaction.totalPrice == 0
-                                              ? 'Belum Bayar'
-                                              : 'Sudah Bayar',
+                                        Text(
+                                          transaction
+                                              .totalPrice!.currencyFormatRp,
                                           style: GoogleFonts.poppins(
                                               fontSize: 14,
-                                              fontWeight: FontWeight.w600,
-                                              color: transaction.totalPrice == 0
-                                                  ? AppColors.red
-                                                  : AppColors.primary),
+                                              fontWeight: FontWeight.normal),
                                         ),
-                                      )
-                                    ],
+                                        Text(
+                                          formatter.format(
+                                              transaction.transactionTime!),
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal),
+                                        ),
+                                        BlocBuilder<GetServiceOrderBloc,
+                                                GetServiceOrderState>(
+                                            builder: (context, state) {
+                                          return state.maybeWhen(
+                                            orElse: () {
+                                              return const CircularProgressIndicator();
+                                            },
+                                            loaded: (serviceOrder) {
+                                              return SizedBox(
+                                                width:
+                                                    context.deviceWidth * 0.08,
+                                                child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  itemCount:
+                                                      serviceOrder.data!.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    final data = serviceOrder
+                                                        .data![index];
+                                                    return Text(
+                                                      data.name!,
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }),
+                                        // BlocConsumer<GetServiceOrderBloc,
+                                        //     GetServiceOrderState>(
+                                        //   listener: (context, state) {
+                                        //     context
+                                        //         .read<GetServiceOrderBloc>()
+                                        //         .add(
+                                        //           GetServiceOrderEvent
+                                        //               .getServiceOrder(
+                                        //                   transaction.id!),
+                                        //         );
+                                        //   },
+                                        //   builder: (context, state) {
+                                        //     return state.maybeWhen(
+                                        //       orElse: () {
+                                        //         return const CircularProgressIndicator();
+                                        //       },
+                                        //       loaded: (serviceOrder) {
+                                        //         return SizedBox(
+                                        //             width: context.deviceWidth *
+                                        //                 0.08,
+                                        //             child: ListView.builder(
+                                        //                 shrinkWrap: true,
+                                        //                 itemCount: serviceOrder
+                                        //                     .data!.length,
+                                        //                 itemBuilder:
+                                        //                     (context, index) {
+                                        //                   final data =
+                                        //                       serviceOrder
+                                        //                           .data![index];
+                                        //                   return Text(
+                                        //                     data.name!,
+                                        //                     style: GoogleFonts
+                                        //                         .poppins(
+                                        //                       fontSize: 14,
+                                        //                       fontWeight:
+                                        //                           FontWeight
+                                        //                               .normal,
+                                        //                     ),
+                                        //                   );
+                                        //                 }));
+                                        //       },
+                                        //     );
+                                        //   },
+                                        // ),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(right: 24),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 6),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4.5),
+                                            color: transaction.totalPrice == 0
+                                                ? AppColors.red.withOpacity(0.1)
+                                                : AppColors.primary
+                                                    .withOpacity(0.1),
+                                          ),
+                                          child: Text(
+                                            transaction.totalPrice == 0
+                                                ? 'Belum Bayar'
+                                                : 'Sudah Bayar',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color:
+                                                    transaction.totalPrice == 0
+                                                        ? AppColors.red
+                                                        : AppColors.primary),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },
