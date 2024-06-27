@@ -13,6 +13,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool readOnly;
   final bool isDescription;
+  final bool isValidator;
 
   const CustomTextField({
     super.key,
@@ -26,6 +27,7 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.readOnly = false,
     this.isDescription = false,
+    this.isValidator = true,
   });
 
   @override
@@ -50,12 +52,14 @@ class CustomTextField extends StatelessWidget {
           keyboardType: keyboardType,
           readOnly: readOnly,
           maxLines: isDescription ? 5 : 1,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return 'This field is required.';
-            }
-            return null;
-          },
+          validator: isValidator
+              ? (value) {
+                  if (value!.isEmpty) {
+                    return 'This field is required.';
+                  }
+                  return null;
+                }
+              : null,
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,

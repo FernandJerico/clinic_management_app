@@ -605,8 +605,8 @@ class CategoryShimmerLoading extends StatelessWidget {
           highlightColor: Colors.grey[100]!,
           child: Container(
             width: ResponsiveWidget.isLargeScreen(context)
-                ? context.deviceWidth * 0.1
-                : context.deviceWidth * 0.15,
+                ? context.deviceWidth * 0.15
+                : context.deviceWidth * 0.25,
             decoration: BoxDecoration(
               color: AppColors.white,
               borderRadius: BorderRadius.circular(20),

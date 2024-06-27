@@ -58,6 +58,33 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
     }
   }
 
+  // Future<void> _sharePng() async {
+  //   try {
+  //     RenderRepaintBoundary boundary = _globalKey.currentContext!
+  //         .findRenderObject() as RenderRepaintBoundary;
+  //     ui.Image image = await boundary.toImage();
+  //     ByteData? byteData =
+  //         await image.toByteData(format: ui.ImageByteFormat.png);
+  //     Uint8List pngBytes = byteData!.buffer.asUint8List();
+
+  //     final directory = await getApplicationDocumentsDirectory();
+  //     final imagePath = '${directory.path}/screenshot.png';
+  //     final imageFile = File(imagePath);
+  //     await imageFile.writeAsBytes(pngBytes);
+
+  //     await Share.shareXFiles([XFile(imagePath)],
+  //         text: 'Ini Adalah Bukti Pembayaran a/n Pasien');
+
+  //     // ignore: use_build_context_synchronously
+  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //       content: Text('Gambar berhasil disimpan dan dibagikan'),
+  //       backgroundColor: Colors.green,
+  //     ));
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //   }
+  // }
+
   @override
   void initState() {
     context
@@ -334,7 +361,9 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                                               const SpaceWidth(8.0),
                                               Flexible(
                                                 child: Button.filled(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    // _sharePng();
+                                                  },
                                                   label: 'Print',
                                                 ),
                                               ),

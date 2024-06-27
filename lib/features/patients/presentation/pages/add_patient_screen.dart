@@ -155,12 +155,14 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     controller: nikController,
                     label: 'NIK',
                     showLabel: false,
+                    keyboardType: TextInputType.number,
                   ),
                   const SpaceHeight(24.0),
                   CustomTextField(
                     controller: kkController,
                     label: 'KK',
                     showLabel: false,
+                    keyboardType: TextInputType.number,
                   ),
                   const SpaceHeight(24.0),
                   CustomTextField(
@@ -173,12 +175,14 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     controller: phoneController,
                     label: 'Nomor Handphone',
                     showLabel: false,
+                    keyboardType: TextInputType.number,
                   ),
                   const SpaceHeight(24.0),
                   CustomTextField(
                     controller: emailController,
                     label: 'Email',
                     showLabel: false,
+                    keyboardType: TextInputType.emailAddress,
                   ),
                   const SpaceHeight(24.0),
                   CustomDropdown(
@@ -378,18 +382,21 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     controller: rtController,
                     label: 'RT',
                     showLabel: false,
+                    keyboardType: TextInputType.number,
                   ),
                   const SpaceHeight(24.0),
                   CustomTextField(
                     controller: rwController,
                     label: 'RW',
                     showLabel: false,
+                    keyboardType: TextInputType.number,
                   ),
                   const SpaceHeight(24.0),
                   CustomTextField(
                     controller: postalCodeController,
                     label: 'Kode Pos',
                     showLabel: false,
+                    keyboardType: TextInputType.number,
                   ),
                   const SpaceHeight(24.0),
                   CustomDropdown(
@@ -406,12 +413,14 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
                     controller: relationshipNameController,
                     label: 'Nama Pasangan (Opsional)',
                     showLabel: false,
+                    isValidator: false,
                   ),
                   const SpaceHeight(24.0),
                   CustomTextField(
                     controller: relationshipPhoneController,
                     label: 'Nomor Handphone Pasangan (Opsional)',
                     showLabel: false,
+                    isValidator: false,
                   ),
                   const SpaceHeight(24.0),
                   BlocListener<AddPatientBloc, AddPatientState>(
