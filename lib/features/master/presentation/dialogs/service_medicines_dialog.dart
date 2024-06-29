@@ -6,7 +6,6 @@ import 'package:clinic_management_app/features/master/presentation/bloc/data_ser
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/components/button_loading.dart';
 import '../../../../core/components/buttons.dart';
@@ -14,6 +13,7 @@ import '../../../../core/components/custom_text_field.dart';
 import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../../data/models/response/service_medicine_response_model.dart';
+import '../bloc/image_picker/image_picker_bloc.dart';
 import '../bloc/service_medicines/service_medicines_bloc.dart';
 
 class ServiceMedicinesDialog extends StatefulWidget {
@@ -31,7 +31,7 @@ class _ServiceMedicinesDialogState extends State<ServiceMedicinesDialog> {
   late final TextEditingController priceController;
   late final TextEditingController quantityController;
 
-  final ImagePicker _picker = ImagePicker();
+  String? _hintText = 'Pick an image';
   File? _image;
 
   String? _selectedCategory;
@@ -189,65 +189,103 @@ class _ServiceMedicinesDialogState extends State<ServiceMedicinesDialog> {
                     ),
                   ),
                   const SpaceHeight(8.0),
-                  Container(
-                      height: 71,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColors.darkGrey,
-                        ),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 6, right: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: AppColors.grey),
-                              child: _image == null
-                                  ? const Icon(Icons.no_photography_outlined)
-                                  : Image.file(
-                                      _image!,
-                                      fit: BoxFit.cover,
-                                    ),
+                  BlocBuilder<ImagePickerBloc, ImagePickerState>(
+                    builder: (context, state) {
+                      state.maybeWhen(
+                        picked: (image) {
+                          _hintText = image.path.split('/').last;
+                          _image = image;
+                        },
+                        initial: () {
+                          _hintText = 'Pick an image';
+                        },
+                        orElse: () {},
+                      );
+
+                      return TextFormField(
+                        onTap: () {
+                          context
+                              .read<ImagePickerBloc>()
+                              .add(const ImagePickerEvent.pickImage());
+                        },
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                              color: AppColors.darkGrey,
                             ),
-                            ElevatedButton(
-                                onPressed: () async {
-                                  final pickedFile = await _picker.pickImage(
-                                      source: ImageSource.gallery);
-                                  if (pickedFile != null) {
-                                    setState(() {
-                                      _image = File(pickedFile.path);
-                                    });
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.primary,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4),
+                          ),
+                          hintText: _hintText,
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(left: 6, right: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child: Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: AppColors.grey,
+                                    ),
+                                    child: _image == null
+                                        ? const Icon(
+                                            Icons.no_photography_outlined)
+                                        : Image.file(
+                                            _image!,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
                                 ),
-                                child: Text(
-                                  'Upload Gambar',
-                                  style: GoogleFonts.poppins(
+                                ElevatedButton(
+                                  onPressed: () {
+                                    context.read<ImagePickerBloc>().add(
+                                        const ImagePickerEvent.pickImage());
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.primary,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'Upload Gambar',
+                                    style: GoogleFonts.poppins(
                                       color: Colors.white,
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w600),
-                                ))
-                          ],
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      )),
+                        validator: (value) {
+                          if (_hintText == 'Pick an image' ||
+                              _hintText!.isEmpty) {
+                            return 'Please pick an image';
+                          }
+                          return null;
+                        },
+                      );
+                    },
+                  ),
                   const SpaceHeight(20.0),
                   Row(
                     children: [
                       Flexible(
                         child: Button.outlined(
-                          onPressed: () => context.pop(),
+                          onPressed: () {
+                            context.pop();
+                            context
+                                .read<ImagePickerBloc>()
+                                .add(const ImagePickerEvent.clearImage());
+                          },
                           label: 'Cancel',
                         ),
                       ),
