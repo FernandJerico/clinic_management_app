@@ -36,6 +36,7 @@ class CreateReservationPatientDialog extends StatefulWidget {
 
 class _CreateReservationPatientDialogState
     extends State<CreateReservationPatientDialog> {
+  final _formKey = GlobalKey<FormState>();
   MasterDoctor? selectedDoctor;
 
   late final TextEditingController patientNameController;
@@ -90,246 +91,253 @@ class _CreateReservationPatientDialogState
       backgroundColor: Colors.white,
       content: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SingleChildScrollView(
-              child: SizedBox(
-                width: context.deviceWidth / 4,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      children: [
-                        Text(
-                          'Detail Pasien',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.0,
-                            color: AppColors.darkGrey,
+        child: Form(
+          key: _formKey,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SingleChildScrollView(
+                child: SizedBox(
+                  width: context.deviceWidth / 4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Row(
+                        children: [
+                          Text(
+                            'Detail Pasien',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.0,
+                              color: AppColors.darkGrey,
+                            ),
                           ),
+                          Spacer(),
+                        ],
+                      ),
+                      const SpaceHeight(20.0),
+                      const Text(
+                        'Nama Pasien',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.0,
+                          color: AppColors.darkGrey,
                         ),
-                        Spacer(),
-                      ],
-                    ),
-                    const SpaceHeight(20.0),
-                    const Text(
-                      'Nama Pasien',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                        color: AppColors.darkGrey,
                       ),
-                    ),
-                    const SpaceHeight(8.0),
-                    CustomTextField(
-                      controller: patientNameController,
-                      label: 'Nama Pasien',
-                      showLabel: false,
-                    ),
-                    const SpaceHeight(20.0),
-                    const Text(
-                      'Tanggal Lahir',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                        color: AppColors.darkGrey,
+                      const SpaceHeight(8.0),
+                      CustomTextField(
+                        controller: patientNameController,
+                        label: 'Nama Pasien',
+                        showLabel: false,
                       ),
-                    ),
-                    const SpaceHeight(8.0),
-                    CustomDatePicker(
-                      initialDate: birthDate,
-                      label: 'Tanggal Lahir',
-                      showLabel: false,
-                      isDisabled: true,
-                      onDateSelected: (selectedDate) =>
-                          birthDate = selectedDate,
-                    ),
-                    const SpaceHeight(20.0),
-                    const Text(
-                      'Tanggal Pemeriksaan',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                        color: AppColors.darkGrey,
+                      const SpaceHeight(20.0),
+                      const Text(
+                        'Tanggal Lahir',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.0,
+                          color: AppColors.darkGrey,
+                        ),
                       ),
-                    ),
-                    const SpaceHeight(8.0),
-                    CustomDatePicker(
-                      initialDate: scheduleTime,
-                      label: 'Schedule',
-                      showLabel: false,
-                      onDateSelected: (selectedDate) =>
-                          scheduleTime = selectedDate,
-                    ),
-                    const SpaceHeight(20.0),
-                    const Text(
-                      'Keluhan',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                        color: AppColors.darkGrey,
+                      const SpaceHeight(8.0),
+                      CustomDatePicker(
+                        initialDate: birthDate,
+                        label: 'Tanggal Lahir',
+                        showLabel: false,
+                        isDisabled: true,
+                        onDateSelected: (selectedDate) =>
+                            birthDate = selectedDate,
                       ),
-                    ),
-                    const SpaceHeight(8.0),
-                    CustomTextField(
-                      controller: complaintController,
-                      label: 'Keluhan',
-                      showLabel: false,
-                      isDescription: true,
-                    ),
-                  ],
+                      const SpaceHeight(20.0),
+                      const Text(
+                        'Tanggal Pemeriksaan',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.0,
+                          color: AppColors.darkGrey,
+                        ),
+                      ),
+                      const SpaceHeight(8.0),
+                      CustomDatePicker(
+                        initialDate: scheduleTime,
+                        label: 'Schedule',
+                        showLabel: false,
+                        onDateSelected: (selectedDate) =>
+                            scheduleTime = selectedDate,
+                      ),
+                      const SpaceHeight(20.0),
+                      const Text(
+                        'Keluhan',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.0,
+                          color: AppColors.darkGrey,
+                        ),
+                      ),
+                      const SpaceHeight(8.0),
+                      CustomTextField(
+                        controller: complaintController,
+                        label: 'Keluhan',
+                        showLabel: false,
+                        isDescription: true,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SpaceWidth(50.0),
-            SingleChildScrollView(
-              child: SizedBox(
-                width: context.deviceWidth / 4,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Pilih Dokter',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16.0,
-                        color: AppColors.darkGrey,
+              const SpaceWidth(50.0),
+              SingleChildScrollView(
+                child: SizedBox(
+                  width: context.deviceWidth / 4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Pilih Dokter',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16.0,
+                          color: AppColors.darkGrey,
+                        ),
                       ),
-                    ),
-                    const SpaceHeight(24.0),
-                    BlocBuilder<DataDoctorBloc, DataDoctorState>(
-                      builder: (context, state) {
-                        return state.maybeWhen(
-                          orElse: () {
-                            return DoctorDropdown(
-                              value: selectedDoctor,
-                              items: const [],
-                              label: 'Pilih Dokter',
-                              onChanged: (value) {},
-                            );
-                          },
-                          loaded: (doctors) {
-                            return DoctorDropdown(
-                              value: selectedDoctor,
-                              items: doctors,
-                              label: 'Pilih Dokter',
-                              onChanged: (value) {
-                                setState(() {
-                                  selectedDoctor = value;
-                                });
-                              },
-                            );
-                          },
-                        );
-                      },
-                    ),
-                    const SpaceHeight(20.0),
-                    SizedBox(
-                      height: 350.0,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Assets.images.doctorPlaceholder.image(width: 140.0),
-                            const SpaceHeight(20.0),
-                            const Text(
-                              'Add Doctor to Patient',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20.0,
+                      const SpaceHeight(24.0),
+                      BlocBuilder<DataDoctorBloc, DataDoctorState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            orElse: () {
+                              return DoctorDropdown(
+                                value: selectedDoctor,
+                                items: const [],
+                                label: 'Pilih Dokter',
+                                onChanged: (value) {},
+                              );
+                            },
+                            loaded: (doctors) {
+                              return DoctorDropdown(
+                                value: selectedDoctor,
+                                items: doctors,
+                                label: 'Pilih Dokter',
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedDoctor = value;
+                                  });
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      const SpaceHeight(20.0),
+                      SizedBox(
+                        height: 350.0,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Assets.images.doctorPlaceholder
+                                  .image(width: 140.0),
+                              const SpaceHeight(20.0),
+                              const Text(
+                                'Add Doctor to Patient',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20.0,
+                                ),
                               ),
-                            ),
-                            const SpaceHeight(10.0),
-                            const Text(
-                              'Search and add doctor to this patient.',
-                              style: TextStyle(color: AppColors.darkGrey),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SpaceHeight(20.0),
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Button.outlined(
-                            onPressed: () => context.pop(),
-                            label: 'Cancel',
+                              const SpaceHeight(10.0),
+                              const Text(
+                                'Search and add doctor to this patient.',
+                                style: TextStyle(color: AppColors.darkGrey),
+                              ),
+                            ],
                           ),
                         ),
-                        const SpaceWidth(10.0),
-                        Flexible(
-                            child: BlocConsumer<AddReservationBloc,
-                                AddReservationState>(
-                          listener: (context, state) {
-                            state.maybeWhen(
-                              success: () {
-                                Navigator.pop(context);
-                                showDialog(
-                                  context: context,
-                                  builder: (context) =>
-                                      SuccessReservationDialog(
-                                          queueNumber: queueNumber ?? 1),
-                                );
-                                // context.pushReplacement(const NavbarScreen(
-                                //   initialSelectedItem: 6,
-                                // ));
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //   const SnackBar(
-                                //     content: Text('Reservation created!'),
-                                //     backgroundColor: AppColors.green,
-                                //   ),
-                                // );
-                              },
-                              error: (message) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(message),
-                                    backgroundColor: AppColors.red,
-                                  ),
-                                );
-                              },
-                              orElse: () {},
-                            );
-                          },
-                          builder: (context, state) {
-                            return state.maybeWhen(
-                              orElse: () {
-                                return Button.filled(
-                                  onPressed: () {
-                                    final requestData =
-                                        AddReservationRequestModel(
-                                      patientId: widget.patient?.id,
-                                      doctorId: selectedDoctor?.id,
-                                      scheduleTime: scheduleTime!,
-                                      complaint: complaintController.text,
-                                      status: 'waiting',
-                                      totalPrice: 0,
-                                      queueNumber: queueNumber ?? 1,
-                                    );
-                                    debugPrint(requestData.toJson().toString());
-                                    context.read<AddReservationBloc>().add(
-                                        AddReservationEvent.addReservation(
-                                            data: requestData));
-                                  },
-                                  label: 'Create',
-                                );
-                              },
-                              loading: () {
-                                return const ButtonLoading();
-                              },
-                            );
-                          },
-                        )),
-                      ],
-                    )
-                  ],
+                      ),
+                      const SpaceHeight(20.0),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Button.outlined(
+                              onPressed: () => context.pop(),
+                              label: 'Cancel',
+                            ),
+                          ),
+                          const SpaceWidth(10.0),
+                          Flexible(
+                              child: BlocConsumer<AddReservationBloc,
+                                  AddReservationState>(
+                            listener: (context, state) {
+                              state.maybeWhen(
+                                success: () {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        SuccessReservationDialog(
+                                            queueNumber: queueNumber ?? 1),
+                                  );
+                                  // context.pushReplacement(const NavbarScreen(
+                                  //   initialSelectedItem: 6,
+                                  // ));
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  //   const SnackBar(
+                                  //     content: Text('Reservation created!'),
+                                  //     backgroundColor: AppColors.green,
+                                  //   ),
+                                  // );
+                                },
+                                error: (message) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(message),
+                                      backgroundColor: AppColors.red,
+                                    ),
+                                  );
+                                },
+                                orElse: () {},
+                              );
+                            },
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                orElse: () {
+                                  return Button.filled(
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        final requestData =
+                                            AddReservationRequestModel(
+                                          patientId: widget.patient?.id,
+                                          doctorId: selectedDoctor?.id,
+                                          scheduleTime: scheduleTime!,
+                                          complaint: complaintController.text,
+                                          status: 'waiting',
+                                          totalPrice: 0,
+                                          queueNumber: queueNumber ?? 1,
+                                        );
+                                        debugPrint(
+                                            requestData.toJson().toString());
+                                        context.read<AddReservationBloc>().add(
+                                            AddReservationEvent.addReservation(
+                                                data: requestData));
+                                      }
+                                    },
+                                    label: 'Create',
+                                  );
+                                },
+                                loading: () {
+                                  return const ButtonLoading();
+                                },
+                              );
+                            },
+                          )),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

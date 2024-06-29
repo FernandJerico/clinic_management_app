@@ -89,6 +89,12 @@ class DoctorDropdown extends StatelessWidget {
             ),
             hintText: value?.doctorName ?? label,
           ),
+          validator: (value) {
+            if (value == null) {
+              return 'This field is required.';
+            }
+            return null;
+          },
         ),
       ],
     );
