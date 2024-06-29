@@ -6,6 +6,7 @@ import 'package:clinic_management_app/features/history/data/datasource/history_t
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/data/datasources/patient_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
+import 'package:clinic_management_app/features/master/presentation/bloc/image_picker/image_picker_bloc.dart';
 import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
 import 'package:clinic_management_app/features/patient-schedule/data/datasources/medical_records_remote_datasource.dart';
 import 'package:clinic_management_app/features/patient-schedule/data/datasources/midtrans_remote_datasource.dart';
@@ -30,6 +31,7 @@ import 'features/master/presentation/bloc/accept_reservation/accept_reservation_
 import 'features/master/presentation/bloc/add_and_edit_doctor/add_and_edit_doctor_bloc.dart';
 import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
 import 'features/master/presentation/bloc/add_reservation/add_reservation_bloc.dart';
+import 'features/master/presentation/bloc/complete_reservation/complete_reservation_bloc.dart';
 import 'features/master/presentation/bloc/data_doctor_schedule/data_doctor_schedule_bloc.dart';
 import 'features/master/presentation/bloc/data_patient/data_patient_bloc.dart';
 import 'features/master/presentation/bloc/data_reservation/data_reservation_bloc.dart';
@@ -187,6 +189,13 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ServiceMedicinesBloc(MasterRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) => ImagePickerBloc(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              CompleteReservationBloc(MasterRemoteDatasources()),
         ),
       ],
       child: MaterialApp(

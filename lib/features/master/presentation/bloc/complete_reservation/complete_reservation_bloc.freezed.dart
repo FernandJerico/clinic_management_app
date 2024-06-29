@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'add_and_edit_doctor_bloc.dart';
+part of 'complete_reservation_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,74 +15,63 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$AddAndEditDoctorEvent {
+mixin _$CompleteReservationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
-        editDoctor,
-    required TResult Function(String doctorId) deleteDoctor,
+    required TResult Function(
+            String reservationId, String status, File historyImage)
+        completeReservation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult? Function(String doctorId)? deleteDoctor,
+    TResult? Function(String reservationId, String status, File historyImage)?
+        completeReservation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult Function(String doctorId)? deleteDoctor,
+    TResult Function(String reservationId, String status, File historyImage)?
+        completeReservation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_AddDoctor value) addDoctor,
-    required TResult Function(_EditDoctor value) editDoctor,
-    required TResult Function(_DeleteDoctor value) deleteDoctor,
+    required TResult Function(_CompleteReservation value) completeReservation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_AddDoctor value)? addDoctor,
-    TResult? Function(_EditDoctor value)? editDoctor,
-    TResult? Function(_DeleteDoctor value)? deleteDoctor,
+    TResult? Function(_CompleteReservation value)? completeReservation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_AddDoctor value)? addDoctor,
-    TResult Function(_EditDoctor value)? editDoctor,
-    TResult Function(_DeleteDoctor value)? deleteDoctor,
+    TResult Function(_CompleteReservation value)? completeReservation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddAndEditDoctorEventCopyWith<$Res> {
-  factory $AddAndEditDoctorEventCopyWith(AddAndEditDoctorEvent value,
-          $Res Function(AddAndEditDoctorEvent) then) =
-      _$AddAndEditDoctorEventCopyWithImpl<$Res, AddAndEditDoctorEvent>;
+abstract class $CompleteReservationEventCopyWith<$Res> {
+  factory $CompleteReservationEventCopyWith(CompleteReservationEvent value,
+          $Res Function(CompleteReservationEvent) then) =
+      _$CompleteReservationEventCopyWithImpl<$Res, CompleteReservationEvent>;
 }
 
 /// @nodoc
-class _$AddAndEditDoctorEventCopyWithImpl<$Res,
-        $Val extends AddAndEditDoctorEvent>
-    implements $AddAndEditDoctorEventCopyWith<$Res> {
-  _$AddAndEditDoctorEventCopyWithImpl(this._value, this._then);
+class _$CompleteReservationEventCopyWithImpl<$Res,
+        $Val extends CompleteReservationEvent>
+    implements $CompleteReservationEventCopyWith<$Res> {
+  _$CompleteReservationEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -99,7 +88,7 @@ abstract class _$$StartedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedImplCopyWithImpl<$Res>
-    extends _$AddAndEditDoctorEventCopyWithImpl<$Res, _$StartedImpl>
+    extends _$CompleteReservationEventCopyWithImpl<$Res, _$StartedImpl>
     implements _$$StartedImplCopyWith<$Res> {
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
@@ -113,7 +102,7 @@ class _$StartedImpl implements _Started {
 
   @override
   String toString() {
-    return 'AddAndEditDoctorEvent.started()';
+    return 'CompleteReservationEvent.started()';
   }
 
   @override
@@ -129,10 +118,9 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
-        editDoctor,
-    required TResult Function(String doctorId) deleteDoctor,
+    required TResult Function(
+            String reservationId, String status, File historyImage)
+        completeReservation,
   }) {
     return started();
   }
@@ -141,10 +129,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult? Function(String doctorId)? deleteDoctor,
+    TResult? Function(String reservationId, String status, File historyImage)?
+        completeReservation,
   }) {
     return started?.call();
   }
@@ -153,10 +139,8 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult Function(String doctorId)? deleteDoctor,
+    TResult Function(String reservationId, String status, File historyImage)?
+        completeReservation,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -169,9 +153,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_AddDoctor value) addDoctor,
-    required TResult Function(_EditDoctor value) editDoctor,
-    required TResult Function(_DeleteDoctor value) deleteDoctor,
+    required TResult Function(_CompleteReservation value) completeReservation,
   }) {
     return started(this);
   }
@@ -180,9 +162,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_AddDoctor value)? addDoctor,
-    TResult? Function(_EditDoctor value)? editDoctor,
-    TResult? Function(_DeleteDoctor value)? deleteDoctor,
+    TResult? Function(_CompleteReservation value)? completeReservation,
   }) {
     return started?.call(this);
   }
@@ -191,9 +171,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_AddDoctor value)? addDoctor,
-    TResult Function(_EditDoctor value)? editDoctor,
-    TResult Function(_DeleteDoctor value)? deleteDoctor,
+    TResult Function(_CompleteReservation value)? completeReservation,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -203,417 +181,126 @@ class _$StartedImpl implements _Started {
   }
 }
 
-abstract class _Started implements AddAndEditDoctorEvent {
+abstract class _Started implements CompleteReservationEvent {
   const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$AddDoctorImplCopyWith<$Res> {
-  factory _$$AddDoctorImplCopyWith(
-          _$AddDoctorImpl value, $Res Function(_$AddDoctorImpl) then) =
-      __$$AddDoctorImplCopyWithImpl<$Res>;
+abstract class _$$CompleteReservationImplCopyWith<$Res> {
+  factory _$$CompleteReservationImplCopyWith(_$CompleteReservationImpl value,
+          $Res Function(_$CompleteReservationImpl) then) =
+      __$$CompleteReservationImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({AddDoctorRequestModel doctor});
+  $Res call({String reservationId, String status, File historyImage});
 }
 
 /// @nodoc
-class __$$AddDoctorImplCopyWithImpl<$Res>
-    extends _$AddAndEditDoctorEventCopyWithImpl<$Res, _$AddDoctorImpl>
-    implements _$$AddDoctorImplCopyWith<$Res> {
-  __$$AddDoctorImplCopyWithImpl(
-      _$AddDoctorImpl _value, $Res Function(_$AddDoctorImpl) _then)
+class __$$CompleteReservationImplCopyWithImpl<$Res>
+    extends _$CompleteReservationEventCopyWithImpl<$Res,
+        _$CompleteReservationImpl>
+    implements _$$CompleteReservationImplCopyWith<$Res> {
+  __$$CompleteReservationImplCopyWithImpl(_$CompleteReservationImpl _value,
+      $Res Function(_$CompleteReservationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? doctor = null,
+    Object? reservationId = null,
+    Object? status = null,
+    Object? historyImage = null,
   }) {
-    return _then(_$AddDoctorImpl(
-      doctor: null == doctor
-          ? _value.doctor
-          : doctor // ignore: cast_nullable_to_non_nullable
-              as AddDoctorRequestModel,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AddDoctorImpl implements _AddDoctor {
-  const _$AddDoctorImpl({required this.doctor});
-
-  @override
-  final AddDoctorRequestModel doctor;
-
-  @override
-  String toString() {
-    return 'AddAndEditDoctorEvent.addDoctor(doctor: $doctor)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddDoctorImpl &&
-            (identical(other.doctor, doctor) || other.doctor == doctor));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, doctor);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AddDoctorImplCopyWith<_$AddDoctorImpl> get copyWith =>
-      __$$AddDoctorImplCopyWithImpl<_$AddDoctorImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
-        editDoctor,
-    required TResult Function(String doctorId) deleteDoctor,
-  }) {
-    return addDoctor(doctor);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult? Function(String doctorId)? deleteDoctor,
-  }) {
-    return addDoctor?.call(doctor);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult Function(String doctorId)? deleteDoctor,
-    required TResult orElse(),
-  }) {
-    if (addDoctor != null) {
-      return addDoctor(doctor);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_AddDoctor value) addDoctor,
-    required TResult Function(_EditDoctor value) editDoctor,
-    required TResult Function(_DeleteDoctor value) deleteDoctor,
-  }) {
-    return addDoctor(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_AddDoctor value)? addDoctor,
-    TResult? Function(_EditDoctor value)? editDoctor,
-    TResult? Function(_DeleteDoctor value)? deleteDoctor,
-  }) {
-    return addDoctor?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_AddDoctor value)? addDoctor,
-    TResult Function(_EditDoctor value)? editDoctor,
-    TResult Function(_DeleteDoctor value)? deleteDoctor,
-    required TResult orElse(),
-  }) {
-    if (addDoctor != null) {
-      return addDoctor(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _AddDoctor implements AddAndEditDoctorEvent {
-  const factory _AddDoctor({required final AddDoctorRequestModel doctor}) =
-      _$AddDoctorImpl;
-
-  AddDoctorRequestModel get doctor;
-  @JsonKey(ignore: true)
-  _$$AddDoctorImplCopyWith<_$AddDoctorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$EditDoctorImplCopyWith<$Res> {
-  factory _$$EditDoctorImplCopyWith(
-          _$EditDoctorImpl value, $Res Function(_$EditDoctorImpl) then) =
-      __$$EditDoctorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({EditDoctorRequestModel doctor, String doctorId});
-}
-
-/// @nodoc
-class __$$EditDoctorImplCopyWithImpl<$Res>
-    extends _$AddAndEditDoctorEventCopyWithImpl<$Res, _$EditDoctorImpl>
-    implements _$$EditDoctorImplCopyWith<$Res> {
-  __$$EditDoctorImplCopyWithImpl(
-      _$EditDoctorImpl _value, $Res Function(_$EditDoctorImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? doctor = null,
-    Object? doctorId = null,
-  }) {
-    return _then(_$EditDoctorImpl(
-      doctor: null == doctor
-          ? _value.doctor
-          : doctor // ignore: cast_nullable_to_non_nullable
-              as EditDoctorRequestModel,
-      doctorId: null == doctorId
-          ? _value.doctorId
-          : doctorId // ignore: cast_nullable_to_non_nullable
+    return _then(_$CompleteReservationImpl(
+      reservationId: null == reservationId
+          ? _value.reservationId
+          : reservationId // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$EditDoctorImpl implements _EditDoctor {
-  const _$EditDoctorImpl({required this.doctor, required this.doctorId});
-
-  @override
-  final EditDoctorRequestModel doctor;
-  @override
-  final String doctorId;
-
-  @override
-  String toString() {
-    return 'AddAndEditDoctorEvent.editDoctor(doctor: $doctor, doctorId: $doctorId)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$EditDoctorImpl &&
-            (identical(other.doctor, doctor) || other.doctor == doctor) &&
-            (identical(other.doctorId, doctorId) ||
-                other.doctorId == doctorId));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, doctor, doctorId);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$EditDoctorImplCopyWith<_$EditDoctorImpl> get copyWith =>
-      __$$EditDoctorImplCopyWithImpl<_$EditDoctorImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() started,
-    required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
-        editDoctor,
-    required TResult Function(String doctorId) deleteDoctor,
-  }) {
-    return editDoctor(doctor, doctorId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? started,
-    TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult? Function(String doctorId)? deleteDoctor,
-  }) {
-    return editDoctor?.call(doctor, doctorId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? started,
-    TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult Function(String doctorId)? deleteDoctor,
-    required TResult orElse(),
-  }) {
-    if (editDoctor != null) {
-      return editDoctor(doctor, doctorId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Started value) started,
-    required TResult Function(_AddDoctor value) addDoctor,
-    required TResult Function(_EditDoctor value) editDoctor,
-    required TResult Function(_DeleteDoctor value) deleteDoctor,
-  }) {
-    return editDoctor(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Started value)? started,
-    TResult? Function(_AddDoctor value)? addDoctor,
-    TResult? Function(_EditDoctor value)? editDoctor,
-    TResult? Function(_DeleteDoctor value)? deleteDoctor,
-  }) {
-    return editDoctor?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Started value)? started,
-    TResult Function(_AddDoctor value)? addDoctor,
-    TResult Function(_EditDoctor value)? editDoctor,
-    TResult Function(_DeleteDoctor value)? deleteDoctor,
-    required TResult orElse(),
-  }) {
-    if (editDoctor != null) {
-      return editDoctor(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _EditDoctor implements AddAndEditDoctorEvent {
-  const factory _EditDoctor(
-      {required final EditDoctorRequestModel doctor,
-      required final String doctorId}) = _$EditDoctorImpl;
-
-  EditDoctorRequestModel get doctor;
-  String get doctorId;
-  @JsonKey(ignore: true)
-  _$$EditDoctorImplCopyWith<_$EditDoctorImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$DeleteDoctorImplCopyWith<$Res> {
-  factory _$$DeleteDoctorImplCopyWith(
-          _$DeleteDoctorImpl value, $Res Function(_$DeleteDoctorImpl) then) =
-      __$$DeleteDoctorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String doctorId});
-}
-
-/// @nodoc
-class __$$DeleteDoctorImplCopyWithImpl<$Res>
-    extends _$AddAndEditDoctorEventCopyWithImpl<$Res, _$DeleteDoctorImpl>
-    implements _$$DeleteDoctorImplCopyWith<$Res> {
-  __$$DeleteDoctorImplCopyWithImpl(
-      _$DeleteDoctorImpl _value, $Res Function(_$DeleteDoctorImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? doctorId = null,
-  }) {
-    return _then(_$DeleteDoctorImpl(
-      doctorId: null == doctorId
-          ? _value.doctorId
-          : doctorId // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String,
+      historyImage: null == historyImage
+          ? _value.historyImage
+          : historyImage // ignore: cast_nullable_to_non_nullable
+              as File,
     ));
   }
 }
 
 /// @nodoc
 
-class _$DeleteDoctorImpl implements _DeleteDoctor {
-  const _$DeleteDoctorImpl({required this.doctorId});
+class _$CompleteReservationImpl implements _CompleteReservation {
+  const _$CompleteReservationImpl(
+      {required this.reservationId,
+      required this.status,
+      required this.historyImage});
 
   @override
-  final String doctorId;
+  final String reservationId;
+  @override
+  final String status;
+  @override
+  final File historyImage;
 
   @override
   String toString() {
-    return 'AddAndEditDoctorEvent.deleteDoctor(doctorId: $doctorId)';
+    return 'CompleteReservationEvent.completeReservation(reservationId: $reservationId, status: $status, historyImage: $historyImage)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DeleteDoctorImpl &&
-            (identical(other.doctorId, doctorId) ||
-                other.doctorId == doctorId));
+            other is _$CompleteReservationImpl &&
+            (identical(other.reservationId, reservationId) ||
+                other.reservationId == reservationId) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.historyImage, historyImage) ||
+                other.historyImage == historyImage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, doctorId);
+  int get hashCode =>
+      Object.hash(runtimeType, reservationId, status, historyImage);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$DeleteDoctorImplCopyWith<_$DeleteDoctorImpl> get copyWith =>
-      __$$DeleteDoctorImplCopyWithImpl<_$DeleteDoctorImpl>(this, _$identity);
+  _$$CompleteReservationImplCopyWith<_$CompleteReservationImpl> get copyWith =>
+      __$$CompleteReservationImplCopyWithImpl<_$CompleteReservationImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(AddDoctorRequestModel doctor) addDoctor,
-    required TResult Function(EditDoctorRequestModel doctor, String doctorId)
-        editDoctor,
-    required TResult Function(String doctorId) deleteDoctor,
+    required TResult Function(
+            String reservationId, String status, File historyImage)
+        completeReservation,
   }) {
-    return deleteDoctor(doctorId);
+    return completeReservation(reservationId, status, historyImage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult? Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult? Function(String doctorId)? deleteDoctor,
+    TResult? Function(String reservationId, String status, File historyImage)?
+        completeReservation,
   }) {
-    return deleteDoctor?.call(doctorId);
+    return completeReservation?.call(reservationId, status, historyImage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(AddDoctorRequestModel doctor)? addDoctor,
-    TResult Function(EditDoctorRequestModel doctor, String doctorId)?
-        editDoctor,
-    TResult Function(String doctorId)? deleteDoctor,
+    TResult Function(String reservationId, String status, File historyImage)?
+        completeReservation,
     required TResult orElse(),
   }) {
-    if (deleteDoctor != null) {
-      return deleteDoctor(doctorId);
+    if (completeReservation != null) {
+      return completeReservation(reservationId, status, historyImage);
     }
     return orElse();
   }
@@ -622,52 +309,50 @@ class _$DeleteDoctorImpl implements _DeleteDoctor {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_AddDoctor value) addDoctor,
-    required TResult Function(_EditDoctor value) editDoctor,
-    required TResult Function(_DeleteDoctor value) deleteDoctor,
+    required TResult Function(_CompleteReservation value) completeReservation,
   }) {
-    return deleteDoctor(this);
+    return completeReservation(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_AddDoctor value)? addDoctor,
-    TResult? Function(_EditDoctor value)? editDoctor,
-    TResult? Function(_DeleteDoctor value)? deleteDoctor,
+    TResult? Function(_CompleteReservation value)? completeReservation,
   }) {
-    return deleteDoctor?.call(this);
+    return completeReservation?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_AddDoctor value)? addDoctor,
-    TResult Function(_EditDoctor value)? editDoctor,
-    TResult Function(_DeleteDoctor value)? deleteDoctor,
+    TResult Function(_CompleteReservation value)? completeReservation,
     required TResult orElse(),
   }) {
-    if (deleteDoctor != null) {
-      return deleteDoctor(this);
+    if (completeReservation != null) {
+      return completeReservation(this);
     }
     return orElse();
   }
 }
 
-abstract class _DeleteDoctor implements AddAndEditDoctorEvent {
-  const factory _DeleteDoctor({required final String doctorId}) =
-      _$DeleteDoctorImpl;
+abstract class _CompleteReservation implements CompleteReservationEvent {
+  const factory _CompleteReservation(
+      {required final String reservationId,
+      required final String status,
+      required final File historyImage}) = _$CompleteReservationImpl;
 
-  String get doctorId;
+  String get reservationId;
+  String get status;
+  File get historyImage;
   @JsonKey(ignore: true)
-  _$$DeleteDoctorImplCopyWith<_$DeleteDoctorImpl> get copyWith =>
+  _$$CompleteReservationImplCopyWith<_$CompleteReservationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$AddAndEditDoctorState {
+mixin _$CompleteReservationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -721,17 +406,17 @@ mixin _$AddAndEditDoctorState {
 }
 
 /// @nodoc
-abstract class $AddAndEditDoctorStateCopyWith<$Res> {
-  factory $AddAndEditDoctorStateCopyWith(AddAndEditDoctorState value,
-          $Res Function(AddAndEditDoctorState) then) =
-      _$AddAndEditDoctorStateCopyWithImpl<$Res, AddAndEditDoctorState>;
+abstract class $CompleteReservationStateCopyWith<$Res> {
+  factory $CompleteReservationStateCopyWith(CompleteReservationState value,
+          $Res Function(CompleteReservationState) then) =
+      _$CompleteReservationStateCopyWithImpl<$Res, CompleteReservationState>;
 }
 
 /// @nodoc
-class _$AddAndEditDoctorStateCopyWithImpl<$Res,
-        $Val extends AddAndEditDoctorState>
-    implements $AddAndEditDoctorStateCopyWith<$Res> {
-  _$AddAndEditDoctorStateCopyWithImpl(this._value, this._then);
+class _$CompleteReservationStateCopyWithImpl<$Res,
+        $Val extends CompleteReservationState>
+    implements $CompleteReservationStateCopyWith<$Res> {
+  _$CompleteReservationStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -748,7 +433,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$AddAndEditDoctorStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$CompleteReservationStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -762,7 +447,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'AddAndEditDoctorState.initial()';
+    return 'CompleteReservationState.initial()';
   }
 
   @override
@@ -849,7 +534,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements AddAndEditDoctorState {
+abstract class _Initial implements CompleteReservationState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -862,7 +547,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$AddAndEditDoctorStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$CompleteReservationStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -876,7 +561,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'AddAndEditDoctorState.loading()';
+    return 'CompleteReservationState.loading()';
   }
 
   @override
@@ -963,7 +648,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements AddAndEditDoctorState {
+abstract class _Loading implements CompleteReservationState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -976,7 +661,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$AddAndEditDoctorStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$CompleteReservationStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
@@ -990,7 +675,7 @@ class _$SuccessImpl implements _Success {
 
   @override
   String toString() {
-    return 'AddAndEditDoctorState.success()';
+    return 'CompleteReservationState.success()';
   }
 
   @override
@@ -1077,7 +762,7 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements AddAndEditDoctorState {
+abstract class _Success implements CompleteReservationState {
   const factory _Success() = _$SuccessImpl;
 }
 
@@ -1092,7 +777,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$AddAndEditDoctorStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$CompleteReservationStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
@@ -1122,7 +807,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'AddAndEditDoctorState.error(message: $message)';
+    return 'CompleteReservationState.error(message: $message)';
   }
 
   @override
@@ -1217,7 +902,7 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements AddAndEditDoctorState {
+abstract class _Error implements CompleteReservationState {
   const factory _Error(final String message) = _$ErrorImpl;
 
   String get message;

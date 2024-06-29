@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:clinic_management_app/core/assets/assets.gen.dart';
 import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/features/master/presentation/bloc/complete_reservation/complete_reservation_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +16,7 @@ import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../bloc/accept_reservation/accept_reservation_bloc.dart';
 import '../bloc/data_reservation/data_reservation_bloc.dart';
+import '../bloc/image_picker/image_picker_bloc.dart';
 import '../widgets/build_app_bar.dart';
 
 class DataReservationScreen extends StatefulWidget {
@@ -26,6 +30,10 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
   final _formKey = GlobalKey<FormState>();
   final searchController = TextEditingController();
   final messageController = TextEditingController();
+  final imageController = TextEditingController();
+
+  String? _hintText = 'Pick an image';
+  File? pickedImage;
 
   String capitalize(String s) {
     if (s.isEmpty) return s;
@@ -112,9 +120,15 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                 Container(
                                   height: double.infinity,
                                   width: 16,
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.primary,
-                                    borderRadius: BorderRadius.only(
+                                  decoration: BoxDecoration(
+                                    color: history.status == 'pending'
+                                        ? AppColors.orderIsWaiting
+                                        : history.status == 'approved'
+                                            ? AppColors.orderIsCompleted
+                                            : history.status == 'completed'
+                                                ? Colors.blue
+                                                : AppColors.orderIsRejected,
+                                    borderRadius: const BorderRadius.only(
                                       topLeft: Radius.circular(12),
                                       bottomLeft: Radius.circular(12),
                                     ),
@@ -174,9 +188,14 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                       ? AppColors
                                                           .orderIsCompleted
                                                           .withOpacity(0.25)
-                                                      : AppColors
-                                                          .orderIsRejected
-                                                          .withOpacity(0.25),
+                                                      : history.status ==
+                                                              'completed'
+                                                          ? Colors.blue
+                                                              .withOpacity(0.25)
+                                                          : AppColors
+                                                              .orderIsRejected
+                                                              .withOpacity(
+                                                                  0.25),
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                               border: Border.all(
@@ -187,13 +206,16 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                             'approved'
                                                         ? AppColors
                                                             .orderIsCompleted
-                                                        : AppColors
-                                                            .orderIsRejected,
+                                                        : history.status ==
+                                                                'completed'
+                                                            ? Colors.blue
+                                                            : AppColors
+                                                                .orderIsRejected,
                                               ),
                                             ),
                                             alignment: Alignment.center,
                                             child: Text(
-                                              'Status: ${history.status == 'pending' ? 'Menunggu Persetujuan' : history.status == 'approved' ? 'Reservasi Disetujui' : 'Reservasi Ditolak'}',
+                                              'Status: ${history.status == 'pending' ? 'Menunggu Persetujuan' : history.status == 'approved' ? 'Reservasi Disetujui' : history.status == 'completed' ? 'Reservasi Selesai' : 'Reservasi Ditolak'}',
                                               textAlign: TextAlign.center,
                                               style: GoogleFonts.poppins(
                                                 fontSize: 14,
@@ -204,8 +226,11 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                             'approved'
                                                         ? AppColors
                                                             .orderIsCompleted
-                                                        : AppColors
-                                                            .orderIsRejected,
+                                                        : history.status ==
+                                                                'completed'
+                                                            ? Colors.blue
+                                                            : AppColors
+                                                                .orderIsRejected,
                                               ),
                                             ),
                                           ),
@@ -219,6 +244,214 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                 Assets.icons.action.path),
                                             itemBuilder: (context) {
                                               return [
+                                                if (history.status ==
+                                                    'approved')
+                                                  PopupMenuItem(
+                                                    height: 36,
+                                                    child: Text(
+                                                      'Selesaikan Reservasi',
+                                                      style:
+                                                          GoogleFonts.poppins(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                    ),
+                                                    onTap: () {
+                                                      showDialog(
+                                                        barrierDismissible:
+                                                            false,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return Dialog(
+                                                            backgroundColor:
+                                                                AppColors.white,
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0),
+                                                            ),
+                                                            child:
+                                                                SingleChildScrollView(
+                                                              child: Container(
+                                                                width: context
+                                                                        .deviceWidth *
+                                                                    0.5,
+                                                                height: context
+                                                                        .deviceHeight *
+                                                                    0.9,
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        16.0),
+                                                                child: Column(
+                                                                  children: [
+                                                                    Text(
+                                                                      'Selesaikan Reservasi',
+                                                                      style: GoogleFonts.poppins(
+                                                                          fontSize:
+                                                                              20,
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          color:
+                                                                              AppColors.primary),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                        height:
+                                                                            20),
+                                                                    BlocProvider(
+                                                                      create: (context) =>
+                                                                          ImagePickerBloc(),
+                                                                      child: Form(
+                                                                          key: _formKey,
+                                                                          child: Column(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.center,
+                                                                            children: [
+                                                                              Text(
+                                                                                'Upload Bukti Pembayaran Reservasi',
+                                                                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.darkGrey),
+                                                                              ),
+                                                                              const SizedBox(height: 8),
+                                                                              BlocBuilder<ImagePickerBloc, ImagePickerState>(
+                                                                                builder: (context, state) {
+                                                                                  state.maybeWhen(
+                                                                                    picked: (image) {
+                                                                                      _hintText = image.path.split('/').last;
+                                                                                    },
+                                                                                    initial: () {
+                                                                                      _hintText = 'Pick an image';
+                                                                                    },
+                                                                                    orElse: () {},
+                                                                                  );
+                                                                                  return TextFormField(
+                                                                                    onTap: () {
+                                                                                      context.read<ImagePickerBloc>().add(const ImagePickerEvent.pickImage());
+                                                                                    },
+                                                                                    readOnly: true,
+                                                                                    decoration: InputDecoration(
+                                                                                      prefixIcon: const Icon(
+                                                                                        Icons.image,
+                                                                                        color: Colors.blue,
+                                                                                      ),
+                                                                                      contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                                                                                      hintText: _hintText,
+                                                                                      border: OutlineInputBorder(
+                                                                                        borderRadius: BorderRadius.circular(4),
+                                                                                      ),
+                                                                                    ),
+                                                                                    validator: (value) {
+                                                                                      if (_hintText == 'Pick an image' || _hintText!.isEmpty) {
+                                                                                        return 'Please pick an image';
+                                                                                      }
+                                                                                      return null;
+                                                                                    },
+                                                                                  );
+                                                                                },
+                                                                              ),
+                                                                              const SizedBox(height: 16),
+                                                                              BlocBuilder<ImagePickerBloc, ImagePickerState>(
+                                                                                builder: (context, state) {
+                                                                                  return state.maybeWhen(
+                                                                                    orElse: () => Container(
+                                                                                      height: MediaQuery.of(context).size.height * 0.55,
+                                                                                      width: MediaQuery.of(context).size.width * 0.25,
+                                                                                      decoration: const BoxDecoration(color: Colors.grey),
+                                                                                      child: Center(
+                                                                                        child: Text(
+                                                                                          'No image selected',
+                                                                                          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ),
+                                                                                    picked: (image) {
+                                                                                      pickedImage = image;
+                                                                                      return Container(
+                                                                                        height: MediaQuery.of(context).size.height * 0.55,
+                                                                                        width: MediaQuery.of(context).size.width * 0.25,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: Colors.blue,
+                                                                                          image: DecorationImage(
+                                                                                            image: FileImage(image),
+                                                                                            fit: BoxFit.cover,
+                                                                                          ),
+                                                                                        ),
+                                                                                      );
+                                                                                    },
+                                                                                    error: (message) => Text(message),
+                                                                                  );
+                                                                                },
+                                                                              ),
+                                                                              const SizedBox(height: 16),
+                                                                              Row(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                                                children: [
+                                                                                  ButtonGradient.filled(
+                                                                                      width: 200,
+                                                                                      onPressed: () {
+                                                                                        context.read<ImagePickerBloc>().add(const ImagePickerEvent.clearImage());
+                                                                                        context.pop();
+                                                                                      },
+                                                                                      label: 'Close'),
+                                                                                  BlocConsumer<CompleteReservationBloc, CompleteReservationState>(
+                                                                                    listener: (context, state) {
+                                                                                      state.maybeWhen(
+                                                                                        orElse: () {},
+                                                                                        success: () {
+                                                                                          context.pop();
+                                                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                                                            const SnackBar(
+                                                                                              backgroundColor: AppColors.green,
+                                                                                              content: Text('Reservation completed successfully'),
+                                                                                            ),
+                                                                                          );
+                                                                                          context.read<DataReservationBloc>().add(const DataReservationEvent.getReservationData());
+                                                                                        },
+                                                                                        error: (message) {
+                                                                                          debugPrint(message);
+                                                                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                            content: Text(message),
+                                                                                            backgroundColor: AppColors.red,
+                                                                                          ));
+                                                                                        },
+                                                                                      );
+                                                                                    },
+                                                                                    builder: (context, state) {
+                                                                                      return state.maybeWhen(
+                                                                                        orElse: () {
+                                                                                          return ButtonGradient.filled(
+                                                                                              width: 200,
+                                                                                              onPressed: () {
+                                                                                                if (_formKey.currentState!.validate()) {
+                                                                                                  debugPrint('reservationId : ${history.id.toString()}');
+                                                                                                  context.read<CompleteReservationBloc>().add(CompleteReservationEvent.completeReservation(reservationId: history.id.toString(), status: 'completed', historyImage: pickedImage!));
+                                                                                                }
+                                                                                              },
+                                                                                              label: 'Selesaikan');
+                                                                                        },
+                                                                                        loading: () => ButtonGradient.loading(
+                                                                                          width: 200,
+                                                                                          onPressed: () {},
+                                                                                        ),
+                                                                                      );
+                                                                                    },
+                                                                                  ),
+                                                                                ],
+                                                                              )
+                                                                            ],
+                                                                          )),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
                                                 PopupMenuItem(
                                                   height: 36,
                                                   child: Text(
@@ -428,19 +661,23 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                                                           ? AppColors.orderIsWaiting.withOpacity(0.25)
                                                                                           : history.status == 'approved'
                                                                                               ? AppColors.orderIsCompleted.withOpacity(0.25)
-                                                                                              : AppColors.orderIsRejected.withOpacity(0.25),
+                                                                                              : history.status == 'completed'
+                                                                                                  ? Colors.blue.withOpacity(0.25)
+                                                                                                  : AppColors.orderIsRejected.withOpacity(0.25),
                                                                                       borderRadius: BorderRadius.circular(4),
                                                                                       border: Border.all(
                                                                                         color: history.status == 'pending'
                                                                                             ? AppColors.orderIsWaiting
                                                                                             : history.status == 'approved'
                                                                                                 ? AppColors.orderIsCompleted
-                                                                                                : AppColors.orderIsRejected,
+                                                                                                : history.status == 'completed'
+                                                                                                    ? Colors.blue
+                                                                                                    : AppColors.orderIsRejected,
                                                                                       ),
                                                                                     ),
                                                                                     alignment: Alignment.center,
                                                                                     child: Text(
-                                                                                      'Status: ${history.status == 'pending' ? 'Menunggu Persetujuan' : history.status == 'approved' ? 'Reservasi Disetujui' : 'Reservasi Ditolak'}',
+                                                                                      'Status: ${history.status == 'pending' ? 'Menunggu Persetujuan' : history.status == 'approved' ? 'Reservasi Disetujui' : history.status == 'completed' ? 'Reservasi Selesai' : 'Reservasi Ditolak'}',
                                                                                       textAlign: TextAlign.center,
                                                                                       style: GoogleFonts.poppins(
                                                                                         fontSize: 14,
@@ -448,7 +685,9 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                                                             ? AppColors.orderIsWaiting
                                                                                             : history.status == 'approved'
                                                                                                 ? AppColors.orderIsCompleted
-                                                                                                : AppColors.orderIsRejected,
+                                                                                                : history.status == 'completed'
+                                                                                                    ? Colors.blue
+                                                                                                    : AppColors.orderIsRejected,
                                                                                       ),
                                                                                     ),
                                                                                   ),

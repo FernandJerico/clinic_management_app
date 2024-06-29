@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:clinic_management_app/core/constants/variables.dart';
 import 'package:clinic_management_app/features/auth/data/datasources/auth_local_datasources.dart';
@@ -11,6 +12,7 @@ import 'package:clinic_management_app/features/master/data/models/response/servi
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
 
 import '../models/request/add_patient_request_model.dart';
 import '../models/request/edit_doctor_request_model.dart';
@@ -428,6 +430,55 @@ class MasterRemoteDatasources {
       } catch (e) {
         return const Left('Failed to parse error message.');
       }
+    }
+  }
+
+  Future<Either<String, String>> completeReservation(
+      String reservationId, String status, File historyImage) async {
+    final authData = await AuthLocalDatasources().getAuthData();
+
+    // Prepare the request
+    final url = Uri.parse(
+        '${Variables.baseUrl}/api/api-reservations-send/$reservationId');
+    final request = http.MultipartRequest('POST', url);
+
+    // Add fields to the request
+    request.fields.addAll({'_method': 'PUT', 'status': status});
+    debugPrint('from datasource: status: $status');
+
+    // Add file to the request
+    var stream = http.ByteStream(historyImage.openRead());
+    var length = await historyImage.length();
+    var multipartFile = http.MultipartFile('history_image', stream, length,
+        filename: path.basename(historyImage.path));
+    request.files.add(multipartFile);
+    debugPrint('from datasource: image: ${multipartFile.filename}');
+
+    // Add headers to the request
+    request.headers.addAll({
+      'Authorization': 'Bearer ${authData?.token}',
+      'Accept': 'application/json',
+    });
+
+    // Send the request
+    try {
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      if (response.statusCode == 200) {
+        return const Right('Success to complete reservation');
+      } else {
+        try {
+          final responseBody = json.decode(response.body);
+          var message = responseBody['message'];
+
+          return Left(message);
+        } catch (e) {
+          return const Left('Failed to parse error message.');
+        }
+      }
+    } catch (e) {
+      return Left('Failed to complete reservation: $e');
     }
   }
 }
