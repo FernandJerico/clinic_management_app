@@ -24,7 +24,7 @@ class ServiceMedicinesBloc
     on<_EditServiceMedicines>((event, emit) async {
       emit(const _Loading());
       final result = await remoteDatasources.editServiceMedicines(
-          event.data, event.serviceId);
+          event.serviceId, event.data);
       result.fold(
         (l) => emit(_Error(l)),
         (r) => emit(const _Success()),

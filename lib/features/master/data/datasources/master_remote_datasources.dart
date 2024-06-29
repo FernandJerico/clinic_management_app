@@ -110,10 +110,11 @@ class MasterRemoteDatasources {
     };
 
     final url = Uri.parse('${Variables.baseUrl}/api/api-doctors/$doctorId');
-    final request = http.MultipartRequest('PUT', url);
+    final request = http.MultipartRequest('POST', url);
     request.headers.addAll(headers);
 
     // buat function untuk update field
+    request.fields['_method'] = 'PUT';
     request.fields['doctor_name'] = data.doctorName!;
     request.fields['doctor_specialist'] = data.doctorSpecialist!;
     request.fields['doctor_phone'] = data.doctorPhone!;
@@ -123,13 +124,12 @@ class MasterRemoteDatasources {
     request.fields['nik'] = data.nik!;
     request.fields['polyclinic'] = data.polyclinic!;
     request.fields['address'] = data.address!;
-    request.fields['photo'] = data.photo!.path;
+    request.files.add(
+      await http.MultipartFile.fromPath('photo', data.photo!.path),
+    );
 
     // kirim update request
     http.StreamedResponse response = await request.send();
-
-    final responseString = await response.stream.bytesToString();
-    debugPrint('Response body: $responseString');
 
     // tangani respons
     if (response.statusCode == 200) {
@@ -272,7 +272,7 @@ class MasterRemoteDatasources {
   }
 
   Future<Either<String, String>> editServiceMedicines(
-      ServiceMedicinesRequestModel data, String serviceId) async {
+      String serviceId, ServiceMedicinesRequestModel data) async {
     final authData = await AuthLocalDatasources().getAuthData();
     var headers = {
       'Authorization': 'Bearer ${authData?.token}',
@@ -281,10 +281,11 @@ class MasterRemoteDatasources {
 
     final url =
         Uri.parse('${Variables.baseUrl}/api/api-service-medicines/$serviceId');
-    final request = http.MultipartRequest('PUT', url);
+    final request = http.MultipartRequest('POST', url);
     request.headers.addAll(headers);
 
     // Tambahkan field dengan addField
+    request.fields['_method'] = 'PUT';
     request.fields['name'] = data.name!;
     request.fields['category'] = data.category!;
     request.fields['price'] = data.price!;
@@ -295,7 +296,7 @@ class MasterRemoteDatasources {
       await http.MultipartFile.fromPath('photo', data.photo!.path),
     );
 
-    // Kirim request
+    // kirim update request
     http.StreamedResponse response = await request.send();
 
     // Tangani respons

@@ -48,6 +48,7 @@ class _ServiceMedicinesDialogState extends State<ServiceMedicinesDialog> {
         TextEditingController(text: widget.service?.price.toString());
     quantityController =
         TextEditingController(text: widget.service?.quantity.toString());
+    _selectedCategory = widget.service?.category;
     super.initState();
   }
 
@@ -74,17 +75,17 @@ class _ServiceMedicinesDialogState extends State<ServiceMedicinesDialog> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       Text(
-                        'Tambah Service & Obat',
-                        style: TextStyle(
+                        '${widget.type == 'edit' ? 'Edit' : 'Tambah'} Service & Obat',
+                        style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 16.0,
                           color: AppColors.darkGrey,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ),
                   const SpaceHeight(20.0),
@@ -135,7 +136,8 @@ class _ServiceMedicinesDialogState extends State<ServiceMedicinesDialog> {
                     }).toList(),
                     onChanged: (value) {
                       setState(() {
-                        _selectedCategory = value;
+                        _selectedCategory =
+                            value!.isEmpty ? widget.service?.category : value;
                       });
                     },
                     validator: (value) {
@@ -279,60 +281,48 @@ class _ServiceMedicinesDialogState extends State<ServiceMedicinesDialog> {
                           );
                         },
                         builder: (context, state) {
-                          return state.maybeWhen(
-                              orElse: () {
-                                return Button.filled(
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      if (widget.type == 'add') {
-                                        final requestData =
-                                            ServiceMedicinesRequestModel(
-                                          name: nameController.text,
-                                          category: _selectedCategory,
-                                          price: priceController.text,
-                                          quantity: quantityController.text,
-                                          photo: _image!,
+                          return state.maybeWhen(orElse: () {
+                            return Button.filled(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (widget.type == 'add') {
+                                    final requestData =
+                                        ServiceMedicinesRequestModel(
+                                      name: nameController.text,
+                                      category: _selectedCategory,
+                                      price: priceController.text,
+                                      quantity: quantityController.text,
+                                      photo: _image!,
+                                    );
+                                    context.read<ServiceMedicinesBloc>().add(
+                                          ServiceMedicinesEvent
+                                              .addServiceMedicines(requestData),
                                         );
-                                        context
-                                            .read<ServiceMedicinesBloc>()
-                                            .add(
-                                              ServiceMedicinesEvent
-                                                  .addServiceMedicines(
-                                                      requestData),
-                                            );
-                                      } else if (widget.type == 'edit') {
-                                        final requestData =
-                                            ServiceMedicinesRequestModel(
-                                          name: nameController.text,
-                                          category: _selectedCategory,
-                                          price: priceController.text,
-                                          quantity: quantityController.text,
-                                          photo: _image,
+                                  } else if (widget.type == 'edit') {
+                                    final requestData =
+                                        ServiceMedicinesRequestModel(
+                                      name: nameController.text,
+                                      category: _selectedCategory,
+                                      price: priceController.text,
+                                      quantity: quantityController.text,
+                                      photo: _image!,
+                                    );
+                                    debugPrint(requestData.toJson().toString());
+                                    context.read<ServiceMedicinesBloc>().add(
+                                          ServiceMedicinesEvent
+                                              .editServiceMedicines(
+                                                  serviceId: widget.service!.id!
+                                                      .toString(),
+                                                  data: requestData),
                                         );
-                                        context
-                                            .read<ServiceMedicinesBloc>()
-                                            .add(
-                                              ServiceMedicinesEvent
-                                                  .editServiceMedicines(
-                                                      serviceId: widget
-                                                          .service!.id!
-                                                          .toString(),
-                                                      data: requestData),
-                                            );
-                                      }
-                                    }
-                                  },
-                                  label: 'Create',
-                                );
+                                  }
+                                }
                               },
-                              loading: () {
-                                return const ButtonLoading();
-                              },
-                              error: (message) => ScaffoldMessenger(
-                                      child: SnackBar(
-                                    content: Text(message),
-                                    backgroundColor: AppColors.red,
-                                  )));
+                              label: widget.type == 'add' ? 'Tambah' : 'Edit',
+                            );
+                          }, loading: () {
+                            return const ButtonLoading();
+                          });
                         },
                       )),
                     ],
