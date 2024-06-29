@@ -98,6 +98,12 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 ? selectedDate.toFormattedDate()
                 : widget.label,
           ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'This field is required.';
+            }
+            return null;
+          },
         ),
       ],
     );
