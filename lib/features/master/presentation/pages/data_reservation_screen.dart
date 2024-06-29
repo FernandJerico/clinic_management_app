@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
+import '../../../../core/constants/variables.dart';
 import '../../../../core/themes/colors.dart';
 import '../bloc/accept_reservation/accept_reservation_bloc.dart';
 import '../bloc/data_reservation/data_reservation_bloc.dart';
@@ -484,7 +485,7 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                                   0.8,
                                                               height: context
                                                                       .deviceHeight *
-                                                                  0.5,
+                                                                  0.85,
                                                               padding:
                                                                   const EdgeInsets
                                                                       .all(
@@ -496,16 +497,15 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                                         MainAxisAlignment
                                                                             .spaceBetween,
                                                                     children: [
-                                                                      Container(
-                                                                        height: context.deviceHeight *
-                                                                            0.34,
-                                                                        width: context.deviceWidth *
-                                                                            0.38,
-                                                                        decoration: BoxDecoration(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            borderRadius: BorderRadius.circular(4),
-                                                                            boxShadow: [
+                                                                      Column(
+                                                                        children: [
+                                                                          Container(
+                                                                            height:
+                                                                                context.deviceHeight * 0.34,
+                                                                            width:
+                                                                                context.deviceWidth * 0.38,
+                                                                            decoration:
+                                                                                BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [
                                                                               BoxShadow(
                                                                                 color: AppColors.black.withOpacity(0.25),
                                                                                 spreadRadius: 0,
@@ -513,225 +513,278 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                                                 offset: const Offset(0, 1),
                                                                               ),
                                                                             ]),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: const EdgeInsets
-                                                                              .all(
-                                                                              8.0),
-                                                                          child:
-                                                                              Column(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Data Pasien',
-                                                                                style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary),
-                                                                              ),
-                                                                              const Divider(),
-                                                                              const SizedBox(height: 8),
-                                                                              Row(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                                 children: [
-                                                                                  Expanded(
-                                                                                    child: Text(
-                                                                                      history.patient!.name ?? '',
-                                                                                      style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.black),
-                                                                                    ),
+                                                                                  Text(
+                                                                                    'Data Pasien',
+                                                                                    style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary),
                                                                                   ),
-                                                                                  Container(
-                                                                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                                                                                    height: 24,
-                                                                                    decoration: BoxDecoration(
-                                                                                      color: history.patient!.status == 0
-                                                                                          ? AppColors.orderIsWaiting.withOpacity(0.25)
-                                                                                          : history.patient!.status == 1
-                                                                                              ? AppColors.orderIsCompleted.withOpacity(0.25)
-                                                                                              : AppColors.orderIsRejected.withOpacity(0.25),
-                                                                                      borderRadius: BorderRadius.circular(4),
-                                                                                      border: Border.all(
-                                                                                        color: history.patient!.status == 0
-                                                                                            ? AppColors.orderIsWaiting
-                                                                                            : history.patient!.status == 1
-                                                                                                ? AppColors.orderIsCompleted
-                                                                                                : AppColors.orderIsRejected,
+                                                                                  const Divider(),
+                                                                                  const SizedBox(height: 8),
+                                                                                  Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Expanded(
+                                                                                        child: Text(
+                                                                                          history.patient!.name ?? '',
+                                                                                          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.black),
+                                                                                        ),
                                                                                       ),
-                                                                                    ),
-                                                                                    alignment: Alignment.center,
-                                                                                    child: Text(
-                                                                                      history.patient!.status == 0
-                                                                                          ? 'Pasien Baru'
-                                                                                          : history.patient!.status == 1
-                                                                                              ? 'Pasien Terdaftar'
-                                                                                              : 'Rejected',
-                                                                                      textAlign: TextAlign.center,
-                                                                                      style: GoogleFonts.poppins(
-                                                                                        fontSize: 14,
-                                                                                        color: history.patient!.status == 0
-                                                                                            ? AppColors.orderIsWaiting
-                                                                                            : history.patient!.status == 1
-                                                                                                ? AppColors.orderIsCompleted
-                                                                                                : AppColors.orderIsRejected,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              const SizedBox(height: 4),
-                                                                              Text(
-                                                                                history.patient!.gender ?? '',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(
-                                                                                width: 8,
-                                                                              ),
-                                                                              Text(
-                                                                                '${DateFormat('dd MMMM yyyy').format(history.patient!.birthDate ?? DateTime.now())} (${DateTime.now().year - history.patient!.birthDate!.year} Tahun)',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(height: 2),
-                                                                              Text(
-                                                                                'Email: ${history.patient!.email}',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(height: 2),
-                                                                              Text(
-                                                                                'Nomor Telepon: ${history.patient!.phone}',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(height: 2),
-                                                                              Text(
-                                                                                'NIK: ${history.patient!.nik}',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(height: 12),
-                                                                              Text.rich(TextSpan(
-                                                                                text: 'Note Klinik: ',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.red, fontWeight: FontWeight.bold),
-                                                                                children: [
-                                                                                  TextSpan(
-                                                                                    text: history.note ?? '-',
-                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: Colors.black),
-                                                                                  ),
-                                                                                ],
-                                                                              )),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        height: context.deviceHeight *
-                                                                            0.34,
-                                                                        width: context.deviceWidth *
-                                                                            0.38,
-                                                                        decoration: BoxDecoration(
-                                                                            color:
-                                                                                Colors.white,
-                                                                            borderRadius: BorderRadius.circular(4),
-                                                                            boxShadow: [
-                                                                              BoxShadow(
-                                                                                color: AppColors.black.withOpacity(0.25),
-                                                                                spreadRadius: 0,
-                                                                                blurRadius: 2,
-                                                                                offset: const Offset(0, 1),
-                                                                              ),
-                                                                            ]),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: const EdgeInsets
-                                                                              .all(
-                                                                              8.0),
-                                                                          child:
-                                                                              Column(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Data Detail Reservasi',
-                                                                                style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary),
-                                                                              ),
-                                                                              const Divider(),
-                                                                              const SizedBox(height: 8),
-                                                                              Row(
-                                                                                children: [
-                                                                                  Container(
-                                                                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-                                                                                    height: 24,
-                                                                                    decoration: BoxDecoration(
-                                                                                      color: history.status == 'pending'
-                                                                                          ? AppColors.orderIsWaiting.withOpacity(0.25)
-                                                                                          : history.status == 'approved'
-                                                                                              ? AppColors.orderIsCompleted.withOpacity(0.25)
-                                                                                              : history.status == 'completed'
-                                                                                                  ? Colors.blue.withOpacity(0.25)
+                                                                                      Container(
+                                                                                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                                                                                        height: 24,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: history.patient!.status == 0
+                                                                                              ? AppColors.orderIsWaiting.withOpacity(0.25)
+                                                                                              : history.patient!.status == 1
+                                                                                                  ? AppColors.orderIsCompleted.withOpacity(0.25)
                                                                                                   : AppColors.orderIsRejected.withOpacity(0.25),
-                                                                                      borderRadius: BorderRadius.circular(4),
-                                                                                      border: Border.all(
-                                                                                        color: history.status == 'pending'
-                                                                                            ? AppColors.orderIsWaiting
-                                                                                            : history.status == 'approved'
-                                                                                                ? AppColors.orderIsCompleted
-                                                                                                : history.status == 'completed'
-                                                                                                    ? Colors.blue
+                                                                                          borderRadius: BorderRadius.circular(4),
+                                                                                          border: Border.all(
+                                                                                            color: history.patient!.status == 0
+                                                                                                ? AppColors.orderIsWaiting
+                                                                                                : history.patient!.status == 1
+                                                                                                    ? AppColors.orderIsCompleted
                                                                                                     : AppColors.orderIsRejected,
-                                                                                      ),
-                                                                                    ),
-                                                                                    alignment: Alignment.center,
-                                                                                    child: Text(
-                                                                                      'Status: ${history.status == 'pending' ? 'Menunggu Persetujuan' : history.status == 'approved' ? 'Reservasi Disetujui' : history.status == 'completed' ? 'Reservasi Selesai' : 'Reservasi Ditolak'}',
-                                                                                      textAlign: TextAlign.center,
-                                                                                      style: GoogleFonts.poppins(
-                                                                                        fontSize: 14,
-                                                                                        color: history.status == 'pending'
-                                                                                            ? AppColors.orderIsWaiting
-                                                                                            : history.status == 'approved'
-                                                                                                ? AppColors.orderIsCompleted
-                                                                                                : history.status == 'completed'
-                                                                                                    ? Colors.blue
+                                                                                          ),
+                                                                                        ),
+                                                                                        alignment: Alignment.center,
+                                                                                        child: Text(
+                                                                                          history.patient!.status == 0
+                                                                                              ? 'Pasien Baru'
+                                                                                              : history.patient!.status == 1
+                                                                                                  ? 'Pasien Terdaftar'
+                                                                                                  : 'Rejected',
+                                                                                          textAlign: TextAlign.center,
+                                                                                          style: GoogleFonts.poppins(
+                                                                                            fontSize: 14,
+                                                                                            color: history.patient!.status == 0
+                                                                                                ? AppColors.orderIsWaiting
+                                                                                                : history.patient!.status == 1
+                                                                                                    ? AppColors.orderIsCompleted
                                                                                                     : AppColors.orderIsRejected,
+                                                                                          ),
+                                                                                        ),
                                                                                       ),
-                                                                                    ),
+                                                                                    ],
+                                                                                  ),
+                                                                                  const SizedBox(height: 4),
+                                                                                  Text(
+                                                                                    history.patient!.gender ?? '',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.bold, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(
+                                                                                    width: 8,
+                                                                                  ),
+                                                                                  Text(
+                                                                                    '${DateFormat('dd MMMM yyyy').format(history.patient!.birthDate ?? DateTime.now())} (${DateTime.now().year - history.patient!.birthDate!.year} Tahun)',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 2),
+                                                                                  Text(
+                                                                                    'Email: ${history.patient!.email}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 2),
+                                                                                  Text(
+                                                                                    'Nomor Telepon: ${history.patient!.phone}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 2),
+                                                                                  Text(
+                                                                                    'NIK: ${history.patient!.nik}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 12),
+                                                                                  Text.rich(TextSpan(
+                                                                                    text: 'Note Klinik: ',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.red, fontWeight: FontWeight.bold),
+                                                                                    children: [
+                                                                                      TextSpan(
+                                                                                        text: history.note ?? '-',
+                                                                                        style: GoogleFonts.poppins(fontSize: 15, color: Colors.black),
+                                                                                      ),
+                                                                                    ],
+                                                                                  )),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              height: 20),
+                                                                          Container(
+                                                                            height:
+                                                                                context.deviceHeight * 0.34,
+                                                                            width:
+                                                                                context.deviceWidth * 0.38,
+                                                                            decoration:
+                                                                                BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(4), boxShadow: [
+                                                                              BoxShadow(
+                                                                                color: AppColors.black.withOpacity(0.25),
+                                                                                spreadRadius: 0,
+                                                                                blurRadius: 2,
+                                                                                offset: const Offset(0, 1),
+                                                                              ),
+                                                                            ]),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: Column(
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Data Detail Reservasi',
+                                                                                    style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                                                                  ),
+                                                                                  const Divider(),
+                                                                                  const SizedBox(height: 8),
+                                                                                  Row(
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                                                                                        height: 24,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: history.status == 'pending'
+                                                                                              ? AppColors.orderIsWaiting.withOpacity(0.25)
+                                                                                              : history.status == 'approved'
+                                                                                                  ? AppColors.orderIsCompleted.withOpacity(0.25)
+                                                                                                  : history.status == 'completed'
+                                                                                                      ? Colors.blue.withOpacity(0.25)
+                                                                                                      : AppColors.orderIsRejected.withOpacity(0.25),
+                                                                                          borderRadius: BorderRadius.circular(4),
+                                                                                          border: Border.all(
+                                                                                            color: history.status == 'pending'
+                                                                                                ? AppColors.orderIsWaiting
+                                                                                                : history.status == 'approved'
+                                                                                                    ? AppColors.orderIsCompleted
+                                                                                                    : history.status == 'completed'
+                                                                                                        ? Colors.blue
+                                                                                                        : AppColors.orderIsRejected,
+                                                                                          ),
+                                                                                        ),
+                                                                                        alignment: Alignment.center,
+                                                                                        child: Text(
+                                                                                          'Status: ${history.status == 'pending' ? 'Menunggu Persetujuan' : history.status == 'approved' ? 'Reservasi Disetujui' : history.status == 'completed' ? 'Reservasi Selesai' : 'Reservasi Ditolak'}',
+                                                                                          textAlign: TextAlign.center,
+                                                                                          style: GoogleFonts.poppins(
+                                                                                            fontSize: 14,
+                                                                                            color: history.status == 'pending'
+                                                                                                ? AppColors.orderIsWaiting
+                                                                                                : history.status == 'approved'
+                                                                                                    ? AppColors.orderIsCompleted
+                                                                                                    : history.status == 'completed'
+                                                                                                        ? Colors.blue
+                                                                                                        : AppColors.orderIsRejected,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                  const SizedBox(height: 4),
+                                                                                  Text(
+                                                                                    'Dokter: ${history.doctor!.doctorName}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 4),
+                                                                                  Text(
+                                                                                    'Spesialis: ${history.doctor!.doctorSpecialist}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 4),
+                                                                                  Text(
+                                                                                    'Hari: ${DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(history.dayAppointment!)}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 2),
+                                                                                  Text(
+                                                                                    'Jam: ${history.timeAppointment} WIB',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 2),
+                                                                                  Text(
+                                                                                    'Penjamin Kesehatan: ${history.guarantor}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 2),
+                                                                                  Text(
+                                                                                    'Nomor BPJS: ${history.bpjsNumber}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                                  ),
+                                                                                  const SizedBox(height: 2),
+                                                                                  Text(
+                                                                                    'Keluhan: ${history.complaint}',
+                                                                                    style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
                                                                                   ),
                                                                                 ],
                                                                               ),
-                                                                              const SizedBox(height: 4),
-                                                                              Text(
-                                                                                'Dokter: ${history.doctor!.doctorName}',
-                                                                                style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.black),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Container(
+                                                                        height: context.deviceHeight *
+                                                                            0.705,
+                                                                        width: context.deviceWidth *
+                                                                            0.38,
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            borderRadius: BorderRadius.circular(4),
+                                                                            boxShadow: [
+                                                                              BoxShadow(
+                                                                                color: AppColors.black.withOpacity(0.25),
+                                                                                spreadRadius: 0,
+                                                                                blurRadius: 2,
+                                                                                offset: const Offset(0, 1),
                                                                               ),
-                                                                              const SizedBox(height: 4),
+                                                                            ]),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: const EdgeInsets
+                                                                              .all(
+                                                                              8.0),
+                                                                          child:
+                                                                              Column(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
                                                                               Text(
-                                                                                'Spesialis: ${history.doctor!.doctorSpecialist}',
-                                                                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.black),
+                                                                                'Bukti Pembayaran Reservasi',
+                                                                                style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primary),
                                                                               ),
-                                                                              const SizedBox(height: 4),
-                                                                              Text(
-                                                                                'Hari: ${DateFormat('EEEE, dd-MM-yyyy', 'id_ID').format(history.dayAppointment!)}',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(height: 2),
-                                                                              Text(
-                                                                                'Jam: ${history.timeAppointment} WIB',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(height: 2),
-                                                                              Text(
-                                                                                'Penjamin Kesehatan: ${history.guarantor}',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(height: 2),
-                                                                              Text(
-                                                                                'Nomor BPJS: ${history.bpjsNumber}',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
-                                                                              ),
-                                                                              const SizedBox(height: 2),
-                                                                              Text(
-                                                                                'Keluhan: ${history.complaint}',
-                                                                                style: GoogleFonts.poppins(fontSize: 15, color: AppColors.black),
+                                                                              const Divider(),
+                                                                              const SizedBox(height: 8),
+                                                                              Center(
+                                                                                child: history.historyImage == null
+                                                                                    ? Container(
+                                                                                        height: context.deviceHeight * 0.6,
+                                                                                        width: context.deviceWidth * 0.3,
+                                                                                        color: Colors.grey,
+                                                                                        child: Center(
+                                                                                          child: Text(
+                                                                                            'Belum ada bukti pembayaran',
+                                                                                            style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
+                                                                                          ),
+                                                                                        ),
+                                                                                      )
+                                                                                    : Container(
+                                                                                        height: context.deviceHeight * 0.6,
+                                                                                        width: context.deviceWidth * 0.3,
+                                                                                        color: Colors.grey,
+                                                                                        child: Image.network(
+                                                                                          '${Variables.imageBaseUrl}/reservation-history-image/${history.historyImage}',
+                                                                                          fit: BoxFit.cover,
+                                                                                        ),
+                                                                                      ),
                                                                               ),
                                                                             ],
                                                                           ),
                                                                         ),
-                                                                      ),
+                                                                      )
                                                                     ],
                                                                   ),
                                                                   const SizedBox(

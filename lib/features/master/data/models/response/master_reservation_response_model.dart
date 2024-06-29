@@ -52,6 +52,7 @@ class MasterReservation {
   final User? user;
   final Doctor? doctor;
   final Patient? patient;
+  final String? historyImage;
 
   MasterReservation({
     this.id,
@@ -71,6 +72,7 @@ class MasterReservation {
     this.user,
     this.doctor,
     this.patient,
+    this.historyImage,
   });
 
   factory MasterReservation.fromJson(String str) =>
@@ -104,6 +106,7 @@ class MasterReservation {
         doctor: json["doctor"] == null ? null : Doctor.fromMap(json["doctor"]),
         patient:
             json["patient"] == null ? null : Patient.fromMap(json["patient"]),
+        historyImage: json["history_image"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -125,6 +128,7 @@ class MasterReservation {
         "user": user?.toMap(),
         "doctor": doctor?.toMap(),
         "patient": patient?.toMap(),
+        "history_image": historyImage,
       };
 }
 
