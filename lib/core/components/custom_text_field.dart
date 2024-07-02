@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final bool readOnly;
   final bool isDescription;
   final bool isValidator;
+  final bool isEmail;
 
   const CustomTextField({
     super.key,
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.isDescription = false,
     this.isValidator = true,
+    this.isEmail = false,
   });
 
   @override
@@ -57,9 +59,24 @@ class CustomTextField extends StatelessWidget {
                   if (value!.isEmpty) {
                     return 'This field is required.';
                   }
+
+                  if (isEmail) {
+                    // RegExp for validating email format
+                    final emailRegex = RegExp(
+                        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+                    if (!emailRegex.hasMatch(value)) {
+                      return 'Please enter a valid email address.';
+                    }
+                  }
+
                   return null;
                 }
-              : null,
+              : (value) {
+                  if (value!.isEmpty) {
+                    return 'This field is required.';
+                  }
+                  return null;
+                },
           decoration: InputDecoration(
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,

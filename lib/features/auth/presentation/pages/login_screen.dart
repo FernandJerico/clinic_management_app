@@ -21,6 +21,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   @override
@@ -36,109 +37,115 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: AlignmentDirectional.topStart,
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(24.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SpaceHeight(80.0),
-                      const Center(
-                        child: Text(
-                          'Masuk ke Akun Anda',
-                          style: TextStyle(
-                            fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SpaceHeight(80.0),
+                        const Center(
+                          child: Text(
+                            'Masuk ke Akun Anda',
+                            style: TextStyle(
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      const SpaceHeight(30.0),
-                      CustomTextField(
-                        controller: emailController,
-                        label: 'Email',
-                      ),
-                      const SpaceHeight(20.0),
-                      CustomTextField(
-                        controller: passwordController,
-                        label: 'Kata Sandi',
-                        obscureText: true,
-                      ),
-                      const SpaceHeight(40.0),
-                      BlocConsumer<LoginBloc, LoginState>(
-                        listener: (context, state) {
-                          state.maybeWhen(
-                            success: (data) {
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const NavbarScreen(
-                                    initialSelectedItem: 0,
+                        const SpaceHeight(30.0),
+                        CustomTextField(
+                          controller: emailController,
+                          label: 'Email',
+                          isEmail: true,
+                        ),
+                        const SpaceHeight(20.0),
+                        CustomTextField(
+                          controller: passwordController,
+                          label: 'Kata Sandi',
+                          obscureText: true,
+                        ),
+                        const SpaceHeight(40.0),
+                        BlocConsumer<LoginBloc, LoginState>(
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              success: (data) {
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const NavbarScreen(
+                                      initialSelectedItem: 0,
+                                    ),
+                                  ),
+                                  (route) => false,
+                                );
+                              },
+                              error: (message) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(message),
+                                    backgroundColor: AppColors.red,
+                                  ),
+                                );
+                              },
+                              orElse: () {},
+                            );
+                          },
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              orElse: () {
+                                return ButtonGradient.filled(
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      context.read<LoginBloc>().add(
+                                            LoginEvent.login(
+                                              emailController.text,
+                                              passwordController.text,
+                                            ),
+                                          );
+                                    }
+                                  },
+                                  label: 'MASUK',
+                                );
+                              },
+                              loading: () {
+                                return ButtonGradient.loading(onPressed: () {});
+                              },
+                            );
+                          },
+                        ),
+                        const SpaceHeight(20.0),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: InkWell(
+                            onTap: () => context.push(const RegisterScreen()),
+                            child: Text.rich(TextSpan(
+                              children: [
+                                const TextSpan(
+                                  text: 'Belum Memiliki Akun? ',
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                    color: AppColors.darkGrey,
                                   ),
                                 ),
-                                (route) => false,
-                              );
-                            },
-                            error: (message) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(message),
-                                  backgroundColor: AppColors.red,
+                                TextSpan(
+                                  text: 'Daftar Disini',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 12.0,
+                                    color: AppColors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              );
-                            },
-                            orElse: () {},
-                          );
-                        },
-                        builder: (context, state) {
-                          return state.maybeWhen(
-                            orElse: () {
-                              return ButtonGradient.filled(
-                                onPressed: () {
-                                  context.read<LoginBloc>().add(
-                                        LoginEvent.login(
-                                          emailController.text,
-                                          passwordController.text,
-                                        ),
-                                      );
-                                },
-                                label: 'MASUK',
-                              );
-                            },
-                            loading: () {
-                              return ButtonGradient.loading(onPressed: () {});
-                            },
-                          );
-                        },
-                      ),
-                      const SpaceHeight(20.0),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: InkWell(
-                          onTap: () => context.push(const RegisterScreen()),
-                          child: Text.rich(TextSpan(
-                            children: [
-                              const TextSpan(
-                                text: 'Belum Memiliki Akun? ',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: AppColors.darkGrey,
-                                ),
-                              ),
-                              TextSpan(
-                                text: 'Daftar Disini',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 12.0,
-                                  color: AppColors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          )),
+                              ],
+                            )),
+                          ),
                         ),
-                      ),
-                      const SpaceHeight(100.0),
-                      const Text(
-                        '© 2024 Klinik Pratama Fuji | Clinic Management App',
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                        const SpaceHeight(100.0),
+                        const Text(
+                          '© 2024 Klinik Pratama Fuji | Clinic Management App',
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
