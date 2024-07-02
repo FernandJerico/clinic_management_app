@@ -332,14 +332,52 @@ class _NavbarScreenState extends State<NavbarScreen> {
                     _selectedIndex == 0 || _selectedIndex == 2
                         ? IconButton(
                             onPressed: () {
-                              context
-                                  .read<LogoutBloc>()
-                                  .add(const LogoutEvent.logout());
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
-                                  ));
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.white,
+                                    title: Text('Logout',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold)),
+                                    content: Text(
+                                      'Apakah anda yakin ingin keluar?',
+                                      style: GoogleFonts.poppins(fontSize: 14),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          context
+                                              .read<LogoutBloc>()
+                                              .add(const LogoutEvent.logout());
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const LoginScreen(),
+                                              ));
+                                        },
+                                        child: Text(
+                                          'Ya',
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 14),
+                                        ),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          'Tidak',
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 14),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             icon: const Icon(
                               Icons.logout,
