@@ -117,32 +117,73 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 fontSize: 16, fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(height: 12),
-                          CircularPercentIndicator(
-                            radius: 100,
-                            lineWidth: 20,
-                            percent: 0.7,
-                            progressColor: AppColors.primary700,
-                            backgroundColor: AppColors.primary.withOpacity(0.9),
-                            circularStrokeCap: CircularStrokeCap.round,
-                            center: Container(
-                              height: 86,
-                              width: 86,
-                              decoration: const BoxDecoration(
-                                color: AppColors.primary700,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(50),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  '75',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
-                                ),
-                              ),
-                            ),
+                          BlocBuilder<GetTotalPatientBloc,
+                              GetTotalPatientState>(
+                            builder: (context, state) {
+                              return state.maybeWhen(
+                                orElse: () {
+                                  return CircularPercentIndicator(
+                                    radius: 100,
+                                    lineWidth: 20,
+                                    percent: 0.0,
+                                    progressColor: AppColors.primary700,
+                                    backgroundColor:
+                                        AppColors.primary.withOpacity(0.9),
+                                    circularStrokeCap: CircularStrokeCap.round,
+                                    center: Container(
+                                      height: 86,
+                                      width: 86,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.primary700,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(50),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '0',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                loaded: (countPatient) {
+                                  return CircularPercentIndicator(
+                                    radius: 100,
+                                    lineWidth: 20,
+                                    percent: countPatient / 100,
+                                    progressColor:
+                                        const Color.fromRGBO(43, 141, 119, 1),
+                                    backgroundColor:
+                                        AppColors.primary.withOpacity(0.9),
+                                    circularStrokeCap: CircularStrokeCap.round,
+                                    center: Container(
+                                      height: 86,
+                                      width: 86,
+                                      decoration: const BoxDecoration(
+                                        color: AppColors.primary700,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(50),
+                                        ),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '$countPatient',
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
                           const SizedBox(height: 12),
                           Row(
