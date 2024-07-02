@@ -1,11 +1,14 @@
-import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
-import 'package:clinic_management_app/core/extensions/date_time_ext.dart';
-import 'package:clinic_management_app/features/home/presentation/bloc/get_patient_this_month/get_patient_this_month_bloc.dart';
-import 'package:clinic_management_app/features/home/presentation/bloc/get_total_patient/get_total_patient_bloc.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/core/extensions/date_time_ext.dart';
+import 'package:clinic_management_app/features/home/presentation/bloc/get_patient_this_month/get_patient_this_month_bloc.dart';
+import 'package:clinic_management_app/features/home/presentation/bloc/get_total_patient/get_total_patient_bloc.dart';
 
 import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/themes/colors.dart';
@@ -350,7 +353,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(width: 20),
                   Container(
                     padding: const EdgeInsets.all(20),
-                    height: 360,
+                    height: context.deviceHeight * 0.475,
                     width: context.deviceWidth * 0.275,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -397,6 +400,42 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       fontWeight: FontWeight.normal),
                                 )
                               ],
+                            ),
+                          ],
+                        ),
+                        SfCartesianChart(
+                          plotAreaBackgroundColor: Colors.transparent,
+                          margin: const EdgeInsets.symmetric(vertical: 10),
+                          borderColor: Colors.transparent,
+                          borderWidth: 0,
+                          plotAreaBorderWidth: 0,
+                          enableSideBySideSeriesPlacement: false,
+                          primaryXAxis: const CategoryAxis(
+                            isVisible: false,
+                          ),
+                          primaryYAxis: const NumericAxis(
+                            isVisible: false,
+                            minimum: 0,
+                            maximum: 2,
+                            interval: 0.75,
+                          ),
+                          series: <CartesianSeries>[
+                            ColumnSeries<ChartColumnData, String>(
+                              borderRadius: BorderRadius.circular(8),
+                              width: 0.25,
+                              color: AppColors.primary.withOpacity(0.2),
+                              dataSource: chartData,
+                              xValueMapper: (ChartColumnData data, _) => data.x,
+                              yValueMapper: (ChartColumnData data, _) => data.y,
+                            ),
+                            ColumnSeries<ChartColumnData, String>(
+                              borderRadius: BorderRadius.circular(8),
+                              width: 0.25,
+                              color: AppColors.primary,
+                              dataSource: chartData,
+                              xValueMapper: (ChartColumnData data, _) => data.x,
+                              yValueMapper: (ChartColumnData data, _) =>
+                                  data.y1,
                             )
                           ],
                         )
@@ -412,6 +451,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 }
+
+class ChartColumnData {
+  final String? x;
+  final double? y;
+  final double? y1;
+  ChartColumnData({
+    this.x,
+    this.y,
+    this.y1,
+  });
+}
+
+final List<ChartColumnData> chartData = <ChartColumnData>[
+  ChartColumnData(x: 'Rawat Inap 1', y: 1.5, y1: 0.5),
+  ChartColumnData(x: 'Rawat Jalan 1', y: 1.5, y1: 0.65),
+  ChartColumnData(x: 'Rawat Inap 2', y: 1.5, y1: 1.1),
+  ChartColumnData(x: 'Rawat Jalan 2', y: 1.5, y1: 0.95),
+  ChartColumnData(x: 'Rawat Inap 3', y: 1.5, y1: 1.1),
+  ChartColumnData(x: 'Rawat Jalan 3', y: 1.5, y1: 0.95),
+];
 
 class InformationWidget extends StatelessWidget {
   final String text;
