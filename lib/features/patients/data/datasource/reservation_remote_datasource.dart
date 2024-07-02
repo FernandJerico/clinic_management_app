@@ -67,8 +67,8 @@ class ReservationRemoteDatasource {
   Future<Either<String, HistoryReservationResponseModel>>
       getHistoryReservationByName(String name) async {
     final authData = await AuthLocalDatasources().getAuthData();
-    final url =
-        Uri.parse('${Variables.baseUrl}/api/api-reservations?fullname=$name');
+    final url = Uri.parse(
+        '${Variables.baseUrl}/api/api-reservations?patient_name=$name');
     final response = await http.get(
       url,
       headers: {
