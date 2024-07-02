@@ -193,6 +193,11 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
                     return const HistoryShimmerLoading();
                   },
                   loaded: (historyTransaction) {
+                    if (historyTransaction.isEmpty) {
+                      return const Center(
+                        child: Text('Tidak ada riwayat transaksi'),
+                      );
+                    }
                     return Expanded(
                       child: ListView.separated(
                         separatorBuilder: (context, index) =>

@@ -82,6 +82,11 @@ class _MedicalRecordScreenState extends State<MedicalRecordScreen> {
                     );
                   },
                   loaded: (medicalRecords) {
+                    if (medicalRecords.isEmpty) {
+                      return const Center(
+                        child: Text('Data tidak ditemukan'),
+                      );
+                    }
                     return Expanded(
                       child: ListView.separated(
                         separatorBuilder: (context, index) {
