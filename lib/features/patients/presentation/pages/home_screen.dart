@@ -257,10 +257,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               selected: _selectedCategory == category.id,
                               onSelected: (bool selected) {
                                 setState(() {
-                                  _selectedCategory =
-                                      selected ? category.id : null;
+                                  // Hanya memperbarui _selectedCategory jika pilihan berbeda
+                                  if (_selectedCategory != category.id) {
+                                    _selectedCategory = category.id;
+                                  }
                                 });
-                                if (selected) {
+                                if (_selectedCategory == category.id) {
                                   if (category.id == -1) {
                                     context
                                         .read<ArticleBloc>()
