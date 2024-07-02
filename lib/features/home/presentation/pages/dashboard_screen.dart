@@ -1,10 +1,15 @@
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
+import 'package:clinic_management_app/core/extensions/date_time_ext.dart';
+import 'package:clinic_management_app/features/home/presentation/bloc/get_patient_this_month/get_patient_this_month_bloc.dart';
+import 'package:clinic_management_app/features/home/presentation/bloc/get_total_patient/get_total_patient_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../../core/assets/assets.gen.dart';
 import '../../../../core/themes/colors.dart';
+import '../../../master/presentation/bloc/data_patient/data_patient_bloc.dart';
 import '../../../master/presentation/widgets/build_app_bar.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -15,6 +20,18 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<GetPatientThisMonthBloc>()
+        .add(const GetPatientThisMonthEvent.getPatientThisMonth());
+    context
+        .read<GetTotalPatientBloc>()
+        .add(const GetTotalPatientEvent.getTotalPatient());
+    context.read<DataPatientBloc>().add(const DataPatientEvent.getPatients());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,19 +53,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Column(
                     children: [
-                      InformationWidget(
-                        text: 'Pasien Baru\nBulan Ini',
-                        amount: '20',
-                        iconPath: Assets.images.dashboard.newPatient.path,
+                      BlocBuilder<GetPatientThisMonthBloc,
+                          GetPatientThisMonthState>(
+                        builder: (context, state) {
+                          return state.maybeMap(orElse: () {
+                            return InformationWidget(
+                                text: 'Pasien Baru\nBulan Ini',
+                                amount: '0',
+                                iconPath:
+                                    Assets.images.dashboard.newPatient.path);
+                          }, loaded: (data) {
+                            final countPatient = data.countPatientThisMonth;
+                            return InformationWidget(
+                              text: 'Pasien Baru\nBulan Ini',
+                              amount: countPatient.toString(),
+                              iconPath: Assets.images.dashboard.newPatient.path,
+                            );
+                          });
+                        },
                       ),
                       const SizedBox(
                         height: 8,
                       ),
-                      InformationWidget(
-                        text: 'Pasien Terdaftar\ndi Klinik Ini',
-                        amount: '55',
-                        iconPath:
-                            Assets.images.dashboard.patientRegistered.path,
+                      BlocBuilder<GetTotalPatientBloc, GetTotalPatientState>(
+                        builder: (context, state) {
+                          return state.maybeMap(
+                            orElse: () {
+                              return InformationWidget(
+                                  text: 'Pasien Terdaftar\ndi Klinik Ini',
+                                  amount: '0',
+                                  iconPath: Assets
+                                      .images.dashboard.patientRegistered.path);
+                            },
+                            loaded: (value) {
+                              final countPatient = value.countPatient;
+                              return InformationWidget(
+                                text: 'Pasien Terdaftar\ndi Klinik Ini',
+                                amount: '$countPatient',
+                                iconPath: Assets
+                                    .images.dashboard.patientRegistered.path,
+                              );
+                            },
+                          );
+                        },
                       )
                     ],
                   ),
@@ -147,7 +194,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(20),
-                    height: 360,
+                    // height: 360,
                     width: context.deviceWidth * 0.575,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -160,7 +207,102 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           'Daftar Data Pasien',
                           style: GoogleFonts.poppins(
                               fontSize: 22, fontWeight: FontWeight.w500),
-                        )
+                        ),
+                        BlocBuilder<DataPatientBloc, DataPatientState>(
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              orElse: () {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              },
+                              loaded: (patients) {
+                                return DataTable(
+                                  // columnSpacing: context.deviceWidth * 0.05,
+                                  dataRowMinHeight: 30.0,
+                                  dataRowMaxHeight: 60.0,
+                                  columns: [
+                                    DataColumn(
+                                        label: Text(
+                                      'Nama Pasien',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                    DataColumn(
+                                        label: Text(
+                                      'Alamat Email',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                    DataColumn(
+                                        label: Text(
+                                      'Tanggal Lahir',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                  ],
+                                  rows: patients.isEmpty
+                                      ? [
+                                          const DataRow(
+                                            cells: [
+                                              DataCell.empty,
+                                              DataCell.empty,
+                                              DataCell.empty,
+                                              DataCell.empty,
+                                            ],
+                                          ),
+                                          const DataRow(
+                                            cells: [
+                                              DataCell.empty,
+                                              DataCell.empty,
+                                              DataCell.empty,
+                                              DataCell.empty,
+                                            ],
+                                          ),
+                                        ]
+                                      : patients
+                                          .map(
+                                            (patient) => DataRow(cells: [
+                                              DataCell(Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    patient.name ?? '',
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Text(patient.gender ?? ''),
+                                                ],
+                                              )),
+                                              DataCell(Center(
+                                                  child: Text(
+                                                      patient.email ?? ''))),
+                                              DataCell(
+                                                Center(
+                                                  child: Text(
+                                                    patient.birthDate!
+                                                        .toFormattedDate(),
+                                                  ),
+                                                ),
+                                              ),
+                                            ]),
+                                          )
+                                          .toList(),
+                                );
+                              },
+                              loading: () {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              },
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),

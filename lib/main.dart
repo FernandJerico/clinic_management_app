@@ -3,6 +3,7 @@ import 'package:clinic_management_app/features/auth/data/datasources/auth_remote
 import 'package:clinic_management_app/features/auth/presentation/pages/login_screen.dart';
 import 'package:clinic_management_app/features/binderbyte/data/datasource/binderbyte_wilayah_remote_datasource.dart';
 import 'package:clinic_management_app/features/history/data/datasource/history_transaction_remote_datasource.dart';
+import 'package:clinic_management_app/features/home/data/datasource/dashboard_master_datasource.dart';
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/data/datasources/patient_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
@@ -27,6 +28,8 @@ import 'features/binderbyte/presentation/bloc/get_district_binder/get_district_b
 import 'features/binderbyte/presentation/bloc/get_province_binder/get_province_binder_bloc.dart';
 import 'features/binderbyte/presentation/bloc/get_sub_district_binder/get_sub_district_binder_bloc.dart';
 import 'features/history/presentation/bloc/history_transaction/history_transaction_bloc.dart';
+import 'features/home/presentation/bloc/get_patient_this_month/get_patient_this_month_bloc.dart';
+import 'features/home/presentation/bloc/get_total_patient/get_total_patient_bloc.dart';
 import 'features/master/presentation/bloc/accept_reservation/accept_reservation_bloc.dart';
 import 'features/master/presentation/bloc/add_and_edit_doctor/add_and_edit_doctor_bloc.dart';
 import 'features/master/presentation/bloc/add_patient/add_patient_bloc.dart';
@@ -196,6 +199,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               CompleteReservationBloc(MasterRemoteDatasources()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              GetPatientThisMonthBloc(DashboardMasterDatasource()),
+        ),
+        BlocProvider(
+          create: (context) => GetTotalPatientBloc(DashboardMasterDatasource()),
         ),
       ],
       child: MaterialApp(
