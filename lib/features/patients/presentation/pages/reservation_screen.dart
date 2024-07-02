@@ -1,3 +1,4 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:clinic_management_app/core/assets/assets.gen.dart';
 import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/core/components/custom_dropdown.dart';
@@ -52,6 +53,15 @@ class _ReservationScreenState extends State<ReservationScreen> {
     initializeDateFormatting('id_ID', null);
     context.read<GetPatientBloc>().add(const GetPatientEvent.getPatient());
     context.read<DataDoctorBloc>().add(const DataDoctorEvent.getDoctors());
+    getPhone().then((value) {
+      _phoneController.text = value;
+    });
+  }
+
+  //get phone number from auth local datasource
+  Future getPhone() async {
+    final phone = await AuthLocalDatasources().getAuthData();
+    return phone!.user!.phone;
   }
 
   @override
@@ -622,11 +632,14 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   );
                 },
                 error: (message) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(message),
-                      backgroundColor: Colors.red,
-                    ),
+                  AnimatedSnackBar.rectangle(
+                    'Error',
+                    message,
+                    type: AnimatedSnackBarType.error,
+                    brightness: Brightness.light,
+                    duration: const Duration(seconds: 5),
+                  ).show(
+                    context,
                   );
                 },
               );
