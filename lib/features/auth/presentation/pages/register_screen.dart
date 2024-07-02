@@ -1,3 +1,4 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:clinic_management_app/core/components/button_gradient.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/auth/presentation/pages/login_screen.dart';
@@ -93,12 +94,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 );
                               },
                               error: (message) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(message),
-                                    backgroundColor: AppColors.red,
-                                  ),
-                                );
+                                AnimatedSnackBar.material(
+                                  message,
+                                  type: AnimatedSnackBarType.error,
+                                  duration: const Duration(seconds: 3),
+                                ).show(context);
                               },
                               orElse: () {},
                             );
