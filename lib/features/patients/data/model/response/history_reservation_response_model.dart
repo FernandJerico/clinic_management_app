@@ -47,6 +47,7 @@ class HistoryReservation {
   final String? complaint;
   final String? status;
   final dynamic note;
+  final String? historyImage;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final User? user;
@@ -66,6 +67,7 @@ class HistoryReservation {
     this.complaint,
     this.status,
     this.note,
+    this.historyImage,
     this.createdAt,
     this.updatedAt,
     this.user,
@@ -94,6 +96,7 @@ class HistoryReservation {
         complaint: json["complaint"],
         status: json["status"],
         note: json["note"],
+        historyImage: json["history_image"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -120,6 +123,7 @@ class HistoryReservation {
         "complaint": complaint,
         "status": status,
         "note": note,
+        "history_image": historyImage,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "user": user?.toMap(),

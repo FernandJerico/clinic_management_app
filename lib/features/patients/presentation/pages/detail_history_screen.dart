@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/constants/variables.dart';
 import '../../../../core/themes/colors.dart';
 
 class DetailHistoryScreen extends StatefulWidget {
@@ -366,6 +367,41 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                   ],
                 ),
               ),
+              const SizedBox(height: 10),
+              Text('Bukti Pembayaran',
+                  style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.black)),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(8),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(4),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withOpacity(0.25),
+                      spreadRadius: 0,
+                      blurRadius: 2,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                ),
+                child: widget.history.historyImage == null
+                    ? const Center(
+                        child: Text(
+                          'Tidak ada bukti pembayaran',
+                          style:
+                              TextStyle(fontSize: 14, color: AppColors.black),
+                        ),
+                      )
+                    : Image.network(
+                        '${Variables.imageBaseUrl}/reservation-history-image/${widget.history.historyImage}',
+                        fit: BoxFit.cover,
+                      ),
+              )
             ],
           ),
         ),

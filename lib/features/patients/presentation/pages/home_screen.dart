@@ -524,7 +524,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 color: AppColors.darkGrey),
                                           ),
                                           Text(
-                                            'Poli Kulit dan Kelamin',
+                                            'Poli ${doctor.polyclinic}',
                                             style: GoogleFonts.poppins(
                                                 fontSize: ResponsiveWidget
                                                         .isLargeScreen(context)

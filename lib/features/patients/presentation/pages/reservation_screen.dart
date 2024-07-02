@@ -445,19 +445,16 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   );
                 },
                 loaded: (doctorSchedules) {
-                  // Mendapatkan waktu sekarang
                   DateTime now = DateTime.now();
 
-                  // Mendapatkan hari yang dipilih dari controller
                   DateTime selectedDay;
                   try {
                     selectedDay = DateFormat('EEEE, dd-MM-yyyy', 'id_ID')
                         .parse(_dayAppointmentController.text);
                   } catch (e) {
-                    selectedDay = now; // Default ke hari ini jika parsing gagal
+                    selectedDay = now;
                   }
 
-                  // Filter jadwal berdasarkan waktu sekarang jika hari yang dipilih adalah hari ini
                   final filteredSchedules = selectedDay.isSameDate(now)
                       ? doctorSchedules.where((schedule) {
                           DateTime scheduleTime =
@@ -467,13 +464,11 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         }).toList()
                       : doctorSchedules;
 
-                  // Jika tidak ada jadwal yang tersedia, tambahkan item "Tidak ada jadwal lagi"
                   bool noScheduleAvailable = filteredSchedules.isEmpty;
                   if (noScheduleAvailable) {
                     filteredSchedules.add(
                       DoctorSchedule(
-                        time: 'Tidak ada jadwal lagi',
-                        // tambahkan properti lain sesuai dengan kelas DoctorSchedule
+                        time: 'Tidak Terdapat Jadwal, Silahkan Pilih Hari Lain',
                       ),
                     );
                   }
@@ -506,7 +501,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         value: _selectedTimeArrival,
                         items: filteredSchedules.map((schedule) {
                           bool isNotSelectable = noScheduleAvailable &&
-                              schedule.time == 'Tidak Terdapat Jadwal';
+                              schedule.time ==
+                                  'Tidak Terdapat Jadwal, Silahkan Pilih Hari Lain';
                           return DropdownMenuItem<String>(
                             value: isNotSelectable ? null : schedule.time,
                             enabled: !isNotSelectable,
@@ -515,7 +511,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         }).toList(),
                         onChanged: (value) {
                           if (value != null &&
-                              value != 'Tidak Terdapat Jadwal') {
+                              value !=
+                                  'Tidak Terdapat Jadwal, Silahkan Pilih Hari Lain') {
                             setState(() {
                               _selectedTimeArrival = value;
                             });
@@ -523,7 +520,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                         },
                         validator: (value) {
                           if (value == null ||
-                              value == 'Tidak Terdapat Jadwali') {
+                              value ==
+                                  'Tidak Terdapat Jadwal, Silahkan Pilih Hari Lain') {
                             return 'Tolong pilih waktu kedatangan Anda';
                           }
                           return null;
