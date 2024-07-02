@@ -79,6 +79,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       return const CardHistoryReservationShimmerLoading();
                     },
                     loaded: (historyReservations) {
+                      if (historyReservations.isEmpty) {
+                        return const Center(
+                          child: Text('Tidak ada riwayat'),
+                        );
+                      }
                       return ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
