@@ -12,8 +12,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(this.authRemoteDatasources) : super(const _Initial()) {
     on<_Login>((event, emit) async {
       emit(const _Loading());
-      final result =
-          await authRemoteDatasources.login(event.email, event.password);
+      final result = await authRemoteDatasources.login(
+          event.email, event.password, event.fcmToken);
       result.fold(
         (l) => emit(_Error(l)),
         (r) => emit(_Success(r)),

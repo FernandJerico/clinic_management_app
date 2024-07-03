@@ -8,13 +8,14 @@ import 'package:http/http.dart' as http;
 
 class AuthRemoteDatasources {
   Future<Either<String, AuthResponseModel>> login(
-      String email, String password) async {
+      String email, String password, String? fcmToken) async {
     final url = Uri.parse('${Variables.baseUrl}/api/login');
     final response = await http.post(
       url,
       body: {
         'email': email,
         'password': password,
+        'fcm_token': fcmToken,
       },
     );
 

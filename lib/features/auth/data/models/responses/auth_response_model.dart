@@ -38,6 +38,7 @@ class User {
   final DateTime? updatedAt;
   final String? phone;
   final String? role;
+  final String? fcmToken;
 
   User({
     this.id,
@@ -51,6 +52,7 @@ class User {
     this.updatedAt,
     this.phone,
     this.role,
+    this.fcmToken,
   });
 
   factory User.fromJson(String str) => User.fromMap(json.decode(str));
@@ -75,6 +77,7 @@ class User {
             : DateTime.parse(json["updated_at"]),
         phone: json["phone"],
         role: json["role"],
+        fcmToken: json["fcm_token"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -89,5 +92,6 @@ class User {
         "updated_at": updatedAt?.toIso8601String(),
         "phone": phone,
         "role": role,
+        "fcm_token": fcmToken,
       };
 }

@@ -2,6 +2,7 @@ import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/auth/presentation/pages/register_screen.dart';
 import 'package:clinic_management_app/features/navbar/presentation/pages/navbar_screen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,6 +26,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  String? fcmToken;
+
+  void _getFcmToken() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? token = await messaging.getToken();
+    setState(() {
+      fcmToken = token;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getFcmToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -91,6 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           },
                           builder: (context, state) {
+                            debugPrint('FCM Token: $fcmToken');
                             return state.maybeWhen(
                               orElse: () {
                                 return ButtonGradient.filled(
@@ -100,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             LoginEvent.login(
                                               emailController.text,
                                               passwordController.text,
+                                              fcmToken,
                                             ),
                                           );
                                     }

@@ -15,6 +15,8 @@ import 'package:clinic_management_app/features/patient-schedule/data/datasources
 import 'package:clinic_management_app/features/patients/data/datasource/article_remote_datasource.dart';
 import 'package:clinic_management_app/features/patients/data/datasource/reservation_remote_datasource.dart';
 import 'package:clinic_management_app/features/satusehat/data/datasources/satusehat_master_wilayah_remote_datasources.dart';
+import 'package:clinic_management_app/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -59,7 +61,11 @@ import 'features/satusehat/presentation/bloc/district/district_bloc.dart';
 import 'features/satusehat/presentation/bloc/province/province_bloc.dart';
 import 'features/satusehat/presentation/bloc/sub-district/sub_district_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

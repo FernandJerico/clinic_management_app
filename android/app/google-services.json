@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "261846872293",
+    "project_id": "fuji-clinic-management-app",
+    "storage_bucket": "fuji-clinic-management-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261846872293:android:134251d5fca904fea7e40c",
+        "android_client_info": {
+          "package_name": "com.example.clinic_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmKlc8WjqOuTXrwEg20b5ZELPHW_5zmhw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
