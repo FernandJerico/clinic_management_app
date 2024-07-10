@@ -4,6 +4,7 @@ import 'package:clinic_management_app/features/auth/presentation/pages/login_scr
 import 'package:clinic_management_app/features/binderbyte/data/datasource/binderbyte_wilayah_remote_datasource.dart';
 import 'package:clinic_management_app/features/history/data/datasource/history_transaction_remote_datasource.dart';
 import 'package:clinic_management_app/features/home/data/datasource/dashboard_master_datasource.dart';
+import 'package:clinic_management_app/features/home/data/datasource/firebase_messaging_remote_datasource.dart';
 import 'package:clinic_management_app/features/master/data/datasources/master_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/data/datasources/patient_remote_datasources.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
@@ -66,6 +67,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseMessagingRemoteDatasource().initialize();
   runApp(const MyApp());
 }
 

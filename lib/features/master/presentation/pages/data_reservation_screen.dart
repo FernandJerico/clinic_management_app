@@ -863,10 +863,13 @@ class _DataReservationScreenState extends State<DataReservationScreen> {
                                                                                                         );
                                                                                                         context.read<DataReservationBloc>().add(const DataReservationEvent.getReservationData());
                                                                                                       },
-                                                                                                      error: (message) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                                                                            content: Text(message),
-                                                                                                            backgroundColor: AppColors.red,
-                                                                                                          )));
+                                                                                                      error: (message) {
+                                                                                                        debugPrint(message);
+                                                                                                        return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                                                                                          content: Text(message),
+                                                                                                          backgroundColor: AppColors.red,
+                                                                                                        ));
+                                                                                                      });
                                                                                                 },
                                                                                                 child: ElevatedButton(
                                                                                                     style: ElevatedButton.styleFrom(
