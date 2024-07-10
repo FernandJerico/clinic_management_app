@@ -46,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Row(
           children: [
             // LEFT CONTENT
@@ -98,17 +99,25 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               },
                               error: (message) {
-                                AnimatedSnackBar.material(
-                                  message,
-                                  type: AnimatedSnackBarType.error,
-                                  duration: const Duration(seconds: 3),
-                                ).show(context);
+                                ResponsiveWidget.isLargeScreen(context)
+                                    ? AnimatedSnackBar.material(message,
+                                            type: AnimatedSnackBarType.error,
+                                            duration:
+                                                const Duration(seconds: 3),
+                                            desktopSnackBarPosition:
+                                                DesktopSnackBarPosition.topLeft)
+                                        .show(context)
+                                    : AnimatedSnackBar.material(
+                                        message,
+                                        type: AnimatedSnackBarType.error,
+                                        duration: const Duration(seconds: 3),
+                                      ).show(context);
                               },
                               orElse: () {},
                             );
                           },
                           builder: (context, state) {
-                            debugPrint('FCM Token: $fcmToken');
+                            // debugPrint('FCM Token: $fcmToken');
                             return state.maybeWhen(
                               orElse: () {
                                 return ButtonGradient.filled(
