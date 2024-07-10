@@ -26,7 +26,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final CarouselController _carouselController = CarouselController();
+  // final CarouselController _carouselController = CarouselController();
   int _currentIndex = 0;
   int? _selectedCategory = -1;
   String? _username;
@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             children: [
                               CarouselSlider(
-                                carouselController: _carouselController,
+                                // carouselController: _carouselController,
                                 options: CarouselOptions(
                                   enlargeCenterPage: false,
                                   enableInfiniteScroll: true,
