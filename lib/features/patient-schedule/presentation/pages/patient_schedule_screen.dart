@@ -6,6 +6,8 @@ import 'package:clinic_management_app/features/patient-schedule/presentation/pag
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/components/buttons.dart';
 import '../../../../core/components/spaces.dart';
@@ -32,6 +34,7 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
     context
         .read<PatientScheduleBloc>()
         .add(const PatientScheduleEvent.getPatientSchedules());
+    initializeDateFormatting('id_ID', null);
     super.initState();
   }
 
@@ -305,12 +308,29 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                   .map(
                                     (patient) => DataRow(cells: [
                                       DataCell(Center(
-                                        child: Text(
-                                          patient.queueNumber.toString(),
-                                          style: GoogleFonts.poppins(
-                                              fontWeight: FontWeight.bold),
+                                          child: RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: '${patient.queueNumber} ',
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors
+                                                    .black, // Set color to black or your desired color
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text:
+                                                  '(${DateFormat('d MMMM', 'id_ID').format(patient.createdAt!)})',
+                                              style: GoogleFonts.poppins(
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors
+                                                    .black, // Set color to black or your desired color
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      )),
+                                      ))),
                                       DataCell(
                                           Text(patient.patient!.name ?? '')),
                                       DataCell(Text(
