@@ -1,11 +1,20 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:typed_data';
+
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/features/patients/data/model/response/history_reservation_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../core/constants/responsive.dart';
 import '../../../../core/constants/variables.dart';
 import '../../../../core/themes/colors.dart';
+import 'package:http/http.dart' as http;
 
 class DetailHistoryScreen extends StatefulWidget {
   final HistoryReservation history;
@@ -19,6 +28,71 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
   String capitalize(String s) {
     if (s.isEmpty) return s;
     return s[0].toUpperCase() + s.substring(1).toLowerCase();
+  }
+
+  Future<void> _requestPermission() async {
+    if (await Permission.storage.request().isGranted) {
+      // Either the permission was already granted before or the user just granted it.
+    } else {
+      // You can request the permission again and handle the case when the user denies it.
+      await Permission.storage.request();
+    }
+  }
+
+  Future<void> _saveImageFromUrl(String imageUrl, String fileName) async {
+    await _requestPermission();
+
+    try {
+      final response = await http.get(Uri.parse(imageUrl));
+      if (response.statusCode == 200) {
+        final result = await ImageGallerySaver.saveImage(
+          Uint8List.fromList(response.bodyBytes),
+          quality: 100,
+          name: fileName,
+        );
+
+        if (result['isSuccess']) {
+          ResponsiveWidget.isLargeScreen(context)
+              ? AnimatedSnackBar.material('Gambar berhasil disimpan di galeri',
+                      type: AnimatedSnackBarType.success,
+                      duration: const Duration(seconds: 3),
+                      desktopSnackBarPosition: DesktopSnackBarPosition.topLeft)
+                  .show(context)
+              : AnimatedSnackBar.material(
+                  'Gambar berhasil disimpan di galeri',
+                  type: AnimatedSnackBarType.success,
+                  duration: const Duration(seconds: 3),
+                ).show(context);
+        } else {
+          ResponsiveWidget.isLargeScreen(context)
+              ? AnimatedSnackBar.material('Gambar gagal disimpan',
+                      type: AnimatedSnackBarType.error,
+                      duration: const Duration(seconds: 3),
+                      desktopSnackBarPosition: DesktopSnackBarPosition.topLeft)
+                  .show(context)
+              : AnimatedSnackBar.material(
+                  'Gambar gagal disimpan',
+                  type: AnimatedSnackBarType.error,
+                  duration: const Duration(seconds: 3),
+                ).show(context);
+        }
+      } else {
+        throw Exception('Failed to load image');
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+      ResponsiveWidget.isLargeScreen(context)
+          ? AnimatedSnackBar.material('Terjadi kesalahan saat menyimpan gambar',
+                  type: AnimatedSnackBarType.error,
+                  duration: const Duration(seconds: 3),
+                  desktopSnackBarPosition: DesktopSnackBarPosition.topLeft)
+              .show(context)
+          : AnimatedSnackBar.material(
+              'Terjadi kesalahan saat menyimpan gambar',
+              type: AnimatedSnackBarType.success,
+              duration: const Duration(seconds: 3),
+            ).show(context);
+    }
   }
 
   @override
@@ -407,9 +481,29 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                               TextStyle(fontSize: 14, color: AppColors.black),
                         ),
                       )
-                    : Image.network(
-                        '${Variables.imageBaseUrl}/reservation-history-image/${widget.history.historyImage}',
-                        fit: BoxFit.cover,
+                    : Column(
+                        children: [
+                          Image.network(
+                            '${Variables.imageBaseUrl}/reservation-history-image/${widget.history.historyImage}',
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(height: 8),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                            ),
+                            onPressed: () {
+                              _saveImageFromUrl(
+                                '${Variables.imageBaseUrl}/reservation-history-image/${widget.history.historyImage}',
+                                'Bukti_Pembayaran_${widget.history.patient!.name}_${widget.history.dayAppointment}_${widget.history.timeAppointment}',
+                              );
+                            },
+                            child: Text(
+                              'Simpan Gambar ke Galeri',
+                              style: GoogleFonts.poppins(color: Colors.white),
+                            ),
+                          ),
+                        ],
                       ),
               ),
               const SizedBox(

@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:ui' as ui;
 
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/extensions/int_ext.dart';
 import 'package:flutter/material.dart';
@@ -66,17 +69,17 @@ class _HistoryTransactionScreenState extends State<HistoryTransactionScreen> {
       );
 
       if (result['isSuccess']) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Gambar berhasil disimpan di galeri'),
-          backgroundColor: Colors.green,
-        ));
+        AnimatedSnackBar.material('Gambar berhasil disimpan di galeri',
+                type: AnimatedSnackBarType.success,
+                duration: const Duration(seconds: 3),
+                desktopSnackBarPosition: DesktopSnackBarPosition.topLeft)
+            .show(context);
       } else {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Gagal menyimpan gambar di galeri'),
-          backgroundColor: Colors.red,
-        ));
+        AnimatedSnackBar.material('Gambar gagal disimpan',
+                type: AnimatedSnackBarType.error,
+                duration: const Duration(seconds: 3),
+                desktopSnackBarPosition: DesktopSnackBarPosition.topLeft)
+            .show(context);
       }
     } catch (e) {
       debugPrint(e.toString());
