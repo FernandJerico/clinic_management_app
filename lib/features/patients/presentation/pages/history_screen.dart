@@ -128,12 +128,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                       height: double.infinity,
                                       width: 10,
                                       decoration: BoxDecoration(
-                                        // ternary for pending, approved, or rejected
                                         color: history.status == 'pending'
                                             ? AppColors.orderIsWaiting
                                             : history.status == 'approved'
                                                 ? AppColors.orderIsCompleted
-                                                : AppColors.orderIsRejected,
+                                                : history.status == 'completed'
+                                                    ? Colors.blue
+                                                    : AppColors.orderIsRejected,
                                         borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(4),
                                           bottomLeft: Radius.circular(4),
@@ -180,10 +181,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                 .orderIsCompleted
                                                                 .withOpacity(
                                                                     0.25)
-                                                            : AppColors
-                                                                .orderIsRejected
-                                                                .withOpacity(
-                                                                    0.25),
+                                                            : history.status ==
+                                                                    'completed'
+                                                                ? Colors.blue
+                                                                    .withOpacity(
+                                                                        0.25)
+                                                                : AppColors
+                                                                    .orderIsRejected
+                                                                    .withOpacity(
+                                                                        0.25),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             4),
@@ -196,8 +202,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                   'approved'
                                                               ? AppColors
                                                                   .orderIsCompleted
-                                                              : AppColors
-                                                                  .orderIsRejected,
+                                                              : history.status ==
+                                                                      'completed'
+                                                                  ? Colors.blue
+                                                                  : AppColors
+                                                                      .orderIsRejected,
                                                     ),
                                                   ),
                                                   alignment: Alignment.center,
@@ -207,7 +216,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                         : history.status ==
                                                                 'approved'
                                                             ? 'Disetujui'
-                                                            : 'Ditolak',
+                                                            : history.status ==
+                                                                    'completed'
+                                                                ? 'Selesai'
+                                                                : 'Ditolak',
                                                     textAlign: TextAlign.center,
                                                     style: GoogleFonts.poppins(
                                                       fontSize: 10,
@@ -219,8 +231,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                                   'approved'
                                                               ? AppColors
                                                                   .orderIsCompleted
-                                                              : AppColors
-                                                                  .orderIsRejected,
+                                                              : history.status ==
+                                                                      'completed'
+                                                                  ? Colors.blue
+                                                                  : AppColors
+                                                                      .orderIsRejected,
                                                     ),
                                                   ),
                                                 ),

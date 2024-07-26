@@ -219,12 +219,13 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                       height: double.infinity,
                       width: 10,
                       decoration: BoxDecoration(
-                        // ternary for pending, approved, or rejected
                         color: widget.history.status == 'pending'
                             ? AppColors.orderIsWaiting
                             : widget.history.status == 'approved'
                                 ? AppColors.orderIsCompleted
-                                : AppColors.orderIsRejected,
+                                : widget.history.status == 'completed'
+                                    ? Colors.blue
+                                    : AppColors.orderIsRejected,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(4),
                           bottomLeft: Radius.circular(4),
@@ -251,20 +252,26 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                                         : widget.history.status == 'approved'
                                             ? AppColors.orderIsCompleted
                                                 .withOpacity(0.25)
-                                            : AppColors.orderIsRejected
-                                                .withOpacity(0.25),
+                                            : widget.history.status ==
+                                                    'completed'
+                                                ? Colors.blue.withOpacity(0.25)
+                                                : AppColors.orderIsRejected
+                                                    .withOpacity(0.25),
                                     borderRadius: BorderRadius.circular(4),
                                     border: Border.all(
                                       color: widget.history.status == 'pending'
                                           ? AppColors.orderIsWaiting
                                           : widget.history.status == 'approved'
                                               ? AppColors.orderIsCompleted
-                                              : AppColors.orderIsRejected,
+                                              : widget.history.status ==
+                                                      'completed'
+                                                  ? Colors.blue
+                                                  : AppColors.orderIsRejected,
                                     ),
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Status: ${widget.history.status == 'pending' ? 'Menunggu Persetujuan' : widget.history.status == 'approved' ? 'Reservasi Disetujui' : 'Reservasi Ditolak'}',
+                                    'Status: ${widget.history.status == 'pending' ? 'Menunggu Persetujuan' : widget.history.status == 'approved' ? 'Reservasi Disetujui' : widget.history.status == 'completed' ? 'Reservasi Selesai' : 'Reservasi Ditolak'}',
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(
                                       fontSize: 11,
@@ -272,7 +279,10 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                                           ? AppColors.orderIsWaiting
                                           : widget.history.status == 'approved'
                                               ? AppColors.orderIsCompleted
-                                              : AppColors.orderIsRejected,
+                                              : widget.history.status ==
+                                                      'completed'
+                                                  ? Colors.blue
+                                                  : AppColors.orderIsRejected,
                                     ),
                                   ),
                                 ),
@@ -401,7 +411,10 @@ class _DetailHistoryScreenState extends State<DetailHistoryScreen> {
                         '${Variables.imageBaseUrl}/reservation-history-image/${widget.history.historyImage}',
                         fit: BoxFit.cover,
                       ),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),
