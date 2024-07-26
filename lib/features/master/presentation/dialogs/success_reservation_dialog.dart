@@ -1,13 +1,24 @@
 import 'package:clinic_management_app/core/components/buttons.dart';
+import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 
+import '../../../setting/data/datasource/cwb_print.dart';
 import '../bloc/data_patient/data_patient_bloc.dart';
 
 class SuccessReservationDialog extends StatefulWidget {
   final int queueNumber;
-  const SuccessReservationDialog({super.key, required this.queueNumber});
+  final String? patientName;
+  final String? doctorName;
+  final String? jam;
+  const SuccessReservationDialog(
+      {super.key,
+      required this.queueNumber,
+      required this.patientName,
+      this.doctorName,
+      this.jam});
 
   @override
   State<SuccessReservationDialog> createState() =>
@@ -66,7 +77,21 @@ class _SuccessReservationDialogState extends State<SuccessReservationDialog> {
                         fontSize: 20, fontWeight: FontWeight.bold),
                   )),
                   const SizedBox(height: 24),
-                  Button.filled(onPressed: () {}, label: 'Print'),
+                  Button.filled(
+                      onPressed: () async {
+                        final printValue = await CwbPrint.instance.printAntrian(
+                          noAntrian: int.parse(widget.queueNumber.toString())
+                              .toString(),
+                          namaPasien: widget.patientName.toString(),
+                          namaDokter: widget.doctorName.toString(),
+                          jam: widget.jam.toString(),
+                        );
+                        await PrintBluetoothThermal.writeBytes(printValue);
+                        if (context.mounted) {
+                          context.pop();
+                        }
+                      },
+                      label: 'Print'),
                 ],
               ),
             )

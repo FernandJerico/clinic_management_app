@@ -41,6 +41,7 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
   PaymentType paymentType = PaymentType.qris;
 
   String orderId = '';
+  bool isDialogShown = false;
   Timer? timer;
 
   int totalPrice = 0;
@@ -318,17 +319,20 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                   loaded: (data) {
                                     debugPrint(data.transactionStatus);
                                     if (data.transactionStatus ==
-                                        'settlement') {
+                                            'settlement' &&
+                                        !isDialogShown) {
+                                      isDialogShown = true;
                                       final requestModel =
                                           CreatePaymentDetailRequestModel(
-                                              patientId: widget
-                                                  .schedulePatient.patientId,
-                                              patientScheduleId: widget
-                                                  .schedulePatient.id!
-                                                  .toString(),
-                                              transactionTime: DateTime.now(),
-                                              totalPrice: totalPrice,
-                                              paymentMethod: 'QRIS');
+                                        patientId:
+                                            widget.schedulePatient.patientId,
+                                        patientScheduleId: widget
+                                            .schedulePatient.id!
+                                            .toString(),
+                                        transactionTime: DateTime.now(),
+                                        totalPrice: totalPrice,
+                                        paymentMethod: 'QRIS',
+                                      );
                                       context
                                           .read<CreatePaymentDetailBloc>()
                                           .add(
@@ -336,6 +340,10 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                                 .createPaymentDetail(
                                                     requestModel),
                                           );
+
+                                      // Hentikan timer
+                                      timer?.cancel();
+
                                       showDialog(
                                         context: context,
                                         builder: (context) =>
@@ -345,16 +353,16 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                           transactionTime: DateTime.now(),
                                         ),
                                       );
-                                      // ScaffoldMessenger.of(context)
-                                      //     .showSnackBar(
+
+                                      // ScaffoldMessenger.of(context).showSnackBar(
                                       //   const SnackBar(
                                       //     content: Text('Pembayaran berhasil'),
                                       //     backgroundColor: AppColors.green,
                                       //   ),
                                       // );
+
                                       // timer!.cancel();
-                                      // context
-                                      //     .pushReplacement(const NavbarScreen(
+                                      // context.pushReplacement(const NavbarScreen(
                                       //   initialSelectedItem: 6,
                                       // ));
                                     }
@@ -372,8 +380,9 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                       const onSec = Duration(seconds: 5);
                                       timer = Timer.periodic(onSec, (timer) {
                                         context.read<CheckStatusBloc>().add(
-                                            CheckStatusEvent.checkPaymentStatus(
-                                                orderId));
+                                              CheckStatusEvent
+                                                  .checkPaymentStatus(orderId),
+                                            );
                                       });
                                     },
                                   );
@@ -494,18 +503,6 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                                       DateTime.now(),
                                                 ),
                                               );
-                                              // ScaffoldMessenger.of(context)
-                                              //     .showSnackBar(const SnackBar(
-                                              //   content:
-                                              //       Text('Pembayaran berhasil'),
-                                              //   backgroundColor:
-                                              //       AppColors.green,
-                                              // ));
-                                              // context.pushReplacement(
-                                              //   const NavbarScreen(
-                                              //     initialSelectedItem: 6,
-                                              //   ),
-                                              // );
                                             },
                                           );
                                         },

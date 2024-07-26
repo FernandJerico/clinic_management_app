@@ -353,7 +353,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(width: 20),
                   Container(
                     padding: const EdgeInsets.all(20),
-                    height: context.deviceHeight * 0.475,
+                    height: context.deviceHeight * 0.49,
                     width: context.deviceWidth * 0.275,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

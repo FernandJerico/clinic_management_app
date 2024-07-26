@@ -7,6 +7,7 @@ import 'package:clinic_management_app/features/patients/presentation/pages/add_p
 import 'package:clinic_management_app/features/patients/presentation/pages/history_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/home_screen.dart';
 import 'package:clinic_management_app/features/patients/presentation/pages/reservation_screen.dart';
+import 'package:clinic_management_app/features/setting/presentation/pages/manage_printer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,6 +20,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/assets/assets.gen.dart';
+import '../../../../core/components/buttons.dart';
+import '../../../../core/components/spaces.dart';
 import '../../../../core/themes/colors.dart';
 import '../../../auth/data/datasources/auth_local_datasources.dart';
 import '../widgets/nav_item.dart';
@@ -433,12 +436,16 @@ class _NavbarScreenState extends State<NavbarScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Image.asset(
-                                Assets.images.klinikFujiLogo.path,
-                                width: 75.0,
-                                height: 75.0,
+                            InkWell(
+                              onTap: () =>
+                                  context.push(const ManagePrinterScreen()),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Image.asset(
+                                  Assets.images.klinikFujiLogo.path,
+                                  width: 75.0,
+                                  height: 75.0,
+                                ),
                               ),
                             ),
                             FutureBuilder(
@@ -456,14 +463,59 @@ class _NavbarScreenState extends State<NavbarScreen> {
                               isActive: false,
                               text: 'Logout',
                               onTap: () {
-                                context
-                                    .read<LogoutBloc>()
-                                    .add(const LogoutEvent.logout());
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const LoginScreen(),
-                                    ));
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      title: const Text('Logout'),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            'Apakah anda yakin ingin keluar?',
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          const SpaceHeight(16.0),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Button.outlined(
+                                                width:
+                                                    context.deviceWidth * 0.15,
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                label: 'Batal',
+                                              ),
+                                              const SpaceWidth(8),
+                                              Button.filled(
+                                                width:
+                                                    context.deviceWidth * 0.15,
+                                                onPressed: () {
+                                                  // logout
+                                                  context
+                                                      .read<LogoutBloc>()
+                                                      .add(const LogoutEvent
+                                                          .logout());
+                                                  Navigator.pushReplacement(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const LoginScreen()));
+                                                },
+                                                label: 'Yakin',
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
                               },
                             ),
                           ],

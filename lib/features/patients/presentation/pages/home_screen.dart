@@ -64,13 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       width: double.infinity,
                       height: ResponsiveWidget.isLargeScreen(context)
-                          ? context.deviceHeight * 0.25
+                          ? context.deviceHeight * 0.26
                           : context.deviceHeight * 0.19,
                       color: AppColors.primary,
                     ),
                     Container(
                       height: ResponsiveWidget.isLargeScreen(context)
-                          ? context.deviceHeight * 0.25
+                          ? context.deviceHeight * 0.27
                           : context.deviceHeight * 0.15,
                       color: AppColors.white,
                     ),

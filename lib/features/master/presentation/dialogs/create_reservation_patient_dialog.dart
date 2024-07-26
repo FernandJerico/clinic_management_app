@@ -275,17 +275,13 @@ class _CreateReservationPatientDialogState
                                     context: context,
                                     builder: (context) =>
                                         SuccessReservationDialog(
-                                            queueNumber: queueNumber ?? 1),
+                                      queueNumber: queueNumber ?? 1,
+                                      patientName: widget.patient?.name,
+                                      doctorName: selectedDoctor?.doctorName,
+                                      jam: DateFormat('HH:mm')
+                                          .format(scheduleTime!),
+                                    ),
                                   );
-                                  // context.pushReplacement(const NavbarScreen(
-                                  //   initialSelectedItem: 6,
-                                  // ));
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //   const SnackBar(
-                                  //     content: Text('Reservation created!'),
-                                  //     backgroundColor: AppColors.green,
-                                  //   ),
-                                  // );
                                 },
                                 error: (message) {
                                   ScaffoldMessenger.of(context).showSnackBar(

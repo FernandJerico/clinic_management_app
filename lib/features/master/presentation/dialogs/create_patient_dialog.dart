@@ -393,12 +393,14 @@ class _CreatePatientDialogState extends State<CreatePatientDialog> {
                     controller: relationshipNameController,
                     label: 'Nama Pasangan',
                     showLabel: false,
+                    isValidator: false,
                   ),
                   const SpaceHeight(24.0),
                   CustomTextField(
                     controller: relationshipPhoneController,
                     label: 'Nomor Handphone Pasangan',
                     showLabel: false,
+                    isValidator: false,
                   ),
                   const SpaceHeight(24.0),
                   Row(
