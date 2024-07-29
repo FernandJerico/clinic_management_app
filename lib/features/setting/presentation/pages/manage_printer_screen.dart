@@ -193,14 +193,6 @@ class _ManagePrinterScreenState extends State<ManagePrinterScreen> {
                   isActive: selectedIndex == 0,
                 ),
                 MenuPrinterButton(
-                  label: 'Disconnect',
-                  onPressed: () {
-                    selectedIndex = 1;
-                    setState(() {});
-                  },
-                  isActive: selectedIndex == 1,
-                ),
-                MenuPrinterButton(
                   label: 'Test',
                   onPressed: () {
                     selectedIndex = 2;
