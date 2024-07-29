@@ -49,9 +49,6 @@ class ServiceOrder {
     this.total,
   });
 
-  factory ServiceOrder.fromJson(String str) =>
-      ServiceOrder.fromMap(json.decode(str));
-
   String toJson() => json.encode(toMap());
 
   factory ServiceOrder.fromMap(Map<String, dynamic> json) => ServiceOrder(
@@ -61,6 +58,13 @@ class ServiceOrder {
         price: json["price"],
         total: json["total"],
       );
+
+  factory ServiceOrder.fromJson(Map<String, dynamic> json) {
+    return ServiceOrder(
+      name: json['name'],
+      // initialize other fields...
+    );
+  }
 
   Map<String, dynamic> toMap() => {
         "id": id,

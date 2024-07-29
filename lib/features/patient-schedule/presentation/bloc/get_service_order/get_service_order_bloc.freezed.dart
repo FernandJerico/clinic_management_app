@@ -318,7 +318,8 @@ mixin _$GetServiceOrderState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ServiceOrderResponseModel serviceOrder) loaded,
+    required TResult Function(Map<int, List<ServiceOrder>> serviceOrders)
+        loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -326,7 +327,7 @@ mixin _$GetServiceOrderState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult? Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -334,7 +335,7 @@ mixin _$GetServiceOrderState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -425,7 +426,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ServiceOrderResponseModel serviceOrder) loaded,
+    required TResult Function(Map<int, List<ServiceOrder>> serviceOrders)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -436,7 +438,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult? Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -447,7 +449,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -539,7 +541,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ServiceOrderResponseModel serviceOrder) loaded,
+    required TResult Function(Map<int, List<ServiceOrder>> serviceOrders)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -550,7 +553,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult? Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -561,7 +564,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -619,7 +622,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({ServiceOrderResponseModel serviceOrder});
+  $Res call({Map<int, List<ServiceOrder>> serviceOrders});
 }
 
 /// @nodoc
@@ -633,13 +636,13 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? serviceOrder = null,
+    Object? serviceOrders = null,
   }) {
     return _then(_$LoadedImpl(
-      null == serviceOrder
-          ? _value.serviceOrder
-          : serviceOrder // ignore: cast_nullable_to_non_nullable
-              as ServiceOrderResponseModel,
+      null == serviceOrders
+          ? _value._serviceOrders
+          : serviceOrders // ignore: cast_nullable_to_non_nullable
+              as Map<int, List<ServiceOrder>>,
     ));
   }
 }
@@ -647,14 +650,20 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl(this.serviceOrder);
+  const _$LoadedImpl(final Map<int, List<ServiceOrder>> serviceOrders)
+      : _serviceOrders = serviceOrders;
 
+  final Map<int, List<ServiceOrder>> _serviceOrders;
   @override
-  final ServiceOrderResponseModel serviceOrder;
+  Map<int, List<ServiceOrder>> get serviceOrders {
+    if (_serviceOrders is EqualUnmodifiableMapView) return _serviceOrders;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_serviceOrders);
+  }
 
   @override
   String toString() {
-    return 'GetServiceOrderState.loaded(serviceOrder: $serviceOrder)';
+    return 'GetServiceOrderState.loaded(serviceOrders: $serviceOrders)';
   }
 
   @override
@@ -662,12 +671,13 @@ class _$LoadedImpl implements _Loaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
-            (identical(other.serviceOrder, serviceOrder) ||
-                other.serviceOrder == serviceOrder));
+            const DeepCollectionEquality()
+                .equals(other._serviceOrders, _serviceOrders));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, serviceOrder);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_serviceOrders));
 
   @JsonKey(ignore: true)
   @override
@@ -680,10 +690,11 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ServiceOrderResponseModel serviceOrder) loaded,
+    required TResult Function(Map<int, List<ServiceOrder>> serviceOrders)
+        loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(serviceOrder);
+    return loaded(serviceOrders);
   }
 
   @override
@@ -691,10 +702,10 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult? Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(serviceOrder);
+    return loaded?.call(serviceOrders);
   }
 
   @override
@@ -702,12 +713,12 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(serviceOrder);
+      return loaded(serviceOrders);
     }
     return orElse();
   }
@@ -751,10 +762,10 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements GetServiceOrderState {
-  const factory _Loaded(final ServiceOrderResponseModel serviceOrder) =
+  const factory _Loaded(final Map<int, List<ServiceOrder>> serviceOrders) =
       _$LoadedImpl;
 
-  ServiceOrderResponseModel get serviceOrder;
+  Map<int, List<ServiceOrder>> get serviceOrders;
   @JsonKey(ignore: true)
   _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -826,7 +837,8 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(ServiceOrderResponseModel serviceOrder) loaded,
+    required TResult Function(Map<int, List<ServiceOrder>> serviceOrders)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -837,7 +849,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult? Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -848,7 +860,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(ServiceOrderResponseModel serviceOrder)? loaded,
+    TResult Function(Map<int, List<ServiceOrder>> serviceOrders)? loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {

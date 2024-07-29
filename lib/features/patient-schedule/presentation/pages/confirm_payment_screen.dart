@@ -142,19 +142,53 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                             loading: () => const Center(
                               child: CircularProgressIndicator(),
                             ),
-                            loaded: (data) {
-                              totalPrice = data.data!
+                            loaded: (serviceOrders) {
+                              final data =
+                                  serviceOrders[widget.schedulePatient.id];
+                              if (data == null) {
+                                return const Center(
+                                  child: Text('No service orders found'),
+                                );
+                              }
+
+                              totalPrice = data
                                   .map((e) => e.price!)
                                   .reduce((value, element) => value + element);
 
-                              return ListView.separated(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) =>
-                                    OrderMenu(data: data.data![index]),
-                                separatorBuilder: (context, index) =>
-                                    const SpaceHeight(16.0),
-                                itemCount: data.data!.length,
+                              return Column(
+                                children: [
+                                  ListView.separated(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) =>
+                                        OrderMenu(data: data[index]),
+                                    separatorBuilder: (context, index) =>
+                                        const SizedBox(height: 16.0),
+                                    itemCount: data.length,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Total Harga:',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        totalPrice.currencyFormatRp,
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               );
                             },
                           );
@@ -196,7 +230,9 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                           ),
                           const SpaceWidth(12),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              noteController.clear();
+                            },
                             child: Container(
                               padding: const EdgeInsets.all(16.0),
                               height: 60.0,
@@ -353,18 +389,6 @@ class _ConfirmPaymentScreenState extends State<ConfirmPaymentScreen> {
                                           transactionTime: DateTime.now(),
                                         ),
                                       );
-
-                                      // ScaffoldMessenger.of(context).showSnackBar(
-                                      //   const SnackBar(
-                                      //     content: Text('Pembayaran berhasil'),
-                                      //     backgroundColor: AppColors.green,
-                                      //   ),
-                                      // );
-
-                                      // timer!.cancel();
-                                      // context.pushReplacement(const NavbarScreen(
-                                      //   initialSelectedItem: 6,
-                                      // ));
                                     }
                                   },
                                 );

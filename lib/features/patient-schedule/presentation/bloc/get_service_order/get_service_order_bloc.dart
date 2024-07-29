@@ -18,11 +18,24 @@ class GetServiceOrderBloc
   ) : super(const _Initial()) {
     on<_GetServiceOrder>((event, emit) async {
       emit(const _Loading());
+
       final response = await _medicalRecordsRemoteDatasource
           .getServiceOrderByScheduleId(event.scheduleId);
       response.fold(
         (l) => emit(_Error(l)),
-        (r) => emit(_Loaded(r)),
+        (r) {
+          final currentData = state.maybeMap(
+            loaded: (s) => s.serviceOrders,
+            orElse: () => <int, List<ServiceOrder>>{},
+          );
+
+          final updatedData = <int, List<ServiceOrder>>{
+            ...currentData,
+            event.scheduleId: r.data ?? [],
+          };
+
+          emit(_Loaded(updatedData));
+        },
       );
     });
   }

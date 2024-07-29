@@ -5,6 +5,6 @@ class GetServiceOrderState with _$GetServiceOrderState {
   const factory GetServiceOrderState.initial() = _Initial;
   const factory GetServiceOrderState.loading() = _Loading;
   const factory GetServiceOrderState.loaded(
-      ServiceOrderResponseModel serviceOrder) = _Loaded;
+      Map<int, List<ServiceOrder>> serviceOrders) = _Loaded;
   const factory GetServiceOrderState.error(String message) = _Error;
 }
