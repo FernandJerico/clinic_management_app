@@ -36,6 +36,10 @@ class CwbPrint {
     bytes += generator.text(
         'Date : ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now())}',
         styles: const PosStyles(bold: false, align: PosAlign.center));
+    bytes += generator.text('WA: 0851-7171-5191 | IG: @klinikpratamafuji',
+        styles: const PosStyles(bold: true, align: PosAlign.center));
+
+    bytes += generator.hr(ch: '-');
 
     bytes += generator.feed(1);
     bytes += generator.text('Layanan & Obat:',
@@ -47,7 +51,7 @@ class CwbPrint {
 
       bytes += generator.row([
         PosColumn(
-          text: 'Harga',
+          text: '${service.price!.currencyFormatRp} x ${service.quantity}',
           width: 8,
           styles: const PosStyles(align: PosAlign.left),
         ),
@@ -58,6 +62,8 @@ class CwbPrint {
         ),
       ]);
     }
+
+    bytes += generator.hr(ch: '-');
 
     bytes += generator.feed(1);
 
@@ -100,6 +106,8 @@ class CwbPrint {
       ),
     ]);
 
+    bytes += generator.hr(ch: '-');
+
     bytes += generator.feed(1);
     bytes += generator.text('Terima kasih',
         styles: const PosStyles(bold: false, align: PosAlign.center));
@@ -136,6 +144,8 @@ class CwbPrint {
     bytes += generator.text(
         'Date : ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now())}',
         styles: const PosStyles(bold: false, align: PosAlign.center));
+    bytes += generator.text('WA: 0851-7171-5191 | IG: @klinikpratamafuji',
+        styles: const PosStyles(bold: true, align: PosAlign.center));
 
     bytes += generator.feed(2);
 
