@@ -454,17 +454,6 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                                               PatientStatus
                                                                   .processing),
                                                         ),
-                                                      if (patient.status ==
-                                                          'waiting')
-                                                        const PopupMenuItem<
-                                                            PatientStatus>(
-                                                          value: PatientStatus
-                                                              .rejected,
-                                                          child:
-                                                              _PopupMenuItemValue(
-                                                                  PatientStatus
-                                                                      .rejected),
-                                                        ),
                                                       if (!(role == 'doctor' &&
                                                               patient.status ==
                                                                   'processed') &&
@@ -480,17 +469,6 @@ class _PatientScheduleScreenState extends State<PatientScheduleScreen> {
                                                               _PopupMenuItemValue(
                                                                   PatientStatus
                                                                       .completed),
-                                                        ),
-                                                      if (patient.status !=
-                                                          'waiting')
-                                                        const PopupMenuItem<
-                                                            PatientStatus>(
-                                                          value: PatientStatus
-                                                              .rejected,
-                                                          child:
-                                                              _PopupMenuItemValue(
-                                                                  PatientStatus
-                                                                      .rejected),
                                                         ),
                                                     ];
                                                   },

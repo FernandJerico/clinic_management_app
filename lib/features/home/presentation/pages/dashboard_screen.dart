@@ -37,6 +37,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final portrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(100.0),
@@ -105,7 +106,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(width: 8),
                   Container(
                     height: 308,
-                    width: context.deviceWidth * 0.3,
+                    width:
+                        portrait ? double.infinity : context.deviceWidth * 0.3,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -238,8 +240,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(20),
-                    // height: 360,
-                    width: context.deviceWidth * 0.575,
+                    width: portrait
+                        ? double.infinity
+                        : context.deviceWidth * 0.575,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
@@ -261,7 +264,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               },
                               loaded: (patients) {
                                 return DataTable(
-                                  // columnSpacing: context.deviceWidth * 0.05,
                                   dataRowMinHeight: 30.0,
                                   dataRowMaxHeight: 60.0,
                                   columns: [
@@ -353,8 +355,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(width: 20),
                   Container(
                     padding: const EdgeInsets.all(20),
-                    height: context.deviceHeight * 0.49,
-                    width: context.deviceWidth * 0.275,
+                    height: portrait
+                        ? context.deviceHeight * 0.35
+                        : context.deviceHeight * 0.49,
+                    width: portrait
+                        ? double.infinity
+                        : context.deviceWidth * 0.275,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
@@ -441,9 +447,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         )
                       ],
                     ),
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -489,7 +495,9 @@ class InformationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 150,
-      width: context.deviceWidth * 0.275,
+      width: MediaQuery.of(context).orientation == Orientation.portrait
+          ? double.infinity
+          : context.deviceWidth * 0.275,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),

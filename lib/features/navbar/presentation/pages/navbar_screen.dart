@@ -301,6 +301,7 @@ class _NavbarScreenState extends State<NavbarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final portrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return SafeArea(
       child: Scaffold(
           appBar: ResponsiveWidget.isSmallScreen(context)
@@ -424,7 +425,9 @@ class _NavbarScreenState extends State<NavbarScreen> {
                           left: Radius.circular(0),
                           right: Radius.circular(16.0)),
                     ),
-                    width: context.deviceWidth * 0.1,
+                    width: portrait
+                        ? context.deviceWidth * 0.125
+                        : context.deviceWidth * 0.1,
                     height: ResponsiveWidget.isSmallScreen(context)
                         ? context.deviceHeight
                         : context.deviceHeight - 24,
