@@ -545,6 +545,7 @@ class InformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final portrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Container(
       height: 150,
       width: MediaQuery.of(context).orientation == Orientation.portrait
@@ -567,10 +568,13 @@ class InformationWidget extends StatelessWidget {
                 bottomLeft: Radius.circular(10),
               ),
             ),
-            child: Image.asset(
-              iconPath,
-              width: 50,
-              height: 50,
+            child: Padding(
+              padding: EdgeInsets.all(portrait ? 6 : 4),
+              child: Image.asset(
+                iconPath,
+                width: 50,
+                height: 50,
+              ),
             ),
           ),
           Expanded(
