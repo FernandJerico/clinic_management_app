@@ -33,11 +33,11 @@ class CwbPrint {
     bytes += generator.text(
         'Kalitanjung Timur, Harjamukti,\nKota Cirebon, Jawa Barat.',
         styles: const PosStyles(bold: true, align: PosAlign.center));
+    bytes += generator.text('WA: 0851-7171-5191 | IG: @klinikpratamafuji',
+        styles: const PosStyles(bold: true, align: PosAlign.center));
     bytes += generator.text(
         'Date : ${DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now())}',
         styles: const PosStyles(bold: false, align: PosAlign.center));
-    bytes += generator.text('WA: 0851-7171-5191 | IG: @klinikpratamafuji',
-        styles: const PosStyles(bold: true, align: PosAlign.center));
 
     bytes += generator.hr(ch: '-');
 

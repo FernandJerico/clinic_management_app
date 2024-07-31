@@ -55,53 +55,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Wrap(
                 runSpacing: 8,
                 children: [
-                  Column(
-                    children: [
-                      BlocBuilder<GetPatientThisMonthBloc,
-                          GetPatientThisMonthState>(
-                        builder: (context, state) {
-                          return state.maybeMap(orElse: () {
-                            return InformationWidget(
-                                text: 'Pasien Baru\nBulan Ini',
-                                amount: '0',
-                                iconPath:
-                                    Assets.images.dashboard.newPatient.path);
-                          }, loaded: (data) {
-                            final countPatient = data.countPatientThisMonth;
-                            return InformationWidget(
-                              text: 'Pasien Baru\nBulan Ini',
-                              amount: countPatient.toString(),
-                              iconPath: Assets.images.dashboard.newPatient.path,
-                            );
-                          });
-                        },
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      BlocBuilder<GetTotalPatientBloc, GetTotalPatientState>(
-                        builder: (context, state) {
-                          return state.maybeMap(
-                            orElse: () {
-                              return InformationWidget(
-                                  text: 'Pasien Terdaftar\ndi Klinik Ini',
-                                  amount: '0',
-                                  iconPath: Assets
-                                      .images.dashboard.patientRegistered.path);
-                            },
-                            loaded: (value) {
-                              final countPatient = value.countPatient;
-                              return InformationWidget(
-                                text: 'Pasien Terdaftar\ndi Klinik Ini',
-                                amount: '$countPatient',
-                                iconPath: Assets
-                                    .images.dashboard.patientRegistered.path,
-                              );
-                            },
-                          );
-                        },
-                      )
-                    ],
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (portrait) {
+                        return Row(
+                          children: [
+                            Expanded(child: newPatientThisMonth()),
+                            const SizedBox(width: 12),
+                            Expanded(child: registeredPatientAtClinic())
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            newPatientThisMonth(),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            registeredPatientAtClinic()
+                          ],
+                        );
+                      }
+                    },
                   ),
                   const SizedBox(width: 8),
                   Container(
@@ -215,22 +190,54 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  Column(
-                    children: [
-                      InformationWidget(
-                        text: 'Rentang waktu Tunggu Dokter',
-                        amount: '10 hingga 15 menit',
-                        iconPath: Assets.images.dashboard.waitingTime.path,
-                        withIconChart: false,
-                      ),
-                      const SizedBox(height: 8),
-                      InformationWidget(
-                        text: 'Rentang waktu Konsultasi',
-                        amount: '10 hingga 15 menit',
-                        iconPath: Assets.images.dashboard.timeConsultation.path,
-                        withIconChart: false,
-                      ),
-                    ],
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (portrait) {
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: InformationWidget(
+                                text: 'Rentang waktu Tunggu Dokter',
+                                amount: '10 hingga 15 menit',
+                                iconPath:
+                                    Assets.images.dashboard.waitingTime.path,
+                                withIconChart: false,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: InformationWidget(
+                                text: 'Rentang waktu Konsultasi',
+                                amount: '10 hingga 15 menit',
+                                iconPath: Assets
+                                    .images.dashboard.timeConsultation.path,
+                                withIconChart: false,
+                              ),
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          children: [
+                            InformationWidget(
+                              text: 'Rentang waktu Tunggu Dokter',
+                              amount: '10 hingga 15 menit',
+                              iconPath:
+                                  Assets.images.dashboard.waitingTime.path,
+                              withIconChart: false,
+                            ),
+                            const SizedBox(height: 8),
+                            InformationWidget(
+                              text: 'Rentang waktu Konsultasi',
+                              amount: '10 hingga 15 menit',
+                              iconPath:
+                                  Assets.images.dashboard.timeConsultation.path,
+                              withIconChart: false,
+                            ),
+                          ],
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -454,6 +461,51 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  BlocBuilder<GetTotalPatientBloc, GetTotalPatientState>
+      registeredPatientAtClinic() {
+    return BlocBuilder<GetTotalPatientBloc, GetTotalPatientState>(
+      builder: (context, state) {
+        return state.maybeMap(
+          orElse: () {
+            return InformationWidget(
+                text: 'Pasien Terdaftar\ndi Klinik Ini',
+                amount: '0',
+                iconPath: Assets.images.dashboard.patientRegistered.path);
+          },
+          loaded: (value) {
+            final countPatient = value.countPatient;
+            return InformationWidget(
+              text: 'Pasien Terdaftar\ndi Klinik Ini',
+              amount: '$countPatient',
+              iconPath: Assets.images.dashboard.patientRegistered.path,
+            );
+          },
+        );
+      },
+    );
+  }
+
+  BlocBuilder<GetPatientThisMonthBloc, GetPatientThisMonthState>
+      newPatientThisMonth() {
+    return BlocBuilder<GetPatientThisMonthBloc, GetPatientThisMonthState>(
+      builder: (context, state) {
+        return state.maybeMap(orElse: () {
+          return InformationWidget(
+              text: 'Pasien Baru\nBulan Ini',
+              amount: '0',
+              iconPath: Assets.images.dashboard.newPatient.path);
+        }, loaded: (data) {
+          final countPatient = data.countPatientThisMonth;
+          return InformationWidget(
+            text: 'Pasien Baru\nBulan Ini',
+            amount: countPatient.toString(),
+            iconPath: Assets.images.dashboard.newPatient.path,
+          );
+        });
+      },
     );
   }
 }
