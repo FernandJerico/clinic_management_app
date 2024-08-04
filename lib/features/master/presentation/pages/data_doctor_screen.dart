@@ -33,6 +33,7 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final portrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: PreferredSize(
@@ -44,7 +45,9 @@ class _DataDoctorScreenState extends State<DataDoctorScreen> {
           keyboardType: TextInputType.text,
           withBackButton: true,
           trailing: ButtonGradient.filled(
-              width: context.deviceWidth * 0.15,
+              width: portrait
+                  ? context.deviceWidth * 0.18
+                  : context.deviceWidth * 0.15,
               onPressed: () {
                 showDialog(
                     context: context,
