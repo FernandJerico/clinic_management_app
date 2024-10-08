@@ -15,7 +15,7 @@ Clinic Management App adalah aplikasi manajemen klinik yang memungkinkan pengelo
 ## Instalasi & Penggunaan 🚀
 1. Clone repository ini:
    ```bash
-   git clone https://github.com/username/clinic-management-app.git
+   git clone https://github.com/FernandJerico/clinic-management-app.git
 2. Masuk ke direktori proyek:
    ```bash
    cd clinic-management-app
