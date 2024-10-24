@@ -82,7 +82,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Container(
                     height: 308,
                     width:
-                        portrait ? double.infinity : context.deviceWidth * 0.3,
+                        portrait ? double.infinity : context.deviceWidth * 0.29,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -359,12 +359,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 16),
                   Container(
                     padding: const EdgeInsets.all(20),
                     height: portrait
                         ? context.deviceHeight * 0.35
-                        : context.deviceHeight * 0.49,
+                        : context.deviceHeight * 0.55,
                     width: portrait
                         ? double.infinity
                         : context.deviceWidth * 0.275,
@@ -559,7 +559,7 @@ class InformationWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: context.deviceWidth * 0.075,
+            width: context.deviceWidth * 0.07,
             height: double.infinity,
             decoration: const BoxDecoration(
               color: AppColors.primary,
@@ -595,7 +595,7 @@ class InformationWidget extends StatelessWidget {
                       Text(
                         amount,
                         style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                            fontSize: 18, fontWeight: FontWeight.w500),
                       ),
                       withIconChart
                           ? Container(

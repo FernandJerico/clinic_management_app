@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:clinic_management_app/core/extensions/build_context_ext.dart';
 import 'package:clinic_management_app/core/themes/colors.dart';
 import 'package:clinic_management_app/features/master/presentation/bloc/data_doctor/data_doctor_bloc.dart';
